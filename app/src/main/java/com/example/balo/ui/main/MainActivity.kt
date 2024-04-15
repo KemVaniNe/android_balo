@@ -15,7 +15,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         binding.viewPager.run {
-            offscreenPageLimit = 3
+            offscreenPageLimit = 2
             adapter = viewPagerAdapter
         }
     }
