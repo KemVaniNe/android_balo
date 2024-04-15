@@ -8,7 +8,6 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:textColor">@color/color_text</item>
         <item name="android:textColorHint">@color/color_hint</item>
-        <item name="android:background">@color/color_bg</item>
     </style>
 
     <style name="Theme.Balo" parent="Base.Theme.Balo" />
