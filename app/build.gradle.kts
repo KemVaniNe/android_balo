@@ -49,4 +49,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.databinding:viewbinding:8.3.2")
+    implementation("com.airbnb.android:lottie:6.0.1")
 }
