@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg">
+    android:background="@color/color_bg"
+    android:fitsSystemWindows="true">
 
     <com.example.balo.ui.main.NonSwipeViewPager
         android:id="@+id/viewPager"
