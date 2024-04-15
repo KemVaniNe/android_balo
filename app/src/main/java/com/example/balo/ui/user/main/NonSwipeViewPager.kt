@@ -1,4 +1,4 @@
-package com.example.balo.ui.main
+package com.example.balo.ui.user.main
 
 import android.annotation.SuppressLint
 import android.content.Context

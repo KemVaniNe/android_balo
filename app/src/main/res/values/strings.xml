@@ -10,4 +10,11 @@
     <string name="favorite">Yêu thích</string>
     <string name="empty_favorite">Chưa có sản phẩm yêu thích</string>
     <string name="search_something">Bạn đang tìm sản phẩm gì?</string>
+    <string name="no_account">Bạn chưa có tài khoản?</string>
+    <string name="sign_up">Đăng ký ngay</string>
+    <string name="login">Đăng nhập</string>
+    <string name="you_need_login">Bạn cần đăng nhập để bắt đầu sử dụng</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_pass">Quên mật khẩu?</string>
 </resources>

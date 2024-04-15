@@ -1,11 +1,11 @@
-package com.example.balo.ui.main
+package com.example.balo.ui.user.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.balo.ui.account.AccountFragment
-import com.example.balo.ui.favorite.FavoriteFragment
-import com.example.balo.ui.home.HomeFragment
+import com.example.balo.ui.user.account.AccountFragment
+import com.example.balo.ui.user.favorite.FavoriteFragment
+import com.example.balo.ui.user.home.HomeFragment
 import com.example.balo.utils.Constants
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager) :
