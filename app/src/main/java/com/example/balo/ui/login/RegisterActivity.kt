@@ -14,7 +14,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     override fun initData() {
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        imgBack.setOnClickListener { finish() }
+        llLogin.setOnClickListener { finish() }
+        btnRegister.setOnClickListener { handleRegister() }
+    }
+
+    private fun handleRegister() {
+        finish()
     }
 
 }

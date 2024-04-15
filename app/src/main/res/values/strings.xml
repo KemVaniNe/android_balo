@@ -17,4 +17,9 @@
     <string name="email">Email</string>
     <string name="password">Mật khẩu</string>
     <string name="forgot_pass">Quên mật khẩu?</string>
+    <string name="have_account">Bạn đã có tài khoản</string>
+    <string name="sign_in">Đăng nhập ngay!</string>
+    <string name="register">Đăng ký</string>
+    <string name="please_fill_all">Điền đầy đủ thông tin để tạo tài khoản mới</string>
+    <string name="username">Tên gọi</string>
 </resources>
