@@ -9,4 +9,5 @@
     <string name="contact">Liên hệ</string>
     <string name="favorite">Yêu thích</string>
     <string name="empty_favorite">Chưa có sản phẩm yêu thích</string>
+    <string name="search_something">Bạn đang tìm sản phẩm gì?</string>
 </resources>
