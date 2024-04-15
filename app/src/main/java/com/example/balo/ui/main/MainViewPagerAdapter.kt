@@ -6,16 +6,17 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.balo.ui.account.AccountFragment
 import com.example.balo.ui.favorite.FavoriteFragment
 import com.example.balo.ui.home.HomeFragment
+import com.example.balo.utils.Constants
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager) {
-    override fun getCount(): Int = 3
+    override fun getCount(): Int = Constants.USER_MAIN_NUMBER_FRAGMENT
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> HomeFragment()
-            1 -> FavoriteFragment()
-            2 -> AccountFragment()
+            Constants.USER_HOME -> HomeFragment()
+            Constants.USER_FAVORITE -> FavoriteFragment()
+            Constants.USER_ACCOUNT -> AccountFragment()
             else -> HomeFragment()
         }
     }
