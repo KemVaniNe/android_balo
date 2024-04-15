@@ -1,11 +1,11 @@
-package com.example.balo.ui.home
+package com.example.balo.ui.user.home
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.ui.base.BaseFragment
-import com.example.balo.ui.search.SearchActivity
+import com.example.balo.ui.user.search.SearchActivity
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initView() {

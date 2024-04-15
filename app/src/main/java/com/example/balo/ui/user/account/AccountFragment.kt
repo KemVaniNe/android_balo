@@ -1,4 +1,4 @@
-package com.example.balo.ui.account
+package com.example.balo.ui.user.account
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

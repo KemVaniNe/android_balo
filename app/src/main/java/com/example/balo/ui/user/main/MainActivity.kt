@@ -1,4 +1,4 @@
-package com.example.balo.ui.main
+package com.example.balo.ui.user.main
 
 import android.view.LayoutInflater
 import com.example.balo.R

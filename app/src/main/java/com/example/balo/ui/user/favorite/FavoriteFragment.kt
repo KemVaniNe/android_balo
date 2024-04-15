@@ -1,4 +1,4 @@
-package com.example.balo.ui.favorite
+package com.example.balo.ui.user.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

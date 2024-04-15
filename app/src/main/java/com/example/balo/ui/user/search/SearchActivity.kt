@@ -1,4 +1,4 @@
-package com.example.balo.ui.search
+package com.example.balo.ui.user.search
 
 import android.view.LayoutInflater
 import com.example.balo.databinding.ActivitySearchBinding

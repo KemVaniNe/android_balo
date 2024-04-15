@@ -8,4 +8,5 @@
     <color name="color_button">#FED32C</color>
     <color name="color_hint">#E0DFDD</color>
     <color name="gray">#818385</color>
+    <color name="error">#E6023B</color>
 </resources>
