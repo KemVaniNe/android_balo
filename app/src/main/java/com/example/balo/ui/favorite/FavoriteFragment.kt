@@ -2,11 +2,23 @@ package com.example.balo.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.data.model.Product
 import com.example.balo.databinding.FragmentFavoriteBinding
 import com.example.balo.ui.base.BaseFragment
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
+
+    private var favorite = mutableListOf<Product>()
+
+    private val favoriteAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        FavoriteAdapter(favorite) {
+            //TODO
+        }
+    }
+
     override fun initView() {
+        binding.rvFavorite.layoutManager = LinearLayoutManager(context)
     }
 
     override fun initData() {
