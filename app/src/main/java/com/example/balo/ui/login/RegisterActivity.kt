@@ -1,25 +1,16 @@
 package com.example.balo.ui.login
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.example.balo.databinding.ActivityRegisterBinding
 import com.example.balo.ui.base.BaseActivity
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
-import java.util.concurrent.TimeUnit
 
 class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: LoginViewModel
 
     private var isSendCode = false
-
-    private var otp = ""
 
     override fun viewBinding(inflate: LayoutInflater): ActivityRegisterBinding =
         ActivityRegisterBinding.inflate(inflate)
@@ -28,7 +19,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun initData() {
-        auth = FirebaseAuth.getInstance()
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
     }
 
     override fun initListener() = binding.run {
@@ -42,14 +33,11 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
         if (isFillAllInfo()) {
             if (isSendCode) {
                 if (edtOTP.text.toString().trim() != "") {
-                    val credential =
-                        PhoneAuthProvider.getCredential(otp, edtOTP.text.toString().trim())
-//                    if (edtOTP.text.toString().trim() == otp) {
-//                        resultVerify(1)
-//                    } else {
-//                        resultVerify(2)
-//                    }
-                    signInWithPhoneAuthCredential(credential)
+                    viewModel.verifyOtp(edtOTP.text.toString().trim(), handleRightOTP = {
+                        resultVerify(1)
+                    }, handleFail = {
+                        resultVerify(2)
+                    })
                 } else {
                     showError("Vui lòng nhập mã xác thực")
                 }
@@ -67,13 +55,13 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     private fun onclickVerify(phone: String) {
-        val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(phone)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(this)
-            .setCallbacks(callbacks)
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
+        viewModel.sendOtp(this, phone, handleCompleted = {
+            resultVerify(type = 1)
+        }, handleFail = {
+            resultVerify(type = 2)
+        }, handleSend = {
+            resultVerify(type = 3)
+        })
     }
 
     private fun isFillAllInfo(): Boolean = binding.run {
@@ -90,24 +78,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             showError("Vui lòng điền đầy đủ thông tin")
             return false
         }
-    }
-
-    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-            resultVerify(type = 1)
-        }
-
-        override fun onVerificationFailed(p0: FirebaseException) {
-            resultVerify(type = 2)
-        }
-
-        override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
-            super.onCodeSent(p0, p1)
-            otp = p0
-            resultVerify(type = 3)
-            Log.d("VANVAN", "CODE SEND: $p0")
-        }
-
     }
 
     private fun resultVerify(type: Int) = binding.run {
@@ -136,19 +106,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     private fun showError(error: String) = binding.run {
         tvError.text = error
         tvError.visibility = View.VISIBLE
-    }
-
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    resultVerify(1)
-                } else {
-                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                    }
-                    resultVerify(2)
-                }
-            }
     }
 
 }
