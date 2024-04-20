@@ -1,4 +1,4 @@
-package com.example.balo.ui.login
+package com.example.balo.ui.register
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -9,10 +9,11 @@ import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityRegisterBinding
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.utils.Utils
+import com.example.balo.utils.Utils.convertNumberVerify
 
 class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
 
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: RegisterViewModel
 
     private var isSendCode = false
 
@@ -28,7 +29,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
     }
 
     override fun initListener() = binding.run {
@@ -208,10 +209,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
         if (dialog.isShowing) dialog.dismiss()
         toast(getString(R.string.register_success))
         finish()
-    }
-
-    private fun convertNumberVerify(phone: String): String {
-        return "+84" + phone.trim().substring(1)
     }
 
 }

@@ -15,6 +15,10 @@ object Utils {
         return BCrypt.checkpw(password, hashedPassword)
     }
 
+    fun convertNumberVerify(phone: String): String {
+        return "+84" + phone.trim().substring(1)
+    }
+
     fun showProgressDialog(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
         val inflater = LayoutInflater.from(context)

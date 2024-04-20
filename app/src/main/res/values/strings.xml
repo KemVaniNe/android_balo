@@ -32,5 +32,6 @@
     <string name="register_success">Đăng ký thành công!!</string>
     <string name="error">Error</string>
     <string name="phone">Số điện thoại</string>
-
+    <string name="account_not_true">Số điện thoại hoặc mật khẩu không chính xác</string>
+    <string name="please_fill_login">Vui lòng điền đầy đủ thông tin để đăng nhập!</string>
 </resources>
