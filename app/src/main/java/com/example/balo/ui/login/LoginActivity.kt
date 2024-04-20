@@ -8,6 +8,8 @@ import com.example.balo.R
 import com.example.balo.databinding.ActivityLoginBinding
 import com.example.balo.ui.admin.AdminActivity
 import com.example.balo.ui.base.BaseActivity
+import com.example.balo.ui.forgotpass.UpdatePassViewModel
+import com.example.balo.ui.forgotpass.UpdatePassword
 import com.example.balo.ui.register.RegisterActivity
 import com.example.balo.ui.user.main.MainActivity
 import com.example.balo.utils.Utils
@@ -34,7 +36,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
         btnLogin.setOnClickListener { handleLogin() }
         tvForgotPass.setOnClickListener {
-            //TODO
+            startActivity(Intent(this@LoginActivity, UpdatePassword::class.java))
         }
     }
 

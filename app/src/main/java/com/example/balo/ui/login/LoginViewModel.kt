@@ -17,9 +17,7 @@ class LoginViewModel : ViewModel() {
         handleFail: () -> Unit,
         handleError: (String) -> Unit
     ) {
-        val db = Firebase.firestore
-        val usersRef = db.collection(Collection.USER.collectionName)
-        usersRef.whereEqualTo(User.PHONE.property, phoneNumber)
+        db.collection(Collection.USER.collectionName).whereEqualTo(User.PHONE.property, phoneNumber)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
