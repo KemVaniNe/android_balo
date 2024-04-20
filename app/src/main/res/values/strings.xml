@@ -23,4 +23,14 @@
     <string name="please_fill_all">Điền đầy đủ thông tin để tạo tài khoản mới</string>
     <string name="username">Tên gọi</string>
     <string name="otp">Mã xác nhận</string>
+    <string name="phone_exist">Số điện thoại này đã đăng ký tài khoản. Hãy dùng số điện thoại khác!!</string>
+    <string name="try_again">Bạn hãy thử lại!!!</string>
+    <string name="otp_wrong">Mã xác thực không đúng!! Vui lòng thử lại</string>
+    <string name="enter_otp">Vui lòng nhập mã xác thực</string>
+    <string name="password_confirm_wrong">Mật khẩu xác nhận không đúng</string>
+    <string name="send_otp_again">Gửi lại mã xác nhận</string>
+    <string name="register_success">Đăng ký thành công!!</string>
+    <string name="error">Error</string>
+    <string name="phone">Số điện thoại</string>
+
 </resources>
