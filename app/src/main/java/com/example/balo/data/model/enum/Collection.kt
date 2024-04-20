@@ -9,6 +9,5 @@ enum class Collection(val collectionName: String) {
     CATEGORY("category"),
     BACKPACK("backpack"),
     ORDER("order"),
-    ORDER_DETAIL("orderdetail"),
-    ITEM_ORDER("itemorder");
+    ORDER_DETAIL("orderdetail");
 }
