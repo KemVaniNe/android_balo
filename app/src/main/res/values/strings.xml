@@ -41,4 +41,6 @@
     <string name="update">Cập nhật</string>
     <string name="please_enter_phone">Vui lòng nhập số điện thoại!</string>
     <string name="account_not_register">Số điện thoại này chưa đăng ký tài khoản</string>
+    <string name="brand">Thương hiệu</string>
+    <string name="category">Loại sản phẩm</string>
 </resources>

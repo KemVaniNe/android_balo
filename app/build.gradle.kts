@@ -62,4 +62,6 @@ dependencies {
     //BCrypt
     implementation("org.mindrot:jbcrypt:0.4")
 
+    implementation("com.tbuonomo:dotsindicator:4.3")
+
 }
