@@ -14,7 +14,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     override fun initListener() = binding.run {
-        tvInfo.setOnClickListener {
+        tvAddress.setOnClickListener {
             //TODO
         }
         tvCart.setOnClickListener {
@@ -24,6 +24,12 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             //TODO
         }
         tvOrder.setOnClickListener {
+            //TODO
+        }
+        tvInfo.setOnClickListener {
+            //TODO
+        }
+        tvUpdatePass.setOnClickListener {
             //TODO
         }
     }
