@@ -1,6 +1,6 @@
 package com.example.balo.data.model.enum
 
-enum class BackPack(val property: String) {
+enum class Balo(val property: String) {
     ID("id"),
     NAME("name"),
     ID_BRAND("idbrand"),
@@ -10,5 +10,6 @@ enum class BackPack(val property: String) {
     PIC("pic"),
     COLOR("color"),
     SELL("sell"),
-    PRICEINPUT("priceinput");
+    PRICEINPUT("priceinput"),
+    AVAILABLE("available"),
 }

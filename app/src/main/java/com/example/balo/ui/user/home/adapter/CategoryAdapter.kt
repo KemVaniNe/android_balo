@@ -1,30 +1,29 @@
-package com.example.balo.ui.user.favorite
+package com.example.balo.ui.user.home.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.balo.data.model.BaloEntity
-import com.example.balo.databinding.ItemProductBinding
+import com.example.balo.data.model.CategoryEntity
+import com.example.balo.databinding.ItemTypeBinding
+import com.example.balo.utils.Utils
 
-class FavoriteAdapter(
-    private var list: List<BaloEntity>,
+class CategoryAdapter(
+    private var list: List<CategoryEntity>,
     private val listener: (Int) -> Unit,
-) : RecyclerView.Adapter<FavoriteAdapter.VH>() {
-    inner class VH(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: BaloEntity) {
+) : RecyclerView.Adapter<CategoryAdapter.VH>() {
+    inner class VH(val binding: ItemTypeBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(item: CategoryEntity) {
             binding.run {
-                tvName.text = item.name
-                tvPrice.text = item.priceSell.toString()
-                clNum.visibility = View.GONE
+                Utils.displayBase64Image(item.pic, imgPic)
+                tvDes.text = item.name
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(
-        ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     ).apply {
         itemView.setOnClickListener {
             if (adapterPosition != RecyclerView.NO_POSITION) {
