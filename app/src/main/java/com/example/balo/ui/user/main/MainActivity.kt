@@ -8,8 +8,6 @@ import com.example.balo.utils.Constants
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-
-
     private val viewPagerAdapter by lazy { MainViewPagerAdapter(supportFragmentManager) }
 
     override fun viewBinding(inflate: LayoutInflater): ActivityMainBinding =
