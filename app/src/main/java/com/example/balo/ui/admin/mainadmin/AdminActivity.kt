@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin
+package com.example.balo.ui.admin.mainadmin
 
 import android.view.LayoutInflater
 import com.example.balo.databinding.ActivityAdminBinding

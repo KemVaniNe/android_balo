@@ -15,10 +15,19 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.admin.adminbrand.AdminBrandActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.admincaterogy.AdminCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.adminacount.AdminAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.forgotpass.UpdatePassword"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.AdminActivity"
+            android:name=".ui.admin.mainadmin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".ui.user.main.MainActivity"

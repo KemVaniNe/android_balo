@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.databinding.ActivityLoginBinding
-import com.example.balo.ui.admin.AdminActivity
+import com.example.balo.ui.admin.mainadmin.AdminActivity
 import com.example.balo.ui.base.BaseActivity
-import com.example.balo.ui.forgotpass.UpdatePassViewModel
 import com.example.balo.ui.forgotpass.UpdatePassword
 import com.example.balo.ui.register.RegisterActivity
 import com.example.balo.ui.user.main.MainActivity
