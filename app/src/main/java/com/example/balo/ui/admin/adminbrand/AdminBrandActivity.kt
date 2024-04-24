@@ -14,7 +14,17 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     override fun initData() {
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        imgBack.setOnClickListener { finish() }
+        btnAdd.setOnClickListener { handleAdd() }
+        tvImport.setOnClickListener { handleImport() }
     }
 
+    private fun handleAdd() {
+
+    }
+
+    private fun handleImport() {
+
+    }
 }

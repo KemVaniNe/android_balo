@@ -52,4 +52,9 @@
     <string name="name_category">Loại balo</string>
     <string name="add_pic">Chọn ảnh</string>
     <string name="add">Thêm</string>
+    <string name="new_brand">Thêm thương hiệu</string>
+    <string name="please_fill_brand">Vui lòng điền đầy đủ thông tin để thêm thương hiệu mới</string>
+    <string name="name_brand">Thương hiệu</string>
+    <string name="des">Mô tả</string>
+    <string name="see_all">Xem tất cả</string>
 </resources>

@@ -3,8 +3,12 @@ package com.example.balo.ui.admin.adminproduct
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import com.example.balo.databinding.FragmentAdminProductBinding
+import com.example.balo.ui.admin.adminbrand.AdminBrandActivity
+import com.example.balo.ui.admin.adminbrand.AllBrandActivity
 import com.example.balo.ui.admin.admincaterogy.AdminCategoryActivity
+import com.example.balo.ui.admin.admincaterogy.AllCategoryActivity
 import com.example.balo.ui.base.BaseFragment
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
@@ -15,14 +19,18 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     }
 
     override fun initListener() = binding.run {
-        imgAddBrand.setOnClickListener {
-            startActivity(Intent(context, AdminProductFragment::class.java))
-        }
+        imgAddBrand.setOnClickListener { goToAct(AdminBrandActivity()) }
         imgAddProduct.setOnClickListener {
-            //   startActivity(Intent(context, AdminProductFragment::class.java))
+            //TODO
         }
-        imgAddCategory.setOnClickListener {
-            startActivity(Intent(context, AdminCategoryActivity::class.java))
+        imgAddCategory.setOnClickListener { goToAct(AdminCategoryActivity()) }
+        tvSeeProduct.setOnClickListener {
+            //TODO
+        }
+        tvSeeBrand.setOnClickListener { goToAct(AllBrandActivity()) }
+        tvSeeCategory.setOnClickListener { goToAct(AllCategoryActivity()) }
+        tvSearch.setOnClickListener {
+            //TODO
         }
     }
 
@@ -31,4 +39,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         container: ViewGroup?
     ): FragmentAdminProductBinding = FragmentAdminProductBinding.inflate(inflater)
 
+    private fun goToAct(act: FragmentActivity) {
+        startActivity(Intent(context, act::class.java))
+    }
 }

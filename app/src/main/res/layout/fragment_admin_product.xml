@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/tvBrand"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
@@ -52,6 +52,18 @@
                 android:background="@drawable/bg_line"
                 app:layout_constraintStart_toStartOf="@id/tvBrand"
                 app:layout_constraintTop_toBottomOf="@id/tvBrand" />
+
+            <TextView
+                android:id="@+id/tvSeeBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/see_all"
+                android:textColor="@color/color_button"
+                app:layout_constraintBottom_toBottomOf="@id/tvBrand"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvBrand" />
 
             <ImageView
                 android:id="@+id/imgAddBrand"
@@ -85,6 +97,18 @@
                 android:text="@string/category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvBrand" />
+
+            <TextView
+                android:id="@+id/tvSeeCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/see_all"
+                android:textColor="@color/color_button"
+                app:layout_constraintBottom_toBottomOf="@id/tvCategory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvCategory" />
 
             <View
                 android:id="@+id/viewLineCategory"
@@ -127,6 +151,18 @@
                 android:text="@string/product"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvCategory" />
+
+            <TextView
+                android:id="@+id/tvSeeProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/see_all"
+                android:textColor="@color/color_button"
+                app:layout_constraintBottom_toBottomOf="@id/tvProduct"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvProduct" />
 
             <View
                 android:id="@+id/viewLineProduct"

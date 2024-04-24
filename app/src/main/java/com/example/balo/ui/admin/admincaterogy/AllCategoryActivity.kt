@@ -1,5 +1,6 @@
 package com.example.balo.ui.admin.admincaterogy
 
+import android.content.Intent
 import android.view.LayoutInflater
 import com.example.balo.databinding.ActivityAllCategoryBinding
 import com.example.balo.ui.base.BaseActivity
@@ -14,7 +15,11 @@ class AllCategoryActivity : BaseActivity<ActivityAllCategoryBinding>() {
     override fun initData() {
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        imgBack.setOnClickListener { finish() }
+        imgAddBrand.setOnClickListener {
+            startActivity(Intent(this@AllCategoryActivity, AdminCategoryActivity::class.java))
+        }
     }
 
 }
