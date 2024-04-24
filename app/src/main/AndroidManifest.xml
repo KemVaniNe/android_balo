@@ -15,6 +15,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.admin.admincaterogy.AllCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.admin.adminbrand.AdminBrandActivity"
             android:exported="false" />
         <activity
