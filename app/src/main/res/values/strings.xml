@@ -46,4 +46,5 @@
     <string name="address">Địa chỉ</string>
     <string name="update_info">Đổi thông tin</string>
     <string name="update_password">Đổi mật khẩu</string>
+    <string name="product">Sản phẩm</string>
 </resources>
