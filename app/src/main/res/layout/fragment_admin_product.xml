@@ -6,21 +6,18 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvSearch"
-        android:layout_width="match_parent"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_search"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="16dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:text="@string/search_something"
-        android:textColor="@color/color_hint"
-        android:textSize="16dp"
-        android:textStyle="italic"
+        android:background="@drawable/bg_title"
+        android:elevation="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:text="@string/product"
+        android:textColor="@color/color_bg"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSearch">
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

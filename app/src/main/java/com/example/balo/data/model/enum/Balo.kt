@@ -8,7 +8,7 @@ enum class Balo(val property: String) {
     PRICESELL("pricesell"),
     DES("des"),
     PIC("pic"),
-    COLOR("color"),
+ //   COLOR("color"),
     SELL("sell"),
     PRICEINPUT("priceinput"),
     AVAILABLE("available"),

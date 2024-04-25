@@ -57,4 +57,10 @@
     <string name="name_brand">Thương hiệu</string>
     <string name="des">Mô tả</string>
     <string name="see_all">Xem tất cả</string>
+    <string name="new_balo">Thêm balo</string>
+    <string name="please_fill_balo">Vui lòng điền đầy đủ thông tin để thêm sản phẩm mới</string>
+    <string name="name_product">Tên sản phẩm</string>
+    <string name="price_import">Giá nhập</string>
+    <string name="price_sell">Giá bán</string>
+    <string name="quantity">Số lượng</string>
 </resources>
