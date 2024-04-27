@@ -65,4 +65,7 @@
     <string name="quantity">Số lượng</string>
     <string name="bill">Hóa đơn</string>
     <string name="time">Thời gian</string>
+    <string name="revenue">Doanh thu</string>
+    <string name="inventory">Tồn kho</string>
+    <string name="name_store">Kem Store</string>
 </resources>
