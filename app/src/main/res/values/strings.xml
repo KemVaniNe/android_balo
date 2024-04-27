@@ -64,4 +64,5 @@
     <string name="price_sell">Giá bán</string>
     <string name="quantity">Số lượng</string>
     <string name="bill">Hóa đơn</string>
+    <string name="time">Thời gian</string>
 </resources>
