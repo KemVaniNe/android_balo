@@ -63,4 +63,5 @@
     <string name="price_import">Giá nhập</string>
     <string name="price_sell">Giá bán</string>
     <string name="quantity">Số lượng</string>
+    <string name="bill">Hóa đơn</string>
 </resources>
