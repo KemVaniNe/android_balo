@@ -2,7 +2,10 @@ package com.example.balo.utils
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
+import android.widget.ImageView
 import com.example.balo.R
 import org.mindrot.jbcrypt.BCrypt
 
@@ -27,6 +30,12 @@ object Utils {
         val dialog = builder.create()
         dialog.setCancelable(false)
         return dialog
+    }
+
+    fun displayBase64Image(base64String: String, imageView: ImageView) {
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        imageView.setImageBitmap(bitmap)
     }
 
 }

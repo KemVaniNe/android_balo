@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.balo.data.model.Product
+import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ItemProductBinding
 
 class FavoriteAdapter(
-    private var list: List<Product>,
+    private var list: List<BaloEntity>,
     private val listener: (Int) -> Unit,
 ) : RecyclerView.Adapter<FavoriteAdapter.VH>() {
     inner class VH(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: Product) {
+        fun onBind(item: BaloEntity) {
             binding.run {
                 tvName.text = item.name
-                tvPrice.text = item.price
+                tvPrice.text = item.priceSell.toString()
                 clNum.visibility = View.GONE
             }
         }
