@@ -151,6 +151,18 @@
                 android:textStyle="italic"
                 app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
+            <TextView
+                android:id="@+id/tvLater"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/login_later"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16dp"
+                android:textStyle="italic"
+                app:layout_constraintTop_toBottomOf="@id/tvForgotPass" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

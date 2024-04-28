@@ -1,6 +1,7 @@
 package com.example.balo.ui.login
 
 import androidx.lifecycle.ViewModel
+import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.data.model.enum.User
 import com.example.balo.utils.Utils
@@ -13,7 +14,7 @@ class LoginViewModel : ViewModel() {
     fun login(
         phoneNumber: String,
         password: String,
-        handleSuccess: (Boolean) -> Unit,
+        handleSuccess: (UserEntity) -> Unit,
         handleFail: () -> Unit,
         handleError: (String) -> Unit
     ) {
@@ -23,9 +24,13 @@ class LoginViewModel : ViewModel() {
                 for (document in documents) {
                     val storedPassword = document.getString(User.PASSWORD.property)
                     if (storedPassword != null && Utils.verifyPassword(password, storedPassword)) {
-                        if (document.getBoolean(User.ROLE.property) != null) {
-                            handleSuccess.invoke(document.getBoolean(User.ROLE.property)!!)
-                        }
+                        val userEntity = UserEntity(
+                            document.id,
+                            document.getString(User.NAME.property) ?: "",
+                            document.getString(User.PHONE.property) ?: "",
+                            document.getString(User.PASSWORD.property) ?: "",
+                            document.getBoolean(User.ROLE.property) ?: false)
+                        handleSuccess.invoke(userEntity)
                         return@addOnSuccessListener
                     }
                 }

@@ -1,12 +1,29 @@
 package com.example.balo.ui.admin.mainadmin
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.databinding.ActivityAdminBinding
+import com.example.balo.ui.ShareViewModel
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.utils.Constants
 
 class AdminActivity : BaseActivity<ActivityAdminBinding>() {
+
+    lateinit var shareViewModel: ShareViewModel
+    companion object {
+
+        const val KEY_ADMIN = "admin_account"
+
+        fun newIntent(context: Context, response: String): Intent {
+            return Intent(context, AdminActivity::class.java).apply {
+                putExtra(KEY_ADMIN, response)
+            }
+        }
+    }
+
 
     private val viewPagerAdapter by lazy { AdminViewPagerAdapter(supportFragmentManager) }
     override fun viewBinding(inflate: LayoutInflater): ActivityAdminBinding =
@@ -20,6 +37,13 @@ class AdminActivity : BaseActivity<ActivityAdminBinding>() {
     }
 
     override fun initData() {
+        shareViewModel = ViewModelProvider(this)[ShareViewModel::class.java]
+        val intent = intent
+        if (intent.hasExtra(KEY_ADMIN) && intent.getStringExtra(KEY_ADMIN) != null) {
+            shareViewModel.updateAccount(intent.getStringExtra(KEY_ADMIN)!!)
+        } else {
+            finish()
+        }
     }
 
     override fun initListener() {

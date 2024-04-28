@@ -69,4 +69,5 @@
     <string name="inventory">Tồn kho</string>
     <string name="name_store">Kem Store</string>
     <string name="client">Khách hàng</string>
+    <string name="login_later">Đăng nhập sau</string>
 </resources>

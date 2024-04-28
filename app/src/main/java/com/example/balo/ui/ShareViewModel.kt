@@ -8,7 +8,11 @@ class ShareViewModel : ViewModel() {
     var account: UserEntity? = null
 
     fun updateAccount(data: String) {
-        account = Gson().fromJson(data, UserEntity::class.java)
+        account = if(data == "") {
+            null
+        } else {
+            Gson().fromJson(data, UserEntity::class.java)
+        }
     }
 
 }
