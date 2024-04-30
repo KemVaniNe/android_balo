@@ -74,4 +74,5 @@
     <string name="you_must">Bạn phải cấp quyền truy cập thư viện để chọn ảnh từ thư viện!</string>
     <string name="goto_setting">Đi đến cài đặt</string>
     <string name="cancel">Hủy</string>
+    <string name="success_category">Tạo tới loại sản phẩm thành công!</string>
 </resources>
