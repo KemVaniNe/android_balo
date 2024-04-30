@@ -84,7 +84,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edtCategory" />
 
             <ImageView
-                android:id="@+id/edtPassword"
+                android:id="@+id/imgPic"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
                 android:layout_marginHorizontal="20dp"
@@ -115,7 +115,7 @@
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+                app:layout_constraintTop_toBottomOf="@id/imgPic" />
 
             <TextView
                 android:id="@+id/tvError"

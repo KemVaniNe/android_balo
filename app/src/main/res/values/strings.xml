@@ -70,4 +70,8 @@
     <string name="name_store">Kem Store</string>
     <string name="client">Khách hàng</string>
     <string name="login_later">Đăng nhập sau</string>
+    <string name="permission">Quyền truy cập thư viện</string>
+    <string name="you_must">Bạn phải cấp quyền truy cập thư viện để chọn ảnh từ thư viện!</string>
+    <string name="goto_setting">Đi đến cài đặt</string>
+    <string name="cancel">Hủy</string>
 </resources>

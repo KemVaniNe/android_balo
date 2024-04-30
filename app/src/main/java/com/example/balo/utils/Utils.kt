@@ -1,5 +1,6 @@
 package com.example.balo.utils
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -36,6 +37,14 @@ object Utils {
         val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
         imageView.setImageBitmap(bitmap)
+    }
+
+    fun requireGalleryPermission(context: Context, listener: () -> Unit) {
+        return PermissionUtil.requireGalleryPermission(context, listener)
+    }
+
+    fun showRequirePermission(activity: Activity, listener: () -> Unit) {
+        return PermissionUtil.showRequirePermission(activity, listener)
     }
 
 }
