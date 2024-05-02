@@ -72,26 +72,33 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     private fun handleAdd() = binding.run {
-        if (uri != null && edtName.text.toString() != "") {
-            if (!dialog.isShowing) dialog.show()
-            val entity = BrandEntity(
-                name = edtName.text.toString(),
-                des = edtDes.text.toString().trim(),
-                pic = Utils.uriToBase64(this@AdminBrandActivity, uri!!)
-            )
-            if (brandCurrent == null) {
-                handleCreate(entity)
-            } else {
-                handleUpdate(entity, brandCurrent!!.id)
+        when (brandCurrent) {
+            null -> {
+                if (uri != null && edtName.text.toString() != "") {
+                    if (!dialog.isShowing) dialog.show()
+                    handleCreate()
+                } else {
+                    tvError.visibility = View.VISIBLE
+                }
             }
 
-
-        } else {
-            tvError.visibility = View.VISIBLE
+            else -> {
+                if (edtName.text.toString() != "") {
+                    if (!dialog.isShowing) dialog.show()
+                    handleUpdate()
+                } else {
+                    tvError.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
-    private fun handleCreate(entity: BrandEntity) {
+    private fun handleCreate() = binding.run {
+        val entity = BrandEntity(
+            name = edtName.text.toString(),
+            des = edtDes.text.toString().trim(),
+            pic = Utils.uriToBase64(this@AdminBrandActivity, uri!!)
+        )
         viewModel.createBrand(
             brand = entity,
             handleSuccess = {
@@ -107,21 +114,29 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         )
     }
 
-    private fun handleUpdate(entity: BrandEntity, id: String) {
-        viewModel.updateBrand(
-            brand = entity,
-            idDocument = id,
-            handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.update_brand))
-                setResult(RESULT_OK)
-                finish()
-            },
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            }
-        )
+    private fun handleUpdate() {
+        val pic = if (uri != null) Utils.uriToBase64(this, uri!!) else brandCurrent!!.pic
+        binding.run {
+            val entity = BrandEntity(
+                name = edtName.text.toString(),
+                des = edtDes.text.toString().trim(),
+                pic = pic
+            )
+            viewModel.updateBrand(
+                brand = entity,
+                idDocument = brandCurrent!!.id,
+                handleSuccess = {
+                    if (dialog.isShowing) dialog.dismiss()
+                    toast(getString(R.string.update_brand))
+                    setResult(RESULT_OK)
+                    finish()
+                },
+                handleFail = { error ->
+                    if (dialog.isShowing) dialog.dismiss()
+                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+                }
+            )
+        }
     }
 
     private fun handleImport() {
