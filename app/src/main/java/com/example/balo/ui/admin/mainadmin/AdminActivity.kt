@@ -38,12 +38,12 @@ class AdminActivity : BaseActivity<ActivityAdminBinding>() {
 
     override fun initData() {
         shareViewModel = ViewModelProvider(this)[ShareViewModel::class.java]
-//        val intent = intent
-//        if (intent.hasExtra(KEY_ADMIN) && intent.getStringExtra(KEY_ADMIN) != null) {
-//            shareViewModel.updateAccount(intent.getStringExtra(KEY_ADMIN)!!)
-//        } else {
-//            finish()
-//        }
+        val intent = intent
+        if (intent.hasExtra(KEY_ADMIN) && intent.getStringExtra(KEY_ADMIN) != null) {
+            shareViewModel.updateAccount(intent.getStringExtra(KEY_ADMIN)!!)
+        } else {
+            finish()
+        }
     }
 
     override fun initListener() {

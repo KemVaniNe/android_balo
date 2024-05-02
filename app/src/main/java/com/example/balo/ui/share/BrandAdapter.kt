@@ -1,4 +1,4 @@
-package com.example.balo.ui.user.home.adapter
+package com.example.balo.ui.share
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

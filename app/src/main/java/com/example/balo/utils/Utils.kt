@@ -64,9 +64,4 @@ object Utils {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    fun base64ToBitmap(base64String: String): Bitmap? {
-        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-    }
-
 }

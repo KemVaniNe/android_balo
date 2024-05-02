@@ -1,6 +1,7 @@
 package com.example.balo.ui.admin.adminbrand
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,6 +14,7 @@ import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminBrandBinding
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 
 class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
@@ -22,19 +24,45 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
     private lateinit var viewModel: AdminBrandVM
 
+    private var brandCurrent: BrandEntity? = null
+
     companion object {
 
         const val REQUEST_CODE_IMAGE = 111
+        const val KEY_BRAND = "admin_brand"
+        const val KEY_ADD = ""
+        fun newIntent(context: Context, response: String): Intent {
+            return Intent(context, AdminBrandActivity::class.java).apply {
+                putExtra(KEY_BRAND, response)
+            }
+        }
     }
+
     override fun viewBinding(inflate: LayoutInflater): ActivityAdminBrandBinding =
         ActivityAdminBrandBinding.inflate(inflate)
 
     override fun initView() {
         dialog = Utils.showProgressDialog(this)
+        if (brandCurrent != null) binding.run {
+            edtName.setText(brandCurrent!!.name)
+            edtDes.setText(brandCurrent!!.des)
+            Utils.displayBase64Image(brandCurrent!!.pic, imgPic)
+            tvDes.visibility = View.GONE
+            btnAdd.text = getString(R.string.update)
+        }
     }
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
+        val intent = intent
+        if (intent.hasExtra(KEY_BRAND) && intent.getStringExtra(KEY_BRAND) != null) {
+            if (intent.getStringExtra(KEY_BRAND) != "") {
+                brandCurrent =
+                    Gson().fromJson(intent.getStringExtra(KEY_BRAND)!!, BrandEntity::class.java)
+            }
+        } else {
+            finish()
+        }
     }
 
     override fun initListener() = binding.run {
@@ -47,26 +75,53 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         if (uri != null && edtName.text.toString() != "") {
             if (!dialog.isShowing) dialog.show()
             val entity = BrandEntity(
-                name = edtName.text.toString().toString(),
+                name = edtName.text.toString(),
                 des = edtDes.text.toString().trim(),
                 pic = Utils.uriToBase64(this@AdminBrandActivity, uri!!)
             )
-            viewModel.createBrand(
-                brand = entity,
-                handleSuccess = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.success_brand))
-                    setResult(RESULT_OK)
-                    finish()
-                },
-                handleFail = { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                }
-            )
+            if (brandCurrent == null) {
+                handleCreate(entity)
+            } else {
+                handleUpdate(entity, brandCurrent!!.id)
+            }
+
+
         } else {
             tvError.visibility = View.VISIBLE
         }
+    }
+
+    private fun handleCreate(entity: BrandEntity) {
+        viewModel.createBrand(
+            brand = entity,
+            handleSuccess = {
+                if (dialog.isShowing) dialog.dismiss()
+                toast(getString(R.string.success_brand))
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+            }
+        )
+    }
+
+    private fun handleUpdate(entity: BrandEntity, id: String) {
+        viewModel.updateBrand(
+            brand = entity,
+            idDocument = id,
+            handleSuccess = {
+                if (dialog.isShowing) dialog.dismiss()
+                toast(getString(R.string.update_brand))
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+            }
+        )
     }
 
     private fun handleImport() {
