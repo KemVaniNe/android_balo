@@ -86,60 +86,6 @@
                 app:layout_constraintTop_toBottomOf="@id/viewLineBrand" />
 
             <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/category"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvBrand" />
-
-            <TextView
-                android:id="@+id/tvSeeCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/see_all"
-                android:textColor="@color/color_button"
-                app:layout_constraintBottom_toBottomOf="@id/tvCategory"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvCategory" />
-
-            <View
-                android:id="@+id/viewLineCategory"
-                android:layout_width="100dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_line"
-                app:layout_constraintStart_toStartOf="@id/tvCategory"
-                app:layout_constraintTop_toBottomOf="@id/tvCategory" />
-
-            <ImageView
-                android:id="@+id/imgAddCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/bg_option"
-                android:padding="54dp"
-                android:src="@drawable/ic_add"
-                app:layout_constraintBottom_toBottomOf="@id/rvCategory"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/rvCategory" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategory"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgAddCategory"
-                app:layout_constraintTop_toBottomOf="@id/viewLineCategory" />
-
-            <TextView
                 android:id="@+id/tvProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +93,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/product"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvCategory" />
+                app:layout_constraintTop_toBottomOf="@id/rvBrand" />
 
             <TextView
                 android:id="@+id/tvSeeProduct"

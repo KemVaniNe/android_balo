@@ -29,19 +29,13 @@
             android:name=".ui.admin.adminbrand.AllBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.admincaterogy.AllCategoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.admin.adminbrand.AdminBrandActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.admin.admincaterogy.AdminCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.forgotpass.UpdatePassword"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.admin.mainadmin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".ui.user.main.MainActivity"
@@ -53,8 +47,7 @@
             android:name=".ui.user.search.SearchActivity"
             android:exported="false" />
         <activity
-
-            android:name=".ui.admin.mainadmin.AdminActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
