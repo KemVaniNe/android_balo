@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
 import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
 
@@ -64,4 +65,14 @@ object Utils {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
+    inline fun <reified T> convertJsonListToObjectList(jsonList: List<String>): List<T> {
+        val gson = Gson()
+        val type = object : TypeToken<T>() {}.type
+        return jsonList.map { gson.fromJson(it, type) }
+    }
+
+    fun <T> convertObjectListToJsonList(objectList: List<T>): List<String> {
+        val gson = Gson()
+        return objectList.map { gson.toJson(it) }
+    }
 }

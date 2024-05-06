@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="8dp"
     android:background="@drawable/bg_option"
     android:elevation="4dp"
-    android:padding="20dp">
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="10dp">
 
     <ImageView
         android:id="@+id/imgPic"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/color_text"
         android:textSize="12dp"
