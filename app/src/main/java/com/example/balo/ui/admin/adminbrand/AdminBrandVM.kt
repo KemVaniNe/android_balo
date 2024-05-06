@@ -14,6 +14,9 @@ class AdminBrandVM : ViewModel() {
     private val _brands = MutableLiveData<List<BrandEntity>?>(null)
     val brands = _brands
 
+    private val _currentBrand = MutableLiveData<BrandEntity?>(null)
+    val currentBrand = _currentBrand
+
     private val db = Firebase.firestore
     fun createBrand(
         brand: BrandEntity,
@@ -72,4 +75,47 @@ class AdminBrandVM : ViewModel() {
                 handleFail(exception.message.toString())
             }
     }
+
+    fun deleteBrand(
+        documentId: String,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        db.collection(Collection.BRAND.collectionName).document(documentId)
+            .delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    handleSuccess.invoke()
+                } else {
+                    handleFail.invoke(task.exception?.message ?: "Unknown error occurred")
+                }
+            }
+    }
+
+    fun getBrandById(brandId: String, handleFail: (String) -> Unit) {
+        db.collection(Collection.BRAND.collectionName)
+            .document(brandId)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val brand = BrandEntity(
+                        id = documentSnapshot.id,
+                        name = documentSnapshot.getString("name") ?: "",
+                        des = documentSnapshot.getString("des") ?: "",
+                        pic = documentSnapshot.getString("pic") ?: ""
+                    )
+                    currentBrand.postValue(brand)
+                } else {
+                    handleFail.invoke("Document with ID $brandId does not exist")
+                }
+            }
+            .addOnFailureListener { exception ->
+                handleFail.invoke(exception.message ?: "Unknown error occurred")
+            }
+    }
+
+    fun resetCurrentBrand() {
+        _currentBrand.postValue(null)
+    }
+
 }

@@ -57,9 +57,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         if (!dialog.isShowing) dialog.show()
         viewModel.login(phoneNumber = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
             password = edtPassword.text.toString().trim(),
-            handleSuccess = { acount ->
-                if (!dialog.isShowing) dialog.show()
-                goToNext(acount)
+            handleSuccess = { account ->
+                if (dialog.isShowing) dialog.dismiss()
+                goToNext(account)
             },
             handleFail = {
                 if (dialog.isShowing) dialog.dismiss()
@@ -73,7 +73,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun goToNext(account: UserEntity) {
-        if(account.role){
+        if (account.role) {
             startActivity(AdminActivity.newIntent(this, Gson().toJson(account)))
         } else {
             startActivity(MainActivity.newIntent(this, Gson().toJson(account)))

@@ -32,7 +32,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
             startActivity(
-                context?.let { AdminBrandActivity.newIntent(it, Gson().toJson(brands[pos])) }
+                context?.let { AdminBrandActivity.newIntent(it, brands[pos].id) }
             )
         }
     }
@@ -66,7 +66,11 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         imgAddBrand.setOnClickListener { handleAddBrand() }
         imgAddProduct.setOnClickListener { goToAct(AdminProductActivity()) }
         tvSeeProduct.setOnClickListener { goToAct(AllProductActivity()) }
-        tvSeeBrand.setOnClickListener { handleAllBrand() }
+        tvSeeBrand.setOnClickListener {
+            context?.let {
+                startActivityForResult(AllBrandActivity.newIntent(it), REQUEST_CODE_ALL_BRAND)
+            }
+        }
     }
 
     override fun getViewBinding(
@@ -80,16 +84,6 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
                 if (dialog.isShowing) dialog.dismiss()
                 toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
             })
-    }
-
-    private fun handleAllBrand() {
-        val brandList = Utils.convertObjectListToJsonList(brands)
-        context?.let {
-            startActivityForResult(
-                AllBrandActivity.newIntent(it, brandList),
-                REQUEST_CODE_ALL_BRAND
-            )
-        }
     }
 
     private fun handleAddBrand() {

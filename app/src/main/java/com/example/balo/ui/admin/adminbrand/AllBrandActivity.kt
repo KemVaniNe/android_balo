@@ -26,50 +26,35 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
             startActivity(
-                AdminBrandActivity.newIntent(this@AllBrandActivity, Gson().toJson(brands[pos]))
+                AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id)
             )
         }
     }
 
     companion object {
 
-        const val KEY_ALL_BRAND = "admin_all_brand"
-
-        const val REQUEST_CODE_ADD = 111
-        fun newIntent(context: Context, response: List<String>): Intent {
-            return Intent(context, AllBrandActivity::class.java).apply {
-                putStringArrayListExtra(KEY_ALL_BRAND, ArrayList(response))
-            }
+        const val REQUEST_CODE_ADD = 160
+        fun newIntent(context: Context): Intent {
+            return Intent(context, AllBrandActivity::class.java)
         }
     }
+
 
     override fun viewBinding(inflate: LayoutInflater): ActivityAllBrandBinding =
         ActivityAllBrandBinding.inflate(inflate)
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() = binding.run {
+        updateList()
         rvBrand.layoutManager = LinearLayoutManager(this@AllBrandActivity)
         rvBrand.adapter = brandAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
+        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
         listenData()
-        val intent = intent
-        if (intent.hasExtra(KEY_ALL_BRAND)) {
-            val brandList = intent.getStringArrayListExtra(KEY_ALL_BRAND)
-            if (brandList != null) {
-                val list = Utils.convertJsonListToObjectList<BrandEntity>(brandList)
-                brands.run {
-                    clear()
-                    addAll(list)
-                }
-                brandAdapter.notifyDataSetChanged()
-            }
-        } else {
-            finish()
-        }
     }
 
     override fun initListener() = binding.run {

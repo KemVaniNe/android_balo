@@ -65,10 +65,10 @@ object Utils {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    inline fun <reified T> convertJsonListToObjectList(jsonList: List<String>): List<T> {
+    fun <T> convertJsonToObjectList(jsonString: String): List<T> {
         val gson = Gson()
-        val type = object : TypeToken<T>() {}.type
-        return jsonList.map { gson.fromJson(it, type) }
+        val type = object : TypeToken<List<T>>() {}.type
+        return gson.fromJson(jsonString, type)
     }
 
     fun <T> convertObjectListToJsonList(objectList: List<T>): List<String> {

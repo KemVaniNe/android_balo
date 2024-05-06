@@ -42,33 +42,44 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         ActivityAdminBrandBinding.inflate(inflate)
 
     override fun initView() {
-        dialog = Utils.showProgressDialog(this)
-        if (brandCurrent != null) binding.run {
-            edtName.setText(brandCurrent!!.name)
-            edtDes.setText(brandCurrent!!.des)
-            Utils.displayBase64Image(brandCurrent!!.pic, imgPic)
-            tvDes.visibility = View.GONE
-            btnAdd.text = getString(R.string.update)
-        }
     }
 
     override fun initData() {
+        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
+        listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_BRAND) && intent.getStringExtra(KEY_BRAND) != null) {
             if (intent.getStringExtra(KEY_BRAND) != "") {
-                brandCurrent =
-                    Gson().fromJson(intent.getStringExtra(KEY_BRAND)!!, BrandEntity::class.java)
+                if (!dialog.isShowing) dialog.show()
+                viewModel.getBrandById(intent.getStringExtra(KEY_BRAND)!!) {
+                    if (dialog.isShowing) dialog.dismiss()
+                    toast(it)
+                    finishAct(false)
+                }
             }
         } else {
-            finish()
+            finishAct(false)
         }
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        imgBack.setOnClickListener { finishAct(false) }
         btnAdd.setOnClickListener { handleAdd() }
         tvImport.setOnClickListener { handleImport() }
+        btnDelete.setOnClickListener { handleDelete() }
+    }
+
+    private fun handleDelete() {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.deleteBrand(brandCurrent!!.id, handleSuccess = {
+            if (dialog.isShowing) dialog.dismiss()
+            toast(getString(R.string.delete_suceess))
+            finishAct(true)
+        }, handleFail = { error ->
+            if (dialog.isShowing) dialog.dismiss()
+            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+        })
     }
 
     private fun handleAdd() = binding.run {
@@ -104,8 +115,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
             handleSuccess = {
                 if (dialog.isShowing) dialog.dismiss()
                 toast(getString(R.string.success_brand))
-                setResult(RESULT_OK)
-                finish()
+                finishAct(true)
             },
             handleFail = { error ->
                 if (dialog.isShowing) dialog.dismiss()
@@ -128,8 +138,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
                 handleSuccess = {
                     if (dialog.isShowing) dialog.dismiss()
                     toast(getString(R.string.update_brand))
-                    setResult(RESULT_OK)
-                    finish()
+                    finishAct(true)
                 },
                 handleFail = { error ->
                     if (dialog.isShowing) dialog.dismiss()
@@ -169,7 +178,30 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImageFromGallery()
         } else {
-            Utils.showRequirePermission(this) { finish() }
+            Utils.showRequirePermission(this) { finishAct(false) }
         }
+    }
+
+    private fun listenVM() {
+        viewModel.currentBrand.observe(this) {
+            if (it != null) {
+                if (dialog.isShowing) dialog.dismiss()
+                brandCurrent = it
+                binding.run {
+                    edtName.setText(brandCurrent!!.name)
+                    edtDes.setText(brandCurrent!!.des)
+                    Utils.displayBase64Image(brandCurrent!!.pic, imgPic)
+                    tvDes.visibility = View.GONE
+                    btnAdd.text = getString(R.string.update)
+                    btnDelete.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun finishAct(isOK: Boolean) {
+        viewModel.resetCurrentBrand()
+        if (isOK) setResult(RESULT_OK)
+        finish()
     }
 }
