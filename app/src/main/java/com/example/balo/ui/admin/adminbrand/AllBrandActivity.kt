@@ -13,7 +13,6 @@ import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.ui.share.BrandAdapter
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
 
 class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
@@ -25,8 +24,9 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
-            startActivity(
-                AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id)
+            startActivityForResult(
+                AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id),
+                REQUEST_CODE_ADD
             )
         }
     }

@@ -31,8 +31,10 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
 
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
-            startActivity(
-                context?.let { AdminBrandActivity.newIntent(it, brands[pos].id) }
+            startActivityForResult(
+                context?.let {
+                    AdminBrandActivity.newIntent(it, brands[pos].id)
+                }, REQUEST_CODE_ALL_BRAND
             )
         }
     }
