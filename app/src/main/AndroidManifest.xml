@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="SelectedPhotoAccess" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme"
-        tools:targetApi="31" >
+        tools:targetApi="34" >
         <activity
             android:name=".ui.admin.balo.AdminProductActivity"
             android:exported="false" />
@@ -24,16 +29,7 @@
             android:name=".ui.admin.adminbrand.AllBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.admincaterogy.AllCategoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.admin.adminbrand.AdminBrandActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.admin.admincaterogy.AdminCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.admin.adminacount.AdminAccountActivity"
             android:exported="false" />
         <activity
             android:name=".ui.forgotpass.UpdatePassword"

@@ -76,7 +76,6 @@
                 android:drawableStart="@drawable/ic_edit"
                 android:drawablePadding="20dp"
                 android:hint="@string/des"
-                android:inputType="number"
                 android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
@@ -101,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edtDes" />
 
             <ImageView
-                android:id="@+id/edtPassword"
+                android:id="@+id/imgPic"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
                 android:layout_marginHorizontal="20dp"
@@ -118,49 +117,56 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvImport" />
 
-            <EditText
-                android:id="@+id/edtOTP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_option"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="20dp"
-                android:hint="@string/otp"
-                android:padding="20dp"
-                android:textColor="@color/color_text"
-                android:textColorHint="@color/color_hint"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/edtPassword" />
-
             <TextView
                 android:id="@+id/tvError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="16dp"
-                android:text="error"
+                android:text="@string/please_fill_all_info"
                 android:textAlignment="center"
                 android:textColor="@color/error"
                 android:visibility="invisible"
-                app:layout_constraintTop_toBottomOf="@id/edtOTP" />
+                app:layout_constraintTop_toBottomOf="@id/imgPic" />
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_btn"
-                android:elevation="10dp"
-                android:fontFamily="@font/nunito_bold"
-                android:padding="16dp"
-                android:text="@string/add"
-                android:textColor="@color/color_bg"
-                android:textSize="16dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvError" />
+                app:layout_constraintTop_toBottomOf="@id/tvError">
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:elevation="10dp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/nunito_bold"
+                    android:padding="16dp"
+                    android:text="@string/delete"
+                    android:textColor="@color/color_bg"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:padding="16dp"
+                    android:text="@string/add"
+                    android:textColor="@color/color_bg"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
