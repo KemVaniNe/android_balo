@@ -7,7 +7,7 @@ enum class Collection(val collectionName: String) {
     CART("cart"),
     BRAND("brand"),
     CATEGORY("category"),
-    BACKPACK("backpack"),
+    BALO("balo"),
     ORDER("order"),
     ORDER_DETAIL("orderdetail");
 }
