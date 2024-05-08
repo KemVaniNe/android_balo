@@ -13,8 +13,8 @@ import com.example.balo.R
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminBrandBinding
 import com.example.balo.ui.base.BaseActivity
+import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
 
 class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
@@ -71,7 +71,13 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     private fun handleDelete() {
-        if (!dialog.isShowing) dialog.show()
+        Utils.showOption(this, Option.DELETE) {
+            if (!dialog.isShowing) dialog.show()
+            deleteBrand()
+        }
+    }
+
+    private fun deleteBrand() {
         viewModel.deleteBrand(brandCurrent!!.id, handleSuccess = {
             if (dialog.isShowing) dialog.dismiss()
             toast(getString(R.string.delete_suceess))

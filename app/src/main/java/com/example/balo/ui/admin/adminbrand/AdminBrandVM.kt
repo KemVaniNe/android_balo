@@ -114,6 +114,18 @@ class AdminBrandVM : ViewModel() {
             }
     }
 
+    fun deleteBrands(ids: List<String>, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+        val batch = db.batch()
+        for (id in ids) {
+            val docRef = db.collection(Collection.BRAND.collectionName).document(id)
+            batch.delete(docRef)
+        }
+        batch.commit()
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke(e.message ?: "Unknown error occurred") }
+    }
+
+
     fun resetCurrentBrand() {
         _currentBrand.postValue(null)
     }

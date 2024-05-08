@@ -80,4 +80,10 @@
     <string name="update_brand">Cập nhật thương hiệu thành công!</string>
     <string name="delete">Delete</string>
     <string name="delete_suceess">Đã xóa thành công!!</string>
+    <string name="exit_app">Thoát ứng dụng</string>
+    <string name="exit_app_message">Bạn có muốn thoát ứng dụng không?</string>
+    <string name="no">Không</string>
+    <string name="yes">Có</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="delete_brand_mess">Bạn có muốn xóa thương hiệu này không?</string>
 </resources>

@@ -5,13 +5,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.ui.base.BaseActivity
-import com.example.balo.ui.share.BrandAdapter
+import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
 class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
@@ -22,13 +23,19 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
     private val brands = mutableListOf<BrandEntity>()
 
+    private val chooseDelete = mutableListOf<String>()
+
     private val brandAdapter by lazy {
-        BrandAdapter(brands) { pos ->
+        EditBrandAdapter(brands, listener = { pos ->
             startActivityForResult(
                 AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id),
                 REQUEST_CODE_ADD
             )
-        }
+        }, onCheckBox = {
+            if (it.first) chooseDelete.add(it.second)
+            else chooseDelete.remove(it.second)
+            binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+        })
     }
 
     companion object {
@@ -60,6 +67,7 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
+        btnDelete.setOnClickListener { handleDelete() }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -73,6 +81,22 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
                 brandAdapter.notifyDataSetChanged()
                 if (dialog.isShowing) dialog.dismiss()
             }
+        }
+    }
+
+    private fun handleDelete() {
+        Utils.showOption(this, Option.DELETE) {
+            if (!dialog.isShowing) dialog.show()
+            viewModel.deleteBrands(chooseDelete, handleSuccess = {
+                if (dialog.isShowing) dialog.dismiss()
+                toast(getString(R.string.delete_suceess))
+                setResult(RESULT_OK)
+                updateList()
+                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+            }, handleFail = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+            })
         }
     }
 
@@ -100,5 +124,4 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
             updateList()
         }
     }
-
 }

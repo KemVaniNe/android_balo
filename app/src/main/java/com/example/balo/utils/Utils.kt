@@ -10,8 +10,6 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
-import com.google.common.reflect.TypeToken
-import com.google.gson.Gson
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
 
@@ -65,14 +63,7 @@ object Utils {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    fun <T> convertJsonToObjectList(jsonString: String): List<T> {
-        val gson = Gson()
-        val type = object : TypeToken<List<T>>() {}.type
-        return gson.fromJson(jsonString, type)
-    }
-
-    fun <T> convertObjectListToJsonList(objectList: List<T>): List<String> {
-        val gson = Gson()
-        return objectList.map { gson.toJson(it) }
+    fun showOption(context: Context, type: Option, listener: () -> Unit) {
+        return DialogUtil.showOption(context, type, listener)
     }
 }

@@ -19,7 +19,6 @@ import com.example.balo.ui.admin.balo.AllProductActivity
 import com.example.balo.ui.base.BaseFragment
 import com.example.balo.ui.share.BrandAdapter
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
 
