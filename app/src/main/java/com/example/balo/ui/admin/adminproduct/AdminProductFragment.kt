@@ -17,7 +17,7 @@ import com.example.balo.ui.admin.adminbrand.AllBrandActivity
 import com.example.balo.ui.admin.balo.AdminProductActivity
 import com.example.balo.ui.admin.balo.AllProductActivity
 import com.example.balo.ui.base.BaseFragment
-import com.example.balo.ui.share.BrandAdapter
+import com.example.balo.adapter.BrandAdapter
 import com.example.balo.utils.Utils
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {

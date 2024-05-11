@@ -7,6 +7,8 @@ import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
@@ -21,16 +23,16 @@ class AdminProductVM : ViewModel() {
     private val _products = MutableLiveData<List<BaloEntity>?>(null)
     val products = _products
 
-    private val _currentProduct = MutableLiveData<BaloEntity?>(null)
-    val currentProduct = _currentProduct
+//    private val _currentProduct = MutableLiveData<BaloEntity?>(null)
+//    val currentProduct = _currentProduct
 
     private val _isLoading = MutableLiveData(false)
     val isLoading = _isLoading
 
+    var currentProduct: BaloEntity? = null
+
     fun createProduct(
-        product: BaloEntity,
-        handleSuccess: () -> Unit,
-        handleFail: (String) -> Unit
+        product: BaloEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit
     ) {
         val data = hashMapOf(
             Balo.NAME.property to product.name,
@@ -42,13 +44,11 @@ class AdminProductVM : ViewModel() {
             Balo.QUANTITY.property to product.quantitiy,
             Balo.SELL.property to 0,
         )
-        db.collection(Collection.BALO.collectionName).add(data)
-            .addOnSuccessListener {
-                handleSuccess.invoke()
-            }
-            .addOnFailureListener { e ->
-                handleFail.invoke(e.message.toString())
-            }
+        db.collection(Collection.BALO.collectionName).add(data).addOnSuccessListener {
+            handleSuccess.invoke()
+        }.addOnFailureListener { e ->
+            handleFail.invoke(e.message.toString())
+        }
     }
 
     fun updateProduct(
@@ -68,90 +68,58 @@ class AdminProductVM : ViewModel() {
         )
 
         db.collection(Collection.BALO.collectionName).document(idDocument)
-            .set(data, SetOptions.merge())
-            .addOnSuccessListener { handleSuccess() }
+            .set(data, SetOptions.merge()).addOnSuccessListener { handleSuccess() }
             .addOnFailureListener { e -> handleFail(e.message.toString()) }
     }
 
     fun getAllBrands(handleFail: (String) -> Unit) {
         val data = mutableListOf<BrandEntity>()
-        db.collection(Collection.BRAND.collectionName)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val brand = BrandEntity(
-                        id = document.id,
-                        name = document.getString(Brand.NAME.property) ?: "",
-                        des = document.getString(Brand.DES.property) ?: "",
-                        pic = document.getString(Brand.PIC.property) ?: ""
-                    )
-                    data.add(brand)
-                }
-                brands.run {
-                    clear()
-                    addAll(data)
-                }
+        db.collection(Collection.BRAND.collectionName).get().addOnSuccessListener { result ->
+            for (document in result) {
+                val brand = BrandEntity(
+                    id = document.id,
+                    name = document.getString(Brand.NAME.property) ?: "",
+                    des = document.getString(Brand.DES.property) ?: "",
+                    pic = document.getString(Brand.PIC.property) ?: ""
+                )
+                data.add(brand)
             }
-            .addOnFailureListener { exception ->
-                handleFail(exception.message.toString())
+            brands.run {
+                clear()
+                addAll(data)
             }
-    }
-
-    fun getBrandById(brandId: String, handleFail: (String) -> Unit) {
-        db.collection(Collection.BRAND.collectionName)
-            .document(brandId)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val brand = BrandEntity(
-                        id = document.id,
-                        name = document.getString(Brand.NAME.property) ?: "",
-                        des = document.getString(Brand.DES.property) ?: "",
-                        pic = document.getString(Brand.PIC.property) ?: ""
-                    )
-                    brandCurrent = brand
-                } else {
-                    handleFail.invoke("Document with ID $brandId does not exist")
-                }
-            }
-            .addOnFailureListener { exception ->
-                handleFail.invoke(exception.message ?: "Unknown error occurred")
-            }
+        }.addOnFailureListener { exception ->
+            handleFail(exception.message.toString())
+        }
     }
 
     fun getAllProducts(handleFail: (String) -> Unit) {
         val data = mutableListOf<BaloEntity>()
-        db.collection(Collection.BALO.collectionName)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val product = BaloEntity(
-                        id = document.id,
-                        name = document.getString(Balo.NAME.property) ?: "",
-                        idBrand = document.getString(Balo.ID_BRAND.property) ?: "",
-                        priceSell = document.getString(Balo.PRICESELL.property) ?: "",
-                        priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
-                        des = document.getString(Balo.DES.property) ?: "",
-                        pic = document.getString(Balo.PIC.property) ?: "",
-                        sell = document.getString(Balo.SELL.property) ?: "",
-                        quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
-                    )
-                    data.add(product)
-                }
-                _products.postValue(data)
+        db.collection(Collection.BALO.collectionName).get().addOnSuccessListener { result ->
+            for (document in result) {
+                val product = BaloEntity(
+                    id = document.id,
+                    name = document.getString(Balo.NAME.property) ?: "",
+                    idBrand = document.getString(Balo.ID_BRAND.property) ?: "",
+                    priceSell = document.getString(Balo.PRICESELL.property) ?: "",
+                    priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
+                    des = document.getString(Balo.DES.property) ?: "",
+                    pic = document.getString(Balo.PIC.property) ?: "",
+                    sell = document.getString(Balo.SELL.property) ?: "",
+                    quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
+                )
+                data.add(product)
             }
-            .addOnFailureListener { exception ->
-                handleFail(exception.message.toString())
-            }
+            _products.postValue(data)
+        }.addOnFailureListener { exception ->
+            handleFail(exception.message.toString())
+        }
     }
 
     fun deleteProduct(
-        documentId: String,
-        handleSuccess: () -> Unit,
-        handleFail: (String) -> Unit
+        documentId: String, handleSuccess: () -> Unit, handleFail: (String) -> Unit
     ) {
-        db.collection(Collection.BALO.collectionName).document(documentId)
-            .delete()
+        db.collection(Collection.BALO.collectionName).document(documentId).delete()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     handleSuccess.invoke()
@@ -162,15 +130,15 @@ class AdminProductVM : ViewModel() {
     }
 
     fun getBaloById(id: String, handleFail: (String) -> Unit) {
-        db.collection(Collection.BALO.collectionName)
-            .document(id)
-            .get()
+        _isLoading.postValue(true)
+        db.collection(Collection.BALO.collectionName).document(id).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val product = BaloEntity(
                         id = document.id,
                         name = document.getString(Balo.NAME.property) ?: "",
-                        idBrand = document.getString(Balo.ID_BRAND.property) ?: "",
+                        idBrand = document.getString(Balo.ID_BRAND.property)
+                            ?: Constants.ID_BRAND_OTHER,
                         priceSell = document.getString(Balo.PRICESELL.property) ?: "",
                         priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
                         des = document.getString(Balo.DES.property) ?: "",
@@ -178,14 +146,41 @@ class AdminProductVM : ViewModel() {
                         sell = document.getString(Balo.SELL.property) ?: "",
                         quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
                     )
-                    _currentProduct.postValue(product)
+                    currentProduct = product
+                    getBrandById(currentProduct!!.id)
                 } else {
                     handleFail.invoke("Document with ID $id does not exist")
                 }
-            }
-            .addOnFailureListener { exception ->
+            }.addOnFailureListener { exception ->
                 handleFail.invoke(exception.message ?: "Unknown error occurred")
             }
+    }
+
+    private fun getBrandById(brandId: String) {
+        if (brandId == Constants.ID_BRAND_OTHER) {
+            brandCurrent = Utils.otherBrand("")
+            _isLoading.postValue(false)
+        } else {
+            db.collection(Collection.BRAND.collectionName).document(brandId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val brand = BrandEntity(
+                            id = document.id,
+                            name = document.getString(Brand.NAME.property) ?: "",
+                            des = document.getString(Brand.DES.property) ?: "",
+                            pic = document.getString(Brand.PIC.property) ?: ""
+                        )
+                        brandCurrent = brand
+                        _isLoading.postValue(false)
+                    } else {
+                        brandCurrent = Utils.otherBrand("")
+                        _isLoading.postValue(false)
+                    }
+                }.addOnFailureListener {
+                    brandCurrent = Utils.otherBrand("")
+                    _isLoading.postValue(false)
+                }
+        }
     }
 
     fun deleteProducts(ids: List<String>, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
@@ -194,14 +189,13 @@ class AdminProductVM : ViewModel() {
             val docRef = db.collection(Collection.BALO.collectionName).document(id)
             batch.delete(docRef)
         }
-        batch.commit()
-            .addOnSuccessListener { handleSuccess.invoke() }
+        batch.commit().addOnSuccessListener { handleSuccess.invoke() }
             .addOnFailureListener { e -> handleFail.invoke(e.message ?: "Unknown error occurred") }
     }
 
 
     fun resetCurrentProduct() {
-        _currentProduct.postValue(null)
+        currentProduct = null
     }
 
 }

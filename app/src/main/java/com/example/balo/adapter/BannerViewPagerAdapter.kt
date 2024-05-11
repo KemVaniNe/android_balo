@@ -1,4 +1,4 @@
-package com.example.balo.ui.user.home.adapter
+package com.example.balo.adapter
 
 import android.view.LayoutInflater
 import android.view.View

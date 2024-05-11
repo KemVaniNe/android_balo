@@ -1,35 +1,39 @@
-package com.example.balo.ui.user.search
+package com.example.balo.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.balo.data.model.BaloEntity
-import com.example.balo.data.model.CategoryEntity
-import com.example.balo.databinding.ItemSearchBinding
-import com.example.balo.databinding.ItemTypeBinding
+import com.example.balo.R
+import com.example.balo.data.model.BrandEntity
+import com.example.balo.databinding.ItemBrandBottomBinding
 import com.example.balo.utils.Utils
 
-class SearchAdapter(
-    private var list: List<BaloEntity>,
+class BrandBottomAdapter(
+    private var list: List<BrandEntity>,
     private val listener: (Int) -> Unit,
-) : RecyclerView.Adapter<SearchAdapter.VH>() {
-    inner class VH(val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: BaloEntity) {
+) : RecyclerView.Adapter<BrandBottomAdapter.VH>() {
+    inner class VH(val binding: ItemBrandBottomBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(item: BrandEntity) {
             binding.run {
                 Utils.displayBase64Image(item.pic, imgPic)
-                tvName.text = item.name
+                tvDes.text = item.name
+                root.setBackgroundResource(
+                    if (item.isSelected)
+                        R.drawable.bg_btn else R.drawable.bg_option
+                )
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(
-        ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemBrandBottomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     ).apply {
         itemView.setOnClickListener {
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 listener.invoke(adapterPosition)
+                notifyDataSetChanged()
             }
         }
     }

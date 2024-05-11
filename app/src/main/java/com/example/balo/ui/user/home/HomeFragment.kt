@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.ui.base.BaseFragment
-import com.example.balo.ui.user.home.adapter.BannerViewPagerAdapter
+import com.example.balo.adapter.BannerViewPagerAdapter
 import com.example.balo.ui.user.search.SearchActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

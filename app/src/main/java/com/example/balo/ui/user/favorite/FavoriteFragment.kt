@@ -3,6 +3,7 @@ package com.example.balo.ui.user.favorite
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.adapter.FavoriteAdapter
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.FragmentFavoriteBinding
 import com.example.balo.ui.base.BaseFragment

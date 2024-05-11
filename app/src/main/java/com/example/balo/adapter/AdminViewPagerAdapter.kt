@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.mainadmin
+package com.example.balo.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

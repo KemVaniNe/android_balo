@@ -5,24 +5,20 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminProductBinding
 import com.example.balo.ui.admin.adminbrand.AdminBrandActivity
-import com.example.balo.ui.admin.adminbrand.AdminBrandVM
+import com.example.balo.ui.admin.balo.choosebrand.AdminChooseBrandActivity
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 
 class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
@@ -34,9 +30,12 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     private var productCurrent: BaloEntity? = null
 
+    private var currentBrand: BrandEntity? = null
+
     companion object {
 
         const val REQUEST_CODE_IMAGE = 111
+        const val REQUEST_CHOOSE_BRAND = 123
         const val KEY_PRODUCT = "admin_product"
         const val KEY_ADD = ""
         fun newIntent(context: Context, response: String): Intent {
@@ -59,7 +58,6 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         val intent = intent
         if (intent.hasExtra(KEY_PRODUCT) && intent.getStringExtra(KEY_PRODUCT) != null) {
             if (intent.getStringExtra(KEY_PRODUCT) != KEY_ADD) {
-                if (!dialog.isShowing) dialog.show()
                 viewModel.getBaloById(intent.getStringExtra(AdminBrandActivity.KEY_BRAND)!!) {
                     if (dialog.isShowing) dialog.dismiss()
                     toast(it)
@@ -76,6 +74,14 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         btnAdd.setOnClickListener { handleAdd() }
         tvImport.setOnClickListener { handleImport() }
         btnDelete.setOnClickListener { handleDelete() }
+        tvBrand.setOnClickListener { handleBrand() }
+    }
+
+    private fun handleBrand() {
+        val data = if (currentBrand == null) "" else Gson().toJson(currentBrand)
+        startActivityForResult(
+            AdminChooseBrandActivity.newIntent(this, data), REQUEST_CHOOSE_BRAND
+        )
     }
 
     private fun handleDelete() {
@@ -116,7 +122,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     private fun isFillAllInfo(): Boolean {
         binding.run {
-            if (edtName.text.toString() != "" && edtBrand.text.toString() != ""
+            if (edtName.text.toString() != "" && currentBrand != null
                 && edtQuantity.text.toString() != "" && edtPriceSell.text.toString() != ""
                 && edtPriceImport.text.toString() != ""
             ) {
@@ -131,7 +137,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     private fun handleCreate() = binding.run {
         val entity = BaloEntity(
             name = edtName.text.toString().trim(),
-            idBrand = edtBrand.text.toString().trim(),
+            idBrand = currentBrand!!.id,
             pic = Utils.uriToBase64(this@AdminProductActivity, uri!!),
             priceSell = edtPriceSell.text.toString().trim(),
             priceImport = edtPriceImport.text.toString().trim(),
@@ -157,7 +163,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         binding.run {
             val entity = BaloEntity(
                 name = edtName.text.toString().trim(),
-                idBrand = edtBrand.text.toString().trim(),
+                idBrand = currentBrand!!.id,
                 pic = pic,
                 priceSell = edtPriceSell.text.toString().trim(),
                 priceImport = edtPriceImport.text.toString().trim(),
@@ -201,6 +207,12 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                 binding.imgPic.setImageURI(data.data)
                 Utils.uriToBase64(this, uri!!)
             }
+        } else if (requestCode == REQUEST_CHOOSE_BRAND && resultCode == RESULT_OK) {
+            val brandJson = data?.getStringExtra(AdminChooseBrandActivity.KEY_BRAND)
+            if (brandJson != null) {
+                currentBrand = Gson().fromJson(brandJson, BrandEntity::class.java)
+                binding.tvBrand.text = currentBrand!!.name
+            }
         }
         //WHEN BACK FROM SETTING
     }
@@ -217,20 +229,25 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     }
 
     private fun listenVM() {
-        viewModel.currentProduct.observe(this) {
-            if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
-                productCurrent = it
-                binding.run {
-                    edtName.setText(productCurrent!!.name)
-                    edtBrand.setText(productCurrent!!.idBrand)
-                    edtQuantity.setText(productCurrent!!.quantitiy)
-                    edtPriceSell.setText(productCurrent!!.priceSell)
-                    edtPriceImport.setText(productCurrent!!.priceImport)
-                    Utils.displayBase64Image(productCurrent!!.pic, imgPic)
-                    tvDes.visibility = View.GONE
-                    btnAdd.text = getString(R.string.update)
-                    btnDelete.visibility = View.VISIBLE
+        viewModel.isLoading.observe(this) {
+            if (it) {
+                if (!dialog.isShowing) dialog.show()
+            } else {
+                if (viewModel.currentProduct != null && viewModel.brandCurrent != null) {
+                    currentBrand = viewModel.brandCurrent
+                    productCurrent = viewModel.currentProduct
+                    if (dialog.isShowing) dialog.dismiss()
+                    binding.run {
+                        edtName.setText(productCurrent!!.name)
+                        tvBrand.text = currentBrand!!.name
+                        edtQuantity.setText(productCurrent!!.quantitiy)
+                        edtPriceSell.setText(productCurrent!!.priceSell)
+                        edtPriceImport.setText(productCurrent!!.priceImport)
+                        Utils.displayBase64Image(productCurrent!!.pic, imgPic)
+                        tvDes.visibility = View.GONE
+                        btnAdd.text = getString(R.string.update)
+                        btnDelete.visibility = View.VISIBLE
+                    }
                 }
             }
         }

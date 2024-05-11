@@ -1,29 +1,33 @@
-package com.example.balo.ui.share
+package com.example.balo.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.balo.data.model.BrandEntity
-import com.example.balo.databinding.ItemTypeBinding
+import com.example.balo.databinding.ItemBrandEditBinding
 import com.example.balo.utils.Utils
 
-class BrandAdapter(
+class EditBrandAdapter(
     private var list: List<BrandEntity>,
     private val listener: (Int) -> Unit,
-) : RecyclerView.Adapter<BrandAdapter.VH>() {
-    inner class VH(val binding: ItemTypeBinding) : RecyclerView.ViewHolder(binding.root) {
+    private val onCheckBox: (Pair<Boolean, String>) -> Unit,
+) : RecyclerView.Adapter<EditBrandAdapter.VH>() {
+    inner class VH(val binding: ItemBrandEditBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: BrandEntity) {
             binding.run {
                 Utils.displayBase64Image(item.pic, imgPic)
                 tvDes.text = item.name
+                cbDelete.setOnClickListener {
+                    onCheckBox.invoke(Pair(cbDelete.isChecked, item.id))
+                }
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(
-        ItemTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemBrandEditBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     ).apply {
         itemView.setOnClickListener {
             if (adapterPosition != RecyclerView.NO_POSITION) {

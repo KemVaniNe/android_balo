@@ -65,8 +65,8 @@
                 android:textColorHint="@color/color_hint"
                 app:layout_constraintTop_toBottomOf="@id/tvDes" />
 
-            <EditText
-                android:id="@+id/edtBrand"
+            <TextView
+                android:id="@+id/tvBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -74,8 +74,9 @@
                 android:background="@drawable/bg_option"
                 android:drawableStart="@drawable/ic_brand"
                 android:drawablePadding="20dp"
-                android:hint="@string/name_brand"
+                android:gravity="center_vertical"
                 android:padding="20dp"
+                android:text="@string/click_to_choose"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
                 app:layout_constraintTop_toBottomOf="@id/edtName" />
@@ -94,7 +95,7 @@
                 android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
-                app:layout_constraintTop_toBottomOf="@id/edtBrand" />
+                app:layout_constraintTop_toBottomOf="@id/tvBrand" />
 
             <EditText
                 android:id="@+id/edtPriceSell"
@@ -208,12 +209,12 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_option"
                     android:elevation="10dp"
-                    android:visibility="gone"
                     android:fontFamily="@font/nunito_bold"
                     android:padding="16dp"
                     android:text="@string/delete"
                     android:textColor="@color/color_bg"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btnAdd"
