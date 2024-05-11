@@ -3,7 +3,9 @@ package com.example.balo.ui.admin.balo
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.enum.Balo
+import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Collection
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
@@ -12,11 +14,18 @@ import com.google.firebase.firestore.firestore
 class AdminProductVM : ViewModel() {
     private val db = Firebase.firestore
 
+    var brands = mutableListOf<BrandEntity>()
+
+    var brandCurrent: BrandEntity? = null
+
     private val _products = MutableLiveData<List<BaloEntity>?>(null)
     val products = _products
 
     private val _currentProduct = MutableLiveData<BaloEntity?>(null)
     val currentProduct = _currentProduct
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading = _isLoading
 
     fun createProduct(
         product: BaloEntity,
@@ -62,6 +71,52 @@ class AdminProductVM : ViewModel() {
             .set(data, SetOptions.merge())
             .addOnSuccessListener { handleSuccess() }
             .addOnFailureListener { e -> handleFail(e.message.toString()) }
+    }
+
+    fun getAllBrands(handleFail: (String) -> Unit) {
+        val data = mutableListOf<BrandEntity>()
+        db.collection(Collection.BRAND.collectionName)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val brand = BrandEntity(
+                        id = document.id,
+                        name = document.getString(Brand.NAME.property) ?: "",
+                        des = document.getString(Brand.DES.property) ?: "",
+                        pic = document.getString(Brand.PIC.property) ?: ""
+                    )
+                    data.add(brand)
+                }
+                brands.run {
+                    clear()
+                    addAll(data)
+                }
+            }
+            .addOnFailureListener { exception ->
+                handleFail(exception.message.toString())
+            }
+    }
+
+    fun getBrandById(brandId: String, handleFail: (String) -> Unit) {
+        db.collection(Collection.BRAND.collectionName)
+            .document(brandId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val brand = BrandEntity(
+                        id = document.id,
+                        name = document.getString(Brand.NAME.property) ?: "",
+                        des = document.getString(Brand.DES.property) ?: "",
+                        pic = document.getString(Brand.PIC.property) ?: ""
+                    )
+                    brandCurrent = brand
+                } else {
+                    handleFail.invoke("Document with ID $brandId does not exist")
+                }
+            }
+            .addOnFailureListener { exception ->
+                handleFail.invoke(exception.message ?: "Unknown error occurred")
+            }
     }
 
     fun getAllProducts(handleFail: (String) -> Unit) {

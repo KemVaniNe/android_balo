@@ -43,6 +43,8 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         const val REQUEST_CODE_ALL_BRAND = 151
 
         const val REQUEST_CODE_ADD_BRAND = 152
+
+        const val CODE_ADD_PRODUCT = 152
     }
 
     override fun initView() = binding.run {
@@ -65,7 +67,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
 
     override fun initListener() = binding.run {
         imgAddBrand.setOnClickListener { handleAddBrand() }
-        imgAddProduct.setOnClickListener { goToAct(AdminProductActivity()) }
+        imgAddProduct.setOnClickListener { handleAddProduct() }
         tvSeeProduct.setOnClickListener { goToAct(AllProductActivity()) }
         tvSeeBrand.setOnClickListener {
             context?.let {
@@ -91,6 +93,14 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         context?.let {
             startActivityForResult(
                 AdminBrandActivity.newIntent(it, AdminBrandActivity.KEY_ADD), REQUEST_CODE_ADD_BRAND
+            )
+        }
+    }
+
+    private fun handleAddProduct() {
+        context?.let {
+            startActivityForResult(
+                AdminProductActivity.newIntent(it, AdminProductActivity.KEY_ADD), CODE_ADD_PRODUCT
             )
         }
     }
