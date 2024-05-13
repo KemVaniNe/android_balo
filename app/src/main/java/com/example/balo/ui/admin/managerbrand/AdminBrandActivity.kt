@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.adminbrand
+package com.example.balo.ui.admin.managerbrand
 
 import android.app.AlertDialog
 import android.content.Context

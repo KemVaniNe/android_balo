@@ -5,4 +5,5 @@ data class BrandEntity(
     var name: String = "",
     var des: String = "",
     var pic: String = "",
+    var isSelected: Boolean = false
 )

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
         tools:ignore="SelectedPhotoAccess" />
 
     <application
@@ -18,18 +20,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme"
-        tools:targetApi="34" >
+        tools:targetApi="34">
         <activity
-            android:name=".ui.admin.balo.AdminProductActivity"
+            android:name=".ui.admin.managerproduct.choosebrand.AdminChooseBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.balo.AllProductActivity"
+            android:name=".ui.admin.managerproduct.detail.AdminDetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.adminbrand.AllBrandActivity"
+            android:name=".ui.admin.managerproduct.ManagerProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.adminbrand.AdminBrandActivity"
+            android:name=".ui.admin.managerbrand.AllBrandActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.managerbrand.AdminBrandActivity"
             android:exported="false" />
         <activity
             android:name=".ui.forgotpass.UpdatePassword"
@@ -48,7 +53,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

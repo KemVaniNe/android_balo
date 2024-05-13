@@ -65,7 +65,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnDelete"
         app:layout_constraintTop_toBottomOf="@id/imgAdd" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_btn"
+        android:elevation="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:padding="16dp"
+        android:text="@string/delete"
+        android:textColor="@color/color_bg"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

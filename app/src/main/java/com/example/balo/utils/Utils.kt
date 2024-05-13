@@ -10,6 +10,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
+import com.example.balo.data.model.BrandEntity
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
 
@@ -37,9 +38,13 @@ object Utils {
     }
 
     fun displayBase64Image(base64String: String, imageView: ImageView) {
-        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-        val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-        imageView.setImageBitmap(bitmap)
+        if (base64String != "") {
+            val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            imageView.setImageBitmap(bitmap)
+        } else {
+            imageView.setImageResource(R.drawable.ic_tag)
+        }
     }
 
     fun requireGalleryPermission(context: Context, listener: () -> Unit) {
@@ -65,5 +70,22 @@ object Utils {
 
     fun showOption(context: Context, type: Option, listener: () -> Unit) {
         return DialogUtil.showOption(context, type, listener)
+    }
+
+    fun showBottomBrand(
+        context: Context,
+        brands: List<BrandEntity>,
+        listener: (BrandEntity?) -> Unit
+    ) {
+        return showBottomBrand(context, brands, listener)
+    }
+
+    fun otherBrand(id: String): BrandEntity {
+        return BrandEntity(
+            id = Constants.ID_BRAND_OTHER,
+            name = "Thương hiệu khác",
+            des = "Không có",
+            isSelected = id == Constants.ID_BRAND_OTHER
+        )
     }
 }

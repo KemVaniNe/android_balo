@@ -86,4 +86,8 @@
     <string name="yes">Có</string>
     <string name="confirm">Xác nhận</string>
     <string name="delete_brand_mess">Bạn có muốn xóa thương hiệu này không?</string>
+    <string name="update_product">Cập nhật sản phẩm thành công!</string>
+    <string name="choose">Chọn</string>
+    <string name="click_to_choose">Nhấn để chọn</string>
+    <string name="you_need_choose_brand">Bạn cần phải chọn thương hiệu</string>
 </resources>

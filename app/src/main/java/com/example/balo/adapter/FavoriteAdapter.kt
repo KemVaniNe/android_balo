@@ -1,4 +1,4 @@
-package com.example.balo.ui.user.favorite
+package com.example.balo.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class FavoriteAdapter(
         fun onBind(item: BaloEntity) {
             binding.run {
                 tvName.text = item.name
-                tvPrice.text = item.priceSell.toString()
+                tvPrice.text = item.priceSell
                 clNum.visibility = View.GONE
             }
         }

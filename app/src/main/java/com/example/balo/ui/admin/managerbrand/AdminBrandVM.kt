@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.adminbrand
+package com.example.balo.ui.admin.managerbrand
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -63,9 +63,9 @@ class AdminBrandVM : ViewModel() {
                 for (document in result) {
                     val brand = BrandEntity(
                         id = document.id,
-                        name = document.getString("name") ?: "",
-                        des = document.getString("des") ?: "",
-                        pic = document.getString("pic") ?: ""
+                        name = document.getString(Brand.NAME.property) ?: "",
+                        des = document.getString(Brand.DES.property) ?: "",
+                        pic = document.getString(Brand.PIC.property) ?: ""
                     )
                     data.add(brand)
                 }
@@ -96,13 +96,13 @@ class AdminBrandVM : ViewModel() {
         db.collection(Collection.BRAND.collectionName)
             .document(brandId)
             .get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
                     val brand = BrandEntity(
-                        id = documentSnapshot.id,
-                        name = documentSnapshot.getString("name") ?: "",
-                        des = documentSnapshot.getString("des") ?: "",
-                        pic = documentSnapshot.getString("pic") ?: ""
+                        id = document.id,
+                        name = document.getString(Brand.NAME.property) ?: "",
+                        des = document.getString(Brand.DES.property) ?: "",
+                        pic = document.getString(Brand.PIC.property) ?: ""
                     )
                     currentBrand.postValue(brand)
                 } else {

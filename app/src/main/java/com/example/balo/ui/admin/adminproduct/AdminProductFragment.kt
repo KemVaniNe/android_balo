@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.FragmentAdminProductBinding
-import com.example.balo.ui.admin.adminbrand.AdminBrandActivity
-import com.example.balo.ui.admin.adminbrand.AllBrandActivity
-import com.example.balo.ui.admin.balo.AdminProductActivity
-import com.example.balo.ui.admin.balo.AllProductActivity
+import com.example.balo.ui.admin.managerbrand.AdminBrandActivity
+import com.example.balo.ui.admin.managerbrand.AllBrandActivity
+import com.example.balo.ui.admin.managerproduct.detail.AdminDetailProductActivity
+import com.example.balo.ui.admin.managerproduct.ManagerProductActivity
 import com.example.balo.ui.base.BaseFragment
-import com.example.balo.ui.share.BrandAdapter
+import com.example.balo.adapter.brand.BrandAdapter
+import com.example.balo.adapter.product.AdminProductAdapter
+import com.example.balo.data.model.BaloEntity
 import com.example.balo.utils.Utils
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
@@ -28,34 +30,44 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
 
     private val brands = mutableListOf<BrandEntity>()
 
+    private val products = mutableListOf<BaloEntity>()
+
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
             startActivityForResult(
                 context?.let {
                     AdminBrandActivity.newIntent(it, brands[pos].id)
-                }, REQUEST_CODE_ALL_BRAND
+                }, REQUEST_BRAND
+            )
+        }
+    }
+
+    private val productAdapter by lazy {
+        AdminProductAdapter(products) { pos ->
+            startActivityForResult(
+                context?.let {
+                    AdminDetailProductActivity.newIntent(it, products[pos].id)
+                }, REQUEST_PRODUCT
             )
         }
     }
 
     companion object {
+        const val REQUEST_BRAND = 151
 
-        const val REQUEST_CODE_ALL_BRAND = 151
-
-        const val REQUEST_CODE_ADD_BRAND = 152
+        const val REQUEST_PRODUCT = 152
     }
 
     override fun initView() = binding.run {
         context?.let {
             dialog = Utils.showProgressDialog(it)
         }
-        viewModel.getAllBrands(
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+        updateProduct()
+        updateBrands()
         rvBrand.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rvBrand.adapter = brandAdapter
+        rvProduct.layoutManager = LinearLayoutManager(context)
+        rvProduct.adapter = productAdapter
     }
 
     override fun initData() {
@@ -65,11 +77,15 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
 
     override fun initListener() = binding.run {
         imgAddBrand.setOnClickListener { handleAddBrand() }
-        imgAddProduct.setOnClickListener { goToAct(AdminProductActivity()) }
-        tvSeeProduct.setOnClickListener { goToAct(AllProductActivity()) }
+        imgAddProduct.setOnClickListener { handleAddProduct() }
+        tvSeeProduct.setOnClickListener {
+            context?.let {
+                startActivityForResult(ManagerProductActivity.newIntent(it), REQUEST_PRODUCT)
+            }
+        }
         tvSeeBrand.setOnClickListener {
             context?.let {
-                startActivityForResult(AllBrandActivity.newIntent(it), REQUEST_CODE_ALL_BRAND)
+                startActivityForResult(AllBrandActivity.newIntent(it), REQUEST_BRAND)
             }
         }
     }
@@ -80,7 +96,17 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     ): FragmentAdminProductBinding = FragmentAdminProductBinding.inflate(inflater)
 
     private fun updateBrands() {
+        if (!dialog.isShowing) dialog.show()
         viewModel.getAllBrands(
+            handleFail = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+            })
+    }
+
+    private fun updateProduct() {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.getAllProducts(
             handleFail = { error ->
                 if (dialog.isShowing) dialog.dismiss()
                 toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
@@ -90,7 +116,16 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     private fun handleAddBrand() {
         context?.let {
             startActivityForResult(
-                AdminBrandActivity.newIntent(it, AdminBrandActivity.KEY_ADD), REQUEST_CODE_ADD_BRAND
+                AdminBrandActivity.newIntent(it, AdminBrandActivity.KEY_ADD), REQUEST_BRAND
+            )
+        }
+    }
+
+    private fun handleAddProduct() {
+        context?.let {
+            startActivityForResult(
+                AdminDetailProductActivity.newIntent(it, AdminDetailProductActivity.KEY_ADD),
+                REQUEST_PRODUCT
             )
         }
     }
@@ -111,14 +146,27 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
                 if (dialog.isShowing) dialog.dismiss()
             }
         }
+
+        viewModel.products.observe(this) {
+            if (it != null) {
+                products.run {
+                    clear()
+                    addAll(it)
+                }
+                productAdapter.notifyDataSetChanged()
+                if (dialog.isShowing) dialog.dismiss()
+            }
+        }
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_ADD_BRAND || requestCode == REQUEST_CODE_ALL_BRAND) {
+            if (requestCode == REQUEST_BRAND) {
                 updateBrands()
+            } else if (requestCode == REQUEST_PRODUCT) {
+                updateProduct()
             }
         }
     }

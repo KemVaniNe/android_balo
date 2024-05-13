@@ -11,4 +11,6 @@ object Constants {
     const val ADMIN_ORDER = 1
     const val ADMIN_PRODUCT = 2
     const val ADMIN_ACCOUNT = 3
+
+    const val ID_BRAND_OTHER = "123"
 }
