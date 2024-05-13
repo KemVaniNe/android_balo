@@ -5,22 +5,17 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
-import com.example.balo.adapter.brand.BrandAdapter
-import com.example.balo.adapter.product.AdminProductAdapter
+import com.example.balo.adapter.product.AdminProductEditAdapter
 import com.example.balo.data.model.BaloEntity
-import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllProductBinding
-import com.example.balo.ui.admin.adminproduct.AdminProductFragment
-import com.example.balo.ui.admin.adminproduct.AdminProductVM
-import com.example.balo.ui.admin.managerbrand.AdminBrandActivity
-import com.example.balo.ui.admin.managerproduct.choosebrand.ChooseBrandVM
 import com.example.balo.ui.admin.managerproduct.detail.AdminDetailProductActivity
 import com.example.balo.ui.base.BaseActivity
+import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
 
 class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
@@ -30,13 +25,19 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
     private lateinit var viewModel: ManagerProductVM
 
+    private val chooseDelete = mutableListOf<String>()
+
     private val productAdapter by lazy {
-        AdminProductAdapter(products) { pos ->
+        AdminProductEditAdapter(products, { pos ->
             startActivityForResult(
                 AdminDetailProductActivity.newIntent(this, products[pos].id),
                 REQUEST_CODE_CHANGE
             )
-        }
+        }, onCheckBox = {
+            if (it.first) chooseDelete.add(it.second)
+            else chooseDelete.remove(it.second)
+            binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+        })
     }
 
     companion object {
@@ -73,6 +74,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
+        btnDelete.setOnClickListener { handleDelete() }
     }
 
     private fun handleAdd() {
@@ -80,6 +82,22 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
             AdminDetailProductActivity.newIntent(this, AdminDetailProductActivity.KEY_ADD),
             REQUEST_CODE_CHANGE
         )
+    }
+
+    private fun handleDelete() {
+        Utils.showOption(this, Option.DELETE) {
+            if (!dialog.isShowing) dialog.show()
+            viewModel.deleteProducts(chooseDelete, handleSuccess = {
+                if (dialog.isShowing) dialog.dismiss()
+                toast(getString(R.string.delete_suceess))
+                setResult(RESULT_OK)
+                updateProduct()
+                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+            }, handleFail = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+            })
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

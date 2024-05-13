@@ -78,7 +78,11 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     override fun initListener() = binding.run {
         imgAddBrand.setOnClickListener { handleAddBrand() }
         imgAddProduct.setOnClickListener { handleAddProduct() }
-        tvSeeProduct.setOnClickListener { goToAct(ManagerProductActivity()) }
+        tvSeeProduct.setOnClickListener {
+            context?.let {
+                startActivityForResult(ManagerProductActivity.newIntent(it), REQUEST_PRODUCT)
+            }
+        }
         tvSeeBrand.setOnClickListener {
             context?.let {
                 startActivityForResult(AllBrandActivity.newIntent(it), REQUEST_BRAND)
