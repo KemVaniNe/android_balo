@@ -15,7 +15,7 @@
         android:paddingVertical="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="40dp"
-        android:text="@string/favorite"
+        android:text="@string/cart"
         android:textColor="@color/color_bg"
         android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"

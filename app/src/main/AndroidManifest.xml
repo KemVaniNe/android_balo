@@ -22,37 +22,37 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
-            android:name=".ui.admin.managerproduct.choosebrand.AdminChooseBrandActivity"
+            android:name=".admin.managerproduct.choosebrand.AdminChooseBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.managerproduct.detail.AdminDetailProductActivity"
+            android:name=".admin.managerproduct.detail.AdminDetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.managerproduct.ManagerProductActivity"
+            android:name=".admin.managerproduct.ManagerProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.managerbrand.AllBrandActivity"
+            android:name=".admin.managerbrand.AllBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.managerbrand.AdminBrandActivity"
+            android:name=".admin.managerbrand.AdminBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.forgotpass.UpdatePassword"
+            android:name=".shareview.forgotpass.UpdatePassword"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.mainadmin.AdminActivity"
+            android:name=".admin.adminmain.AdminMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.main.MainActivity"
+            android:name=".client.clientmain.ClientMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.RegisterActivity"
+            android:name=".shareview.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.search.SearchActivity"
+            android:name=".client.clientsearch.ClientSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".shareview.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
