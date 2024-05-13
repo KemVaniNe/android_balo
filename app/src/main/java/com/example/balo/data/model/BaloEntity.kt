@@ -10,4 +10,6 @@ data class BaloEntity(
     var pic: String = "",
     var sell: String = "0",
     var quantitiy: String = "0",
+    var rate: String = "0",
+    var comment: List<String> = emptyList()
 )

@@ -2,7 +2,6 @@ package com.example.balo.ui.user.home
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +15,7 @@ import com.example.balo.adapter.brand.BrandAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.ui.user.search.SearchActivity
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -27,7 +27,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val brands = mutableListOf<BrandEntity>()
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
-            //TODO
+            context?.let {
+                startActivity(SearchActivity.newIntent(it, Gson().toJson(brands[pos])))
+            }
         }
     }
 
@@ -49,7 +51,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initListener() = binding.run {
         tvSearch.setOnClickListener {
-            startActivity(Intent(context, SearchActivity::class.java))
+            context?.let {
+                startActivity(SearchActivity.newIntent(it, SearchActivity.EMPTY_BRAND))
+            }
         }
     }
 
@@ -69,8 +73,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }.launchIn(scope = lifecycleScope)
 
         viewModel.brands.observe(this) {
-            if(it != null) {
-                if(dialog.isShowing) dialog.dismiss()
+            if (it != null) {
+                if (dialog.isShowing) dialog.dismiss()
                 brands.run {
                     clear()
                     addAll(it)
