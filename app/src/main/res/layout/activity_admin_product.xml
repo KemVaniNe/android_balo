@@ -139,7 +139,6 @@
                 android:drawableStart="@drawable/ic_category"
                 android:drawablePadding="20dp"
                 android:hint="@string/des"
-                android:inputType="number"
                 android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
