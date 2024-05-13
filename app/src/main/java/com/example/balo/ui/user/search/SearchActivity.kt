@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -74,6 +76,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
+        listenerEditText()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -98,5 +101,25 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             if (dialog.isShowing) dialog.dismiss()
             toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
         }
+    }
+
+    private fun listenerEditText() {
+        binding.edtSearch.run {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, af: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    search(s.toString().trim())
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+        }
+    }
+
+    private fun search(s: String) = binding.run {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.searchProduct(s)
     }
 }

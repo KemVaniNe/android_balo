@@ -90,4 +90,5 @@
     <string name="choose">Chọn</string>
     <string name="click_to_choose">Nhấn để chọn</string>
     <string name="you_need_choose_brand">Bạn cần phải chọn thương hiệu</string>
+    <string name="need_enter_more_2">Cần nhập nhiều hơn 1 ký tự để tìm kiếm</string>
 </resources>

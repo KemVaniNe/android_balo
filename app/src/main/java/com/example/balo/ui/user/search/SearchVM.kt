@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.enum.Balo
-import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Collection
-import com.example.balo.data.model.enum.User
-import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.firestore
@@ -18,6 +15,8 @@ class SearchVM : ViewModel() {
     val product = _products
 
     private val db = Firebase.firestore
+
+    private var listCurrent = listOf<BaloEntity>()
 
     fun getProducts(idBrand: String, handleFail: (String) -> Unit) {
         db.collection(Collection.BRAND.collectionName).document(idBrand)
@@ -33,6 +32,16 @@ class SearchVM : ViewModel() {
             }
     }
 
+    fun searchProduct(name: String) {
+        val data = mutableListOf<BaloEntity>()
+        listCurrent.forEach {
+            if (it.name.lowercase().contains(name.lowercase())) {
+                data.add(it)
+            }
+        }
+        _products.postValue(data)
+    }
+
     private fun getProductBaseBrand(idBrand: String, handleFail: (String) -> Unit) {
         val data = mutableListOf<BaloEntity>()
         db.collection(Collection.BALO.collectionName).whereEqualTo(Balo.ID_BRAND.property, idBrand)
@@ -41,6 +50,7 @@ class SearchVM : ViewModel() {
                     data.add(convertDocToBProduct(document))
                 }
                 _products.postValue(data)
+                listCurrent = data
             }.addOnFailureListener { exception ->
                 handleFail(exception.message.toString())
             }
@@ -54,6 +64,7 @@ class SearchVM : ViewModel() {
                     data.add(convertDocToBProduct(document))
                 }
                 _products.postValue(data)
+                listCurrent = data
             }.addOnFailureListener { exception ->
                 handleFail(exception.message.toString())
             }
