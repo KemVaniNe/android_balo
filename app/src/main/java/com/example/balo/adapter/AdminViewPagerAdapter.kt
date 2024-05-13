@@ -3,10 +3,10 @@ package com.example.balo.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.balo.ui.admin.adminacount.AdminAccountFragment
-import com.example.balo.ui.admin.adminhome.AdminHomeFragment
-import com.example.balo.ui.admin.adminorder.AdminOrderFragment
-import com.example.balo.ui.admin.adminproduct.AdminProductFragment
+import com.example.balo.admin.adminacount.AdminAccountFragment
+import com.example.balo.admin.adminhome.AdminHomeFragment
+import com.example.balo.admin.adminorder.AdminOrderFragment
+import com.example.balo.admin.adminproduct.AdminProductFragment
 import com.example.balo.utils.Constants
 
 class AdminViewPagerAdapter(fragmentManager: FragmentManager) :
