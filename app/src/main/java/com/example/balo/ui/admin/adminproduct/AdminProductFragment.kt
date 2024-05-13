@@ -125,7 +125,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         context?.let {
             startActivityForResult(
                 AdminDetailProductActivity.newIntent(it, AdminDetailProductActivity.KEY_ADD),
-                REQUEST_BRAND
+                REQUEST_PRODUCT
             )
         }
     }
