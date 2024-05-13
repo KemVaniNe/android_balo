@@ -93,35 +93,6 @@
                 app:layout_constraintTop_toBottomOf="@id/viewLineBrand"
                 tools:listitem="@layout/item_type" />
 
-            <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/category"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvBrand" />
-
-            <View
-                android:id="@+id/viewLineCategory"
-                android:layout_width="100dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_line"
-                app:layout_constraintStart_toStartOf="@id/tvCategory"
-                app:layout_constraintTop_toBottomOf="@id/tvCategory" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewLineCategory"
-                tools:listitem="@layout/item_type" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
