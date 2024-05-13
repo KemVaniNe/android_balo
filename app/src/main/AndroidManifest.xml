@@ -22,19 +22,19 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
-            android:name=".ui.admin.balo.choosebrand.AdminChooseBrandActivity"
+            android:name=".ui.admin.managerproduct.choosebrand.AdminChooseBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.balo.AdminProductActivity"
+            android:name=".ui.admin.managerproduct.detail.AdminDetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.balo.AllProductActivity"
+            android:name=".ui.admin.managerproduct.ManagerProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.adminbrand.AllBrandActivity"
+            android:name=".ui.admin.managerbrand.AllBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.adminbrand.AdminBrandActivity"
+            android:name=".ui.admin.managerbrand.AdminBrandActivity"
             android:exported="false" />
         <activity
             android:name=".ui.forgotpass.UpdatePassword"

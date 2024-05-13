@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.balo.choosebrand
+package com.example.balo.ui.admin.managerproduct.choosebrand
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
-import com.example.balo.adapter.BrandBottomAdapter
+import com.example.balo.adapter.brand.BrandBottomAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminChooseBrandBinding
 import com.example.balo.ui.base.BaseActivity

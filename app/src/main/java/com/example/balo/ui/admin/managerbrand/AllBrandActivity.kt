@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.adminbrand
+package com.example.balo.ui.admin.managerbrand
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -9,7 +9,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
-import com.example.balo.adapter.EditBrandAdapter
+import com.example.balo.adapter.brand.EditBrandAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.ui.base.BaseActivity

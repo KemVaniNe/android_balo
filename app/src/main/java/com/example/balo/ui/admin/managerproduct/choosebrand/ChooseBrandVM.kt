@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.balo.choosebrand
+package com.example.balo.ui.admin.managerproduct.choosebrand
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

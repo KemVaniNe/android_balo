@@ -1,4 +1,4 @@
-package com.example.balo.ui.admin.balo
+package com.example.balo.ui.admin.managerproduct.detail
 
 import android.app.AlertDialog
 import android.content.Context
@@ -13,20 +13,21 @@ import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminProductBinding
-import com.example.balo.ui.admin.adminbrand.AdminBrandActivity
-import com.example.balo.ui.admin.balo.choosebrand.AdminChooseBrandActivity
+import com.example.balo.ui.admin.managerbrand.AdminBrandActivity
+import com.example.balo.ui.admin.managerproduct.ManagerProductVM
+import com.example.balo.ui.admin.managerproduct.choosebrand.AdminChooseBrandActivity
 import com.example.balo.ui.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 import com.google.gson.Gson
 
-class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
+class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     private var uri: Uri? = null
 
     private lateinit var dialog: AlertDialog
 
-    private lateinit var viewModel: AdminProductVM
+    private lateinit var viewModel: AdminDetailProductVM
 
     private var productCurrent: BaloEntity? = null
 
@@ -39,7 +40,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         const val KEY_PRODUCT = "admin_product"
         const val KEY_ADD = ""
         fun newIntent(context: Context, response: String): Intent {
-            return Intent(context, AdminProductActivity::class.java).apply {
+            return Intent(context, AdminDetailProductActivity::class.java).apply {
                 putExtra(KEY_PRODUCT, response)
             }
         }
@@ -53,12 +54,12 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     override fun initData() {
         dialog = Utils.showProgressDialog(this)
-        viewModel = ViewModelProvider(this)[AdminProductVM::class.java]
+        viewModel = ViewModelProvider(this)[AdminDetailProductVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_PRODUCT) && intent.getStringExtra(KEY_PRODUCT) != null) {
             if (intent.getStringExtra(KEY_PRODUCT) != KEY_ADD) {
-                viewModel.getBaloById(intent.getStringExtra(AdminBrandActivity.KEY_BRAND)!!) {
+                viewModel.getBaloById(intent.getStringExtra(KEY_PRODUCT)!!) {
                     if (dialog.isShowing) dialog.dismiss()
                     toast(it)
                     finishAct(false)
@@ -138,7 +139,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         val entity = BaloEntity(
             name = edtName.text.toString().trim(),
             idBrand = currentBrand!!.id,
-            pic = Utils.uriToBase64(this@AdminProductActivity, uri!!),
+            pic = Utils.uriToBase64(this@AdminDetailProductActivity, uri!!),
             priceSell = edtPriceSell.text.toString().trim(),
             priceImport = edtPriceImport.text.toString().trim(),
             des = edtDes.text.toString().trim(),
@@ -247,6 +248,7 @@ class AdminProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                         tvDes.visibility = View.GONE
                         btnAdd.text = getString(R.string.update)
                         btnDelete.visibility = View.VISIBLE
+                        edtDes.setText(productCurrent!!.des)
                     }
                 }
             }

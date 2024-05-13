@@ -3,7 +3,7 @@ package com.example.balo.utils
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.balo.adapter.BrandBottomAdapter
+import com.example.balo.adapter.brand.BrandBottomAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.BottomSheetBrandsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
