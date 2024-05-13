@@ -1,4 +1,4 @@
-package com.example.balo.adapter
+package com.example.balo.adapter.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

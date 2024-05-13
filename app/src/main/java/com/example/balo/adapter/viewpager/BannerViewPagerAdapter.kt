@@ -1,4 +1,4 @@
-package com.example.balo.adapter
+package com.example.balo.adapter.viewpager
 
 import android.view.LayoutInflater
 import android.view.View

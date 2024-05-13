@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
-import com.example.balo.adapter.AdminViewPagerAdapter
+import com.example.balo.adapter.viewpager.AdminViewPagerAdapter
 import com.example.balo.databinding.ActivityAdminBinding
 import com.example.balo.shareview.ShareViewModel
 import com.example.balo.shareview.base.BaseActivity

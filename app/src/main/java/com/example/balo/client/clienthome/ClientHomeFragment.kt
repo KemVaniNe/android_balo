@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.shareview.base.BaseFragment
-import com.example.balo.adapter.BannerViewPagerAdapter
+import com.example.balo.adapter.viewpager.BannerViewPagerAdapter
 import com.example.balo.adapter.brand.BrandAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.client.clientsearch.ClientSearchActivity

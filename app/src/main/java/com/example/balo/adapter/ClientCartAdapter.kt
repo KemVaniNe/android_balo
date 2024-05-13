@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ItemProductBinding
 
-class FavoriteAdapter(
+class ClientCartAdapter(
     private var list: List<BaloEntity>,
     private val listener: (Int) -> Unit,
-) : RecyclerView.Adapter<FavoriteAdapter.VH>() {
+) : RecyclerView.Adapter<ClientCartAdapter.VH>() {
     inner class VH(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: BaloEntity) {
             binding.run {
