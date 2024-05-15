@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
@@ -23,11 +24,7 @@ class AdminBrandVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Brand.NAME.property to brand.name,
-            Brand.DES.property to if (brand.des == "") "Không có!" else brand.des,
-            Brand.PIC.property to brand.pic
-        )
+        val data = Utils.brandToMap(brand)
         db.collection(Collection.BRAND.collectionName).add(data)
             .addOnSuccessListener {
                 handleSuccess.invoke()
@@ -43,12 +40,7 @@ class AdminBrandVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Brand.NAME.property to brand.name,
-            Brand.DES.property to if (brand.des == "") "Không có!" else brand.des,
-            Brand.PIC.property to brand.pic
-        )
-
+        val data = Utils.brandToMap(brand)
         db.collection(Collection.BRAND.collectionName).document(idDocument)
             .set(data, SetOptions.merge())
             .addOnSuccessListener { handleSuccess() }
@@ -61,13 +53,7 @@ class AdminBrandVM : ViewModel() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val brand = BrandEntity(
-                        id = document.id,
-                        name = document.getString(Brand.NAME.property) ?: "",
-                        des = document.getString(Brand.DES.property) ?: "",
-                        pic = document.getString(Brand.PIC.property) ?: ""
-                    )
-                    data.add(brand)
+                    data.add(Utils.convertDocToBrand(document))
                 }
                 _brands.postValue(data)
             }
@@ -98,13 +84,7 @@ class AdminBrandVM : ViewModel() {
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val brand = BrandEntity(
-                        id = document.id,
-                        name = document.getString(Brand.NAME.property) ?: "",
-                        des = document.getString(Brand.DES.property) ?: "",
-                        pic = document.getString(Brand.PIC.property) ?: ""
-                    )
-                    currentBrand.postValue(brand)
+                    currentBrand.postValue(Utils.convertDocToBrand(document))
                 } else {
                     handleFail.invoke("Document with ID $brandId does not exist")
                 }

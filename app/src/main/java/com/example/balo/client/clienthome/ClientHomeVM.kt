@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.utils.Banner
+import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,13 +30,7 @@ class ClientHomeVM : ViewModel() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val brand = BrandEntity(
-                        id = document.id,
-                        name = document.getString("name") ?: "",
-                        des = document.getString("des") ?: "",
-                        pic = document.getString("pic") ?: ""
-                    )
-                    data.add(brand)
+                    data.add(Utils.convertDocToBrand(document))
                 }
                 _brands.postValue(data)
             }

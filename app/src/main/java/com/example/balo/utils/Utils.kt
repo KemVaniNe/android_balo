@@ -10,7 +10,12 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
+import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
+import com.example.balo.data.model.enum.Balo
+import com.example.balo.data.model.enum.Brand
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
 
@@ -87,5 +92,21 @@ object Utils {
             des = "Không có",
             isSelected = id == Constants.ID_BRAND_OTHER
         )
+    }
+
+    fun convertDocToBProduct(document: DocumentSnapshot): BaloEntity {
+        return DocumentUtil.convertDocToBProduct(document)
+    }
+
+    fun convertDocToBrand(document: DocumentSnapshot): BrandEntity {
+        return DocumentUtil.convertDocToBrand(document)
+    }
+
+    fun productToMap(product: BaloEntity): Map<String, Any> {
+        return MapObjectUtil.productToMap(product)
+    }
+
+    fun brandToMap(brand: BrandEntity): Map<String, Any> {
+        return MapObjectUtil.brandToMap(brand)
     }
 }

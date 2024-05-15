@@ -169,6 +169,9 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                 priceImport = edtPriceImport.text.toString().trim(),
                 des = edtDes.text.toString().trim(),
                 quantitiy = edtQuantity.text.toString().trim(),
+                sell = productCurrent!!.sell,
+                rate = productCurrent!!.rate,
+                comment = productCurrent!!.comment
             )
             viewModel.updateProduct(
                 product = entity,

@@ -28,19 +28,7 @@ class AdminDetailProductVM : ViewModel() {
         db.collection(Collection.BALO.collectionName).document(id).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val product = BaloEntity(
-                        id = document.id,
-                        name = document.getString(Balo.NAME.property) ?: "",
-                        idBrand = document.getString(Balo.ID_BRAND.property)
-                            ?: Constants.ID_BRAND_OTHER,
-                        priceSell = document.getString(Balo.PRICESELL.property) ?: "",
-                        priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
-                        des = document.getString(Balo.DES.property) ?: "",
-                        pic = document.getString(Balo.PIC.property) ?: "",
-                        sell = document.getString(Balo.SELL.property) ?: "",
-                        quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
-                    )
-                    currentProduct = product
+                    currentProduct = Utils.convertDocToBProduct(document)
                     getBrandById(currentProduct!!.id)
                 } else {
                     handleFail.invoke("Document with ID $id does not exist")
@@ -58,13 +46,7 @@ class AdminDetailProductVM : ViewModel() {
             db.collection(Collection.BRAND.collectionName).document(brandId).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        val brand = BrandEntity(
-                            id = document.id,
-                            name = document.getString(Brand.NAME.property) ?: "",
-                            des = document.getString(Brand.DES.property) ?: "",
-                            pic = document.getString(Brand.PIC.property) ?: ""
-                        )
-                        brandCurrent = brand
+                        brandCurrent = Utils.convertDocToBrand(document)
                         _isLoading.postValue(false)
                     } else {
                         brandCurrent = Utils.otherBrand("")
@@ -80,16 +62,7 @@ class AdminDetailProductVM : ViewModel() {
     fun createProduct(
         product: BaloEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Balo.NAME.property to product.name,
-            Balo.ID_BRAND.property to product.idBrand,
-            Balo.PRICESELL.property to product.priceSell,
-            Balo.DES.property to if (product.des == "") "Không có!" else product.des,
-            Balo.PIC.property to product.pic,
-            Balo.PRICEINPUT.property to product.priceImport,
-            Balo.QUANTITY.property to product.quantitiy,
-            Balo.SELL.property to "0",
-        )
+        val data = Utils.productToMap(product)
         db.collection(Collection.BALO.collectionName).add(data).addOnSuccessListener {
             handleSuccess.invoke()
         }.addOnFailureListener { e ->
@@ -103,16 +76,7 @@ class AdminDetailProductVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Balo.NAME.property to product.name,
-            Balo.ID_BRAND.property to product.idBrand,
-            Balo.PRICESELL.property to product.priceSell,
-            Balo.DES.property to if (product.des == "") "Không có!" else product.des,
-            Balo.PIC.property to product.pic,
-            Balo.PRICEINPUT.property to product.priceImport,
-            Balo.QUANTITY.property to product.quantitiy,
-        )
-
+        val data = Utils.productToMap(product)
         db.collection(Collection.BALO.collectionName).document(idDocument)
             .set(data, SetOptions.merge()).addOnSuccessListener { handleSuccess() }
             .addOnFailureListener { e -> handleFail(e.message.toString()) }

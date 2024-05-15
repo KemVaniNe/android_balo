@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.firestore
 
 class ClientSearchVM : ViewModel() {
@@ -47,7 +47,7 @@ class ClientSearchVM : ViewModel() {
         db.collection(Collection.BALO.collectionName).whereEqualTo(Balo.ID_BRAND.property, idBrand)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
-                    data.add(convertDocToBProduct(document))
+                    data.add(Utils.convertDocToBProduct(document))
                 }
                 _products.postValue(data)
                 listCurrent = data
@@ -56,31 +56,17 @@ class ClientSearchVM : ViewModel() {
             }
     }
 
-    private fun getAllBrand(handleFail: (String) -> Unit) {
+    fun getAllBrand(handleFail: (String) -> Unit) {
         val data = mutableListOf<BaloEntity>()
         db.collection(Collection.BALO.collectionName)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
-                    data.add(convertDocToBProduct(document))
+                    data.add(Utils.convertDocToBProduct(document))
                 }
                 _products.postValue(data)
                 listCurrent = data
             }.addOnFailureListener { exception ->
                 handleFail(exception.message.toString())
             }
-    }
-
-    private fun convertDocToBProduct(document: QueryDocumentSnapshot): BaloEntity {
-        return BaloEntity(
-            id = document.id,
-            name = document.getString(Balo.NAME.property) ?: "",
-            idBrand = document.getString(Balo.ID_BRAND.property) ?: "",
-            priceSell = document.getString(Balo.PRICESELL.property) ?: "",
-            priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
-            des = document.getString(Balo.DES.property) ?: "",
-            pic = document.getString(Balo.PIC.property) ?: "",
-            sell = document.getString(Balo.SELL.property) ?: "",
-            quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
-        )
     }
 }

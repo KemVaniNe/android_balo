@@ -20,7 +20,7 @@ class AdminProductAdapter(
                 Utils.displayBase64Image(item.pic, imgPic)
                 tvName.text = item.name
                 tvPrice.text = item.priceSell
-                val available = item.quantitiy.toInt() - item.sell.toInt()
+                val available = item.quantitiy.toFloat() - item.sell.toFloat()
                 tvQuantity.text = available.toString()
             }
         }
