@@ -46,13 +46,7 @@ class AdminDetailProductVM : ViewModel() {
             db.collection(Collection.BRAND.collectionName).document(brandId).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        val brand = BrandEntity(
-                            id = document.id,
-                            name = document.getString(Brand.NAME.property) ?: "",
-                            des = document.getString(Brand.DES.property) ?: "",
-                            pic = document.getString(Brand.PIC.property) ?: ""
-                        )
-                        brandCurrent = brand
+                        brandCurrent = Utils.convertDocToBrand(document)
                         _isLoading.postValue(false)
                     } else {
                         brandCurrent = Utils.otherBrand("")
@@ -68,18 +62,7 @@ class AdminDetailProductVM : ViewModel() {
     fun createProduct(
         product: BaloEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Balo.NAME.property to product.name,
-            Balo.ID_BRAND.property to product.idBrand,
-            Balo.PRICESELL.property to product.priceSell,
-            Balo.DES.property to if (product.des == "") "Không có!" else product.des,
-            Balo.PIC.property to product.pic,
-            Balo.PRICEINPUT.property to product.priceImport,
-            Balo.QUANTITY.property to product.quantitiy,
-            Balo.SELL.property to "0",
-            Balo.RATE.property to product.rate,
-            Balo.COMMENT.property to product.comment
-        )
+        val data = Utils.productToMap(product)
         db.collection(Collection.BALO.collectionName).add(data).addOnSuccessListener {
             handleSuccess.invoke()
         }.addOnFailureListener { e ->
@@ -93,17 +76,7 @@ class AdminDetailProductVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val data = hashMapOf(
-            Balo.NAME.property to product.name,
-            Balo.ID_BRAND.property to product.idBrand,
-            Balo.PRICESELL.property to product.priceSell,
-            Balo.DES.property to if (product.des == "") "Không có!" else product.des,
-            Balo.PIC.property to product.pic,
-            Balo.PRICEINPUT.property to product.priceImport,
-            Balo.QUANTITY.property to product.quantitiy,
-            Balo.RATE.property to product.rate,
-            Balo.COMMENT.property to product.comment
-        )
+        val data = Utils.productToMap(product)
         db.collection(Collection.BALO.collectionName).document(idDocument)
             .set(data, SetOptions.merge()).addOnSuccessListener { handleSuccess() }
             .addOnFailureListener { e -> handleFail(e.message.toString()) }

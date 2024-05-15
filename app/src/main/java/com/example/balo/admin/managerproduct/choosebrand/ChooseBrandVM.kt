@@ -3,7 +3,6 @@ package com.example.balo.admin.managerproduct.choosebrand
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BrandEntity
-import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
@@ -18,13 +17,8 @@ class ChooseBrandVM : ViewModel() {
         val data = mutableListOf<BrandEntity>()
         db.collection(Collection.BRAND.collectionName).get().addOnSuccessListener { result ->
             for (document in result) {
-                val brand = BrandEntity(
-                    id = document.id,
-                    name = document.getString(Brand.NAME.property) ?: "",
-                    des = document.getString(Brand.DES.property) ?: "",
-                    pic = document.getString(Brand.PIC.property) ?: "",
-                    isSelected = id == document.id
-                )
+                val brand = Utils.convertDocToBrand(document)
+                brand.isSelected = id == document.id
                 data.add(brand)
             }
             data.add(Utils.otherBrand(id))

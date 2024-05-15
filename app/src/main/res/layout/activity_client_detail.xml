@@ -80,8 +80,8 @@
 
                 <ImageView
                     android:id="@+id/imgStar"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/ic_star" />
 
