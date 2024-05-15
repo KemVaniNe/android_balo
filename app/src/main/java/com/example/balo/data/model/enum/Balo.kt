@@ -10,4 +10,6 @@ enum class Balo(val property: String) {
     SELL("sell"),
     PRICEINPUT("priceinput"),
     QUANTITY("quantity"),
+    RATE("rate"),
+    COMMENT("comment"),
 }

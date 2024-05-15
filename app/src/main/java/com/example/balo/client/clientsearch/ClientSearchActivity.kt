@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.product.UserProductAdapter
+import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivitySearchBinding
@@ -27,7 +28,7 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     private val products = mutableListOf<BaloEntity>()
     private val productAdapter by lazy {
         UserProductAdapter(products) { pos ->
-            //TODO
+            startActivity(ClientDetailActivity.newIntent(this, products[pos].id))
         }
     }
 
@@ -64,7 +65,10 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
         val intent = intent
         if (intent.hasExtra(KEY_SEARCH) && intent.getStringExtra(KEY_SEARCH) != null) {
             if (intent.getStringExtra(KEY_SEARCH) == EMPTY_BRAND) {
-                getProduct("")
+                viewModel.getAllBrand { error ->
+                    if (dialog.isShowing) dialog.dismiss()
+                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+                }
             } else {
                 brand = Gson().fromJson(intent.getStringExtra(KEY_SEARCH), BrandEntity::class.java)
                 getProduct(brand!!.id)

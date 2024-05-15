@@ -28,19 +28,7 @@ class AdminDetailProductVM : ViewModel() {
         db.collection(Collection.BALO.collectionName).document(id).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val product = BaloEntity(
-                        id = document.id,
-                        name = document.getString(Balo.NAME.property) ?: "",
-                        idBrand = document.getString(Balo.ID_BRAND.property)
-                            ?: Constants.ID_BRAND_OTHER,
-                        priceSell = document.getString(Balo.PRICESELL.property) ?: "",
-                        priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
-                        des = document.getString(Balo.DES.property) ?: "",
-                        pic = document.getString(Balo.PIC.property) ?: "",
-                        sell = document.getString(Balo.SELL.property) ?: "",
-                        quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
-                    )
-                    currentProduct = product
+                    currentProduct = Utils.convertDocToBProduct(document)
                     getBrandById(currentProduct!!.id)
                 } else {
                     handleFail.invoke("Document with ID $id does not exist")
@@ -89,6 +77,8 @@ class AdminDetailProductVM : ViewModel() {
             Balo.PRICEINPUT.property to product.priceImport,
             Balo.QUANTITY.property to product.quantitiy,
             Balo.SELL.property to "0",
+            Balo.RATE.property to product.rate,
+            Balo.COMMENT.property to product.comment
         )
         db.collection(Collection.BALO.collectionName).add(data).addOnSuccessListener {
             handleSuccess.invoke()
@@ -111,8 +101,9 @@ class AdminDetailProductVM : ViewModel() {
             Balo.PIC.property to product.pic,
             Balo.PRICEINPUT.property to product.priceImport,
             Balo.QUANTITY.property to product.quantitiy,
+            Balo.RATE.property to product.rate,
+            Balo.COMMENT.property to product.comment
         )
-
         db.collection(Collection.BALO.collectionName).document(idDocument)
             .set(data, SetOptions.merge()).addOnSuccessListener { handleSuccess() }
             .addOnFailureListener { e -> handleFail(e.message.toString()) }

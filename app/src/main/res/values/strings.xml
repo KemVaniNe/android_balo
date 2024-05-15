@@ -91,4 +91,9 @@
     <string name="click_to_choose">Nhấn để chọn</string>
     <string name="you_need_choose_brand">Bạn cần phải chọn thương hiệu</string>
     <string name="need_enter_more_2">Cần nhập nhiều hơn 1 ký tự để tìm kiếm</string>
+    <string name="add_cart">Thêm vào giỏ hàng</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="rate">Đánh giá</string>
+    <string name="sold">Đã bán</string>
+    <string name="sold_out">Hết hàng</string>
 </resources>
