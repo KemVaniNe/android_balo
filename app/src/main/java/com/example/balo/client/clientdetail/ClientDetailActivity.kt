@@ -6,6 +6,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.adapter.CommentAdapter
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ActivityClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -18,6 +20,10 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private lateinit var dialog: AlertDialog
 
     private var currentProduct: BaloEntity? = null
+
+    private val comment = mutableListOf<String>()
+
+    private val commentAdapter by lazy { CommentAdapter(comment) }
 
     companion object {
 
@@ -47,7 +53,14 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         }
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        imgBack.setOnClickListener { finish() }
+        btnAdd.setOnClickListener {
+            //TODO
+        }
+        btnCard.setOnClickListener {
+            //TODO
+        }
     }
 
     private fun getProduct(id: String) {
@@ -70,7 +83,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     tvPrice.text = it.priceSell
                     if (it.comment.size > 0) {
                         tvRate.text = it.rate
-                        tvCountRate.text = it.comment.size.toString()
+                        tvCountRate.text = "${it.comment.size} người đánh giá"
                     } else {
                         tvRate.text = "Chưa có đánh giá"
                         tvCountRate.text = "Chưa có đánh giá"
@@ -84,6 +97,13 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                         llButton.visibility = View.VISIBLE
                         tvSoldOut.visibility = View.GONE
                     }
+                    comment.run {
+                        clear()
+                        addAll(it.comment)
+                    }
+                    tvValueDes.text = it.des
+                    rvRate.layoutManager = LinearLayoutManager(this@ClientDetailActivity)
+                    rvRate.adapter = commentAdapter
                 }
             }
         }

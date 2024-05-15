@@ -7,8 +7,6 @@ import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.firestore
 
 class ClientSearchVM : ViewModel() {
