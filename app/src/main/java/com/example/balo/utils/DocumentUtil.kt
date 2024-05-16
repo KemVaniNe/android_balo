@@ -2,8 +2,10 @@ package com.example.balo.utils
 
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
+import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
+import com.example.balo.data.model.enum.Cart
 import com.google.firebase.firestore.DocumentSnapshot
 
 object DocumentUtil {
@@ -30,6 +32,15 @@ object DocumentUtil {
             name = document.getString(Brand.NAME.property) ?: "",
             des = document.getString(Brand.DES.property) ?: "",
             pic = document.getString(Brand.PIC.property) ?: ""
+        )
+    }
+
+    fun convertDocToCart(document: DocumentSnapshot): CartEntity {
+        return CartEntity(
+            idCart = document.id,
+            idBalo = document.getString(Cart.ID_BALO.property) ?: "",
+            idUser = document.getString(Cart.ID_USER.property) ?: "",
+            quantity = document.getString(Cart.QUANTITY.property) ?: "0"
         )
     }
 }

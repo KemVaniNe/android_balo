@@ -12,8 +12,10 @@ import android.widget.ImageView
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
+import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
+import com.example.balo.data.model.enum.Cart
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
@@ -108,5 +110,17 @@ object Utils {
 
     fun brandToMap(brand: BrandEntity): Map<String, Any> {
         return MapObjectUtil.brandToMap(brand)
+    }
+
+    fun cartToMap(cart: CartEntity): Map<String, Any> {
+        return MapObjectUtil.cartToMap(cart)
+    }
+
+    fun convertDocToCart(document: DocumentSnapshot): CartEntity {
+        return DocumentUtil.convertDocToCart(document)
+    }
+
+    fun showQuantityChoose(context: Context, product: BaloEntity, listener: (String) -> Unit) {
+        return DialogUtil.showQuantityChoose(context, product, listener)
     }
 }

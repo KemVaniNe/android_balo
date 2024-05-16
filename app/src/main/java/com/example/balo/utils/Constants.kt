@@ -13,4 +13,5 @@ object Constants {
     const val ADMIN_ACCOUNT = 3
 
     const val ID_BRAND_OTHER = "123"
+    const val ID_GUEST = ""
 }

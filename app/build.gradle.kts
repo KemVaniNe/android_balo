@@ -14,7 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -66,6 +66,11 @@ dependencies {
 
     //Json
     implementation("com.google.code.gson:gson:2.10.1")
+
+    //kotpref
+    implementation("com.chibatching.kotpref:kotpref:2.13.1")
+    implementation("com.chibatching.kotpref:enum-support:2.13.1")
+    implementation("androidx.multidex:multidex:2.0.1")
 
 
 }

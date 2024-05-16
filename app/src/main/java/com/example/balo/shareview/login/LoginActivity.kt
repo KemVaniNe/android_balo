@@ -13,6 +13,8 @@ import com.example.balo.shareview.forgotpass.UpdatePassword
 import com.example.balo.shareview.register.RegisterActivity
 import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.client.clientmain.ClientMainActivity.Companion.EMPTY_ACCOUNT
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
 import com.google.gson.Gson
 
@@ -30,6 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        Pref.idUser = Constants.ID_GUEST
     }
 
     override fun initListener() = binding.run {
