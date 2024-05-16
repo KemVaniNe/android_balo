@@ -6,6 +6,7 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.enum.Cart
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -46,16 +47,22 @@ class ClientDetailVM : ViewModel() {
         cart: CartEntity,
         handleExits: () -> Unit,
         handleSuccess: () -> Unit,
-        handleFail: (String) -> Unit
+        handleFail: (String) -> Unit,
+        handleFull: () -> Unit,
     ) {
         db.collection(Collection.CART.collectionName)
             .whereEqualTo(Cart.ID_USER.property, cart.idUser)
-            .whereEqualTo(Cart.ID_BALO.property, cart.idBalo)
             .get()
             .addOnSuccessListener { document ->
-                if(document.size() > 0) {
-                    handleExits.invoke()
+                if (document.size() > Constants.MAX_CART) {
+                    handleFull.invoke()
                 } else {
+                    for (doc in document) {
+                        if ((doc.getString(Cart.ID_BALO.property) ?: "") == cart.idBalo) {
+                            handleExits.invoke()
+                            return@addOnSuccessListener
+                        }
+                    }
                     createNewCart(cart, handleSuccess, handleFail)
                 }
             }

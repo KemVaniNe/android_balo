@@ -71,8 +71,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun getProduct(id: String) {
         if (!dialog.isShowing) dialog.show()
         viewModel.getProducts(id) {
-            if (dialog.isShowing) dialog.dismiss()
-            toast(it)
+            toastDialog(it)
             finish()
         }
     }
@@ -127,20 +126,21 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     quantity = quantity
                 )
                 if (!dialog.isShowing) dialog.show()
-                viewModel.createCart(cartEntity,
-                    handleExits = {
-                        toast(getString(R.string.cart_exits))
-                        if (dialog.isShowing) dialog.dismiss()
-                    },
-                    handleSuccess = {
-                        toast(getString(R.string.add_success_cart))
-                        if (dialog.isShowing) dialog.dismiss()
-                    },
-                    handleFail = { error ->
-                        toast("ERROR: $error")
-                        if (dialog.isShowing) dialog.dismiss()
-                    })
+                createCart(cartEntity)
             }
         }
+    }
+
+    private fun createCart(cartEntity: CartEntity) {
+        viewModel.createCart(cartEntity,
+            handleExits = { toastDialog(getString(R.string.cart_exits)) },
+            handleSuccess = { toastDialog(getString(R.string.add_success_cart)) },
+            handleFail = { error -> toastDialog("ERROR: $error") },
+            handleFull = { toastDialog(getString(R.string.cart_full)) })
+    }
+
+    private fun toastDialog(notification: String) {
+        toast(notification)
+        if (dialog.isShowing) dialog.dismiss()
     }
 }

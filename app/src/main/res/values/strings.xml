@@ -98,4 +98,5 @@
     <string name="sold_out">Hết hàng</string>
     <string name="add_success_cart">Thêm vào giỏ hàng thành công!</string>
     <string name="cart_exits">Sản phẩm đã có trong giỏ hàng</string>
+    <string name="cart_full">Giỏ hàng đã đầy!!</string>
 </resources>

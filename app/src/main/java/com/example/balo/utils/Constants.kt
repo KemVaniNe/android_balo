@@ -14,4 +14,5 @@ object Constants {
 
     const val ID_BRAND_OTHER = "123"
     const val ID_GUEST = ""
+    const val MAX_CART = 4
 }
