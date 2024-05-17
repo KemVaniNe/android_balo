@@ -1,5 +1,6 @@
 package com.example.balo.client.clientdetail
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -7,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.R
 import com.example.balo.adapter.CommentAdapter
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.data.model.CartEntity
 import com.example.balo.databinding.ActivityClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
 
 class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
@@ -38,7 +43,9 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     override fun viewBinding(inflate: LayoutInflater): ActivityClientDetailBinding =
         ActivityClientDetailBinding.inflate(inflate)
 
-    override fun initView() {
+    override fun initView() = binding.rvRate.run {
+        layoutManager = LinearLayoutManager(this@ClientDetailActivity)
+        adapter = commentAdapter
     }
 
     override fun initData() {
@@ -58,54 +65,82 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         btnAdd.setOnClickListener {
             //TODO
         }
-        btnCard.setOnClickListener {
-            //TODO
-        }
+        btnCard.setOnClickListener { handleCart() }
     }
 
     private fun getProduct(id: String) {
         if (!dialog.isShowing) dialog.show()
         viewModel.getProducts(id) {
-            if (dialog.isShowing) dialog.dismiss()
-            toast(it)
+            toastDialog(it)
             finish()
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.productCurrent.observe(this) {
             if (it != null) {
                 if (dialog.isShowing) dialog.dismiss()
                 currentProduct = it
-                binding.run {
-                    Utils.displayBase64Image(it.pic, imgPic)
-                    tvName.text = it.name
-                    tvPrice.text = it.priceSell
-                    if (it.comment.size > 0) {
-                        tvRate.text = it.rate
-                        tvCountRate.text = "${it.comment.size} người đánh giá"
-                    } else {
-                        tvRate.text = "Chưa có đánh giá"
-                        tvCountRate.text = "Chưa có đánh giá"
-                        imgStar.visibility = View.GONE
-                    }
-                    tvSell.text = it.sell
-                    if ((it.quantitiy.toInt() - it.sell.toInt()) < 1) {
-                        llButton.visibility = View.GONE
-                        tvSoldOut.visibility = View.VISIBLE
-                    } else {
-                        llButton.visibility = View.VISIBLE
-                        tvSoldOut.visibility = View.GONE
-                    }
-                    comment.run {
-                        clear()
-                        addAll(it.comment)
-                    }
-                    tvValueDes.text = it.des
-                    rvRate.layoutManager = LinearLayoutManager(this@ClientDetailActivity)
-                    rvRate.adapter = commentAdapter
+                comment.run {
+                    clear()
+                    addAll(it.comment)
                 }
+                setView(it)
+                commentAdapter.notifyDataSetChanged()
             }
         }
+    }
+
+    private fun setView(product: BaloEntity) = binding.run {
+        Utils.displayBase64Image(product.pic, imgPic)
+        tvName.text = product.name
+        tvPrice.text = product.priceSell
+        if (product.comment.size > 0) {
+            tvRate.text = product.rate
+            tvCountRate.text = "${product.comment.size} người đánh giá"
+        } else {
+            tvRate.text = "Chưa có đánh giá"
+            tvCountRate.text = "Chưa có đánh giá"
+            imgStar.visibility = View.GONE
+        }
+        tvSell.text = product.sell
+        if ((product.quantitiy.toInt() - product.sell.toInt()) < 1) {
+            llButton.visibility = View.GONE
+            tvSoldOut.visibility = View.VISIBLE
+        } else {
+            llButton.visibility = View.VISIBLE
+            tvSoldOut.visibility = View.GONE
+        }
+        tvValueDes.text = product.des
+    }
+
+    private fun handleCart() {
+        if (Pref.idUser == Constants.ID_GUEST) {
+            toast(getString(R.string.you_need_login))
+        } else {
+            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                val cartEntity = CartEntity(
+                    idUser = Pref.idUser,
+                    idBalo = currentProduct!!.id,
+                    quantity = quantity
+                )
+                if (!dialog.isShowing) dialog.show()
+                createCart(cartEntity)
+            }
+        }
+    }
+
+    private fun createCart(cartEntity: CartEntity) {
+        viewModel.createCart(cartEntity,
+            handleExits = { toastDialog(getString(R.string.cart_exits)) },
+            handleSuccess = { toastDialog(getString(R.string.add_success_cart)) },
+            handleFail = { error -> toastDialog("ERROR: $error") },
+            handleFull = { toastDialog(getString(R.string.cart_full)) })
+    }
+
+    private fun toastDialog(notification: String) {
+        toast(notification)
+        if (dialog.isShowing) dialog.dismiss()
     }
 }

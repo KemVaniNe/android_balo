@@ -12,6 +12,7 @@
         tools:ignore="SelectedPhotoAccess" />
 
     <application
+        android:name=".BaloApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
+        <activity
+            android:name=".client.clientcart.ClientCartActivity"
+            android:exported="false" />
         <activity
             android:name=".client.clientdetail.ClientDetailActivity"
             android:exported="false" />

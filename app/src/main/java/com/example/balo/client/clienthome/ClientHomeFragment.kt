@@ -2,6 +2,7 @@ package com.example.balo.client.clienthome
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,8 @@ import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.viewpager.BannerViewPagerAdapter
 import com.example.balo.adapter.brand.BrandAdapter
+import com.example.balo.client.clientcart.ClientCartActivity
+import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.client.clientsearch.ClientSearchActivity
 import com.example.balo.utils.Utils
@@ -54,6 +57,9 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
             context?.let {
                 startActivity(ClientSearchActivity.newIntent(it, ClientSearchActivity.EMPTY_BRAND))
             }
+        }
+        imgCart.setOnClickListener {
+            context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
         }
     }
 

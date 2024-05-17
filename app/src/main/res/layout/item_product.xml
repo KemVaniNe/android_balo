@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="16dp"
-    android:orientation="vertical">
+    android:layout_marginTop="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgCheck"
@@ -62,9 +63,13 @@
 
                 <ImageView
                     android:id="@+id/imgMinus"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_minus_quantity"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,16 +87,40 @@
 
                 <ImageView
                     android:id="@+id/imgAdd"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_add_quantity" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvSoldOut"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.7"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:text="@string/sold_out"
+            android:textSize="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+
+    <View
+        android:id="@+id/viewLineBrand"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_line"
+        app:layout_constraintTop_toBottomOf="@id/clTop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

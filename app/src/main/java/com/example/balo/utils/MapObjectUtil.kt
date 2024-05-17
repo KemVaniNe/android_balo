@@ -2,8 +2,10 @@ package com.example.balo.utils
 
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
+import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
+import com.example.balo.data.model.enum.Cart
 
 object MapObjectUtil {
     fun productToMap(product: BaloEntity): Map<String, Any> {
@@ -26,6 +28,14 @@ object MapObjectUtil {
             Brand.NAME.property to brand.name,
             Brand.DES.property to if (brand.des == "") "Không có!" else brand.des,
             Brand.PIC.property to brand.pic
+        )
+    }
+
+    fun cartToMap(cart: CartEntity): Map<String, Any> {
+        return hashMapOf(
+            Cart.ID_BALO.property to cart.idBalo,
+            Cart.ID_USER.property to cart.idUser,
+            Cart.QUANTITY.property to cart.quantity
         )
     }
 
