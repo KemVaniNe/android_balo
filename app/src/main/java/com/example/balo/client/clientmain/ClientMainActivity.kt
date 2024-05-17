@@ -62,10 +62,6 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
                         changeCurrentFragment(Constants.USER_HOME)
                     }
 
-                    R.id.menu_favorite -> {
-                        changeCurrentFragment(Constants.USER_CART)
-                    }
-
                     R.id.menu_account -> {
                         changeCurrentFragment(Constants.USER_ACCOUNT)
                     }

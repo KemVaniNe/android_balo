@@ -20,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
+import java.lang.Exception
 
 object Utils {
     fun hashPassword(password: String): String {
@@ -122,5 +123,13 @@ object Utils {
 
     fun showQuantityChoose(context: Context, product: BaloEntity, listener: (String) -> Unit) {
         return DialogUtil.showQuantityChoose(context, product, listener)
+    }
+
+    fun getAvailableProduct(quantity: String, sell: String): String {
+        return try {
+            (quantity.toInt() - sell.toInt()).toString()
+        } catch (e: Exception) {
+            "0"
+        }
     }
 }

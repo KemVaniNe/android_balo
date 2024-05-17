@@ -23,6 +23,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".client.clientcart.ClientCartActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.clientdetail.ClientDetailActivity"
             android:exported="false" />
         <activity
