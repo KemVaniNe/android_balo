@@ -99,4 +99,9 @@
     <string name="add_success_cart">Thêm vào giỏ hàng thành công!</string>
     <string name="cart_exits">Sản phẩm đã có trong giỏ hàng</string>
     <string name="cart_full">Giỏ hàng đã đầy!!</string>
+    <string name="empty_cart">Chưa có sản phẩm nào trong giỏ hàng</string>
+    <string name="total">Tổng</string>
+    <string name="buy">Mua</string>
+    <string name="delete_confirm">Bạn có muốn xóa không?</string>
+    <string name="you_not_choose_cart">Bạn cần phải chọn sản phẩm để mua</string>
 </resources>

@@ -8,5 +8,6 @@ data class CartEntity(
     var nameBalo: String = "",
     var price: String = "0",
     var pic: String = "",
-    var max: String = "0"
+    var max: String = "0",
+    var isSelect: Boolean = false
 )

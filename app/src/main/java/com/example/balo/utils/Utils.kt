@@ -13,14 +13,9 @@ import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
-import com.example.balo.data.model.enum.Balo
-import com.example.balo.data.model.enum.Brand
-import com.example.balo.data.model.enum.Cart
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
 
 object Utils {
     fun hashPassword(password: String): String {
@@ -125,11 +120,15 @@ object Utils {
         return DialogUtil.showQuantityChoose(context, product, listener)
     }
 
-    fun getAvailableProduct(quantity: String, sell: String): String {
-        return try {
-            (quantity.toInt() - sell.toInt()).toString()
-        } catch (e: Exception) {
-            "0"
+    fun calculate(quantity: String, sell: String, isMinus: Boolean = false): String {
+        return if (isMinus) {
+            (stringToInt(quantity) - stringToInt(sell)).toString()
+        } else {
+            (stringToInt(quantity) + stringToInt(sell)).toString()
         }
+    }
+
+    fun stringToInt(value: String): Int {
+        return value.toIntOrNull() ?: 0
     }
 }

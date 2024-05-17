@@ -32,7 +32,7 @@ object DialogUtil {
 
                 Option.DELETE -> {
                     tvTitle.text = context.getString(R.string.confirm)
-                    tvDes.text = context.getString(R.string.delete_brand_mess)
+                    tvDes.text = context.getString(R.string.delete_confirm)
                 }
             }
             tvYes.setOnClickListener {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.balo.R
 import com.example.balo.data.model.CartEntity
 import com.example.balo.databinding.ItemProductBinding
 import com.example.balo.utils.Utils
@@ -12,9 +13,10 @@ import com.example.balo.utils.Utils
 class ClientCartAdapter(
     private var list: List<CartEntity>,
     private val listener: (Int) -> Unit,
-    private val listenerDel: () -> Unit
+    private val listenChange: (Pair<Int, String>) -> Unit
 ) : RecyclerView.Adapter<ClientCartAdapter.VH>() {
     inner class VH(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("NotifyDataSetChanged")
         fun onBind(item: CartEntity) {
             binding.run {
                 tvName.text = item.nameBalo
@@ -36,16 +38,19 @@ class ClientCartAdapter(
                     val nextValue = tvNum.text.toString().toInt() + 1
                     tvNum.text = nextValue.toString()
                     if (nextValue == max) imgAdd.visibility = View.INVISIBLE
+                    listenChange.invoke(Pair(adapterPosition, tvNum.text.toString()))
                 }
                 imgMinus.setOnClickListener {
                     if (tvNum.text.toString().toInt() == 1) {
-                        listenerDel.invoke()
+                        listenChange.invoke(Pair(adapterPosition, "0"))
                     } else {
                         imgAdd.visibility = View.VISIBLE
                         val nextValue = tvNum.text.toString().toInt() - 1
                         tvNum.text = nextValue.toString()
+                        listenChange.invoke(Pair(adapterPosition, tvNum.text.toString()))
                     }
                 }
+                imgCheck.setImageResource(if (item.isSelect) R.drawable.bg_check_tick else R.drawable.bg_check)
             }
         }
     }
@@ -57,6 +62,7 @@ class ClientCartAdapter(
         itemView.setOnClickListener {
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 listener.invoke(adapterPosition)
+                notifyDataSetChanged()
             }
         }
     }

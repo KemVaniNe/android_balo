@@ -63,9 +63,13 @@
 
                 <ImageView
                     android:id="@+id/imgMinus"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_minus_quantity"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -83,13 +87,16 @@
 
                 <ImageView
                     android:id="@+id/imgAdd"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_add_quantity" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
