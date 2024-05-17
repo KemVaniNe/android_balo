@@ -1,6 +1,5 @@
 package com.example.balo.shareview.forgotpass
 
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +10,6 @@ import com.example.balo.utils.Utils
 
 class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
 
-    private lateinit var dialog: AlertDialog
-
     private lateinit var viewModel: UpdatePassViewModel
 
     private var isSendCode = true
@@ -20,7 +17,6 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
         ActivityUpdatePasswordBinding.inflate(inflate)
 
     override fun initView() {
-        dialog = Utils.showProgressDialog(this)
     }
 
     override fun initData() {

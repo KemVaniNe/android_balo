@@ -77,12 +77,20 @@ object Utils {
         return DialogUtil.showOption(context, type, listener)
     }
 
-    fun showBottomBrand(
+    fun bottomUpdatePass(
         context: Context,
-        brands: List<BrandEntity>,
-        listener: (BrandEntity?) -> Unit
+        user: UserEntity,
+        listener: (UserEntity) -> Unit,
     ) {
-        return showBottomBrand(context, brands, listener)
+        return BottomSheetUtils.bottomUpdatePass(context, user, listener)
+    }
+
+    fun bottomUpdateInfo(
+        context: Context,
+        user: UserEntity,
+        listener: (UserEntity) -> Unit,
+    ) {
+        return BottomSheetUtils.bottomUpdateInfo(context, user, listener)
     }
 
     fun otherBrand(id: String): BrandEntity {
@@ -137,4 +145,9 @@ object Utils {
     fun convertDocToUser(document: DocumentSnapshot): UserEntity {
         return DocumentUtil.convertDocToUser(document)
     }
+
+    fun userToMap(user: UserEntity): Map<String, Any> {
+        return MapObjectUtil.userToMap(user)
+    }
+
 }

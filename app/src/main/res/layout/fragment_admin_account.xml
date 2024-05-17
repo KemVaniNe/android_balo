@@ -21,49 +21,203 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="136dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <LinearLayout
+                android:id="@+id/llInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/bg_option"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_unknow" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="2"
+                        android:text="@string/username"
+                        android:textColor="@color/gray"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/username"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="8dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/bg_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_phone" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="2"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/phone"
+                        android:textColor="@color/gray"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/username"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_user"
+                    android:drawablePadding="8dp"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="@string/update_info" />
+
+                <TextView
+                    android:id="@+id/tvUpdatePass"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_password"
+                    android:drawablePadding="8dp"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="@string/update_password" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvClient"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_client"
+                    android:drawablePadding="8dp"
+                    android:elevation="20dp"
+                    android:gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:text="@string/client" />
+
+                <TextView
+                    android:id="@+id/tvOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_order"
+                    android:drawablePadding="8dp"
+                    android:elevation="4dp"
+                    android:gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:text="@string/order" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvInfo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:id="@+id/tvLogOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_option"
-                android:drawableTop="@drawable/ic_password"
+                android:drawableTop="@drawable/ic_logout"
                 android:drawablePadding="8dp"
-                android:elevation="20dp"
+                android:elevation="4dp"
                 android:gravity="center_horizontal"
                 android:padding="20dp"
-                android:text="@string/update_password" />
-
-            <TextView
-                android:id="@+id/tvUpdatePass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_option"
-                android:drawableTop="@drawable/ic_client"
-                android:drawablePadding="8dp"
-                android:elevation="20dp"
-                android:gravity="center_horizontal"
-                android:padding="20dp"
-                android:text="@string/client" />
+                android:text="@string/log_out"
+                android:visibility="gone" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

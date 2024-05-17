@@ -1,6 +1,5 @@
 package com.example.balo.shareview.register
 
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -17,15 +16,12 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
 
     private var isSendCode = false
 
-    private lateinit var dialog: AlertDialog
-
     private var phoneVerify: String = ""
 
     override fun viewBinding(inflate: LayoutInflater): ActivityRegisterBinding =
         ActivityRegisterBinding.inflate(inflate)
 
     override fun initView() {
-        dialog = Utils.showProgressDialog(this)
     }
 
     override fun initData() {

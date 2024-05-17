@@ -1,17 +1,16 @@
-package com.example.balo.client.clientaccout
+package com.example.balo.admin.adminacount
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Collection
-import com.example.balo.data.model.enum.User
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
-class ClientAccountVM : ViewModel() {
+class AdminAccountVM: ViewModel() {
     private val _account = MutableLiveData<UserEntity?>(null)
     val account = _account
 

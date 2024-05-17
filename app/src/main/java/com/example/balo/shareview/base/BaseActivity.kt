@@ -1,5 +1,6 @@
 package com.example.balo.shareview.base
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -9,17 +10,20 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.example.balo.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 abstract class BaseActivity<B : ViewBinding> : FragmentActivity() {
     protected lateinit var binding: B
+    protected lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = viewBinding(LayoutInflater.from(this))
         setContentView(binding.root)
+        dialog = Utils.showProgressDialog(this)
         initData()
         initView()
         initListener()

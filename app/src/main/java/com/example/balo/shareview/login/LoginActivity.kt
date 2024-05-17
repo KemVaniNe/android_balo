@@ -1,6 +1,5 @@
 package com.example.balo.shareview.login
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
@@ -15,18 +14,13 @@ import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
-
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
-
-    private lateinit var dialog: AlertDialog
 
     private lateinit var viewModel: LoginViewModel
     override fun viewBinding(inflate: LayoutInflater): ActivityLoginBinding =
         ActivityLoginBinding.inflate(inflate)
 
     override fun initView() {
-        dialog = Utils.showProgressDialog(this)
     }
 
     override fun initData() {
@@ -78,7 +72,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun goToNext(account: UserEntity) {
         Pref.idUser = account.id
         if (account.role) {
-            startActivity(AdminMainActivity.newIntent(this, Gson().toJson(account)))
+            startActivity(Intent(this, AdminMainActivity::class.java))
         } else {
             startActivity(Intent(this, ClientMainActivity::class.java))
         }

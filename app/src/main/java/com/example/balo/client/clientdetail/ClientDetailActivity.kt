@@ -1,7 +1,6 @@
 package com.example.balo.client.clientdetail
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -21,8 +20,6 @@ import com.example.balo.utils.Utils
 class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     private lateinit var viewModel: ClientDetailVM
-
-    private lateinit var dialog: AlertDialog
 
     private var currentProduct: BaloEntity? = null
 
@@ -49,7 +46,6 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[ClientDetailVM::class.java]
         listenVM()
         val intent = intent

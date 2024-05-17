@@ -1,7 +1,6 @@
 package com.example.balo.admin.managerproduct
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -20,8 +19,6 @@ import com.example.balo.utils.Utils
 class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
     private val products = mutableListOf<BaloEntity>()
-
-    private lateinit var dialog: AlertDialog
 
     private lateinit var viewModel: ManagerProductVM
 
@@ -57,7 +54,6 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[ManagerProductVM::class.java]
         listenVM()
         updateProduct()

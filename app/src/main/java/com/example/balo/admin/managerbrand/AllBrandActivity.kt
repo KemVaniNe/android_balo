@@ -1,7 +1,6 @@
 package com.example.balo.admin.managerbrand
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -19,8 +18,6 @@ import com.example.balo.utils.Utils
 class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
     private lateinit var viewModel: AdminBrandVM
-
-    private lateinit var dialog: AlertDialog
 
     private val brands = mutableListOf<BrandEntity>()
 
@@ -60,7 +57,6 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
         listenData()
     }

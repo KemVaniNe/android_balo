@@ -26,7 +26,6 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val banners = mutableListOf<Int>()
     private val viewPagerAdapter by lazy { BannerViewPagerAdapter(banners) }
     private lateinit var viewModel: ClientHomeVM
-    private lateinit var dialog: AlertDialog
     private val brands = mutableListOf<BrandEntity>()
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
@@ -44,9 +43,6 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initData() {
-        context?.let {
-            dialog = Utils.showProgressDialog(it)
-        }
         viewModel = ViewModelProvider(this)[ClientHomeVM::class.java]
         getBrands()
         listenVM()
