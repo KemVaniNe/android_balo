@@ -85,4 +85,7 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
         //TODO
     }
 
+    fun finishAct() {
+        finish()
+    }
 }

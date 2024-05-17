@@ -104,4 +104,5 @@
     <string name="buy">Mua</string>
     <string name="delete_confirm">Bạn có muốn xóa không?</string>
     <string name="you_not_choose_cart">Bạn cần phải chọn sản phẩm để mua</string>
+    <string name="log_out">Đăng xuất</string>
 </resources>

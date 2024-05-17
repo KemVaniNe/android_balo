@@ -1,9 +1,13 @@
 package com.example.balo.client.clientaccout
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.example.balo.client.clientcart.ClientCartActivity
+import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.databinding.FragmentAccountBinding
 import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.shareview.login.LoginActivity
 
 class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     override fun initView() {
@@ -17,7 +21,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
             //TODO
         }
         tvCart.setOnClickListener {
-            //TODO
+            context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
         }
         tvContact.setOnClickListener {
             //TODO
@@ -30,6 +34,10 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
         }
         tvUpdatePass.setOnClickListener {
             //TODO
+        }
+        tvLogOut.setOnClickListener {
+            context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
+            (context as ClientMainActivity).finishAct()
         }
     }
 
