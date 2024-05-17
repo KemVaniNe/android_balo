@@ -105,4 +105,7 @@
     <string name="delete_confirm">Bạn có muốn xóa không?</string>
     <string name="you_not_choose_cart">Bạn cần phải chọn sản phẩm để mua</string>
     <string name="log_out">Đăng xuất</string>
+    <string name="password_confirm">Xác nhận mật khẩu</string>
+    <string name="not_fill_all">Vui lòng nhập đủ thông tin!</string>
+    <string name="wrong_password">Mật khẩu không đúng</string>
 </resources>

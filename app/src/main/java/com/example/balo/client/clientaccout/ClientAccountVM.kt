@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.data.model.enum.User
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
@@ -26,5 +27,20 @@ class ClientAccountVM : ViewModel() {
                     handleFail.invoke(exception.message.toString())
                 }
         }
+    }
+
+    fun updatePassword(
+        user: UserEntity,
+        handleSuccess: () -> Unit,
+        handleError: (String) -> Unit
+    ) {
+        val updateData = Utils.userToMap(user)
+        db.collection(Collection.USER.collectionName).document(user.id)
+            .update(updateData)
+            .addOnSuccessListener {
+                _account.postValue(user)
+                handleSuccess.invoke()
+            }
+            .addOnFailureListener { e -> handleError.invoke(e.message.toString()) }
     }
 }

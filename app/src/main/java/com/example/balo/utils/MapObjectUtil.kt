@@ -3,9 +3,11 @@ package com.example.balo.utils
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Cart
+import com.example.balo.data.model.enum.User
 
 object MapObjectUtil {
     fun productToMap(product: BaloEntity): Map<String, Any> {
@@ -39,4 +41,10 @@ object MapObjectUtil {
         )
     }
 
+    fun userToMap(user: UserEntity): Map<String, Any> {
+        return hashMapOf(
+            User.PASSWORD.property to user.password,
+            User.NAME.property to user.username,
+        )
+    }
 }
