@@ -12,7 +12,6 @@ import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.shareview.forgotpass.UpdatePassword
 import com.example.balo.shareview.register.RegisterActivity
 import com.example.balo.client.clientmain.ClientMainActivity
-import com.example.balo.client.clientmain.ClientMainActivity.Companion.EMPTY_ACCOUNT
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
@@ -44,7 +43,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             startActivity(Intent(this@LoginActivity, UpdatePassword::class.java))
         }
         tvLater.setOnClickListener {
-            startActivity(ClientMainActivity.newIntent(this@LoginActivity, EMPTY_ACCOUNT))
+            Pref.idUser = Constants.ID_GUEST
+            startActivity(Intent(this@LoginActivity, ClientMainActivity::class.java))
         }
     }
 
@@ -76,10 +76,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun goToNext(account: UserEntity) {
+        Pref.idUser = account.id
         if (account.role) {
             startActivity(AdminMainActivity.newIntent(this, Gson().toJson(account)))
         } else {
-            startActivity(ClientMainActivity.newIntent(this, Gson().toJson(account)))
+            startActivity(Intent(this, ClientMainActivity::class.java))
         }
         finish()
     }

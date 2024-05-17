@@ -13,6 +13,8 @@ import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.UserEntity
+import com.example.balo.data.model.enum.User
 import com.google.firebase.firestore.DocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
@@ -130,5 +132,9 @@ object Utils {
 
     fun stringToInt(value: String): Int {
         return value.toIntOrNull() ?: 0
+    }
+
+    fun convertDocToUser(document: DocumentSnapshot): UserEntity {
+        return DocumentUtil.convertDocToUser(document)
     }
 }
