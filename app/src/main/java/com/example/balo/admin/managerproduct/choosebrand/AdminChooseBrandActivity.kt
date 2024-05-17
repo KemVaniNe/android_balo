@@ -1,7 +1,6 @@
 package com.example.balo.admin.managerproduct.choosebrand
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import com.example.balo.adapter.brand.BrandBottomAdapter
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminChooseBrandBinding
 import com.example.balo.shareview.base.BaseActivity
-import com.example.balo.utils.Utils
 import com.google.gson.Gson
 
 class AdminChooseBrandActivity : BaseActivity<ActivityAdminChooseBrandBinding>() {
@@ -20,8 +18,6 @@ class AdminChooseBrandActivity : BaseActivity<ActivityAdminChooseBrandBinding>()
     private val brands = mutableListOf<BrandEntity>()
 
     private var viewModel = ChooseBrandVM()
-
-    private lateinit var dialog: AlertDialog
 
     private var brand: BrandEntity? = null
 
@@ -51,7 +47,6 @@ class AdminChooseBrandActivity : BaseActivity<ActivityAdminChooseBrandBinding>()
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[ChooseBrandVM::class.java]
         listenVM()
         val intent = intent

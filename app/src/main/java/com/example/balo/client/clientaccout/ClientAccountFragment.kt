@@ -1,6 +1,5 @@
 package com.example.balo.client.clientaccout
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +15,6 @@ import com.example.balo.shareview.login.LoginActivity
 import com.example.balo.utils.Utils
 
 class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
-
-    private lateinit var dialog: AlertDialog
-
     private lateinit var viewModel: ClientAccountVM
 
     private var user: UserEntity? = null
@@ -27,9 +23,6 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     override fun initData() {
-        context?.let {
-            dialog = Utils.showProgressDialog(it)
-        }
         viewModel = ViewModelProvider(this)[ClientAccountVM::class.java]
         listenVM()
         viewModel.updateAccount { e -> toast("ERROR $e") }

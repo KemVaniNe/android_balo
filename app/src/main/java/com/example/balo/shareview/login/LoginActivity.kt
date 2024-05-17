@@ -1,6 +1,5 @@
 package com.example.balo.shareview.login
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
@@ -17,14 +16,11 @@ import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
-    private lateinit var dialog: AlertDialog
-
     private lateinit var viewModel: LoginViewModel
     override fun viewBinding(inflate: LayoutInflater): ActivityLoginBinding =
         ActivityLoginBinding.inflate(inflate)
 
     override fun initView() {
-        dialog = Utils.showProgressDialog(this)
     }
 
     override fun initData() {

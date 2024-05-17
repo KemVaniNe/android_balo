@@ -1,6 +1,5 @@
 package com.example.balo.admin.managerbrand
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,8 +18,6 @@ import com.example.balo.utils.Utils
 class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
     private var uri: Uri? = null
-
-    private lateinit var dialog: AlertDialog
 
     private lateinit var viewModel: AdminBrandVM
 
@@ -45,7 +42,6 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
         listenVM()
         val intent = intent

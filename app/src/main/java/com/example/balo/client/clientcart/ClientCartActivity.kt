@@ -1,7 +1,6 @@
 package com.example.balo.client.clientcart
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -24,8 +23,6 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
 
     private lateinit var viewModel: ClientCartVM
 
-    private lateinit var dialog: AlertDialog
-
     private val chooses = mutableListOf<CartEntity>()
 
     private val cartAdapter by lazy(LazyThreadSafetyMode.NONE) {
@@ -43,7 +40,6 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[ClientCartVM::class.java]
         listenVM()
         updateCart()

@@ -22,10 +22,12 @@ import com.google.gson.Gson
 
 class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
 
-    private lateinit var dialog: AlertDialog
     private lateinit var viewModel: ClientSearchVM
+
     private var brand: BrandEntity? = null
+
     private val products = mutableListOf<BaloEntity>()
+
     private val productAdapter by lazy {
         UserProductAdapter(products) { pos ->
             startActivity(ClientDetailActivity.newIntent(this, products[pos].id))
@@ -59,7 +61,6 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[ClientSearchVM::class.java]
         listenVM()
         val intent = intent

@@ -1,6 +1,5 @@
 package com.example.balo.admin.adminacount
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,6 @@ import com.example.balo.shareview.login.LoginActivity
 import com.example.balo.utils.Utils
 
 class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
-    private lateinit var dialog: AlertDialog
-
     private lateinit var viewModel: AdminAccountVM
 
     private var user: UserEntity? = null
@@ -24,9 +21,6 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     }
 
     override fun initData() {
-        context?.let {
-            dialog = Utils.showProgressDialog(it)
-        }
         viewModel = ViewModelProvider(this)[AdminAccountVM::class.java]
         listenVM()
         viewModel.updateAccount { e -> toast("ERROR $e") }

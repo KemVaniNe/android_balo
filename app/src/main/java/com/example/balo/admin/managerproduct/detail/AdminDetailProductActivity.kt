@@ -1,6 +1,5 @@
 package com.example.balo.admin.managerproduct.detail
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,8 +22,6 @@ import com.google.gson.Gson
 class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     private var uri: Uri? = null
-
-    private lateinit var dialog: AlertDialog
 
     private lateinit var viewModel: AdminDetailProductVM
 
@@ -52,7 +49,6 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     }
 
     override fun initData() {
-        dialog = Utils.showProgressDialog(this)
         viewModel = ViewModelProvider(this)[AdminDetailProductVM::class.java]
         listenVM()
         val intent = intent

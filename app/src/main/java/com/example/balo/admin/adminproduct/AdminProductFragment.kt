@@ -23,9 +23,6 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.utils.Utils
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
-
-    private lateinit var dialog: AlertDialog
-
     private lateinit var viewModel: AdminProductVM
 
     private val brands = mutableListOf<BrandEntity>()
@@ -59,9 +56,6 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     }
 
     override fun initView() = binding.run {
-        context?.let {
-            dialog = Utils.showProgressDialog(it)
-        }
         updateProduct()
         updateBrands()
         rvBrand.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
