@@ -85,6 +85,14 @@ object Utils {
         return BottomSheetUtils.bottomUpdatePass(context, user, listener)
     }
 
+    fun bottomUpdateInfo(
+        context: Context,
+        user: UserEntity,
+        listener: (UserEntity) -> Unit,
+    ) {
+        return BottomSheetUtils.bottomUpdateInfo(context, user, listener)
+    }
+
     fun otherBrand(id: String): BrandEntity {
         return BrandEntity(
             id = Constants.ID_BRAND_OTHER,

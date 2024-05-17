@@ -29,7 +29,7 @@ class ClientAccountVM : ViewModel() {
         }
     }
 
-    fun updatePassword(
+    fun updateInfo(
         user: UserEntity,
         handleSuccess: () -> Unit,
         handleError: (String) -> Unit

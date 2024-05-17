@@ -48,22 +48,8 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
         tvOrder.setOnClickListener {
             //TODO
         }
-        tvInfo.setOnClickListener {
-            //TODO
-        }
-        tvUpdatePass.setOnClickListener {
-            context?.let {
-                Utils.bottomUpdatePass(it, user!!) {
-                    if (!dialog.isShowing) dialog.show()
-                    viewModel.updatePassword(user!!,
-                        handleSuccess = { toast(getString(R.string.update_password_success)) },
-                        handleError = { error ->
-                            if (dialog.isShowing) dialog.dismiss()
-                            toast("ERROR $error")
-                        })
-                }
-            }
-        }
+        tvInfo.setOnClickListener { handleUpdateInfo() }
+        tvUpdatePass.setOnClickListener { handleUpdatePass() }
         tvLogOut.setOnClickListener {
             context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
             (context as ClientMainActivity).finishAct()
@@ -88,5 +74,23 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                 }
             }
         }
+    }
+
+    private fun handleUpdatePass() {
+        context?.let { Utils.bottomUpdatePass(it, user!!) { updateInfo() } }
+    }
+
+    private fun handleUpdateInfo() {
+        context?.let { Utils.bottomUpdateInfo(it, user!!) { updateInfo() } }
+    }
+
+    private fun updateInfo() {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.updateInfo(user!!,
+            handleSuccess = { toast(getString(R.string.update_password_success)) },
+            handleError = { error ->
+                if (dialog.isShowing) dialog.dismiss()
+                toast("ERROR $error")
+            })
     }
 }
