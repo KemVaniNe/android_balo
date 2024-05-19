@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
+import com.example.balo.client.clientAddress.ClientAddressActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.data.model.UserEntity
@@ -30,7 +31,9 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun initListener() = binding.run {
         tvAddress.setOnClickListener {
-            //TODO
+            context?.let {
+                startActivityForResult(Intent(it, ClientAddressActivity::class.java), 123)
+            }
         }
         tvCart.setOnClickListener {
             context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
