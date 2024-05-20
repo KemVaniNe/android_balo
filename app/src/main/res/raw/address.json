@@ -11251,47 +11251,228 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Biên Hòa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Trảng Dài",
+            "Phường Tân Phong",
+            "Phường Tân Biên",
+            "Phường Hố Nai",
+            "Phường Tân Hòa",
+            "Phường Tân Hiệp",
+            "Phường Bửu Long",
+            "Phường Tân Tiến",
+            "Phường Tam Hiệp",
+            "Phường Long Bình",
+            "Phường Quang Vinh",
+            "Phường Tân Mai",
+            "Phường Thống Nhất",
+            "Phường Trung Dũng",
+            "Phường Tam Hòa",
+            "Phường Hòa Bình",
+            "Phường Quyết Thắng",
+            "Phường Thanh Bình",
+            "Phường Bình Đa",
+            "Phường An Bình",
+            "Phường Bửu Hòa",
+            "Phường Long Bình Tân",
+            "Phường Tân Vạn",
+            "Phường Tân Hạnh",
+            "Phường Hiệp Hòa",
+            "Phường Hóa An",
+            "Phường An Hòa",
+            "Phường Tam Phước",
+            "Phường Phước Tân",
+            "Xã Long Hưng"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Long Khánh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Xuân Trung",
+            "Phường Xuân Thanh",
+            "Phường Xuân Bình",
+            "Phường Xuân An",
+            "Phường Xuân Hoà",
+            "Phường Phú Bình",
+            "Xã Bình Lộc",
+            "Xã Bảo Quang",
+            "Phường Suối Tre",
+            "Phường Bảo Vinh",
+            "Phường Xuân Lập",
+            "Phường Bàu Sen",
+            "Xã Bàu Trâm",
+            "Phường Xuân Tân",
+            "Xã Hàng Gòn"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Phú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Phú",
+            "Xã Dak Lua",
+            "Xã Nam Cát Tiên",
+            "Xã Phú An",
+            "Xã Núi Tượng",
+            "Xã Tà Lài",
+            "Xã Phú Lập",
+            "Xã Phú Sơn",
+            "Xã Phú Thịnh",
+            "Xã Thanh Sơn",
+            "Xã Phú Trung",
+            "Xã Phú Xuân",
+            "Xã Phú Lộc",
+            "Xã Phú Lâm",
+            "Xã Phú Bình",
+            "Xã Phú Thanh",
+            "Xã Trà Cổ",
+            "Xã Phú Điền"
+          ]
         },
         {
           "QuanHuyen": "Huyện Vĩnh Cửu",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Vĩnh An",
+            "Xã Phú Lý",
+            "Xã Trị An",
+            "Xã Tân An",
+            "Xã Vĩnh Tân",
+            "Xã Bình Lợi",
+            "Xã Thạnh Phú",
+            "Xã Thiện Tân",
+            "Xã Tân Bình",
+            "Xã Bình Hòa",
+            "Xã Mã Đà",
+            "Xã Hiếu Liêm"
+          ]
         },
         {
           "QuanHuyen": "Huyện Định Quán",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Định Quán",
+            "Xã Thanh Sơn",
+            "Xã Phú Tân",
+            "Xã Phú Vinh",
+            "Xã Phú Lợi",
+            "Xã Phú Hòa",
+            "Xã Ngọc Định",
+            "Xã La Ngà",
+            "Xã Gia Canh",
+            "Xã Phú Ngọc",
+            "Xã Phú Cường",
+            "Xã Túc Trưng",
+            "Xã Phú Túc",
+            "Xã Suối Nho"
+          ]
         },
         {
           "QuanHuyen": "Huyện Trảng Bom",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Trảng Bom",
+            "Xã Thanh Bình",
+            "Xã Cây Gáo",
+            "Xã Bàu Hàm",
+            "Xã Sông Thao",
+            "Xã Sông Trầu",
+            "Xã Đông Hoà",
+            "Xã Bắc Sơn",
+            "Xã Hố Nai 3",
+            "Xã Tây Hoà",
+            "Xã Bình Minh",
+            "Xã Trung Hoà",
+            "Xã Đồi 61",
+            "Xã Hưng Thịnh",
+            "Xã Quảng Tiến",
+            "Xã Giang Điền",
+            "Xã An Viễn"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thống Nhất",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Gia Tân 1",
+            "Xã Gia Tân 2",
+            "Xã Gia Tân 3",
+            "Xã Gia Kiệm",
+            "Xã Quang Trung",
+            "Xã Bàu Hàm 2",
+            "Xã Hưng Lộc",
+            "Xã Lộ 25",
+            "Xã Xuân Thiện",
+            "Thị trấn Dầu Giây"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cẩm Mỹ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Sông Nhạn",
+            "Xã Xuân Quế",
+            "Xã Nhân Nghĩa",
+            "Xã Xuân Đường",
+            "Thị trấn Long Giao",
+            "Xã Xuân Mỹ",
+            "Xã Thừa Đức",
+            "Xã Bảo Bình",
+            "Xã Xuân Bảo",
+            "Xã Xuân Tây",
+            "Xã Xuân Đông",
+            "Xã Sông Ray",
+            "Xã Lâm San"
+          ]
         },
         {
           "QuanHuyen": "Huyện Long Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Long Thành",
+            "Xã An Phước",
+            "Xã Bình An",
+            "Xã Long Đức",
+            "Xã Lộc An",
+            "Xã Bình Sơn",
+            "Xã Tam An",
+            "Xã Cẩm Đường",
+            "Xã Long An",
+            "Xã Bàu Cạn",
+            "Xã Long Phước",
+            "Xã Phước Bình",
+            "Xã Tân Hiệp",
+            "Xã Phước Thái"
+          ]
         },
         {
           "QuanHuyen": "Huyện Xuân Lộc",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Gia Ray",
+            "Xã Xuân Bắc",
+            "Xã Suối Cao",
+            "Xã Xuân Thành",
+            "Xã Xuân Thọ",
+            "Xã Xuân Trường",
+            "Xã Xuân Hòa",
+            "Xã Xuân Hưng",
+            "Xã Xuân Tâm",
+            "Xã Suối Cát",
+            "Xã Xuân Hiệp",
+            "Xã Xuân Phú",
+            "Xã Xuân Định",
+            "Xã Bảo Hoà",
+            "Xã Lang Minh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Nhơn Trạch",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Phước Thiền",
+            "Xã Long Tân",
+            "Xã Đại Phước",
+            "Thị trấn Hiệp Phước",
+            "Xã Phú Hữu",
+            "Xã Phú Hội",
+            "Xã Phú Thạnh",
+            "Xã Phú Đông",
+            "Xã Long Thọ",
+            "Xã Vĩnh Thanh",
+            "Xã Phước Khánh",
+            "Xã Phước An"
+          ]
         }
       ]
     },
@@ -11300,31 +11481,120 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Vũng Tàu",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Phường Thắng Tam",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường Thắng Nhì",
+            "Phường 7",
+            "Phường Nguyễn An Ninh",
+            "Phường 8",
+            "Phường 9",
+            "Phường Thắng Nhất",
+            "Phường Rạch Dừa",
+            "Phường 10",
+            "Phường 11",
+            "Phường 12",
+            "Xã Long Sơn"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Bà Rịa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Phước Hưng",
+            "Phường Phước Hiệp",
+            "Phường Phước Nguyên",
+            "Phường Long Toàn",
+            "Phường Long Tâm",
+            "Phường Phước Trung",
+            "Phường Long Hương",
+            "Phường Kim Dinh",
+            "Xã Tân Hưng",
+            "Xã Long Phước",
+            "Xã Hoà Long"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Đức",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Bàu Chinh",
+            "Thị trấn Ngãi Giao",
+            "Xã Bình Ba",
+            "Xã Suối Nghệ",
+            "Xã Xuân Sơn",
+            "Xã Sơn Bình",
+            "Xã Bình Giã",
+            "Xã Bình Trung",
+            "Xã Xà Bang",
+            "Xã Cù Bị",
+            "Xã Láng Lớn",
+            "Xã Quảng Thành",
+            "Xã Kim Long",
+            "Xã Suối Rao",
+            "Xã Đá Bạc",
+            "Xã Nghĩa Thành"
+          ]
         },
         {
           "QuanHuyen": "Huyện Xuyên Mộc",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Phước Bửu",
+            "Xã Phước Thuận",
+            "Xã Phước Tân",
+            "Xã Xuyên Mộc",
+            "Xã Bông Trang",
+            "Xã Tân Lâm",
+            "Xã Bàu Lâm",
+            "Xã Hòa Bình",
+            "Xã Hòa Hưng",
+            "Xã Hòa Hiệp",
+            "Xã Hòa Hội",
+            "Xã Bưng Riềng",
+            "Xã Bình Châu"
+          ]
         },
         {
           "QuanHuyen": "Huyện Long Điền",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Long Điền",
+            "Thị trấn Long Hải",
+            "Xã An Ngãi",
+            "Xã Tam Phước",
+            "Xã An Nhứt",
+            "Xã Phước Tỉnh",
+            "Xã Phước Hưng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Đất Đỏ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Đất Đỏ",
+            "Xã Phước Long Thọ",
+            "Xã Phước Hội",
+            "Xã Long Mỹ",
+            "Thị trấn Phước Hải",
+            "Xã Long Tân",
+            "Xã Láng Dài",
+            "Xã Lộc An"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Phú Mỹ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Phú Mỹ",
+            "Xã Tân Hoà",
+            "Xã Tân Hải",
+            "Phường Phước Hoà",
+            "Phường Tân Phước",
+            "Phường Mỹ Xuân",
+            "Xã Sông Xoài",
+            "Phường Hắc Dịch",
+            "Xã Châu Pha",
+            "Xã Tóc Tiên"
+          ]
         }
       ]
     },
@@ -11333,91 +11603,425 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Quận 1",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Tân Định",
+            "Phường Đa Kao",
+            "Phường Bến Nghé",
+            "Phường Bến Thành",
+            "Phường Nguyễn Thái Bình",
+            "Phường Phạm Ngũ Lão",
+            "Phường Cầu Ông Lãnh",
+            "Phường Cô Giang",
+            "Phường Nguyễn Cư Trinh",
+            "Phường Cầu Kho"
+          ]
         },
         {
           "QuanHuyen": "Quận 12",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Thạnh Xuân",
+            "Phường Thạnh Lộc",
+            "Phường Hiệp Thành",
+            "Phường Thới An",
+            "Phường Tân Chánh Hiệp",
+            "Phường An Phú Đông",
+            "Phường Tân Thới Hiệp",
+            "Phường Trung Mỹ Tây",
+            "Phường Tân Hưng Thuận",
+            "Phường Đông Hưng Thuận",
+            "Phường Tân Thới Nhất"
+          ]
         },
         {
           "QuanHuyen": "Quận Gò Vấp",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 15",
+            "Phường 13",
+            "Phường 17",
+            "Phường 6",
+            "Phường 16",
+            "Phường 12",
+            "Phường 14",
+            "Phường 10",
+            "Phường 05",
+            "Phường 07",
+            "Phường 04",
+            "Phường 01",
+            "Phường 9",
+            "Phường 8",
+            "Phường 11",
+            "Phường 03"
+          ]
         },
         {
           "QuanHuyen": "Quận Bình Thạnh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 13",
+            "Phường 11",
+            "Phường 27",
+            "Phường 26",
+            "Phường 12",
+            "Phường 25",
+            "Phường 05",
+            "Phường 07",
+            "Phường 24",
+            "Phường 06",
+            "Phường 14",
+            "Phường 15",
+            "Phường 02",
+            "Phường 01",
+            "Phường 03",
+            "Phường 17",
+            "Phường 21",
+            "Phường 22",
+            "Phường 19",
+            "Phường 28"
+          ]
         },
         {
           "QuanHuyen": "Quận Tân Bình",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 02",
+            "Phường 04",
+            "Phường 12",
+            "Phường 13",
+            "Phường 01",
+            "Phường 03",
+            "Phường 11",
+            "Phường 07",
+            "Phường 05",
+            "Phường 10",
+            "Phường 06",
+            "Phường 08",
+            "Phường 09",
+            "Phường 14",
+            "Phường 15"
+          ]
         },
         {
           "QuanHuyen": "Quận Tân Phú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Tân Sơn Nhì",
+            "Phường Tây Thạnh",
+            "Phường Sơn Kỳ",
+            "Phường Tân Quý",
+            "Phường Tân Thành",
+            "Phường Phú Thọ Hòa",
+            "Phường Phú Thạnh",
+            "Phường Phú Trung",
+            "Phường Hòa Thạnh",
+            "Phường Hiệp Tân",
+            "Phường Tân Thới Hòa"
+          ]
         },
         {
           "QuanHuyen": "Quận Phú Nhuận",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 04",
+            "Phường 05",
+            "Phường 09",
+            "Phường 07",
+            "Phường 03",
+            "Phường 01",
+            "Phường 02",
+            "Phường 08",
+            "Phường 15",
+            "Phường 10",
+            "Phường 11",
+            "Phường 17",
+            "Phường 13"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Thủ Đức",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Linh Xuân",
+            "Phường Bình Chiểu",
+            "Phường Linh Trung",
+            "Phường Tam Bình",
+            "Phường Tam Phú",
+            "Phường Hiệp Bình Phước",
+            "Phường Hiệp Bình Chánh",
+            "Phường Linh Chiểu",
+            "Phường Linh Tây",
+            "Phường Linh Đông",
+            "Phường Bình Thọ",
+            "Phường Trường Thọ",
+            "Phường Long Bình",
+            "Phường Long Thạnh Mỹ",
+            "Phường Tân Phú",
+            "Phường Hiệp Phú",
+            "Phường Tăng Nhơn Phú A",
+            "Phường Tăng Nhơn Phú B",
+            "Phường Phước Long B",
+            "Phường Phước Long A",
+            "Phường Trường Thạnh",
+            "Phường Long Phước",
+            "Phường Long Trường",
+            "Phường Phước Bình",
+            "Phường Phú Hữu",
+            "Phường Thảo Điền",
+            "Phường An Phú",
+            "Phường An Khánh",
+            "Phường Bình Trưng Đông",
+            "Phường Bình Trưng Tây",
+            "Phường Cát Lái",
+            "Phường Thạnh Mỹ Lợi",
+            "Phường An Lợi Đông",
+            "Phường Thủ Thiêm"
+          ]
         },
         {
           "QuanHuyen": "Quận 3",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 14",
+            "Phường 12",
+            "Phường 11",
+            "Phường 13",
+            "Phường Võ Thị Sáu",
+            "Phường 09",
+            "Phường 10",
+            "Phường 04",
+            "Phường 05",
+            "Phường 03",
+            "Phường 02",
+            "Phường 01"
+          ]
         },
         {
           "QuanHuyen": "Quận 10",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 15",
+            "Phường 13",
+            "Phường 14",
+            "Phường 12",
+            "Phường 11",
+            "Phường 10",
+            "Phường 09",
+            "Phường 01",
+            "Phường 08",
+            "Phường 02",
+            "Phường 04",
+            "Phường 07",
+            "Phường 05",
+            "Phường 06"
+          ]
         },
         {
           "QuanHuyen": "Quận 11",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 15",
+            "Phường 05",
+            "Phường 14",
+            "Phường 11",
+            "Phường 03",
+            "Phường 10",
+            "Phường 13",
+            "Phường 08",
+            "Phường 09",
+            "Phường 12",
+            "Phường 07",
+            "Phường 06",
+            "Phường 04",
+            "Phường 01",
+            "Phường 02",
+            "Phường 16"
+          ]
         },
         {
           "QuanHuyen": "Quận 4",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 13",
+            "Phường 09",
+            "Phường 06",
+            "Phường 08",
+            "Phường 10",
+            "Phường 18",
+            "Phường 14",
+            "Phường 04",
+            "Phường 03",
+            "Phường 16",
+            "Phường 02",
+            "Phường 15",
+            "Phường 01"
+          ]
         },
         {
           "QuanHuyen": "Quận 5",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 04",
+            "Phường 09",
+            "Phường 03",
+            "Phường 12",
+            "Phường 02",
+            "Phường 08",
+            "Phường 07",
+            "Phường 01",
+            "Phường 11",
+            "Phường 14",
+            "Phường 05",
+            "Phường 06",
+            "Phường 10",
+            "Phường 13"
+          ]
         },
         {
           "QuanHuyen": "Quận 6",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 14",
+            "Phường 13",
+            "Phường 09",
+            "Phường 06",
+            "Phường 12",
+            "Phường 05",
+            "Phường 11",
+            "Phường 02",
+            "Phường 01",
+            "Phường 04",
+            "Phường 08",
+            "Phường 03",
+            "Phường 07",
+            "Phường 10"
+          ]
         },
         {
           "QuanHuyen": "Quận 8",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 08",
+            "Phường 02",
+            "Phường 01",
+            "Phường 03",
+            "Phường 11",
+            "Phường 09",
+            "Phường 10",
+            "Phường 04",
+            "Phường 13",
+            "Phường 12",
+            "Phường 05",
+            "Phường 14",
+            "Phường 06",
+            "Phường 15",
+            "Phường 16",
+            "Phường 07"
+          ]
         },
         {
           "QuanHuyen": "Quận Bình Tân",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Bình Hưng Hòa",
+            "Phường Bình Hưng Hoà A",
+            "Phường Bình Hưng Hoà B",
+            "Phường Bình Trị Đông",
+            "Phường Bình Trị Đông A",
+            "Phường Bình Trị Đông B",
+            "Phường Tân Tạo",
+            "Phường Tân Tạo A",
+            "Phường  An Lạc",
+            "Phường An Lạc A"
+          ]
         },
         {
           "QuanHuyen": "Quận 7",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Tân Thuận Đông",
+            "Phường Tân Thuận Tây",
+            "Phường Tân Kiểng",
+            "Phường Tân Hưng",
+            "Phường Bình Thuận",
+            "Phường Tân Quy",
+            "Phường Phú Thuận",
+            "Phường Tân Phú",
+            "Phường Tân Phong",
+            "Phường Phú Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Củ Chi",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Củ Chi",
+            "Xã Phú Mỹ Hưng",
+            "Xã An Phú",
+            "Xã Trung Lập Thượng",
+            "Xã An Nhơn Tây",
+            "Xã Nhuận Đức",
+            "Xã Phạm Văn Cội",
+            "Xã Phú Hòa Đông",
+            "Xã Trung Lập Hạ",
+            "Xã Trung An",
+            "Xã Phước Thạnh",
+            "Xã Phước Hiệp",
+            "Xã Tân An Hội",
+            "Xã Phước Vĩnh An",
+            "Xã Thái Mỹ",
+            "Xã Tân Thạnh Tây",
+            "Xã Hòa Phú",
+            "Xã Tân Thạnh Đông",
+            "Xã Bình Mỹ",
+            "Xã Tân Phú Trung",
+            "Xã Tân Thông Hội"
+          ]
         },
         {
           "QuanHuyen": "Huyện Hóc Môn",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Hóc Môn",
+            "Xã Tân Hiệp",
+            "Xã Nhị Bình",
+            "Xã Đông Thạnh",
+            "Xã Tân Thới Nhì",
+            "Xã Thới Tam Thôn",
+            "Xã Xuân Thới Sơn",
+            "Xã Tân Xuân",
+            "Xã Xuân Thới Đông",
+            "Xã Trung Chánh",
+            "Xã Xuân Thới Thượng",
+            "Xã Bà Điểm"
+          ]
         },
         {
           "QuanHuyen": "Huyện Bình Chánh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Túc",
+            "Xã Phạm Văn Hai",
+            "Xã Vĩnh Lộc A",
+            "Xã Vĩnh Lộc B",
+            "Xã Bình Lợi",
+            "Xã Lê Minh Xuân",
+            "Xã Tân Nhựt",
+            "Xã Tân Kiên",
+            "Xã Bình Hưng",
+            "Xã Phong Phú",
+            "Xã An Phú Tây",
+            "Xã Hưng Long",
+            "Xã Đa Phước",
+            "Xã Tân Quý Tây",
+            "Xã Bình Chánh",
+            "Xã Quy Đức"
+          ]
         },
         {
           "QuanHuyen": "Huyện Nhà Bè",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Nhà Bè",
+            "Xã Phước Kiển",
+            "Xã Phước Lộc",
+            "Xã Nhơn Đức",
+            "Xã Phú Xuân",
+            "Xã Long Thới",
+            "Xã Hiệp Phước"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cần Giờ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cần Thạnh",
+            "Xã Bình Khánh",
+            "Xã Tam Thôn Hiệp",
+            "Xã An Thới Đông",
+            "Xã Thạnh An",
+            "Xã Long Hòa",
+            "Xã Lý Nhơn"
+          ]
         }
       ]
     },
@@ -11426,63 +12030,266 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Tân An",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 5",
+            "Phường 2",
+            "Phường 4",
+            "Phường Tân Khánh",
+            "Phường 1",
+            "Phường 3",
+            "Phường 7",
+            "Phường 6",
+            "Xã Hướng Thọ Phú",
+            "Xã Nhơn Thạnh Trung",
+            "Xã Lợi Bình Nhơn",
+            "Xã Bình Tâm",
+            "Phường Khánh Hậu",
+            "Xã An Vĩnh Ngãi"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Kiến Tường",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Phường 2",
+            "Xã Thạnh Trị",
+            "Xã Bình Hiệp",
+            "Xã Bình Tân",
+            "Xã Tuyên Thạnh",
+            "Phường 3",
+            "Xã Thạnh Hưng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Hưng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Hưng",
+            "Xã Hưng Hà",
+            "Xã Hưng Điền B",
+            "Xã Hưng Điền",
+            "Xã Thạnh Hưng",
+            "Xã Hưng Thạnh",
+            "Xã Vĩnh Thạnh",
+            "Xã Vĩnh Châu B",
+            "Xã Vĩnh Lợi",
+            "Xã Vĩnh Đại",
+            "Xã Vĩnh Châu A",
+            "Xã Vĩnh Bửu"
+          ]
         },
         {
           "QuanHuyen": "Huyện Vĩnh Hưng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Vĩnh Hưng",
+            "Xã Hưng Điền A",
+            "Xã Khánh Hưng",
+            "Xã Thái Trị",
+            "Xã Vĩnh Trị",
+            "Xã Thái Bình Trung",
+            "Xã Vĩnh Bình",
+            "Xã Vĩnh Thuận",
+            "Xã Tuyên Bình",
+            "Xã Tuyên Bình Tây"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mộc Hóa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Bình Hòa Tây",
+            "Xã Bình Thạnh",
+            "Xã Bình Hòa Trung",
+            "Xã Bình Hòa Đông",
+            "Thị trấn Bình Phong Thạnh",
+            "Xã Tân Lập",
+            "Xã Tân Thành"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Thạnh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Thạnh",
+            "Xã Bắc Hòa",
+            "Xã Hậu Thạnh Tây",
+            "Xã Nhơn Hòa Lập",
+            "Xã Tân Lập",
+            "Xã Hậu Thạnh Đông",
+            "Xã Nhơn Hoà",
+            "Xã Kiến Bình",
+            "Xã Tân Thành",
+            "Xã Tân Bình",
+            "Xã Tân Ninh",
+            "Xã Nhơn Ninh",
+            "Xã Tân Hòa"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thạnh Hóa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thạnh Hóa",
+            "Xã Tân Hiệp",
+            "Xã Thuận Bình",
+            "Xã Thạnh Phước",
+            "Xã Thạnh Phú",
+            "Xã Thuận Nghĩa Hòa",
+            "Xã Thủy Đông",
+            "Xã Thủy Tây",
+            "Xã Tân Tây",
+            "Xã Tân Đông",
+            "Xã Thạnh An"
+          ]
         },
         {
           "QuanHuyen": "Huyện Đức Huệ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Đông Thành",
+            "Xã Mỹ Quý Đông",
+            "Xã Mỹ Thạnh Bắc",
+            "Xã Mỹ Quý Tây",
+            "Xã Mỹ Thạnh Tây",
+            "Xã Mỹ Thạnh Đông",
+            "Xã Bình Thành",
+            "Xã Bình Hòa Bắc",
+            "Xã Bình Hòa Hưng",
+            "Xã Bình Hòa Nam",
+            "Xã Mỹ Bình"
+          ]
         },
         {
           "QuanHuyen": "Huyện Đức Hòa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Hậu Nghĩa",
+            "Thị trấn Hiệp Hòa",
+            "Thị trấn Đức Hòa",
+            "Xã Lộc Giang",
+            "Xã An Ninh Đông",
+            "Xã An Ninh Tây",
+            "Xã Tân Mỹ",
+            "Xã Hiệp Hòa",
+            "Xã Đức Lập Thượng",
+            "Xã Đức Lập Hạ",
+            "Xã Tân Phú",
+            "Xã Mỹ Hạnh Bắc",
+            "Xã Đức Hòa Thượng",
+            "Xã Hòa Khánh Tây",
+            "Xã Hòa Khánh Đông",
+            "Xã Mỹ Hạnh Nam",
+            "Xã Hòa Khánh Nam",
+            "Xã Đức Hòa Đông",
+            "Xã Đức Hòa Hạ",
+            "Xã Hựu Thạnh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Bến Lức",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Bến Lức",
+            "Xã Thạnh Lợi",
+            "Xã Lương Bình",
+            "Xã Thạnh Hòa",
+            "Xã Lương Hòa",
+            "Xã Tân Hòa",
+            "Xã Tân Bửu",
+            "Xã An Thạnh",
+            "Xã Bình Đức",
+            "Xã Mỹ Yên",
+            "Xã Thanh Phú",
+            "Xã Long Hiệp",
+            "Xã Thạnh Đức",
+            "Xã Phước Lợi",
+            "Xã Nhựt Chánh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thủ Thừa",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thủ Thừa",
+            "Xã Long Thạnh",
+            "Xã Tân Thành",
+            "Xã Long Thuận",
+            "Xã Mỹ Lạc",
+            "Xã Mỹ Thạnh",
+            "Xã Bình An",
+            "Xã Nhị Thành",
+            "Xã Mỹ An",
+            "Xã Bình Thạnh",
+            "Xã Mỹ Phú",
+            "Xã Tân Long"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Trụ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Trụ",
+            "Xã Tân Bình",
+            "Xã Quê Mỹ Thạnh",
+            "Xã Lạc Tấn",
+            "Xã Bình Trinh Đông",
+            "Xã Tân Phước Tây",
+            "Xã Bình Lãng",
+            "Xã Bình Tịnh",
+            "Xã Đức Tân",
+            "Xã Nhựt Ninh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cần Đước",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cần Đước",
+            "Xã Long Trạch",
+            "Xã Long Khê",
+            "Xã Long Định",
+            "Xã Phước Vân",
+            "Xã Long Hòa",
+            "Xã Long Cang",
+            "Xã Long Sơn",
+            "Xã Tân Trạch",
+            "Xã Mỹ Lệ",
+            "Xã Tân Lân",
+            "Xã Phước Tuy",
+            "Xã Long Hựu Đông",
+            "Xã Tân Ân",
+            "Xã Phước Đông",
+            "Xã Long Hựu Tây",
+            "Xã Tân Chánh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cần Giuộc",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cần Giuộc",
+            "Xã Phước Lý",
+            "Xã Long Thượng",
+            "Xã Long Hậu",
+            "Xã Phước Hậu",
+            "Xã Mỹ Lộc",
+            "Xã Phước Lại",
+            "Xã Phước Lâm",
+            "Xã Thuận Thành",
+            "Xã Phước Vĩnh Tây",
+            "Xã Phước Vĩnh Đông",
+            "Xã Long An",
+            "Xã Long Phụng",
+            "Xã Đông Thạnh",
+            "Xã Tân Tập"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tầm Vu",
+            "Xã Bình Quới",
+            "Xã Hòa Phú",
+            "Xã Phú Ngãi Trị",
+            "Xã Vĩnh Công",
+            "Xã Thuận Mỹ",
+            "Xã Hiệp Thạnh",
+            "Xã Phước Tân Hưng",
+            "Xã Thanh Phú Long",
+            "Xã Dương Xuân Hội",
+            "Xã An Lục Long",
+            "Xã Long Trì",
+            "Xã Thanh Vĩnh Đông"
+          ]
         }
       ]
     },
@@ -11491,47 +12298,200 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Mỹ Tho",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 5",
+            "Phường 4",
+            "Phường 7",
+            "Phường 3",
+            "Phường 1",
+            "Phường 2",
+            "Phường 8",
+            "Phường 6",
+            "Phường 9",
+            "Phường 10",
+            "Phường Tân Long",
+            "Xã Đạo Thạnh",
+            "Xã Trung An",
+            "Xã Mỹ Phong",
+            "Xã Tân Mỹ Chánh",
+            "Xã Phước Thạnh",
+            "Xã Thới Sơn"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Gò Công",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 2",
+            "Phường 1",
+            "Phường 5",
+            "Phường Long Hưng",
+            "Phường Long Thuận",
+            "Phường Long Chánh",
+            "Phường Long Hòa",
+            "Xã Bình Đông",
+            "Xã Bình Xuân",
+            "Xã Tân Trung"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Cai Lậy",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Xã Mỹ Phước Tây",
+            "Xã Mỹ Hạnh Đông",
+            "Xã Mỹ Hạnh Trung",
+            "Xã Tân Phú",
+            "Xã Tân Bình",
+            "Xã Tân Hội",
+            "Phường Nhị Mỹ",
+            "Xã Nhị Quý",
+            "Xã Thanh Hòa",
+            "Xã Phú Quý",
+            "Xã Long Khánh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Phước",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Mỹ Phước",
+            "Xã Tân Hòa Đông",
+            "Xã Thạnh Tân",
+            "Xã Thạnh Mỹ",
+            "Xã Thạnh Hoà",
+            "Xã Phú Mỹ",
+            "Xã Tân Hòa Thành",
+            "Xã Hưng Thạnh",
+            "Xã Tân Lập 1",
+            "Xã Tân Hòa Tây",
+            "Xã Tân Lập 2",
+            "Xã Phước Lập"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cái Bè",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cái Bè",
+            "Xã Hậu Mỹ Bắc B",
+            "Xã Hậu Mỹ Bắc A",
+            "Xã Mỹ Trung",
+            "Xã Hậu Mỹ Trinh",
+            "Xã Hậu Mỹ Phú",
+            "Xã Mỹ Tân",
+            "Xã Mỹ Lợi B",
+            "Xã Thiện Trung",
+            "Xã Mỹ Hội",
+            "Xã An Cư",
+            "Xã Hậu Thành",
+            "Xã Mỹ Lợi A",
+            "Xã Hòa Khánh",
+            "Xã Thiện Trí",
+            "Xã Mỹ Đức Đông",
+            "Xã Mỹ Đức Tây",
+            "Xã Đông Hòa Hiệp",
+            "Xã An Thái Đông",
+            "Xã Tân Hưng",
+            "Xã Mỹ Lương",
+            "Xã Tân Thanh",
+            "Xã An Thái Trung",
+            "Xã An Hữu",
+            "Xã Hòa Hưng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cai Lậy",
-          "PhuongXaDS": []
-        },
-        {
-          "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Thạnh Lộc",
+            "Xã Mỹ Thành Bắc",
+            "Xã Phú Cường",
+            "Xã Mỹ Thành Nam",
+            "Xã Phú Nhuận",
+            "Thị trấn Bình Phú",
+            "Xã Cẩm Sơn",
+            "Xã Phú An",
+            "Xã Mỹ Long",
+            "Xã Long Tiên",
+            "Xã Hiệp Đức",
+            "Xã Long Trung",
+            "Xã Hội Xuân",
+            "Xã Tân Phong",
+            "Xã Tam Bình",
+            "Xã Ngũ Hiệp"
+          ]
         },
         {
           "QuanHuyen": "Huyện Chợ Gạo",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Chợ Gạo",
+            "Xã Trung Hòa",
+            "Xã Hòa Tịnh",
+            "Xã Mỹ Tịnh An",
+            "Xã Tân Bình Thạnh",
+            "Xã Phú Kiết",
+            "Xã Lương Hòa Lạc",
+            "Xã Thanh Bình",
+            "Xã Quơn Long",
+            "Xã Bình Phục Nhứt",
+            "Xã Đăng Hưng Phước",
+            "Xã Tân Thuận Bình",
+            "Xã Song Bình",
+            "Xã Bình Phan",
+            "Xã Long Bình Điền",
+            "Xã An Thạnh Thủy",
+            "Xã Xuân Đông",
+            "Xã Hòa Định",
+            "Xã Bình Ninh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Gò Công Tây",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Vĩnh Bình",
+            "Xã Đồng Sơn",
+            "Xã Bình Phú",
+            "Xã Đồng Thạnh",
+            "Xã Thành Công",
+            "Xã Bình Nhì",
+            "Xã Yên Luông",
+            "Xã Thạnh Trị",
+            "Xã Thạnh Nhựt",
+            "Xã Long Vĩnh",
+            "Xã Bình Tân",
+            "Xã Vĩnh Hựu",
+            "Xã Long Bình"
+          ]
         },
         {
           "QuanHuyen": "Huyện Gò Công Đông",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Hòa",
+            "Xã Tăng Hoà",
+            "Xã Tân Phước",
+            "Xã Gia Thuận",
+            "Thị trấn Vàm Láng",
+            "Xã Tân Tây",
+            "Xã Kiểng Phước",
+            "Xã Tân Đông",
+            "Xã Bình Ân",
+            "Xã Tân Điền",
+            "Xã Bình Nghị",
+            "Xã Phước Trung",
+            "Xã Tân Thành"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Phú Đông",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Tân Thới",
+            "Xã Tân Phú",
+            "Xã Phú Thạnh",
+            "Xã Tân Thạnh",
+            "Xã Phú Đông",
+            "Xã Phú Tân"
+          ]
         }
       ]
     },
@@ -11540,39 +12500,205 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Bến Tre",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Phú Khương",
+            "Phường Phú Tân",
+            "Phường 8",
+            "Phường 6",
+            "Phường 4",
+            "Phường 5",
+            "Phường An Hội",
+            "Phường 7",
+            "Xã Sơn Đông",
+            "Xã Phú Hưng",
+            "Xã Bình Phú",
+            "Xã Mỹ Thạnh An",
+            "Xã Nhơn Thạnh",
+            "Xã Phú Nhuận"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Châu Thành",
+            "Xã Tân Thạch",
+            "Xã Qưới Sơn",
+            "Xã An Khánh",
+            "Xã Giao Long",
+            "Xã Phú Túc",
+            "Xã Phú Đức",
+            "Xã Phú An Hòa",
+            "Xã An Phước",
+            "Xã Tam Phước",
+            "Xã Thành Triệu",
+            "Xã Tường Đa",
+            "Xã Tân Phú",
+            "Xã Quới Thành",
+            "Xã Phước Thạnh",
+            "Xã An Hóa",
+            "Xã Tiên Long",
+            "Xã An Hiệp",
+            "Xã Hữu Định",
+            "Thị trấn Tiên Thủy",
+            "Xã Sơn Hòa"
+          ]
         },
         {
           "QuanHuyen": "Huyện Chợ Lách",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Chợ Lách",
+            "Xã Phú Phụng",
+            "Xã Sơn Định",
+            "Xã Vĩnh Bình",
+            "Xã Hòa Nghĩa",
+            "Xã Long Thới",
+            "Xã Phú Sơn",
+            "Xã Tân Thiềng",
+            "Xã Vĩnh Thành",
+            "Xã Vĩnh Hòa",
+            "Xã Hưng Khánh Trung B"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mỏ Cày Nam",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Mỏ Cày",
+            "Xã Định Thủy",
+            "Xã Đa Phước Hội",
+            "Xã Tân Hội",
+            "Xã Phước Hiệp",
+            "Xã Bình Khánh ",
+            "Xã An Thạnh",
+            "Xã An Định",
+            "Xã Thành Thới B",
+            "Xã Tân Trung",
+            "Xã An Thới",
+            "Xã Thành Thới A",
+            "Xã Minh Đức",
+            "Xã Ngãi Đăng",
+            "Xã Cẩm Sơn",
+            "Xã Hương Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Giồng Trôm",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Giồng Trôm",
+            "Xã Phong Nẫm",
+            "Xã Mỹ Thạnh",
+            "Xã Châu Hòa",
+            "Xã Lương Hòa",
+            "Xã Lương Quới",
+            "Xã Lương Phú",
+            "Xã Châu Bình",
+            "Xã Thuận Điền",
+            "Xã Sơn Phú",
+            "Xã Bình Hoà",
+            "Xã Phước Long",
+            "Xã Hưng Phong",
+            "Xã Long Mỹ",
+            "Xã Tân Hào",
+            "Xã Bình Thành",
+            "Xã Tân Thanh",
+            "Xã Tân Lợi Thạnh",
+            "Xã Thạnh Phú Đông",
+            "Xã Hưng Nhượng",
+            "Xã Hưng Lễ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Bình Đại",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Bình Đại",
+            "Xã Tam Hiệp",
+            "Xã Long Định",
+            "Xã Long Hòa",
+            "Xã Phú Thuận",
+            "Xã Vang Quới Tây",
+            "Xã Vang Quới Đông",
+            "Xã Châu Hưng",
+            "Xã Phú Vang",
+            "Xã Lộc Thuận",
+            "Xã Định Trung",
+            "Xã Thới Lai",
+            "Xã Bình Thới",
+            "Xã Phú Long",
+            "Xã Bình Thắng",
+            "Xã Thạnh Trị",
+            "Xã Đại Hòa Lộc",
+            "Xã Thừa Đức",
+            "Xã Thạnh Phước",
+            "Xã Thới Thuận"
+          ]
         },
         {
           "QuanHuyen": "Huyện Ba Tri",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Ba Tri",
+            "Xã Tân Mỹ",
+            "Xã Mỹ Hòa",
+            "Xã Tân Xuân",
+            "Xã Mỹ Chánh",
+            "Xã Bảo Thạnh",
+            "Xã An Phú Trung",
+            "Xã Mỹ Thạnh",
+            "Xã Mỹ Nhơn",
+            "Xã Phước Ngãi",
+            "Xã An Ngãi Trung",
+            "Xã Phú Lễ",
+            "Xã An Bình Tây",
+            "Xã Bảo Thuận",
+            "Xã Tân Hưng",
+            "Xã An Ngãi Tây",
+            "Xã An Hiệp",
+            "Xã Vĩnh Hòa",
+            "Xã Tân Thủy",
+            "Xã Vĩnh An",
+            "Xã An Đức",
+            "Xã An Hòa Tây",
+            "Thị trấn Tiệm Tôm"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thạnh Phú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thạnh Phú",
+            "Xã Phú Khánh",
+            "Xã Đại Điền",
+            "Xã Quới Điền",
+            "Xã Tân Phong",
+            "Xã Mỹ Hưng",
+            "Xã An Thạnh",
+            "Xã Thới Thạnh",
+            "Xã Hòa Lợi",
+            "Xã An Điền",
+            "Xã Bình Thạnh",
+            "Xã An Thuận",
+            "Xã An Quy",
+            "Xã Thạnh Hải",
+            "Xã An Nhơn",
+            "Xã Giao Thạnh",
+            "Xã Thạnh Phong",
+            "Xã Mỹ An"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mỏ Cày Bắc",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Phú Mỹ",
+            "Xã Hưng Khánh Trung A",
+            "Xã Thanh Tân",
+            "Xã Thạnh Ngãi",
+            "Xã Tân Phú Tây",
+            "Thị trấn Phước Mỹ Trung",
+            "Xã Tân Thành Bình",
+            "Xã Thành An",
+            "Xã Hòa Lộc",
+            "Xã Tân Thanh Tây",
+            "Xã Tân Bình",
+            "Xã Nhuận Phú Tân",
+            "Xã Khánh Thạnh Tân"
+          ]
         }
       ]
     },
@@ -11581,39 +12707,149 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Trà Vinh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 4",
+            "Phường 1",
+            "Phường 3",
+            "Phường 2",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+            "Phường 9",
+            "Xã Long Đức"
+          ]
         },
         {
           "QuanHuyen": "Huyện Càng Long",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Càng Long",
+            "Xã Mỹ Cẩm",
+            "Xã An Trường A",
+            "Xã An Trường",
+            "Xã Huyền Hội",
+            "Xã Tân An",
+            "Xã Tân Bình",
+            "Xã Bình Phú",
+            "Xã Phương Thạnh",
+            "Xã Đại Phúc",
+            "Xã Đại Phước",
+            "Xã Nhị Long Phú",
+            "Xã Nhị Long",
+            "Xã Đức Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cầu Kè",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cầu Kè",
+            "Xã Hòa Ân",
+            "Xã Châu Điền",
+            "Xã An Phú Tân",
+            "Xã Hoà Tân",
+            "Xã Ninh Thới",
+            "Xã Phong Phú",
+            "Xã Phong Thạnh",
+            "Xã Tam Ngãi",
+            "Xã Thông Hòa",
+            "Xã Thạnh Phú"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cầu Ngang",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cầu Ngang",
+            "Thị trấn Mỹ Long",
+            "Xã Mỹ Long Bắc",
+            "Xã Mỹ Long Nam",
+            "Xã Mỹ Hòa",
+            "Xã Vĩnh Kim",
+            "Xã Kim Hòa",
+            "Xã Hiệp Hòa",
+            "Xã Thuận Hòa",
+            "Xã Long Sơn",
+            "Xã Nhị Trường",
+            "Xã Trường Thọ",
+            "Xã Hiệp Mỹ Đông",
+            "Xã Hiệp Mỹ Tây",
+            "Xã Thạnh Hòa Sơn"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
-        },
-        {
-          "QuanHuyen": "Huyện Duyên Hải",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Châu Thành",
+            "Xã Đa Lộc",
+            "Xã Mỹ Chánh",
+            "Xã Thanh Mỹ",
+            "Xã Lương Hoà A",
+            "Xã Lương Hòa",
+            "Xã Song Lộc",
+            "Xã Nguyệt Hóa",
+            "Xã Hòa Thuận",
+            "Xã Hòa Lợi",
+            "Xã Phước Hảo",
+            "Xã Hưng Mỹ",
+            "Xã Hòa Minh",
+            "Xã Long Hòa"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tiểu Cần",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tiểu Cần",
+            "Thị trấn Cầu Quan",
+            "Xã Phú Cần",
+            "Xã Hiếu Tử",
+            "Xã Hiếu Trung",
+            "Xã Long Thới",
+            "Xã Hùng Hòa",
+            "Xã Tân Hùng",
+            "Xã Tập Ngãi",
+            "Xã Ngãi Hùng",
+            "Xã Tân Hòa"
+          ]
         },
         {
           "QuanHuyen": "Huyện Trà Cú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Trà Cú",
+            "Thị trấn Định An",
+            "Xã Phước Hưng",
+            "Xã Tập Sơn",
+            "Xã Tân Sơn",
+            "Xã An Quảng Hữu",
+            "Xã Lưu Nghiệp Anh",
+            "Xã Ngãi Xuyên",
+            "Xã Kim Sơn",
+            "Xã Thanh Sơn",
+            "Xã Hàm Giang",
+            "Xã Hàm Tân",
+            "Xã Đại An",
+            "Xã Định An",
+            "Xã Ngọc Biên",
+            "Xã Long Hiệp",
+            "Xã Tân Hiệp"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Duyên Hải",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Đôn Xuân",
+            "Xã Đôn Châu",
+            "Thị trấn Long Thành",
+            "Xã Long Khánh",
+            "Xã Ngũ Lạc",
+            "Xã Long Vĩnh",
+            "Xã Đông Hải",
+            "Phường 1",
+            "Xã Long Toàn",
+            "Phường 2",
+            "Xã Long Hữu",
+            "Xã Dân Thành",
+            "Xã Trường Long Hòa",
+            "Xã Hiệp Thạnh"
+          ]
         }
       ]
     },
@@ -11621,32 +12857,151 @@
       "TinhThanhPho": "Tỉnh Vĩnh Long",
       "QuanHuyenDS": [
         {
+          "QuanHuyen": "Thành phố Vĩnh Long",
+          "PhuongXaDS": [
+            "Phường 9",
+            "Phường 5",
+            "Phường 1",
+            "Phường 2",
+            "Phường 4",
+            "Phường 3",
+            "Phường 8",
+            "Phường Tân Ngãi",
+            "Phường Tân Hòa",
+            "Phường Tân Hội",
+            "Phường Trường An"
+          ]
+        },
+        {
           "QuanHuyen": "Huyện Bình Tân",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Tân Hưng",
+            "Xã Tân Thành",
+            "Xã Thành Trung",
+            "Xã Tân An Thạnh",
+            "Xã Tân Lược",
+            "Xã Nguyễn Văn Thảnh",
+            "Xã Thành Lợi",
+            "Xã Mỹ Thuận",
+            "Xã Tân Bình",
+            "Thị trấn Tân Quới"
+          ]
         },
         {
           "QuanHuyen": "Huyện Long Hồ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Long Hồ",
+            "Xã Đồng Phú",
+            "Xã Bình Hòa Phước",
+            "Xã Hòa Ninh",
+            "Xã An Bình",
+            "Xã Thanh Đức",
+            "Xã Tân Hạnh",
+            "Xã Phước Hậu",
+            "Xã Long Phước",
+            "Xã Phú Đức",
+            "Xã Lộc Hòa",
+            "Xã Long An",
+            "Xã Phú Quới",
+            "Xã Thạnh Quới",
+            "Xã Hòa Phú"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mang Thít",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Mỹ An",
+            "Xã Mỹ Phước",
+            "Xã An Phước",
+            "Xã Nhơn Phú",
+            "Xã Long Mỹ",
+            "Xã Hòa Tịnh",
+            "Thị trấn Cái Nhum",
+            "Xã Bình Phước",
+            "Xã Chánh An",
+            "Xã Tân An Hội",
+            "Xã Tân Long",
+            "Xã Tân Long Hội"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tam Bình",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tam Bình",
+            "Xã Tân Lộc",
+            "Xã Phú Thịnh",
+            "Xã Hậu Lộc",
+            "Xã Hòa Thạnh",
+            "Xã Hoà Lộc",
+            "Xã Phú Lộc",
+            "Xã Song Phú",
+            "Xã Hòa Hiệp",
+            "Xã Mỹ Lộc",
+            "Xã Tân Phú",
+            "Xã Long Phú",
+            "Xã Mỹ Thạnh Trung",
+            "Xã Tường Lộc",
+            "Xã Loan Mỹ",
+            "Xã Ngãi Tứ",
+            "Xã Bình Ninh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Trà Ôn",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Trà Ôn",
+            "Xã Xuân Hiệp",
+            "Xã Nhơn Bình",
+            "Xã Hòa Bình",
+            "Xã Thới Hòa",
+            "Xã Trà Côn",
+            "Xã Tân Mỹ",
+            "Xã Hựu Thành",
+            "Xã Vĩnh Xuân",
+            "Xã Thuận Thới",
+            "Xã Phú Thành",
+            "Xã Thiện Mỹ",
+            "Xã Lục Sỹ Thành",
+            "Xã Tích Thiện"
+          ]
         },
         {
           "QuanHuyen": "Huyện  Vũng Liêm",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Vũng Liêm",
+            "Xã Tân Quới Trung",
+            "Xã Quới Thiện",
+            "Xã Quới An",
+            "Xã Trung Chánh",
+            "Xã Tân An Luông",
+            "Xã Thanh Bình",
+            "Xã Trung Thành Tây",
+            "Xã Trung Hiệp",
+            "Xã Hiếu Phụng",
+            "Xã Trung Thành Đông",
+            "Xã Trung Thành",
+            "Xã Trung Hiếu",
+            "Xã Trung Ngãi",
+            "Xã Hiếu Thuận",
+            "Xã Trung Nghĩa",
+            "Xã Trung An",
+            "Xã Hiếu Nhơn",
+            "Xã Hiếu Thành",
+            "Xã Hiếu Nghĩa"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Bình Minh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Cái Vồn",
+            "Phường Thành Phước",
+            "Xã Thuận An",
+            "Xã Đông Thạnh",
+            "Xã Đông Bình",
+            "Phường Đông Thuận",
+            "Xã Mỹ Hòa",
+            "Xã Đông Thành"
+          ]
         }
       ]
     },
@@ -11655,39 +13010,206 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Huyện Cao Lãnh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 11",
+            "Phường 1",
+            "Phường 2",
+            "Phường 4",
+            "Phường 3",
+            "Phường 6",
+            "Xã Mỹ Ngãi",
+            "Xã Mỹ Tân",
+            "Xã Mỹ Trà",
+            "Phường Mỹ Phú",
+            "Xã Tân Thuận Tây",
+            "Phường Hoà Thuận",
+            "Xã Hòa An",
+            "Xã Tân Thuận Đông",
+            "Xã Tịnh Thới"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "QuanHuyen": "Thành phố Sa Đéc",
+          "PhuongXaDS": [
+            "Phường 3",
+            "Phường 1",
+            "Phường 4",
+            "Phường 2",
+            "Xã Tân Khánh Đông",
+            "Phường Tân Quy Đông",
+            "Phường An Hoà",
+            "Xã Tân Quy Tây",
+            "Xã Tân Phú Đông"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Lai Vung",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Cao Lãnh",
+          "PhuongXaDS": [
+            "Thị trấn Mỹ Thọ",
+            "Xã Gáo Giồng",
+            "Xã Phương Thịnh",
+            "Xã Ba Sao",
+            "Xã Phong Mỹ",
+            "Xã Tân Nghĩa",
+            "Xã Phương Trà",
+            "Xã Nhị Mỹ",
+            "Xã Mỹ Thọ",
+            "Xã Tân Hội Trung",
+            "Xã An Bình",
+            "Xã Mỹ Hội",
+            "Xã Mỹ Hiệp",
+            "Xã Mỹ Long",
+            "Xã Bình Hàng Trung",
+            "Xã Mỹ Xương",
+            "Xã Bình Hàng Tây",
+            "Xã Bình Thạnh"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Lấp Vò",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Hồng Ngự",
+          "PhuongXaDS": [
+            "Xã Thường Phước 1",
+            "Xã Thường Thới Hậu A",
+            "Thị trấn Thường Thới Tiền",
+            "Xã Thường Phước 2",
+            "Xã Thường Lạc",
+            "Xã Long Khánh A",
+            "Xã Long Khánh B",
+            "Xã Long Thuận",
+            "Xã Phú Thuận B",
+            "Xã Phú Thuận A"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tam Nông",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tràm Chim",
+            "Xã Hoà Bình",
+            "Xã Tân Công Sính",
+            "Xã Phú Hiệp",
+            "Xã Phú Đức",
+            "Xã Phú Thành B",
+            "Xã An Hòa",
+            "Xã An Long",
+            "Xã Phú Cường",
+            "Xã Phú Ninh",
+            "Xã Phú Thọ",
+            "Xã Phú Thành A"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thanh Bình",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thanh Bình",
+            "Xã Tân Quới",
+            "Xã Tân Hòa",
+            "Xã An Phong",
+            "Xã Phú Lợi",
+            "Xã Tân Mỹ",
+            "Xã Bình Tấn",
+            "Xã Tân Huề",
+            "Xã Tân Bình",
+            "Xã Tân Thạnh",
+            "Xã Tân Phú",
+            "Xã Bình Thành",
+            "Xã Tân Long"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tháp Mười",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Mỹ An",
+            "Xã Thạnh Lợi",
+            "Xã Hưng Thạnh",
+            "Xã Trường Xuân",
+            "Xã Tân Kiều",
+            "Xã Mỹ Hòa",
+            "Xã Mỹ Quý",
+            "Xã Mỹ Đông",
+            "Xã Đốc Binh Kiều",
+            "Xã Mỹ An",
+            "Xã Phú Điền",
+            "Xã Láng Biển",
+            "Xã Thanh Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Hồng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Sa Rài",
+            "Xã Tân Hộ Cơ",
+            "Xã Thông Bình",
+            "Xã Bình Phú",
+            "Xã Tân Thành A",
+            "Xã Tân Thành B",
+            "Xã Tân Phước",
+            "Xã Tân Công Chí",
+            "Xã An Phước"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Tân Hồng",
-          "PhuongXaDS": []
+          "QuanHuyen": "Thành phố Hồng Ngự",
+          "PhuongXaDS": [
+            "Phường An Lộc",
+            "Phường An Thạnh",
+            "Xã Bình Thạnh",
+            "Xã Tân Hội",
+            "Phường An Lạc",
+            "Phường An Bình B",
+            "Phường An Bình A"
+          ]
+        },
+        {
+          "QuanHuyen": "Huyện Lắp Vò",
+          "PhuongXaDS": [
+            "Thị trấn Lấp Vò",
+            "Xã Mỹ An Hưng A",
+            "Xã Tân Mỹ",
+            "Xã Mỹ An Hưng B",
+            "Xã Tân  Khánh Trung",
+            "Xã Long Hưng A",
+            "Xã Vĩnh Thạnh",
+            "Xã Long Hưng B",
+            "Xã Bình Thành",
+            "Xã Định An",
+            "Xã Định Yên",
+            "Xã Hội An Đông",
+            "Xã Bình Thạnh Trung"
+          ]
+        },
+        {
+          "QuanHuyen": "Huyện Lai Vung",
+          "PhuongXaDS": [
+            "Thị trấn Lai Vung",
+            "Xã Tân Dương",
+            "Xã Hòa Thành",
+            "Xã Long Hậu",
+            "Xã Tân Phước",
+            "Xã Hòa Long",
+            "Xã Tân Thành",
+            "Xã Long Thắng",
+            "Xã Vĩnh Thới",
+            "Xã Tân Hòa",
+            "Xã Định Hòa",
+            "Xã Phong Hòa"
+          ]
+        },
+        {
+          "QuanHuyen": "Huyện Châu Thành",
+          "PhuongXaDS": [
+            "Thị trấn Cái Tàu Hạ",
+            "Xã An Hiệp",
+            "Xã An Nhơn",
+            "Xã Tân Nhuận Đông",
+            "Xã Tân Bình",
+            "Xã Tân Phú Trung",
+            "Xã Phú Long",
+            "Xã An Phú Thuận",
+            "Xã Phú Hựu",
+            "Xã An Khánh",
+            "Xã Tân Phú",
+            "Xã Hòa Tân"
+          ]
         }
       ]
     },
@@ -11695,40 +13217,225 @@
       "TinhThanhPho": "Tỉnh An Giang",
       "QuanHuyenDS": [
         {
+          "QuanHuyen": "Thành phố Long Xuyên",
+          "PhuongXaDS": [
+            "Phường Mỹ Bình",
+            "Phường Mỹ Long",
+            "Phường Đông Xuyên",
+            "Phường Mỹ Xuyên",
+            "Phường Bình Đức",
+            "Phường Bình Khánh",
+            "Phường Mỹ Phước",
+            "Phường Mỹ Quý",
+            "Phường Mỹ Thới",
+            "Phường Mỹ Thạnh",
+            "Phường Mỹ Hòa",
+            "Xã Mỹ Khánh",
+            "Xã Mỹ Hoà Hưng"]
+        },
+        {
           "QuanHuyen": "Huyện An Phú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Châu Phú B",
+            "Phường Châu Phú A",
+            "Phường Vĩnh Mỹ",
+            "Phường Núi Sam",
+            "Phường Vĩnh Ngươn",
+            "Xã Vĩnh Tế",
+            "Xã Vĩnh Châu"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Châu Phú",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện An Phú",
+          "PhuongXaDS": [
+            "Thị trấn An Phú",
+            "Xã Khánh An",
+            "Thị Trấn Long Bình",
+            "Xã Khánh Bình",
+            "Xã Quốc Thái",
+            "Xã Nhơn Hội",
+            "Xã Phú Hữu",
+            "Xã Phú Hội",
+            "Xã Phước Hưng",
+            "Xã Vĩnh Lộc",
+            "Xã Vĩnh Hậu",
+            "Xã Vĩnh Trường",
+            "Xã Vĩnh Hội Đông",
+            "Thị trấn Đa Phước"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
-        },
-        {
-          "QuanHuyen": "Huyện Chợ Mới",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Châu Đốc",
+          "PhuongXaDS": [
+            "Phường Châu Phú B",
+            "Phường Châu Phú A",
+            "Phường Vĩnh Mỹ",
+            "Phường Núi Sam",
+            "Phường Vĩnh Ngươn",
+            "Xã Vĩnh Tế",
+            "Xã Vĩnh Châu"
+          ]
         },
         {
           "QuanHuyen": "Huyện Phú Tân",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Phú Mỹ",
+            "Thị trấn Chợ Vàm",
+            "Xã Long Hoà",
+            "Xã Phú Long",
+            "Xã Phú Lâm",
+            "Xã Phú Hiệp",
+            "Xã Phú Thạnh",
+            "Xã Hoà Lạc",
+            "Xã Phú Thành",
+            "Xã Phú An",
+            "Xã Phú Xuân",
+            "Xã Hiệp Xương",
+            "Xã Phú Bình",
+            "Xã Phú Thọ",
+            "Xã Phú Hưng",
+            "Xã Bình Thạnh Đông",
+            "Xã Tân Hòa",
+            "Xã Tân Trung"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Thoại Sơn",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Châu Phú",
+          "PhuongXaDS": [
+            "Thị trấn Cái Dầu",
+            "Xã Khánh Hòa",
+            "Xã Mỹ Đức",
+            "Xã Mỹ Phú",
+            "Xã Ô Long Vỹ",
+            "Thị trấn Vĩnh Thạnh Trung",
+            "Xã Thạnh Mỹ Tây",
+            "Xã Bình Long",
+            "Xã Bình Mỹ",
+            "Xã Bình Thủy",
+            "Xã Đào Hữu Cảnh",
+            "Xã Bình Phú",
+            "Xã Bình Chánh"
+          ]
+        },
+        {
+          "QuanHuyen": "Huyện Châu Thành",
+          "PhuongXaDS": [
+            "Thị trấn An Châu",
+            "Xã An Hòa",
+            "Xã Cần Đăng",
+            "Xã Vĩnh Hanh",
+            "Xã Bình Thạnh",
+            "Thị trấn Vĩnh Bình",
+            "Xã Bình Hòa",
+            "Xã Vĩnh An",
+            "Xã Hòa Bình Thạnh",
+            "Xã Vĩnh Lợi",
+            "Xã Vĩnh Nhuận",
+            "Xã Tân Phú",
+            "Xã Vĩnh Thành"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tri Tôn",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tri Tôn",
+            "Thị trấn Ba Chúc",
+            "Xã Lạc Quới",
+            "Xã Lê Trì",
+            "Xã Vĩnh Gia",
+            "Xã Vĩnh Phước",
+            "Xã Châu Lăng",
+            "Xã Lương Phi",
+            "Xã Lương An Trà",
+            "Xã Tà Đảnh",
+            "Xã Núi Tô",
+            "Xã An Tức",
+            "Thị trấn Cô Tô",
+            "Xã Tân Tuyến",
+            "Xã Ô Lâm"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Tân Châu",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Long Thạnh",
+            "Phường Long Hưng",
+            "Phường Long Châu",
+            "Xã Phú Lộc",
+            "Xã Vĩnh Xương",
+            "Xã Vĩnh Hòa",
+            "Xã Tân Thạnh",
+            "Xã Tân An",
+            "Xã Long An",
+            "Phường Long Phú",
+            "Xã Châu Phong",
+            "Xã Phú Vĩnh",
+            "Xã Lê Chánh",
+            "Phường Long Sơn"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Tịnh Biên",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Nhà Bàng",
+            "Phường Chi Lăng",
+            "Phường Núi Voi",
+            "Phường Nhơn Hưng",
+            "Phường An Phú",
+            "Phường Thới Sơn",
+            "Phường Tịnh Biên",
+            "Xã Văn Giáo",
+            "Xã An Cư",
+            "Xã An Nông",
+            "Xã Vĩnh Trung",
+            "Xã Tân Lợi",
+            "Xã An Hảo",
+            "Xã Tân Lập"
+          ]
+        },
+        {
+          "QuanHuyen": "Huyện Chợ Mới",
+          "PhuongXaDS": [
+            "Thị trấn Chợ Mới",
+            "Thị trấn Mỹ Luông",
+            "Xã Kiến An",
+            "Xã Mỹ Hội Đông",
+            "Xã Long Điền A",
+            "Xã Tấn Mỹ",
+            "Xã Long Điền B",
+            "Xã Kiến Thành",
+            "Xã Mỹ Hiệp",
+            "Xã Mỹ An",
+            "Xã Nhơn Mỹ",
+            "Xã Long Giang",
+            "Xã Long Kiến",
+            "Xã Bình Phước Xuân",
+            "Xã An Thạnh Trung",
+            "Thị trấn Hội An",
+            "Xã Hòa Bình",
+            "Xã Hòa An"]
+        },
+        {
+          "QuanHuyen": "Huyện Thoại Sơn",
+          "PhuongXaDS": [
+            "Thị trấn Núi Sập",
+            "Thị trấn Phú Hoà",
+            "Thị Trấn Óc Eo",
+            "Xã Tây Phú",
+            "Xã An Bình",
+            "Xã Vĩnh Phú",
+            "Xã Vĩnh Trạch",
+            "Xã Phú Thuận",
+            "Xã Vĩnh Chánh",
+            "Xã Định Mỹ",
+            "Xã Định Thành",
+            "Xã Mỹ Phú Đông",
+            "Xã Vọng Đông",
+            "Xã Vĩnh Khánh",
+            "Xã Thoại Giang",
+            "Xã Bình Thành",
+            "Xã Vọng Thê"
+          ]
         }
       ]
     },
@@ -11737,63 +13444,221 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Huyện An Biên",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thứ Ba",
+            "Xã Tây Yên",
+            "Xã Tây Yên A",
+            "Xã Nam Yên",
+            "Xã Hưng Yên",
+            "Xã Nam Thái",
+            "Xã Nam Thái A",
+            "Xã Đông Thái",
+            "Xã Đông Yên"
+          ]
         },
         {
           "QuanHuyen": "Huyện An Minh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thứ Mười Một",
+            "Xã Thuận Hoà",
+            "Xã Đông Hòa",
+            "Xã Đông Thạnh",
+            "Xã Tân Thạnh",
+            "Xã Đông Hưng",
+            "Xã Đông Hưng A",
+            "Xã Đông Hưng B",
+            "Xã Vân Khánh",
+            "Xã Vân Khánh Đông",
+            "Xã Vân Khánh Tây"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Minh Lương",
+            "Xã Mong Thọ A",
+            "Xã Mong Thọ B",
+            "Xã Mong Thọ",
+            "Xã Giục Tượng",
+            "Xã Vĩnh Hòa Hiệp",
+            "Xã Vĩnh Hoà Phú",
+            "Xã Minh Hòa",
+            "Xã Bình An",
+            "Xã Thạnh Lộc"
+          ]
         },
         {
-          "QuanHuyen": "Huyện Giang Thành",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Vĩnh Thuận",
+          "PhuongXaDS": [
+            "Thị trấn Vĩnh Thuận",
+            "Xã Vĩnh Bình Bắc",
+            "Xã Vĩnh Bình Nam",
+            "Xã Bình Minh",
+            "Xã Vĩnh Thuận",
+            "Xã Tân Thuận",
+            "Xã Phong Đông",
+            "Xã Vĩnh Phong"
+          ]
         },
         {
           "QuanHuyen": "Huyện Gò Quao",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Gò Quao",
+            "Xã Vĩnh Hòa Hưng Bắc",
+            "Xã Định Hòa",
+            "Xã Thới Quản",
+            "Xã Định An",
+            "Xã Thủy Liễu",
+            "Xã Vĩnh Hòa Hưng Nam",
+            "Xã Vĩnh Phước A",
+            "Xã Vĩnh Phước B",
+            "Xã Vĩnh Tuy",
+            "Xã Vĩnh Thắng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Giồng Riềng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị Trấn Giồng Riềng",
+            "Xã Thạnh Hưng",
+            "Xã Thạnh Phước",
+            "Xã Thạnh Lộc",
+            "Xã Thạnh Hòa",
+            "Xã Thạnh Bình",
+            "Xã Bàn Thạch",
+            "Xã Bàn Tân Định",
+            "Xã Ngọc Thành",
+            "Xã Ngọc Chúc",
+            "Xã Ngọc Thuận",
+            "Xã Hòa Hưng",
+            "Xã Hoà Lợi",
+            "Xã Hoà An",
+            "Xã Long Thạnh",
+            "Xã Vĩnh Thạnh",
+            "Xã Vĩnh Phú",
+            "Xã  Hòa Thuận",
+            "Xã Ngọc Hoà"
+          ]
         },
         {
           "QuanHuyen": "Huyện Hòn Đất",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Hòn Đất",
+            "Thị trấn Sóc Sơn",
+            "Xã Bình Sơn",
+            "Xã Bình Giang",
+            "Xã Mỹ Thái",
+            "Xã Nam Thái Sơn",
+            "Xã Mỹ Hiệp Sơn",
+            "Xã Sơn Kiên",
+            "Xã Sơn Bình",
+            "Xã Mỹ Thuận",
+            "Xã Lình Huỳnh",
+            "Xã Thổ Sơn",
+            "Xã Mỹ Lâm",
+            "Xã Mỹ Phước"
+          ]
         },
         {
           "QuanHuyen": "Huyện Kiên Hải",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Hòn Tre",
+            "Xã Lại Sơn",
+            "Xã An Sơn",
+            "Xã Nam Du"
+          ]
         },
         {
           "QuanHuyen": "Huyện Kiên Lương",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Kiên Lương",
+            "Xã Kiên Bình",
+            "Xã Hòa Điền",
+            "Xã Dương Hòa",
+            "Xã Bình An",
+            "Xã Bình Trị",
+            "Xã Sơn Hải",
+            "Xã Hòn Nghệ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Tân Hiệp",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Tân Hiệp",
+            "Xã Tân Hội",
+            "Xã Tân Thành",
+            "Xã Tân Hiệp B",
+            "Xã Tân Hoà",
+            "Xã Thạnh Đông B",
+            "Xã Thạnh Đông",
+            "Xã Tân Hiệp A",
+            "Xã Tân An",
+            "Xã Thạnh Đông A",
+            "Xã Thạnh Trị"
+          ]
         },
         {
           "QuanHuyen": "Huyện U Minh Thượng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Thạnh Yên",
+            "Xã Thạnh Yên A",
+            "Xã An Minh Bắc",
+            "Xã Vĩnh Hòa",
+            "Xã Hoà Chánh",
+            "Xã Minh Thuận"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Hà Tiên",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Tô Châu",
+            "Phường Đông Hồ",
+            "Phường Bình San",
+            "Phường Pháo Đài",
+            "Phường Mỹ Đức",
+            "Xã Tiên Hải",
+            "Xã Thuận Yên"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Phú Quốc",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Dương Đông",
+            "Phường An Thới",
+            "Xã Cửa Cạn",
+            "Xã Gành Dầu",
+            "Xã Cửa Dương",
+            "Xã Hàm Ninh",
+            "Xã Dương Tơ",
+            "Xã Bãi Thơm",
+            "Xã Thổ Châu"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Rạch Giá",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Vĩnh Thanh Vân",
+            "Phường Vĩnh Thanh",
+            "Phường Vĩnh Quang",
+            "Phường Vĩnh Hiệp",
+            "Phường Vĩnh Bảo",
+            "Phường Vĩnh Lạc",
+            "Phường An Hòa",
+            "Phường An Bình",
+            "Phường Rạch Sỏi",
+            "Phường Vĩnh Lợi",
+            "Phường Vĩnh Thông",
+            "Xã Phi Thông"
+          ]
         },
         {
-          "QuanHuyen": "Thành phố Tân An",
-          "PhuongXaDS": []
+          "QuanHuyen": "Huyện Giang Thành",
+          "PhuongXaDS": [
+            "Xã Vĩnh Phú",
+            "Xã Vĩnh Điều",
+            "Xã Tân Khánh Hòa",
+            "Xã Phú Lợi",
+            "Xã Phú Mỹ"]
         }
       ]
     },
@@ -11802,39 +13667,131 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Quận Bình Thuỷ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Bình Thủy",
+            "Phường Trà An",
+            "Phường Trà Nóc",
+            "Phường Thới An Đông",
+            "Phường An Thới",
+            "Phường Bùi Hữu Nghĩa",
+            "Phường Long Hòa",
+            "Phường Long Tuyền"
+          ]
         },
         {
           "QuanHuyen": "Quận Cái Răng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Lê Bình",
+            "Phường Hưng Phú",
+            "Phường Hưng Thạnh",
+            "Phường Ba Láng",
+            "Phường Thường Thạnh",
+            "Phường Phú Thứ",
+            "Phường Tân Phú"
+          ]
         },
         {
           "QuanHuyen": "Quận Ninh Kiều",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Cái Khế",
+            "Phường An Hòa",
+            "Phường Thới Bình",
+            "Phường An Nghiệp",
+            "Phường An Cư",
+            "Phường Tân An",
+            "Phường An Phú",
+            "Phường Xuân Khánh",
+            "Phường Hưng Lợi",
+            "Phường An Khánh",
+            "Phường An Bình"
+          ]
         },
         {
           "QuanHuyen": "Quận Ô Môn",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Châu Văn Liêm",
+            "Phường Thới Hòa",
+            "Phường Thới Long",
+            "Phường Long Hưng",
+            "Phường Thới An",
+            "Phường Phước Thới",
+            "Phường Trường Lạc"
+          ]
         },
         {
           "QuanHuyen": "Quận Thốt Nốt",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Thốt Nốt",
+            "Phường Thới Thuận",
+            "Phường Thuận An",
+            "Phường Tân Lộc",
+            "Phường Trung Nhứt",
+            "Phường Thạnh Hoà",
+            "Phường Trung Kiên",
+            "Phường Tân Hưng",
+            "Phường Thuận Hưng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cờ Đỏ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Trung An",
+            "Xã Trung Thạnh",
+            "Xã Thạnh Phú",
+            "Xã Trung Hưng",
+            "Thị trấn Cờ Đỏ",
+            "Xã Thới Hưng",
+            "Xã Đông Hiệp",
+            "Xã Đông Thắng",
+            "Xã Thới Đông",
+            "Xã Thới Xuân"
+          ]
         },
         {
           "QuanHuyen": "Huyện Phong Điền",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Phong Điền",
+            "Xã Nhơn Ái",
+            "Xã Giai Xuân",
+            "Xã Tân Thới",
+            "Xã Trường Long",
+            "Xã Mỹ Khánh",
+            "Xã Nhơn Nghĩa"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thới Lai",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thới Lai",
+            "Xã Thới Thạnh",
+            "Xã Tân Thạnh",
+            "Xã Xuân Thắng",
+            "Xã Đông Bình",
+            "Xã Đông Thuận",
+            "Xã Thới Tân",
+            "Xã Trường Thắng",
+            "Xã Định Môn",
+            "Xã Trường Thành",
+            "Xã Trường Xuân",
+            "Xã Trường Xuân A",
+            "Xã Trường Xuân B"
+          ]
         },
         {
           "QuanHuyen": "Huyện Vĩnh Thạnh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Vĩnh Bình",
+            "Thị trấn Thanh An",
+            "Thị trấn Vĩnh Thạnh",
+            "Xã Thạnh Mỹ",
+            "Xã Vĩnh Trinh",
+            "Xã Thạnh An",
+            "Xã Thạnh Tiến",
+            "Xã Thạnh Thắng",
+            "Xã Thạnh Lợi",
+            "Xã Thạnh Qưới",
+            "Xã Thạnh Lộc"
+          ]
         }
       ]
     },
@@ -11843,35 +13800,118 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Ngã Bảy",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Ngã Bảy",
+            "Phường Lái Hiếu",
+            "Phường Hiệp Thành",
+            "Phường Hiệp Lợi",
+            "Xã Đại Thành",
+            "Xã Tân Thành"
+          ]
         },
         {
           "QuanHuyen": "Thành phố Vị Thanh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường I",
+            "Phường III",
+            "Phường IV",
+            "Phường V",
+            "Phường VII",
+            "Xã Vị Tân",
+            "Xã Hoả Lựu",
+            "Xã Tân Tiến",
+            "Xã Hoả Tiến"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị Trấn Ngã Sáu",
+            "Xã Đông Thạnh",
+            "Xã Đông Phú",
+            "Xã Phú Hữu",
+            "Xã Phú Tân",
+            "Thị trấn Mái Dầm",
+            "Xã Đông Phước",
+            "Xã Đông Phước A"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành A",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Một Ngàn",
+            "Xã Tân Hoà",
+            "Thị trấn Bảy Ngàn",
+            "Xã Trường Long Tây",
+            "Xã Trường Long A",
+            "Xã Nhơn Nghĩa A",
+            "Thị trấn Rạch Gòi",
+            "Xã Thạnh Xuân",
+            "Thị trấn Cái Tắc",
+            "Xã Tân Phú Thạnh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Long Mỹ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Thuận Hưng",
+            "Xã Thuận Hòa",
+            "Xã Vĩnh Thuận Đông",
+            "Thị trấn Vĩnh Viễn",
+            "Xã Vĩnh Viễn A",
+            "Xã Lương Tâm",
+            "Xã Lương Nghĩa",
+            "Xã Xà Phiên"
+          ]
         },
         {
           "QuanHuyen": "Huyện Phụng Hiệp",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Kinh Cùng",
+            "Thị trấn Cây Dương",
+            "Xã Tân Bình",
+            "Xã Bình Thành",
+            "Xã Thạnh Hòa",
+            "Xã Long Thạnh",
+            "Xã Phụng Hiệp",
+            "Xã Hòa Mỹ",
+            "Xã Hòa An",
+            "Xã Phương Bình",
+            "Xã Hiệp Hưng",
+            "Xã Tân Phước Hưng",
+            "Thị trấn Búng Tàu",
+            "Xã Phương Phú",
+            "Xã Tân Long"
+          ]
         },
         {
           "QuanHuyen": "Huyện Vị Thuỷ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Nàng Mau",
+            "Xã Vị Trung",
+            "Xã Vị Thuỷ",
+            "Xã Vị Thắng",
+            "Xã Vĩnh Thuận Tây",
+            "Xã Vĩnh Trung",
+            "Xã Vĩnh Tường",
+            "Xã Vị Đông",
+            "Xã Vị Thanh",
+            "Xã Vị Bình"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Long Mỹ",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường Thuận An",
+            "Phường Trà Lồng",
+            "Phường Bình Thạnh",
+            "Xã Long Bình",
+            "Phường Vĩnh Tường",
+            "Xã Long Trị",
+            "Xã Long Trị A",
+            "Xã Long Phú",
+            "Xã Tân Phú"
+          ]
         }
       ]
     },
@@ -11880,47 +13920,167 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Sóc Trăng",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 5",
+            "Phường 7",
+            "Phường 8",
+            "Phường 6",
+            "Phường 2",
+            "Phường 1",
+            "Phường 4",
+            "Phường 3",
+            "Phường 9",
+            "Phường 10"
+          ]
         },
         {
           "QuanHuyen": "Huyện Châu Thành",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Châu Thành",
+            "Xã Hồ Đắc Kiện",
+            "Xã Phú Tâm",
+            "Xã Thuận Hòa",
+            "Xã Phú Tân",
+            "Xã Thiện Mỹ",
+            "Xã An Hiệp",
+            "Xã An Ninh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cù Lao Dung",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cù Lao Dung",
+            "Xã An Thạnh 1",
+            "Xã An Thạnh Tây",
+            "Xã An Thạnh Đông",
+            "Xã Đại Ân 1",
+            "Xã An Thạnh 2",
+            "Xã An Thạnh 3",
+            "Xã An Thạnh Nam"
+          ]
         },
         {
           "QuanHuyen": "Huyện Kế Sách",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Kế Sách",
+            "Thị trấn An Lạc Thôn",
+            "Xã Xuân Hòa",
+            "Xã Phong Nẫm",
+            "Xã An Lạc Tây",
+            "Xã Trinh Phú",
+            "Xã Ba Trinh",
+            "Xã Thới An Hội",
+            "Xã Nhơn Mỹ",
+            "Xã Kế Thành",
+            "Xã Kế An",
+            "Xã Đại Hải",
+            "Xã An Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Long Phú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Long Phú",
+            "Xã Song Phụng",
+            "Thị trấn Đại Ngãi",
+            "Xã Hậu Thạnh",
+            "Xã Long Đức",
+            "Xã Trường Khánh",
+            "Xã Phú Hữu",
+            "Xã Tân Hưng",
+            "Xã Châu Khánh",
+            "Xã Tân Thạnh",
+            "Xã Long Phú"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mỹ Tú",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Huỳnh Hữu Nghĩa",
+            "Xã Long Hưng",
+            "Xã Hưng Phú",
+            "Xã Mỹ Hương",
+            "Xã Mỹ Tú",
+            "Xã Mỹ Phước",
+            "Xã Thuận Hưng",
+            "Xã Mỹ Thuận",
+            "Xã Phú Mỹ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Mỹ Xuyên",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Mỹ Xuyên",
+            "Xã Đại Tâm",
+            "Xã Tham Đôn",
+            "Xã Thạnh Phú",
+            "Xã Ngọc Đông",
+            "Xã Thạnh Quới",
+            "Xã Hòa Tú 1",
+            "Xã Gia Hòa 1",
+            "Xã Ngọc Tố",
+            "Xã Gia Hòa 2",
+            "Xã Hòa Tú II"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thạnh Trị",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Phú Lộc",
+            "Thị trấn Hưng Lợi",
+            "Xã Lâm Tân",
+            "Xã Thạnh Tân",
+            "Xã Lâm Kiết",
+            "Xã Tuân Tức",
+            "Xã Vĩnh Thành",
+            "Xã Thạnh Trị",
+            "Xã Vĩnh Lợi",
+            "Xã Châu Hưng"
+          ]
         },
         {
           "QuanHuyen": "Huyện Trần Đề",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Đại Ân  2",
+            "Thị trấn Trần Đề",
+            "Xã Liêu Tú",
+            "Xã Lịch Hội Thượng",
+            "Thị trấn Lịch Hội Thượng",
+            "Xã Trung Bình",
+            "Xã Tài Văn",
+            "Xã Viên An",
+            "Xã Thạnh Thới An",
+            "Xã Thạnh Thới Thuận",
+            "Xã Viên Bình"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Ngã Năm",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Phường 2",
+            "Xã Vĩnh Quới",
+            "Xã Tân Long",
+            "Xã Long Bình",
+            "Phường 3",
+            "Xã Mỹ Bình",
+            "Xã Mỹ Quới"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Vĩnh Châu",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Xã Hòa Đông",
+            "Phường Khánh Hòa",
+            "Xã Vĩnh Hiệp",
+            "Xã Vĩnh Hải",
+            "Xã Lạc Hòa",
+            "Phường 2",
+            "Phường Vĩnh Phước",
+            "Xã Vĩnh Tân",
+            "Xã Lai Hòa"
+          ]
         }
       ]
     },
@@ -11929,31 +14089,102 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Bạc Liêu",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 2",
+            "Phường 3",
+            "Phường 5",
+            "Phường 7",
+            "Phường 1",
+            "Phường 8",
+            "Phường Nhà Mát",
+            "Xã Vĩnh Trạch",
+            "Xã Vĩnh Trạch Đông",
+            "Xã Hiệp Thành"
+          ]
         },
         {
           "QuanHuyen": "Huyện Hồng Dân",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Ngan Dừa",
+            "Xã Ninh Quới",
+            "Xã Ninh Quới A",
+            "Xã Ninh Hòa",
+            "Xã Lộc Ninh",
+            "Xã Vĩnh Lộc",
+            "Xã Vĩnh Lộc A",
+            "Xã Ninh Thạnh Lợi A",
+            "Xã Ninh Thạnh Lợi"
+          ]
         },
         {
           "QuanHuyen": "Huyện Phước Long",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Phước Long",
+            "Xã Vĩnh Phú Đông",
+            "Xã Vĩnh Phú Tây",
+            "Xã Phước Long",
+            "Xã Hưng Phú",
+            "Xã Vĩnh Thanh",
+            "Xã Phong Thạnh Tây A",
+            "Xã Phong Thạnh Tây B"
+          ]
         },
         {
           "QuanHuyen": "Huyện Vĩnh Lợi",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Vĩnh Hưng",
+            "Xã Vĩnh Hưng A",
+            "Thị trấn Châu Hưng",
+            "Xã Châu Hưng A",
+            "Xã Hưng Thành",
+            "Xã Hưng Hội",
+            "Xã Châu Thới",
+            "Xã Long Thạnh"
+          ]
         },
         {
           "QuanHuyen": "Thị xã Giá Rai",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 1",
+            "Phường Hộ Phòng",
+            "Xã Phong Thạnh Đông",
+            "Phường Láng Tròn",
+            "Xã Phong Tân",
+            "Xã Tân Phong",
+            "Xã Phong Thạnh",
+            "Xã Phong Thạnh A",
+            "Xã Phong Thạnh Tây",
+            "Xã Tân Thạnh"
+          ]
         },
         {
           "QuanHuyen": "Huyện Đông Hải",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Gành Hào",
+            "Xã Long Điền Đông",
+            "Xã Long Điền Đông A",
+            "Xã Long Điền",
+            "Xã Long Điền Tây",
+            "Xã Điền Hải",
+            "Xã An Trạch",
+            "Xã An Trạch A",
+            "Xã An Phúc",
+            "Xã Định Thành",
+            "Xã Định Thành A"
+          ]
         },
         {
           "QuanHuyen": "Huyện Hoà Bình",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Hòa Bình",
+            "Xã Minh Diệu",
+            "Xã Vĩnh Bình",
+            "Xã Vĩnh Mỹ B",
+            "Xã Vĩnh Hậu",
+            "Xã Vĩnh Hậu A",
+            "Xã Vĩnh Mỹ A",
+            "Xã Vĩnh Thịnh"
+          ]
         }
       ]
     },
@@ -11962,39 +14193,149 @@
       "QuanHuyenDS": [
         {
           "QuanHuyen": "Thành phố Cà Mau",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Phường 9",
+            "Phường 4",
+            "Phường 1",
+            "Phường 5",
+            "Phường 2",
+            "Phường 8",
+            "Phường 6",
+            "Phường 7",
+            "Phường Tân Xuyên",
+            "Xã An Xuyên",
+            "Phường Tân Thành",
+            "Xã Tân Thành",
+            "Xã Tắc Vân",
+            "Xã Lý Văn Lâm",
+            "Xã Định Bình",
+            "Xã Hòa Thành",
+            "Xã Hòa Tân"
+          ]
         },
         {
           "QuanHuyen": "Huyện U Minh",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn U Minh",
+            "Xã Khánh Hòa",
+            "Xã Khánh Thuận",
+            "Xã Khánh Tiến",
+            "Xã Nguyễn Phích",
+            "Xã Khánh Lâm",
+            "Xã Khánh An",
+            "Xã Khánh Hội"
+          ]
         },
         {
           "QuanHuyen": "Huyện Thới Bình",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Thới Bình",
+            "Xã Biển Bạch",
+            "Xã Tân Bằng",
+            "Xã Trí Phải",
+            "Xã Trí Lực",
+            "Xã Biển Bạch Đông",
+            "Xã Thới Bình",
+            "Xã Tân Phú",
+            "Xã Tân Lộc Bắc",
+            "Xã Tân Lộc",
+            "Xã Tân Lộc Đông",
+            "Xã Hồ Thị Kỷ"
+          ]
         },
         {
           "QuanHuyen": "Huyện Trần Văn Thời",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Trần Văn Thời",
+            "Thị trấn Sông Đốc",
+            "Xã Khánh Bình Tây Bắc",
+            "Xã Khánh Bình Tây",
+            "Xã Trần Hợi",
+            "Xã Khánh Lộc",
+            "Xã Khánh Bình",
+            "Xã Khánh Hưng",
+            "Xã Khánh Bình Đông",
+            "Xã Khánh Hải",
+            "Xã Lợi An",
+            "Xã Phong Điền",
+            "Xã Phong Lạc"
+          ]
         },
         {
           "QuanHuyen": "Huyện Cái Nước",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cái Nước",
+            "Xã Thạnh Phú",
+            "Xã Lương Thế Trân",
+            "Xã Phú Hưng",
+            "Xã Tân Hưng",
+            "Xã Hưng Mỹ",
+            "Xã Hoà Mỹ",
+            "Xã Đông Hưng",
+            "Xã Đông Thới"
+          ]
         },
         {
           "QuanHuyen": "Huyện Đầm Dơi",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Tân Hưng Đông",
+            "Xã Trần Thới",
+            "Thị trấn Đầm Dơi",
+            "Xã Tạ An Khương",
+            "Xã Tạ An Khương  Đông",
+            "Xã Trần Phán",
+            "Xã Tân Trung",
+            "Xã Tân Đức",
+            "Xã Tân Thuận",
+            "Xã Tạ An Khương  Nam",
+            "Xã Tân Duyệt",
+            "Xã Tân Dân",
+            "Xã Tân Tiến",
+            "Xã Quách Phẩm Bắc",
+            "Xã Quách Phẩm",
+            "Xã Thanh Tùng",
+            "Xã Ngọc Chánh",
+            "Xã Nguyễn Huân"
+          ]
         },
         {
           "QuanHuyen": "Huyện Năm Căn",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị Trấn Năm Căn",
+            "Xã Hàm Rồng",
+            "Xã Hiệp Tùng",
+            "Xã Đất Mới",
+            "Xã Lâm Hải",
+            "Xã Hàng Vịnh",
+            "Xã Tam Giang",
+            "Xã Tam Giang Đông"
+          ]
         },
         {
           "QuanHuyen": "Huyện Phú Tân",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Thị trấn Cái Đôi Vàm",
+            "Xã Phú Thuận",
+            "Xã Phú Mỹ",
+            "Xã Phú Tân",
+            "Xã Tân Hải",
+            "Xã Việt Thắng",
+            "Xã Tân Hưng Tây",
+            "Xã Rạch Chèo",
+            "Xã Nguyễn Việt Khái"
+          ]
         },
         {
           "QuanHuyen": "Huyện Ngọc Hiển",
-          "PhuongXaDS": []
+          "PhuongXaDS": [
+            "Xã Tam Giang Tây",
+            "Xã Tân Ân Tây",
+            "Xã Viên An Đông",
+            "Xã Viên An",
+            "Thị trấn Rạch Gốc",
+            "Xã Tân Ân",
+            "Xã Đất Mũi"
+          ]
         }
       ]
     }
