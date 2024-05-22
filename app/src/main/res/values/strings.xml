@@ -117,4 +117,5 @@
     <string name="phuong_xa">Phường/Xã</string>
     <string name="address_detail">Tên đường/Tòa nhà/Số nhà</string>
     <string name="enter_address_detail">Nhập chi tiết địa chỉ</string>
+    <string name="address_success">Thêm địa chỉ thành công!</string>
 </resources>

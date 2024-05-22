@@ -23,6 +23,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".client.clientAddress.ClientChooseAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.clientAddress.ClientNewAddressActivity"
             android:exported="false" />
         <activity
