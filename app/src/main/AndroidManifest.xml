@@ -23,10 +23,10 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
-            android:name=".client.clientAddress.ClientChooseAddressActivity"
+            android:name=".client.clientAddress.newAddress.ClientChooseAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".client.clientAddress.ClientNewAddressActivity"
+            android:name=".client.clientAddress.newAddress.ClientNewAddressActivity"
             android:exported="false" />
         <activity
             android:name=".client.clientAddress.ClientAddressActivity"

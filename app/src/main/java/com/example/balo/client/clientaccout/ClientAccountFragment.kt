@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.client.clientAddress.ClientAddressActivity
@@ -21,6 +22,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     private var user: UserEntity? = null
 
+    val REQUEST_ADDRESS = 123
     override fun initView() {
     }
 
@@ -38,7 +40,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                         it,
                         Gson().toJson(user!!),
                         ClientAddressActivity.TYPE_ACCOUNT
-                    ), 123
+                    ), REQUEST_ADDRESS
                 )
             }
         }
@@ -95,5 +97,16 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                 if (dialog.isShowing) dialog.dismiss()
                 toast("ERROR $error")
             })
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == FragmentActivity.RESULT_OK && requestCode == REQUEST_ADDRESS) {
+            val newUser = data?.getStringExtra(ClientAddressActivity.RESULT_ADDRESS)
+            if (newUser != null) {
+                user = Gson().fromJson(newUser, UserEntity::class.java)
+            }
+        }
     }
 }

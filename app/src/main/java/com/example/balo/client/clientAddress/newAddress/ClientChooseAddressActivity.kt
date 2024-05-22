@@ -1,4 +1,4 @@
-package com.example.balo.client.clientAddress
+package com.example.balo.client.clientAddress.newAddress
 
 import android.content.Context
 import android.content.Intent

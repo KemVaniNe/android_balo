@@ -20,3 +20,8 @@ data class QuanHuyenEntity(
     @SerializedName("PhuongXaDS")
     var phuongXaDS: List<String> = emptyList()
 )
+
+data class AddressSelect(
+    var address: String = "",
+    var isSelected: Boolean = false
+)

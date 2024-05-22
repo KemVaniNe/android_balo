@@ -1,4 +1,4 @@
-package com.example.balo.client.clientAddress
+package com.example.balo.client.clientAddress.newAddress
 
 import android.content.Context
 import android.content.Intent
@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
-import com.example.balo.client.clientaccout.ClientAccountVM
 import com.example.balo.data.model.AddressEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityClientNewAddressBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Pref
-import com.example.balo.utils.Utils
 import com.google.gson.Gson
 
 class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>() {
