@@ -14,4 +14,8 @@ object Constants {
     const val ID_BRAND_OTHER = "123"
     const val ID_GUEST = ""
     const val MAX_CART = 4
+
+    const val INIT_SHIP = 10000
+    const val STEP_SHIP = 5000
+    const val MAX_SHIP = 50000
 }

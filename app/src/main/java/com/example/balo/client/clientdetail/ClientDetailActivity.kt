@@ -12,11 +12,13 @@ import com.example.balo.adapter.CommentAdapter
 import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.OrderDetail
 import com.example.balo.databinding.ActivityClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 
 class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
@@ -59,10 +61,46 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
-        btnAdd.setOnClickListener {
-            startActivity(ClientOrderActivity.newIntent(this@ClientDetailActivity, ""))
-        }
+        btnAdd.setOnClickListener { handleAdd() }
         btnCard.setOnClickListener { handleCart() }
+    }
+
+    private fun handleCart() {
+        if (Pref.idUser == Constants.ID_GUEST) {
+            toast(getString(R.string.you_need_login))
+        } else {
+            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                val cartEntity = CartEntity(
+                    idUser = Pref.idUser,
+                    idBalo = currentProduct!!.id,
+                    quantity = quantity
+                )
+                if (!dialog.isShowing) dialog.show()
+                createCart(cartEntity)
+            }
+        }
+    }
+
+    private fun handleAdd() {
+        if (Pref.idUser == Constants.ID_GUEST) {
+            toast(getString(R.string.you_need_login))
+        } else {
+            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                val orderDetail = OrderDetail(
+                    idBalo = currentProduct!!.id,
+                    nameBalo = currentProduct!!.name,
+                    quantity = quantity,
+                    price = currentProduct!!.priceSell,
+                 //   picProduct = currentProduct!!.pic
+                )
+                startActivity(
+                    ClientOrderActivity.newIntent(
+                        this@ClientDetailActivity,
+                        listOf(Gson().toJson(orderDetail))
+                    )
+                )
+            }
+        }
     }
 
     private fun getProduct(id: String) {
@@ -110,22 +148,6 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des
-    }
-
-    private fun handleCart() {
-        if (Pref.idUser == Constants.ID_GUEST) {
-            toast(getString(R.string.you_need_login))
-        } else {
-            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
-                val cartEntity = CartEntity(
-                    idUser = Pref.idUser,
-                    idBalo = currentProduct!!.id,
-                    quantity = quantity
-                )
-                if (!dialog.isShowing) dialog.show()
-                createCart(cartEntity)
-            }
-        }
     }
 
     private fun createCart(cartEntity: CartEntity) {

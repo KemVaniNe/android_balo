@@ -6,5 +6,7 @@ enum class OrderDetail(val property: String) {
     QUANTITY("quantity"),
     PRICE("price"),
     RATE("rate"),
-    COMMENT("comment")
+    COMMENT("comment"),
+    NAMEBALO("namebalo"),
+    PICBALO("pic")
 }

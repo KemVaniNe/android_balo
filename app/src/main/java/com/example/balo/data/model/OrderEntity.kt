@@ -14,8 +14,10 @@ data class OrderDetail(
     var idDetail: String = "",
     var idOrder: String = "",
     var idBalo: String = "",
+    var nameBalo: String = "",
     var quantity: String = "0",
     var price: String = "0",
+    var picProduct: String = "",
     var rate: String = "0",
     var comment: String = ""
 )
