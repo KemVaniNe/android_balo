@@ -118,4 +118,10 @@
     <string name="address_detail">Tên đường/Tòa nhà/Số nhà</string>
     <string name="enter_address_detail">Nhập chi tiết địa chỉ</string>
     <string name="address_success">Thêm địa chỉ thành công!</string>
+    <string name="add_buy">Địa chỉ nhận hàng</string>
+    <string name="order_list">Danh sách sản phẩm</string>
+    <string name="payment_detail">Chi tiết thanh toán</string>
+    <string name="total_order">Tổng tiền hàng</string>
+    <string name="total_ship">Phí vận chuyển</string>
+    <string name="total_pay">Tổng thanh toán</string>
 </resources>

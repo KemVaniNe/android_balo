@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.CommentAdapter
+import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.databinding.ActivityClientDetailBinding
@@ -59,7 +60,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
         btnAdd.setOnClickListener {
-            //TODO
+            startActivity(ClientOrderActivity.newIntent(this@ClientDetailActivity, ""))
         }
         btnCard.setOnClickListener { handleCart() }
     }
