@@ -52,7 +52,8 @@ object DocumentUtil {
             document.getString(User.NAME.property) ?: "",
             document.getString(User.PHONE.property) ?: "",
             document.getString(User.PASSWORD.property) ?: "",
-            document.getBoolean(User.ROLE.property) ?: false
+            document.getBoolean(User.ROLE.property) ?: false,
+            document.get(User.ADDRESS.property) as? List<String> ?: emptyList()
         )
     }
 }

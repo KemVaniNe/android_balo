@@ -108,4 +108,14 @@
     <string name="password_confirm">Xác nhận mật khẩu</string>
     <string name="not_fill_all">Vui lòng nhập đủ thông tin!</string>
     <string name="wrong_password">Mật khẩu không đúng</string>
+    <string name="address_shop">Địa chỉ: 54 Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng</string>
+    <string name="choose_address">Chọn địa chỉ</string>
+    <string name="empty_address">Chưa có địa chỉ nào</string>
+    <string name="new_address">Địa chỉ mới</string>
+    <string name="city">Tỉnh/Thành phố</string>
+    <string name="quan_huyen">Quận/Huyện</string>
+    <string name="phuong_xa">Phường/Xã</string>
+    <string name="address_detail">Tên đường/Tòa nhà/Số nhà</string>
+    <string name="enter_address_detail">Nhập chi tiết địa chỉ</string>
+    <string name="address_success">Thêm địa chỉ thành công!</string>
 </resources>

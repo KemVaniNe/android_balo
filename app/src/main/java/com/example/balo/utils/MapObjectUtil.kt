@@ -45,6 +45,7 @@ object MapObjectUtil {
         return hashMapOf(
             User.PASSWORD.property to user.password,
             User.NAME.property to user.username,
+            User.ADDRESS.property to user.address
         )
     }
 }
