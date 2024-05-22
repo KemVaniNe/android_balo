@@ -14,6 +14,7 @@ import com.example.balo.databinding.FragmentAccountBinding
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.shareview.login.LoginActivity
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 
 class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     private lateinit var viewModel: ClientAccountVM
@@ -32,7 +33,13 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     override fun initListener() = binding.run {
         tvAddress.setOnClickListener {
             context?.let {
-                startActivityForResult(Intent(it, ClientAddressActivity::class.java), 123)
+                startActivityForResult(
+                    ClientAddressActivity.newIntent(
+                        it,
+                        Gson().toJson(user!!),
+                        ClientAddressActivity.TYPE_ACCOUNT
+                    ), 123
+                )
             }
         }
         tvCart.setOnClickListener {

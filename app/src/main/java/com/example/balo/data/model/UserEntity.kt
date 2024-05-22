@@ -6,4 +6,5 @@ data class UserEntity(
     var phone: String = "",
     var password: String = "",
     var role: Boolean = false,
+    var address: List<String> = emptyList()
 )
