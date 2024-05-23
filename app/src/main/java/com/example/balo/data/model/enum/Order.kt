@@ -6,5 +6,6 @@ enum class Order(val property: String) {
     TOTAL_PRICE("totalprice"),
     STATUS_ORDER("statusorder"),
     PRICESHIP("priceship"),
-    ADDRESS("address")
+    ADDRESS("address"),
+    DETAIL("detail")
 }

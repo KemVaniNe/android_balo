@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.balo.data.model.OrderDetail
+import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.databinding.ItemProductAdminBinding
 import com.example.balo.utils.Utils
 
 class ClientProductOrderAdapter(
-    private var list: List<OrderDetail>
+    private var list: List<OrderDetailEntity>
 ) : RecyclerView.Adapter<ClientProductOrderAdapter.VH>() {
     inner class VH(val binding: ItemProductAdminBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: OrderDetail) {
+        fun onBind(item: OrderDetailEntity) {
             binding.run {
                 Utils.displayBase64Image(item.picProduct, imgPic)
                 tvName.text = item.nameBalo

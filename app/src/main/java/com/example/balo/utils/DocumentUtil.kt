@@ -3,10 +3,14 @@ package com.example.balo.utils
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.OrderDetailEntity
+import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Cart
+import com.example.balo.data.model.enum.Order
+import com.example.balo.data.model.enum.OrderDetail
 import com.example.balo.data.model.enum.User
 import com.google.firebase.firestore.DocumentSnapshot
 
@@ -55,5 +59,34 @@ object DocumentUtil {
             document.getBoolean(User.ROLE.property) ?: false,
             document.get(User.ADDRESS.property) as? List<String> ?: emptyList()
         )
+    }
+
+    fun convertDocToOrder(document: DocumentSnapshot): OrderEntity {
+        return OrderEntity(
+            document.id,
+            document.getString(Order.ID_USER.property) ?: "",
+            document.getString(Order.DATE.property) ?: "",
+            document.getString(Order.TOTAL_PRICE.property) ?: "0",
+            document.getString(Order.STATUS_ORDER.property) ?: Constants.ORDER_CONFIRM,
+            document.getString(Order.PRICESHIP.property) ?: "0",
+            document.getString(Order.ADDRESS.property) ?: "",
+            convertDocToOrderDetail(document)
+        )
+    }
+
+    private fun convertDocToOrderDetail(document: DocumentSnapshot): List<OrderDetailEntity> {
+        val orderDetails =
+            (document.get(Order.DETAIL.property) as? List<Map<String, Any>>)?.map { detailMap ->
+                OrderDetailEntity(
+                    idBalo = detailMap[OrderDetail.ID_BALO.property] as? String ?: "",
+                    nameBalo = detailMap[OrderDetail.NAMEBALO.property] as? String ?: "",
+                    quantity = detailMap[OrderDetail.QUANTITY.property] as? String ?: "0",
+                    price = detailMap[OrderDetail.PRICE.property] as? String ?: "0",
+                    picProduct = detailMap[OrderDetail.PICBALO.property] as? String ?: "",
+                    rate = detailMap[OrderDetail.RATE.property] as? String ?: "0",
+                    comment = detailMap[OrderDetail.COMMENT.property] as? String ?: ""
+                )
+            } ?: emptyList()
+        return orderDetails
     }
 }

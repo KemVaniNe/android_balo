@@ -12,7 +12,7 @@ import com.example.balo.adapter.CommentAdapter
 import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
-import com.example.balo.data.model.OrderDetail
+import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.databinding.ActivityClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
@@ -86,17 +86,18 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
             toast(getString(R.string.you_need_login))
         } else {
             Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
-                val orderDetail = OrderDetail(
+                val orderDetailEntity = OrderDetailEntity(
                     idBalo = currentProduct!!.id,
                     nameBalo = currentProduct!!.name,
                     quantity = quantity,
                     price = currentProduct!!.priceSell,
-                 //   picProduct = currentProduct!!.pic
+                    //   picProduct = currentProduct!!.pic
                 )
                 startActivity(
                     ClientOrderActivity.newIntent(
                         this@ClientDetailActivity,
-                        listOf(Gson().toJson(orderDetail))
+                        listOf(Gson().toJson(orderDetailEntity)),
+                        emptyList()
                     )
                 )
             }

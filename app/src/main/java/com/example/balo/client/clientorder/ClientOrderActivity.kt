@@ -8,7 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.product.ClientProductOrderAdapter
 import com.example.balo.client.clientAddress.ClientAddressActivity
-import com.example.balo.data.model.OrderDetail
+import com.example.balo.data.model.OrderDetailEntity
+import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityClientOrderBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -23,17 +24,21 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
 
     private lateinit var viewModel: ClientOrderVM
 
-    private val order = mutableListOf<OrderDetail>()
+    private val order = mutableListOf<OrderDetailEntity>()
+
+    private var cart: List<String> = emptyList()
 
     private val orderAdapter by lazy { ClientProductOrderAdapter(order) }
 
     companion object {
 
         const val CODE_ADDRESS = 111
-        const val KEY_ORDER = "client_address"
-        fun newIntent(context: Context, response: List<String>): Intent {
+        const val KEY_ORDER = "product"
+        const val KEY_CART = "cart"
+        fun newIntent(context: Context, response: List<String>, cart: List<String>): Intent {
             return Intent(context, ClientOrderActivity::class.java).apply {
                 putStringArrayListExtra(KEY_ORDER, ArrayList(response))
+                putStringArrayListExtra(KEY_CART, ArrayList(cart))
             }
         }
     }
@@ -47,26 +52,26 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         setPrice()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         viewModel = ViewModelProvider(this)[ClientOrderVM::class.java]
         listenVM()
         val intent = intent
         val receive = intent.getStringArrayListExtra(KEY_ORDER)
-        if (intent.hasExtra(KEY_ORDER) && receive != null) {
-            updateInfo()
+        val cartReive = intent.getStringArrayListExtra(KEY_CART)
+        if (intent.hasExtra(KEY_ORDER) && intent.hasExtra(KEY_CART) && receive != null && cartReive != null) {
             receive.forEach {
-                order.add(Gson().fromJson(it, OrderDetail::class.java))
+                order.add(Gson().fromJson(it, OrderDetailEntity::class.java))
             }
-            orderAdapter.notifyDataSetChanged()
+            updateData()
+            cart = cartReive
         } else {
             finish()
         }
     }
 
-    private fun updateInfo() {
+    private fun updateData() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.loadUser { error ->
+        viewModel.loadData(order) { error ->
             if (dialog.isShowing) dialog.dismiss()
             toast("error: $error")
             finish()
@@ -88,7 +93,33 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun handleBuy() {
+        if (!dialog.isShowing) dialog.show()
+        val orderEntity = OrderEntity(
+            iduser = user!!.id,
+            date = "23/05/2024",
+            totalPrice = binding.tvPrice.text.toString(),
+            address = binding.tvAddress.text.toString(),
+            priceShip = binding.tvPriceShip.text.toString(),
+            statusOrder = Constants.ORDER_CONFIRM,
+            detail = order
+        )
+        viewModel.createOrder(order = orderEntity, handleSuccess = {
+            deleteCart()
+        }, handleFail = { error ->
+            if (dialog.isShowing) dialog.dismiss()
+            toast("ERROR: $error")
+        })
+    }
 
+    private fun deleteCart() {
+        viewModel.deleteCards(cart, handleSuccess = {
+            if (dialog.isShowing) dialog.dismiss()
+            toast("Đặt hàng thành công")
+            finish()
+        }, handleFail = { error ->
+            if (dialog.isShowing) dialog.dismiss()
+            toast("ERROR: $error")
+        })
     }
 
     @Deprecated("Deprecated in Java")
@@ -99,16 +130,25 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
-        viewModel.isLoading.observe(this) {
+        viewModel.account.observe(this) {
+            user = it
+        }
+
+        viewModel.orderDetail.observe(this) {
+            order.run {
+                clear()
+                addAll(it)
+            }
+            orderAdapter.notifyDataSetChanged()
             if (dialog.isShowing) dialog.dismiss()
-            user = viewModel.account
         }
     }
 
     private fun setPrice() = binding.run {
         var price = 0
-        val ship = Constants.INIT_SHIP + order.size * Constants.MAX_SHIP
+        val ship = Constants.INIT_SHIP + order.size * Constants.STEP_SHIP
         val endShip = if (ship > Constants.MAX_SHIP) Constants.MAX_SHIP else ship
         order.forEach {
             price += Utils.stringToInt(it.price) * Utils.stringToInt(it.quantity)
