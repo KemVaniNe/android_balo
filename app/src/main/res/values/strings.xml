@@ -129,4 +129,6 @@
     <string name="wait_ship">Chờ giao hàng</string>
     <string name="ship_success">Giao hàng thành công</string>
     <string name="order_cancel">Đơn hàng bị huỷ</string>
+    <string name="detail">Chi tiết</string>
+    <string name="pay">Thành tiền</string>
 </resources>

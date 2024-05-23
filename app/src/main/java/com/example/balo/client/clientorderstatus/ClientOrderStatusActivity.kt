@@ -1,20 +1,139 @@
 package com.example.balo.client.clientorderstatus
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.R
+import com.example.balo.adapter.ClientOrderAdapter
+import com.example.balo.client.clientdetail.ClientDetailVM
+import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityClientOrderStatusBinding
 import com.example.balo.shareview.base.BaseActivity
+import com.example.balo.utils.Constants
 
 class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>() {
+    private lateinit var viewModel: ClientOrderStatusVM
+    private val listConfirm = mutableListOf<OrderEntity>()
+    private val listPackage = mutableListOf<OrderEntity>()
+    private val listShip = mutableListOf<OrderEntity>()
+    private val listSuccess = mutableListOf<OrderEntity>()
+    private val listCancel = mutableListOf<OrderEntity>()
+
+    private val confirmAdapter by lazy {
+        ClientOrderAdapter(listConfirm) {
+
+        }
+    }
+
+    private val packageAdapter by lazy {
+        ClientOrderAdapter(listPackage) {
+
+        }
+    }
+
+    private val shipAdapter by lazy {
+        ClientOrderAdapter(listShip) {
+
+        }
+    }
+
+    private val successAdapter by lazy {
+        ClientOrderAdapter(listSuccess) {
+
+        }
+    }
+
+    private val cancelAdapter by lazy {
+        ClientOrderAdapter(listCancel) {
+
+        }
+    }
+
+    companion object {
+        const val TYPE_CONFIRM = 1
+        const val TYPE_PACKAGE = 2
+        const val TYPE_SHIP = 3
+        const val TYPE_SUCCESS = 4
+        const val TYPE_CANCEL = 5
+    }
+
     override fun viewBinding(inflate: LayoutInflater): ActivityClientOrderStatusBinding =
         ActivityClientOrderStatusBinding.inflate(inflate)
 
-    override fun initView() {
+    override fun initView() = binding.rvOrders.run {
+        layoutManager = LinearLayoutManager(this@ClientOrderStatusActivity)
+        adapter = confirmAdapter
     }
 
     override fun initData() {
+        viewModel = ViewModelProvider(this)[ClientOrderStatusVM::class.java]
+        listenVM()
+        if (!dialog.isShowing) dialog.show()
+        viewModel.getOrders { error ->
+            if (dialog.isShowing) dialog.dismiss()
+            toast("ERROR: $error")
+            finish()
+        }
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        tabConfirm.setOnClickListener { listenTab(TYPE_CONFIRM) }
+        tabShip.setOnClickListener { listenTab(TYPE_SHIP) }
+        tabPackage.setOnClickListener { listenTab(TYPE_PACKAGE) }
+        tabSuccess.setOnClickListener { listenTab(TYPE_SUCCESS) }
+        tabCancelOrder.setOnClickListener { listenTab(TYPE_CANCEL) }
+        tvTitle.setOnClickListener { finish() }
+    }
+
+    private fun listenTab(type: Int) = binding.run {
+        changeViewTab(tabConfirm, type == TYPE_CONFIRM)
+        changeViewTab(tabPackage, type == TYPE_PACKAGE)
+        changeViewTab(tabShip, type == TYPE_SHIP)
+        changeViewTab(tabSuccess, type == TYPE_SUCCESS)
+        changeViewTab(tabCancelOrder, type == TYPE_CANCEL)
+        val adapterCurrent = when (type) {
+            TYPE_CONFIRM -> confirmAdapter
+            TYPE_PACKAGE -> packageAdapter
+            TYPE_SHIP -> shipAdapter
+            TYPE_SUCCESS -> successAdapter
+            TYPE_CANCEL -> cancelAdapter
+            else -> confirmAdapter
+        }
+        rvOrders.adapter = adapterCurrent
+    }
+
+    private fun changeViewTab(view: TextView, isSelect: Boolean) {
+        view.setBackgroundResource(if (isSelect) R.drawable.bg_btn else R.drawable.bg_option)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun listenVM() {
+        viewModel.orders.observe(this) {
+            if (dialog.isShowing) dialog.dismiss()
+            if (it.isNotEmpty()) {
+                listCancel.clear()
+                listConfirm.clear()
+                listShip.clear()
+                listPackage.clear()
+                listSuccess.clear()
+                it.forEach {
+                    when (it.statusOrder) {
+                        Constants.ORDER_CANCEL -> listCancel.add(it)
+                        Constants.ORDER_CONFIRM -> listConfirm.add(it)
+                        Constants.ORDER_COMPLETE -> listSuccess.add(it)
+                        Constants.ORDER_SHIP -> listShip.add(it)
+                        Constants.ORDER_WAIT_SHIP -> listPackage.add(it)
+                    }
+                }
+                confirmAdapter.notifyDataSetChanged()
+                cancelAdapter.notifyDataSetChanged()
+                successAdapter.notifyDataSetChanged()
+                shipAdapter.notifyDataSetChanged()
+                packageAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
 }
