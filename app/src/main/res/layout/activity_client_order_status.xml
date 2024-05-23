@@ -4,6 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg">
+    android:background="@color/color_bg"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="16dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:text="@string/order"
+        android:textColor="@color/color_bg"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/hsvTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tvTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/gray"
+            app:tabSelectedTextColor="@color/color_button"
+            app:tabIndicatorColor="@color/color_button"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_confirm" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabPackage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_package" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabShip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_ship" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ship_success" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabCancelOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_cancel" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/hsvTab"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

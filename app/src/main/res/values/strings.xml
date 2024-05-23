@@ -124,4 +124,9 @@
     <string name="total_order">Tổng tiền hàng</string>
     <string name="total_ship">Phí vận chuyển</string>
     <string name="total_pay">Tổng thanh toán</string>
+    <string name="wait_confirm">Chờ xác nhận</string>
+    <string name="wait_package">Đang đóng gói</string>
+    <string name="wait_ship">Chờ giao hàng</string>
+    <string name="ship_success">Giao hàng thành công</string>
+    <string name="order_cancel">Đơn hàng bị huỷ</string>
 </resources>

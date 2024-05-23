@@ -10,6 +10,7 @@ import com.example.balo.R
 import com.example.balo.client.clientAddress.ClientAddressActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.client.clientmain.ClientMainActivity
+import com.example.balo.client.clientorderstatus.ClientOrderStatusActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.FragmentAccountBinding
 import com.example.balo.shareview.base.BaseFragment
@@ -51,7 +52,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
             //TODO
         }
         tvOrder.setOnClickListener {
-            //TODO
+            context?.let { startActivity(Intent(it, ClientOrderStatusActivity::class.java)) }
         }
         tvInfo.setOnClickListener { handleUpdateInfo() }
         tvUpdatePass.setOnClickListener { handleUpdatePass() }
