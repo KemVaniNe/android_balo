@@ -131,4 +131,6 @@
     <string name="order_cancel">Đơn hàng bị huỷ</string>
     <string name="detail">Chi tiết</string>
     <string name="pay">Thành tiền</string>
+    <string name="order_detail">Chi tiết đơn hàng</string>
+    <string name="cancel_mess">Bạn có muốn hủy không?</string>
 </resources>

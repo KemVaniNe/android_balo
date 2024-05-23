@@ -171,4 +171,8 @@ object Utils {
         return MapObjectUtil.sellToMaps(sell)
     }
 
+    fun statusCancelToMap(): Map<String, Any> {
+        return MapObjectUtil.statusCancelToMap()
+    }
+
 }

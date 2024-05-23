@@ -78,8 +78,11 @@ object MapObjectUtil {
     }
 
     fun sellToMaps(sell: String): Map<String, Any> {
-        return hashMapOf(
-            Balo.SELL.property to sell
+        return hashMapOf(Balo.SELL.property to sell)
+    }
+
+    fun statusCancelToMap(): Map<String, Any> {
+        return hashMapOf(Order.STATUS_ORDER.property to Constants.ORDER_CANCEL
         )
     }
 }

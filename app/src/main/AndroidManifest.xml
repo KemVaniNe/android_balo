@@ -23,6 +23,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".client.clientorderstatus.detail.ClientOrderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.clientorderstatus.ClientOrderStatusActivity"
             android:exported="false" />
         <activity

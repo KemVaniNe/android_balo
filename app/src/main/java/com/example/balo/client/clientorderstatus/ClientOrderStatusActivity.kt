@@ -1,13 +1,14 @@
 package com.example.balo.client.clientorderstatus
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.ClientOrderAdapter
-import com.example.balo.client.clientdetail.ClientDetailVM
+import com.example.balo.client.clientorderstatus.detail.ClientOrderDetailActivity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityClientOrderStatusBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -22,33 +23,23 @@ class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>
     private val listCancel = mutableListOf<OrderEntity>()
 
     private val confirmAdapter by lazy {
-        ClientOrderAdapter(listConfirm) {
-
-        }
+        ClientOrderAdapter(listConfirm) { goToDetail(listConfirm[it].id) }
     }
 
     private val packageAdapter by lazy {
-        ClientOrderAdapter(listPackage) {
-
-        }
+        ClientOrderAdapter(listPackage) { goToDetail(listPackage[it].id) }
     }
 
     private val shipAdapter by lazy {
-        ClientOrderAdapter(listShip) {
-
-        }
+        ClientOrderAdapter(listShip) { goToDetail(listShip[it].id) }
     }
 
     private val successAdapter by lazy {
-        ClientOrderAdapter(listSuccess) {
-
-        }
+        ClientOrderAdapter(listSuccess) { goToDetail(listSuccess[it].id) }
     }
 
     private val cancelAdapter by lazy {
-        ClientOrderAdapter(listCancel) {
-
-        }
+        ClientOrderAdapter(listCancel) { goToDetail(listCancel[it].id) }
     }
 
     companion object {
@@ -57,6 +48,7 @@ class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>
         const val TYPE_SHIP = 3
         const val TYPE_SUCCESS = 4
         const val TYPE_CANCEL = 5
+        const val REQUEST_CODE_DETAIL = 123
     }
 
     override fun viewBinding(inflate: LayoutInflater): ActivityClientOrderStatusBinding =
@@ -70,12 +62,7 @@ class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>
     override fun initData() {
         viewModel = ViewModelProvider(this)[ClientOrderStatusVM::class.java]
         listenVM()
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getOrders { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("ERROR: $error")
-            finish()
-        }
+        updateOrder()
     }
 
     override fun initListener() = binding.run {
@@ -104,8 +91,21 @@ class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>
         rvOrders.adapter = adapterCurrent
     }
 
+    private fun updateOrder() {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.getOrders { error ->
+            if (dialog.isShowing) dialog.dismiss()
+            toast("ERROR: $error")
+            finish()
+        }
+    }
+
     private fun changeViewTab(view: TextView, isSelect: Boolean) {
         view.setBackgroundResource(if (isSelect) R.drawable.bg_btn else R.drawable.bg_option)
+    }
+
+    private fun goToDetail(id: String) {
+        startActivityForResult(ClientOrderDetailActivity.newIntent(this, id), REQUEST_CODE_DETAIL)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -133,6 +133,14 @@ class ClientOrderStatusActivity : BaseActivity<ActivityClientOrderStatusBinding>
                 shipAdapter.notifyDataSetChanged()
                 packageAdapter.notifyDataSetChanged()
             }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_DETAIL) {
+            updateOrder()
         }
     }
 
