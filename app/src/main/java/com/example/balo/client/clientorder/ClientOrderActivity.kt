@@ -115,6 +115,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         viewModel.deleteCards(cart, handleSuccess = {
             if (dialog.isShowing) dialog.dismiss()
             toast("Đặt hàng thành công")
+            setResult(RESULT_OK)
             finish()
         }, handleFail = { error ->
             if (dialog.isShowing) dialog.dismiss()

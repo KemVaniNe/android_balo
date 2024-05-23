@@ -1,13 +1,16 @@
 package com.example.balo.client.clientcart
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.ClientCartAdapter
+import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.databinding.ActivityClientCartBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
@@ -16,6 +19,7 @@ import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
 import com.example.balo.utils.Utils.calculate
 import com.example.balo.utils.Utils.stringToInt
+import com.google.gson.Gson
 
 class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
 
@@ -24,6 +28,8 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     private lateinit var viewModel: ClientCartVM
 
     private val chooses = mutableListOf<CartEntity>()
+    
+    private val REQUEST_CODE_ORDER = 123
 
     private val cartAdapter by lazy(LazyThreadSafetyMode.NONE) {
         ClientCartAdapter(carts,
@@ -92,7 +98,19 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
         if (chooses.isEmpty()) {
             toast(getString(R.string.you_not_choose_cart))
         } else {
-            //TODO
+            val list = mutableListOf<String>()
+            val listId = mutableListOf<String>()
+            chooses.forEach {
+                val orderDetailEntity = OrderDetailEntity(
+                    idBalo = it.idBalo,
+                    nameBalo = it.nameBalo,
+                    quantity = it.quantity,
+                    price = it.price,
+                )
+                list.add(Gson().toJson(orderDetailEntity))
+                listId.add(it.idCart)
+            }
+            startActivityForResult(ClientOrderActivity.newIntent(this, list,listId), REQUEST_CODE_ORDER)
         }
     }
 
@@ -147,5 +165,13 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     private fun showToast(notification: String) {
         if (dialog.isShowing) dialog.dismiss()
         toast(notification)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+            updateCart()
+        }
     }
 }

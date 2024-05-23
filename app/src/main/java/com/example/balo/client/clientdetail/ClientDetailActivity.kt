@@ -28,11 +28,14 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     private val comment = mutableListOf<String>()
 
+    private var id = ""
+
     private val commentAdapter by lazy { CommentAdapter(comment) }
 
     companion object {
 
         const val KEY_DETAIL = "admin_brand"
+        const val REQUEST_CODE_ORDER = 123
         fun newIntent(context: Context, response: String): Intent {
             return Intent(context, ClientDetailActivity::class.java).apply {
                 putExtra(KEY_DETAIL, response)
@@ -53,7 +56,8 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_DETAIL) && intent.getStringExtra(KEY_DETAIL) != null) {
-            getProduct(intent.getStringExtra(KEY_DETAIL)!!)
+            id = intent.getStringExtra(KEY_DETAIL)!!
+            getProduct()
         } else {
             finish()
         }
@@ -91,7 +95,6 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     nameBalo = currentProduct!!.name,
                     quantity = quantity,
                     price = currentProduct!!.priceSell,
-                    //   picProduct = currentProduct!!.pic
                 )
                 startActivity(
                     ClientOrderActivity.newIntent(
@@ -104,7 +107,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         }
     }
 
-    private fun getProduct(id: String) {
+    private fun getProduct() {
         if (!dialog.isShowing) dialog.show()
         viewModel.getProducts(id) {
             toastDialog(it)
@@ -162,5 +165,13 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun toastDialog(notification: String) {
         toast(notification)
         if (dialog.isShowing) dialog.dismiss()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+            getProduct()
+        }
     }
 }
