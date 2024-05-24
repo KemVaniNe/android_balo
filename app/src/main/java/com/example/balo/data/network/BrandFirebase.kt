@@ -21,4 +21,23 @@ class BrandFirebase {
             }
             .addOnFailureListener { exception -> handleFail(exception.message.toString()) }
     }
+
+    fun getBrandsBaseId(
+        idBrand: String,
+        handleSuccess: (BrandEntity) -> Unit,
+        handleNotExits: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        db.collection(Collection.BRAND.collectionName).document(idBrand)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    handleSuccess.invoke(Utils.convertDocToBrand(document))
+                } else {
+                    handleNotExits.invoke()
+                }
+            }.addOnFailureListener { exception ->
+                handleFail(exception.message.toString())
+            }
+    }
 }

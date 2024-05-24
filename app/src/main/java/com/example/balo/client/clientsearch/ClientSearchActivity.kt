@@ -1,7 +1,6 @@
 package com.example.balo.client.clientsearch
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
@@ -17,7 +16,7 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivitySearchBinding
 import com.example.balo.shareview.base.BaseActivity
-import com.example.balo.utils.Utils
+import com.example.balo.utils.Constants
 import com.google.gson.Gson
 
 class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
@@ -25,7 +24,6 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     private lateinit var viewModel: ClientSearchVM
 
     private var brand: BrandEntity? = null
-
     private val products = mutableListOf<BaloEntity>()
 
     private val productAdapter by lazy {
@@ -35,7 +33,6 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     companion object {
-
         const val EMPTY_BRAND = ""
         const val KEY_SEARCH = "search_act"
         fun newIntent(context: Context, brand: String): Intent {
@@ -64,16 +61,14 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
         viewModel = ViewModelProvider(this)[ClientSearchVM::class.java]
         listenVM()
         val intent = intent
-        if (intent.hasExtra(KEY_SEARCH) && intent.getStringExtra(KEY_SEARCH) != null) {
-            if (intent.getStringExtra(KEY_SEARCH) == EMPTY_BRAND) {
-                viewModel.getAllBrand { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                }
-            } else {
+        val receive = intent.getStringExtra(KEY_SEARCH)
+        if (intent.hasExtra(KEY_SEARCH) && receive != null) {
+            var id = Constants.ID_BRAND_OTHER
+            if (receive != EMPTY_BRAND) {
                 brand = Gson().fromJson(intent.getStringExtra(KEY_SEARCH), BrandEntity::class.java)
-                getProduct(brand!!.id)
+                id = brand!!.id
             }
+            getProduct(id)
         } else {
             finish()
         }
@@ -117,8 +112,7 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
                     search(s.toString().trim())
                 }
 
-                override fun afterTextChanged(s: Editable?) {
-                }
+                override fun afterTextChanged(s: Editable?) {}
             })
         }
     }
