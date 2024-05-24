@@ -3,12 +3,12 @@ package com.example.balo.data.network
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.enum.Cart
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
@@ -17,6 +17,44 @@ class CartFirebase {
     private val db = Firebase.firestore
 
     private val productFirebase = ProductFirebase()
+
+    fun isCartProductExits(
+        cart: CartEntity,
+        handleExits: () -> Unit,
+        handleNotExit: () -> Unit,
+        handleFail: (String) -> Unit,
+        handleFull: () -> Unit,
+    ) {
+        db.collection(Collection.CART.collectionName)
+            .whereEqualTo(Cart.ID_USER.property, cart.idUser)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.size() > Constants.MAX_CART) {
+                    handleFull.invoke()
+                } else {
+                    for (doc in document) {
+                        if ((doc.getString(Cart.ID_BALO.property) ?: "") == cart.idBalo) {
+                            handleExits.invoke()
+                            return@addOnSuccessListener
+                        }
+                    }
+                    handleNotExit.invoke()
+                }
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    fun createNewCart(
+        cart: CartEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val data = Utils.cartToMap(cart)
+        db.collection(Collection.CART.collectionName).add(data)
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
     fun getCartsBaseUser(
         idUser: String,
         handleSuccess: (List<CartEntity>) -> Unit,
@@ -36,7 +74,8 @@ class CartFirebase {
                         handleFail("Failed to fetch some documents")
                     }
                 }
-            }.addOnFailureListener { exception -> handleFail(exception.message.toString()) }
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
     private fun handleCartDocument(

@@ -1,4 +1,4 @@
-package com.example.balo.client.clientaddress.newaddress
+package com.example.balo.client.clientAddress.newAddress
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.address.ClientAddressAdapter
-import com.example.balo.client.clientaddress.ClientAddressVM
+import com.example.balo.client.clientAddress.ClientAddressVM
 import com.example.balo.data.model.AddressEntity
 import com.example.balo.databinding.ActivityClientChooseAddressBinding
 import com.example.balo.shareview.base.BaseActivity

@@ -96,15 +96,16 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     quantity = quantity,
                     price = currentProduct!!.priceSell,
                 )
-                startActivity(
-                    ClientOrderActivity.newIntent(
-                        this@ClientDetailActivity,
-                        listOf(Gson().toJson(orderDetailEntity)),
-                        emptyList()
-                    )
-                )
+                goToOrder(orderDetailEntity)
             }
         }
+    }
+
+    private fun goToOrder(order: OrderDetailEntity) {
+        startActivityForResult(
+            ClientOrderActivity.newIntent(this, listOf(Gson().toJson(order)), emptyList()),
+            REQUEST_CODE_ORDER
+        )
     }
 
     private fun getProduct() {
@@ -158,7 +159,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         viewModel.createCart(cartEntity,
             handleExits = { toastDialog(getString(R.string.cart_exits)) },
             handleSuccess = { toastDialog(getString(R.string.add_success_cart)) },
-            handleFail = { error -> toastDialog("ERROR: $error") },
+            handleFail = { toastDialog(it) },
             handleFull = { toastDialog(getString(R.string.cart_full)) })
     }
 
@@ -170,7 +171,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
             getProduct()
         }
     }

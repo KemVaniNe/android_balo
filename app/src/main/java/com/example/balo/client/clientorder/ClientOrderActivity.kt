@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.product.ClientProductOrderAdapter
-import com.example.balo.client.clientaddress.ClientAddressActivity
+import com.example.balo.client.clientAddress.ClientAddressActivity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity

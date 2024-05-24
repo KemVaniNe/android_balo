@@ -1,4 +1,4 @@
-package com.example.balo.client.clientaddress
+package com.example.balo.client.clientAddress
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData

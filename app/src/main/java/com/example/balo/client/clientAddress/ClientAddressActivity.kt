@@ -1,4 +1,4 @@
-package com.example.balo.client.clientaddress
+package com.example.balo.client.clientAddress
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.address.ClientAddressAdapter
 import com.example.balo.adapter.address.ClientAddressMutiAdapter
-import com.example.balo.client.clientaddress.newaddress.ClientNewAddressActivity
+import com.example.balo.client.clientAddress.newAddress.ClientNewAddressActivity
 import com.example.balo.data.model.AddressSelect
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityClientAddressBinding

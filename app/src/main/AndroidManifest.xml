@@ -38,13 +38,13 @@
             android:name=".client.clientorder.ClientOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".client.clientaddress.newaddress.ClientChooseAddressActivity"
+            android:name=".client.clientAddress.newAddress.ClientChooseAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".client.clientaddress.newaddress.ClientNewAddressActivity"
+            android:name=".client.clientAddress.newAddress.ClientNewAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".client.clientaddress.ClientAddressActivity"
+            android:name=".client.clientAddress.ClientAddressActivity"
             android:exported="false" />
         <activity
             android:name=".client.clientcart.ClientCartActivity"

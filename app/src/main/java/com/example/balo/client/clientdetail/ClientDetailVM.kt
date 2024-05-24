@@ -4,32 +4,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
-import com.example.balo.data.model.enum.Cart
-import com.example.balo.data.model.enum.Collection
-import com.example.balo.utils.Constants
-import com.example.balo.utils.Utils
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
+import com.example.balo.data.network.CartFirebase
+import com.example.balo.data.network.ProductFirebase
 
 class ClientDetailVM : ViewModel() {
 
     private val _productCurrent = MutableLiveData<BaloEntity?>(null)
     val productCurrent = _productCurrent
 
-    private val db = Firebase.firestore
+    private val productFirebase = ProductFirebase()
+    private val cartFirebase = CartFirebase()
 
-    fun getProducts(idBalo: String, handleFail: (String) -> Unit) {
-        db.collection(Collection.BALO.collectionName).document(idBalo)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    _productCurrent.postValue(Utils.convertDocToBProduct(document))
-                } else {
-                    handleFail("EROR: Product not exists")
-                }
-            }.addOnFailureListener { exception ->
-                handleFail(exception.message.toString())
-            }
+    fun getProducts(id: String, handleFail: (String) -> Unit) {
+        productFirebase.getProductBaseId(
+            idProduct = id,
+            handleSuccess = { _productCurrent.postValue(it) },
+            handleFail = { handleFail.invoke(it) }
+        )
     }
 
     private fun createNewCart(
@@ -37,10 +28,11 @@ class ClientDetailVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val data = Utils.cartToMap(cart)
-        db.collection(Collection.CART.collectionName).add(data)
-            .addOnSuccessListener { handleSuccess.invoke() }
-            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+        cartFirebase.createNewCart(
+            cart = cart,
+            handleSuccess = { handleSuccess.invoke() },
+            handleFail = { handleFail.invoke(it) }
+        )
     }
 
     fun createCart(
@@ -50,22 +42,12 @@ class ClientDetailVM : ViewModel() {
         handleFail: (String) -> Unit,
         handleFull: () -> Unit,
     ) {
-        db.collection(Collection.CART.collectionName)
-            .whereEqualTo(Cart.ID_USER.property, cart.idUser)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document.size() > Constants.MAX_CART) {
-                    handleFull.invoke()
-                } else {
-                    for (doc in document) {
-                        if ((doc.getString(Cart.ID_BALO.property) ?: "") == cart.idBalo) {
-                            handleExits.invoke()
-                            return@addOnSuccessListener
-                        }
-                    }
-                    createNewCart(cart, handleSuccess, handleFail)
-                }
-            }
-            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+        cartFirebase.isCartProductExits(
+            cart = cart,
+            handleExits = { handleExits.invoke() },
+            handleNotExit = { createNewCart(cart, handleSuccess, handleFail) },
+            handleFail = { handleFail.invoke(it) },
+            handleFull = { handleFull.invoke() }
+        )
     }
 }
