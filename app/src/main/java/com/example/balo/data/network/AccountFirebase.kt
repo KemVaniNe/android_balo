@@ -20,7 +20,7 @@ class AccountFirebase {
         db.collection(Collection.USER.collectionName).document(user.id)
             .update(updateData)
             .addOnSuccessListener { handleSuccess.invoke() }
-            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
     fun getUserBaseId(handleSuccess: (UserEntity) -> Unit, handleFail: (String) -> Unit) {
@@ -35,7 +35,7 @@ class AccountFirebase {
                         handleFail.invoke("Không tìm thấy người dùng!")
                     }
                 }
-                .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+                .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
         }
     }
 }

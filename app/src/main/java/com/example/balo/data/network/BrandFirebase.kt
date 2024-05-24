@@ -19,7 +19,7 @@ class BrandFirebase {
                 }
                 handleSuccess.invoke(data)
             }
-            .addOnFailureListener { exception -> handleFail(exception.message.toString()) }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
     fun getBrandsBaseId(
@@ -35,8 +35,7 @@ class BrandFirebase {
                 } else {
                     handleFail.invoke("Không tìm thấy thương hiệu này!")
                 }
-            }.addOnFailureListener { exception ->
-                handleFail(exception.message.toString())
             }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 }
