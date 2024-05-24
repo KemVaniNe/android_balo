@@ -4,10 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
-import com.example.balo.client.clientAddress.ClientAddressActivity
+import com.example.balo.client.clientaddress.ClientAddressActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.client.clientorderstatus.ClientOrderStatusActivity
@@ -16,7 +15,6 @@ import com.example.balo.databinding.FragmentAccountBinding
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.shareview.login.LoginActivity
 import com.example.balo.utils.Utils
-import com.google.gson.Gson
 
 class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     private lateinit var viewModel: ClientAccountVM
@@ -37,11 +35,8 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
         tvAddress.setOnClickListener {
             context?.let {
                 startActivityForResult(
-                    ClientAddressActivity.newIntent(
-                        it,
-                        Gson().toJson(user!!),
-                        ClientAddressActivity.TYPE_ACCOUNT
-                    ), REQUEST_ADDRESS
+                    ClientAddressActivity.newIntent(it, ClientAddressActivity.TYPE_ACCOUNT),
+                    REQUEST_ADDRESS
                 )
             }
         }
@@ -98,16 +93,5 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                 if (dialog.isShowing) dialog.dismiss()
                 toast("ERROR $error")
             })
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == FragmentActivity.RESULT_OK && requestCode == REQUEST_ADDRESS) {
-            val newUser = data?.getStringExtra(ClientAddressActivity.RESULT_ADDRESS)
-            if (newUser != null) {
-                user = Gson().fromJson(newUser, UserEntity::class.java)
-            }
-        }
     }
 }

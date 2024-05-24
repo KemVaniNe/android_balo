@@ -1,20 +1,21 @@
-package com.example.balo.client.clientAddress.newAddress
+package com.example.balo.client.clientaddress
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.R
 import com.example.balo.data.model.AddressEntity
 import com.example.balo.data.model.UserEntity
-import com.example.balo.data.model.enum.Collection
-import com.example.balo.utils.Utils
+import com.example.balo.data.network.AccountFirebase
 import com.google.common.reflect.TypeToken
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
 import com.google.gson.Gson
 
 class ClientAddressVM : ViewModel() {
 
-    private val db = Firebase.firestore
+    private val accountFirebase = AccountFirebase()
+
+    private val _account = MutableLiveData<UserEntity?>(null)
+    val account = _account
 
     fun getAddressFromJson(context: Context): AddressEntity? {
         return try {
@@ -31,12 +32,17 @@ class ClientAddressVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleError: (String) -> Unit
     ) {
-        val updateData = Utils.userToMap(user)
-        db.collection(Collection.USER.collectionName).document(user.id)
-            .update(updateData)
-            .addOnSuccessListener {
-                handleSuccess.invoke()
-            }
-            .addOnFailureListener { e -> handleError.invoke(e.message.toString()) }
+        accountFirebase.updateUser(
+            user = user,
+            handleSuccess = { handleSuccess.invoke() },
+            handleFail = { handleError.invoke(it) }
+        )
+    }
+
+    fun getUser(handleFail: (String) -> Unit) {
+        accountFirebase.getUserBaseId(
+            handleSuccess = { _account.postValue(it) },
+            handleFail = { handleFail.invoke(it) }
+        )
     }
 }

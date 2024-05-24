@@ -1,4 +1,4 @@
-package com.example.balo.client.clientAddress.newAddress
+package com.example.balo.client.clientaddress.newaddress
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
+import com.example.balo.client.clientaddress.ClientAddressVM
 import com.example.balo.data.model.AddressEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityClientNewAddressBinding
@@ -15,25 +16,19 @@ import com.google.gson.Gson
 
 class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>() {
     private lateinit var viewModel: ClientAddressVM
-
     private lateinit var userEntity: UserEntity
 
     private var address: AddressEntity? = null
-
     private var cityChoose: String = ""
-
     private var qhChoose: String = ""
-
     private var txChoose: String = ""
 
     companion object {
-
         const val KEY_ADDRESS = "client_new_address"
         const val RESULT_ADDRESS = "result_address"
         const val REQUEST_CODE_CITY = 123
         const val REQUEST_CODE_QH = 124
         const val REQUEST_CODE_TX = 125
-
         fun newIntent(context: Context, response: String): Intent {
             return Intent(context, ClientNewAddressActivity::class.java).apply {
                 putExtra(KEY_ADDRESS, response)
@@ -44,8 +39,7 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
     override fun viewBinding(inflate: LayoutInflater): ActivityClientNewAddressBinding =
         ActivityClientNewAddressBinding.inflate(inflate)
 
-    override fun initView() {
-    }
+    override fun initView() {}
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[ClientAddressVM::class.java]
@@ -76,38 +70,35 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
             }
             userEntity.address = newAddress
             viewModel.updateInfo(userEntity, handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.address_success))
+                showToast(getString(R.string.address_success))
                 val resultIntent = Intent().apply {
                     putExtra(RESULT_ADDRESS, Gson().toJson(userEntity))
                 }
                 setResult(RESULT_OK, resultIntent)
                 finish()
-            }, handleError = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("ERROR : $error")
-            })
+            }, handleError = { showToast(it) })
         }
+    }
+
+    private fun showToast(mess: String) {
+        if (dialog.isShowing) dialog.dismiss()
+        toast(mess)
     }
 
     private fun handleCity() {
         Pref.address = cityChoose
-        startActivityForResult(
-            ClientChooseAddressActivity.newIntent(this, listCity()),
-            REQUEST_CODE_CITY
-        )
+        binding.tvErrorCity.visibility = View.INVISIBLE
+        goToChoose(listCity(), REQUEST_CODE_CITY)
     }
 
     private fun handleQH() = binding.run {
         Pref.address = qhChoose
+        tvErrorQH.visibility = View.INVISIBLE
         if (tvCity.text == getString(R.string.click_to_choose)) {
             tvErrorCity.visibility = View.VISIBLE
         } else {
             tvErrorCity.visibility = View.INVISIBLE
-            startActivityForResult(
-                ClientChooseAddressActivity.newIntent(this@ClientNewAddressActivity, listQH()),
-                REQUEST_CODE_QH
-            )
+            goToChoose(listQH(), REQUEST_CODE_QH)
         }
     }
 
@@ -117,11 +108,14 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
             tvErrorQH.visibility = View.VISIBLE
         } else {
             tvErrorQH.visibility = View.INVISIBLE
-            startActivityForResult(
-                ClientChooseAddressActivity.newIntent(this@ClientNewAddressActivity, listTX()),
-                REQUEST_CODE_TX
-            )
+            goToChoose(listTX(), REQUEST_CODE_TX)
         }
+    }
+
+    private fun goToChoose(list: List<String>, requestCode: Int) {
+        startActivityForResult(
+            ClientChooseAddressActivity.newIntent(this, list), requestCode
+        )
     }
 
     private fun isAllFill(): Boolean {
