@@ -52,7 +52,6 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
         const val KEY_TYPE = "client_type"
         const val TYPE_ACCOUNT = "account"
         const val TYPE_ORDER = "order"
-        const val RESULT_ADDRESS = "result_address"
         fun newIntent(context: Context, type: String): Intent {
             return Intent(context, ClientAddressActivity::class.java).apply {
                 putExtra(KEY_TYPE, type)
