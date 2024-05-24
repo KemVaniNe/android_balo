@@ -11,6 +11,18 @@ import com.google.firebase.firestore.firestore
 class ProductFirebase {
     private val db = Firebase.firestore
 
+    fun updateProduct(
+        balo: BaloEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val data = Utils.productToMap(balo)
+        db.collection(Collection.BALO.collectionName).document(balo.id)
+            .update(data)
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+    }
+
     fun getProductBaseId(
         idProduct: String,
         handleSuccess: (BaloEntity) -> Unit,

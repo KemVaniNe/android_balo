@@ -94,7 +94,7 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     private fun updateProduct() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.updateProduct(order!!, handleSuccess = {
+        viewModel.cancelOrderByUser(order!!, handleSuccess = {
             showToast("Hủy đơn thành công")
             setResult(RESULT_OK)
             finish()
