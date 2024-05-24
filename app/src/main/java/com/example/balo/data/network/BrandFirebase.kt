@@ -25,7 +25,6 @@ class BrandFirebase {
     fun getBrandsBaseId(
         idBrand: String,
         handleSuccess: (BrandEntity) -> Unit,
-        handleNotExits: () -> Unit,
         handleFail: (String) -> Unit
     ) {
         db.collection(Collection.BRAND.collectionName).document(idBrand)
@@ -34,7 +33,7 @@ class BrandFirebase {
                 if (document != null && document.exists()) {
                     handleSuccess.invoke(Utils.convertDocToBrand(document))
                 } else {
-                    handleNotExits.invoke()
+                    handleFail.invoke("Không tìm thấy thương hiệu này!")
                 }
             }.addOnFailureListener { exception ->
                 handleFail(exception.message.toString())
