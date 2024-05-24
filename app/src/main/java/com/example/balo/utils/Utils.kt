@@ -13,7 +13,12 @@ import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.OrderDetailEntity
+import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
+import com.example.balo.data.model.enum.Balo
+import com.example.balo.data.model.enum.Order
+import com.example.balo.data.model.enum.OrderDetail
 import com.example.balo.data.model.enum.User
 import com.google.firebase.firestore.DocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
@@ -114,6 +119,14 @@ object Utils {
         return MapObjectUtil.productToMap(product)
     }
 
+    fun orderToMap(order: OrderEntity): Map<String, Any> {
+        return MapObjectUtil.orderToMap(order)
+    }
+
+    fun orderDetailToMap(order: OrderDetailEntity): Map<String, Any> {
+        return MapObjectUtil.orderDetailToMap(order)
+    }
+
     fun brandToMap(brand: BrandEntity): Map<String, Any> {
         return MapObjectUtil.brandToMap(brand)
     }
@@ -148,6 +161,18 @@ object Utils {
 
     fun userToMap(user: UserEntity): Map<String, Any> {
         return MapObjectUtil.userToMap(user)
+    }
+
+    fun convertDocToOrder(document: DocumentSnapshot): OrderEntity {
+        return DocumentUtil.convertDocToOrder(document)
+    }
+
+    fun sellToMap(sell: String): Map<String, Any> {
+        return MapObjectUtil.sellToMaps(sell)
+    }
+
+    fun statusCancelToMap(): Map<String, Any> {
+        return MapObjectUtil.statusCancelToMap()
     }
 
 }

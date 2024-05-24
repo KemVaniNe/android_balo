@@ -9,13 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.CommentAdapter
+import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.databinding.ActivityClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
+import com.google.gson.Gson
 
 class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
@@ -25,11 +28,14 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     private val comment = mutableListOf<String>()
 
+    private var id = ""
+
     private val commentAdapter by lazy { CommentAdapter(comment) }
 
     companion object {
 
         const val KEY_DETAIL = "admin_brand"
+        const val REQUEST_CODE_ORDER = 123
         fun newIntent(context: Context, response: String): Intent {
             return Intent(context, ClientDetailActivity::class.java).apply {
                 putExtra(KEY_DETAIL, response)
@@ -50,7 +56,8 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_DETAIL) && intent.getStringExtra(KEY_DETAIL) != null) {
-            getProduct(intent.getStringExtra(KEY_DETAIL)!!)
+            id = intent.getStringExtra(KEY_DETAIL)!!
+            getProduct()
         } else {
             finish()
         }
@@ -58,13 +65,49 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
-        btnAdd.setOnClickListener {
-            //TODO
-        }
+        btnAdd.setOnClickListener { handleAdd() }
         btnCard.setOnClickListener { handleCart() }
     }
 
-    private fun getProduct(id: String) {
+    private fun handleCart() {
+        if (Pref.idUser == Constants.ID_GUEST) {
+            toast(getString(R.string.you_need_login))
+        } else {
+            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                val cartEntity = CartEntity(
+                    idUser = Pref.idUser,
+                    idBalo = currentProduct!!.id,
+                    quantity = quantity
+                )
+                if (!dialog.isShowing) dialog.show()
+                createCart(cartEntity)
+            }
+        }
+    }
+
+    private fun handleAdd() {
+        if (Pref.idUser == Constants.ID_GUEST) {
+            toast(getString(R.string.you_need_login))
+        } else {
+            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                val orderDetailEntity = OrderDetailEntity(
+                    idBalo = currentProduct!!.id,
+                    nameBalo = currentProduct!!.name,
+                    quantity = quantity,
+                    price = currentProduct!!.priceSell,
+                )
+                startActivity(
+                    ClientOrderActivity.newIntent(
+                        this@ClientDetailActivity,
+                        listOf(Gson().toJson(orderDetailEntity)),
+                        emptyList()
+                    )
+                )
+            }
+        }
+    }
+
+    private fun getProduct() {
         if (!dialog.isShowing) dialog.show()
         viewModel.getProducts(id) {
             toastDialog(it)
@@ -111,22 +154,6 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
         tvValueDes.text = product.des
     }
 
-    private fun handleCart() {
-        if (Pref.idUser == Constants.ID_GUEST) {
-            toast(getString(R.string.you_need_login))
-        } else {
-            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
-                val cartEntity = CartEntity(
-                    idUser = Pref.idUser,
-                    idBalo = currentProduct!!.id,
-                    quantity = quantity
-                )
-                if (!dialog.isShowing) dialog.show()
-                createCart(cartEntity)
-            }
-        }
-    }
-
     private fun createCart(cartEntity: CartEntity) {
         viewModel.createCart(cartEntity,
             handleExits = { toastDialog(getString(R.string.cart_exits)) },
@@ -138,5 +165,13 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun toastDialog(notification: String) {
         toast(notification)
         if (dialog.isShowing) dialog.dismiss()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+            getProduct()
+        }
     }
 }

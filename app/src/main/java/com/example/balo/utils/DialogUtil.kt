@@ -12,7 +12,7 @@ import com.example.balo.databinding.DialogConfirmBinding
 import com.example.balo.databinding.DialogQuantityChooseBinding
 
 enum class Option {
-    EXIT, DELETE
+    EXIT, DELETE, CANCEL
 }
 
 object DialogUtil {
@@ -34,6 +34,11 @@ object DialogUtil {
                     tvTitle.text = context.getString(R.string.confirm)
                     tvDes.text = context.getString(R.string.delete_confirm)
                 }
+
+                 Option.CANCEL -> {
+                     tvTitle.text = context.getString(R.string.confirm)
+                     tvDes.text = context.getString(R.string.cancel_mess)
+                 }
             }
             tvYes.setOnClickListener {
                 listener.invoke()

@@ -118,4 +118,19 @@
     <string name="address_detail">Tên đường/Tòa nhà/Số nhà</string>
     <string name="enter_address_detail">Nhập chi tiết địa chỉ</string>
     <string name="address_success">Thêm địa chỉ thành công!</string>
+    <string name="add_buy">Địa chỉ nhận hàng</string>
+    <string name="order_list">Danh sách sản phẩm</string>
+    <string name="payment_detail">Chi tiết thanh toán</string>
+    <string name="total_order">Tổng tiền hàng</string>
+    <string name="total_ship">Phí vận chuyển</string>
+    <string name="total_pay">Tổng thanh toán</string>
+    <string name="wait_confirm">Chờ xác nhận</string>
+    <string name="wait_package">Đang đóng gói</string>
+    <string name="wait_ship">Chờ giao hàng</string>
+    <string name="ship_success">Giao hàng thành công</string>
+    <string name="order_cancel">Đơn hàng bị huỷ</string>
+    <string name="detail">Chi tiết</string>
+    <string name="pay">Thành tiền</string>
+    <string name="order_detail">Chi tiết đơn hàng</string>
+    <string name="cancel_mess">Bạn có muốn hủy không?</string>
 </resources>

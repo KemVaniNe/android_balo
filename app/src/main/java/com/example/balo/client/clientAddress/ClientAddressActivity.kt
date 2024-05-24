@@ -15,6 +15,7 @@ import com.example.balo.data.model.AddressSelect
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityClientAddressBinding
 import com.example.balo.shareview.base.BaseActivity
+import com.example.balo.utils.Pref
 import com.google.gson.Gson
 
 class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
@@ -33,6 +34,7 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
 
     private val addressAdapter by lazy {
         ClientAddressAdapter(address) {
+            Pref.address = address[it]
         }
     }
 
@@ -54,6 +56,7 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
         const val KEY_ADDRESS = "client_address"
         const val KEY_TYPE = "client_type"
         const val TYPE_ACCOUNT = "account"
+        const val TYPE_ORDER = "order"
         const val RESULT_ADDRESS = "result_address"
         fun newIntent(context: Context, response: String, type: String): Intent {
             return Intent(context, ClientAddressActivity::class.java).apply {
