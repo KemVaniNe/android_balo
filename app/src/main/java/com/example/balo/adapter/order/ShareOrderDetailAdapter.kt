@@ -20,6 +20,16 @@ class ShareOrderDetailAdapter(
         @SuppressLint("NotifyDataSetChanged")
         fun onBind(item: OrderDetailEntity) {
             binding.run {
+                tvDetail.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        listenerRate.invoke(adapterPosition)
+                    }
+                }
+                clTop.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        listener.invoke(adapterPosition)
+                    }
+                }
                 clRate.visibility = if (isShowRate && isUser) View.VISIBLE else View.GONE
                 tvName.text = item.nameBalo
                 tvPrice.text = item.price
@@ -63,29 +73,24 @@ class ShareOrderDetailAdapter(
                             llDes.visibility = View.GONE
                         }
                     }
-                    tvDetail.setOnClickListener {
-                        listenerRate.invoke(adapterPosition)
-                        notifyDataSetChanged()
-                    }
                 }
             }
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(
         ItemOrderDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    ).apply {
-        itemView.setOnClickListener {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                listener.invoke(adapterPosition)
-            }
-        }
-    }
+    )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.onBind(list[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateRate(isRate: Boolean) {
+        isShowRate = isRate
+        notifyDataSetChanged()
     }
 }

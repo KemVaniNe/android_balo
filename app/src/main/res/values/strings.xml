@@ -134,4 +134,5 @@
     <string name="order_detail">Chi tiết đơn hàng</string>
     <string name="cancel_mess">Bạn có muốn hủy không?</string>
     <string name="success">Hoàn thành</string>
+    <string name="comment">Bình luận</string>
 </resources>

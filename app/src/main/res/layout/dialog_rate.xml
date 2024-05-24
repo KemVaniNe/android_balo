@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/rate"
+        android:textColor="@color/color_button"
+        android:textSize="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginHorizontal="4dp"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginHorizontal="4dp"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:id="@+id/img4"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:id="@+id/img5"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginHorizontal="4dp"
+            android:src="@drawable/ic_star" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/tvComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:background="@drawable/bg_option"
+        android:hint="@string/comment"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray" />
+
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/rate"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

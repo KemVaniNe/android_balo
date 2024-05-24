@@ -14,6 +14,7 @@ import com.example.balo.databinding.ActivityClientOrderDetailBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Constants.ORDER_CONFIRM
+import com.example.balo.utils.DialogUtil
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
@@ -26,7 +27,27 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     private val orderDetail = mutableListOf<OrderDetailEntity>()
 
-    private lateinit var detailAdapter: ShareOrderDetailAdapter
+    private val detailAdapter by lazy {
+        ShareOrderDetailAdapter(orderDetail, false, isUser = true,
+            listener = { pos ->
+                startActivity(ClientDetailActivity.newIntent(this, orderDetail[pos].idBalo))
+            },
+            listenerRate = { pos ->
+                DialogUtil.showRating(this) { rate ->
+                    order!!.detail[pos].rate = rate.take(1)
+                    order!!.detail[pos].comment = rate.drop(1).trim()
+                    if (!dialog.isShowing) dialog.show()
+                    viewModel.updateRate(
+                        order!!,
+                        order!!.detail[pos],
+                        handleSuccess = {
+                            showToast("Đánh giá thành công")
+                            updateOrder()
+                        },
+                        handleFail = { showToast("ERROR: $it") })
+                }
+            })
+    }
 
     companion object {
 
@@ -43,6 +64,7 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     override fun initView() = binding.run {
         rvOrder.layoutManager = LinearLayoutManager(this@ClientOrderDetailActivity)
+        rvOrder.adapter = detailAdapter
     }
 
     override fun initData() {
@@ -98,18 +120,8 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                     clear()
                     addAll(order!!.detail)
                 }
-                detailAdapter = ShareOrderDetailAdapter(
-                    orderDetail,
-                    order!!.statusOrder == Constants.ORDER_COMPLETE,
-                    isUser = true,
-                    listener = { pos ->
-                        startActivity(ClientDetailActivity.newIntent(this, orderDetail[pos].idBalo))
-                    },
-                    listenerRate = {
-                        //TODO
-                    })
+                detailAdapter.updateRate(order!!.statusOrder == Constants.ORDER_COMPLETE)
                 binding.run {
-                    rvOrder.adapter = detailAdapter
                     if (it.statusOrder == ORDER_CONFIRM) tvCancel.visibility = View.VISIBLE
                     tvStatus.text = it.statusOrder
                     tvPriceShip.text = it.priceShip
