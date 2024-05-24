@@ -1,4 +1,4 @@
-package com.example.balo.adapter
+package com.example.balo.adapter.order
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

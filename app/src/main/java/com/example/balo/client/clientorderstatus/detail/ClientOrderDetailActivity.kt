@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.adapter.order.ClientOrderDetailAdapter
+import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityClientOrderDetailBinding
 import com.example.balo.shareview.base.BaseActivity
+import com.example.balo.utils.Constants
 import com.example.balo.utils.Constants.ORDER_CONFIRM
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
@@ -23,9 +26,7 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     private val orderDetail = mutableListOf<OrderDetailEntity>()
 
-    private val orderAdapter by lazy {
-
-    }
+    private lateinit var detailAdapter: ClientOrderDetailAdapter
 
     companion object {
 
@@ -97,8 +98,17 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                     clear()
                     addAll(order!!.detail)
                 }
-                //   orderAdapter.notifyDataSetChanged()
+                detailAdapter = ClientOrderDetailAdapter(
+                    orderDetail,
+                    order!!.statusOrder == Constants.ORDER_COMPLETE,
+                    listener = { pos ->
+                        startActivity(ClientDetailActivity.newIntent(this, orderDetail[pos].idBalo))
+                    },
+                    listenerRate = {
+                        //TODO
+                    })
                 binding.run {
+                    rvOrder.adapter = detailAdapter
                     if (it.statusOrder == ORDER_CONFIRM) tvCancel.visibility = View.VISIBLE
                     tvStatus.text = it.statusOrder
                     tvPriceShip.text = it.priceShip

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
-import com.example.balo.adapter.ClientOrderAdapter
+import com.example.balo.adapter.order.ClientOrderAdapter
 import com.example.balo.client.clientorderstatus.detail.ClientOrderDetailActivity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityClientOrderStatusBinding
