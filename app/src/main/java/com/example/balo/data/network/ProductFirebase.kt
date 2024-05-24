@@ -4,6 +4,7 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.utils.Utils
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
@@ -55,6 +56,17 @@ class ProductFirebase {
                 }
                 handleSuccess.invoke(data)
             }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    fun updateSellProduct(
+        updateSell: Map<String, Any>,
+        idProduct: String,
+        handleFail: (String) -> Unit
+    ): Task<Void> {
+        return db.collection(Collection.BALO.collectionName)
+            .document(idProduct)
+            .update(updateSell)
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 }

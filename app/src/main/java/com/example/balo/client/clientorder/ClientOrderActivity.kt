@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.balo.R
 import com.example.balo.adapter.product.ClientProductOrderAdapter
 import com.example.balo.client.clientAddress.ClientAddressActivity
 import com.example.balo.data.model.OrderDetailEntity
@@ -71,9 +72,8 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
 
     private fun updateData() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.loadData(order) { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("error: $error")
+        viewModel.loadData(order) {
+            showToast(it)
             finish()
         }
     }
@@ -91,34 +91,40 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun handleBuy() {
-        if (!dialog.isShowing) dialog.show()
-        val orderEntity = OrderEntity(
-            iduser = user!!.id,
-            date = "23/05/2024",
-            totalPrice = binding.tvPrice.text.toString(),
-            address = binding.tvAddress.text.toString(),
-            priceShip = binding.tvPriceShip.text.toString(),
-            statusOrder = Constants.ORDER_CONFIRM,
-            detail = order
-        )
-        viewModel.createOrder(order = orderEntity, handleSuccess = {
-            deleteCart()
-        }, handleFail = { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("ERROR: $error")
-        })
+        if (binding.tvAddress.text != getString(R.string.click_to_choose)) {
+            if (!dialog.isShowing) dialog.show()
+            val orderEntity = OrderEntity(
+                iduser = user!!.id,
+                date = "23/05/2024",
+                totalPrice = binding.tvPrice.text.toString(),
+                address = binding.tvAddress.text.toString(),
+                priceShip = binding.tvPriceShip.text.toString(),
+                statusOrder = Constants.ORDER_CONFIRM,
+                detail = order
+            )
+            viewModel.createOrder(
+                order = orderEntity,
+                handleSuccess = { deleteCart() },
+                handleFail = { showToast(it) })
+        } else {
+            toast("Bạn phải chọn địa chỉ")
+        }
+    }
+
+    private fun showToast(mess: String) {
+        if (dialog.isShowing) dialog.dismiss()
+        toast(mess)
     }
 
     private fun deleteCart() {
-        viewModel.deleteCards(cart, handleSuccess = {
-            if (dialog.isShowing) dialog.dismiss()
-            toast("Đặt hàng thành công")
-            setResult(RESULT_OK)
-            finish()
-        }, handleFail = { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("ERROR: $error")
-        })
+        viewModel.deleteCards(
+            cart,
+            handleSuccess = {
+                showToast("Đặt hàng thành công")
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { showToast(it) })
     }
 
     @Deprecated("Deprecated in Java")
