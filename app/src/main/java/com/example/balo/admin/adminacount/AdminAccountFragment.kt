@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
+import com.example.balo.admin.managerorder.ManagerOrderActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.FragmentAdminAccountBinding
 import com.example.balo.shareview.base.BaseFragment
@@ -32,6 +33,9 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
         tvLogOut.setOnClickListener {
             context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
             (context as AdminMainActivity).finishAct()
+        }
+        tvOrder.setOnClickListener {
+            context?.let { startActivity(Intent(it, ManagerOrderActivity::class.java)) }
         }
     }
 
