@@ -9,17 +9,18 @@ import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.databinding.ItemOrderDetailBinding
 import com.example.balo.utils.Utils
 
-class ClientOrderDetailAdapter(
+class ShareOrderDetailAdapter(
     private var list: List<OrderDetailEntity>,
     private var isShowRate: Boolean,
+    private var isUser: Boolean,
     private val listener: (Int) -> Unit,
     private var listenerRate: (Int) -> Unit
-) : RecyclerView.Adapter<ClientOrderDetailAdapter.VH>() {
+) : RecyclerView.Adapter<ShareOrderDetailAdapter.VH>() {
     inner class VH(val binding: ItemOrderDetailBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("NotifyDataSetChanged")
         fun onBind(item: OrderDetailEntity) {
             binding.run {
-                clRate.visibility = if (isShowRate) View.VISIBLE else View.GONE
+                clRate.visibility = if (isShowRate && isUser) View.VISIBLE else View.GONE
                 tvName.text = item.nameBalo
                 tvPrice.text = item.price
                 Utils.displayBase64Image(item.picProduct, imgPic)

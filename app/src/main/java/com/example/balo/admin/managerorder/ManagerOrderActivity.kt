@@ -8,8 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.order.ClientOrderAdapter
-import com.example.balo.client.clientorderstatus.ClientOrderStatusVM
-import com.example.balo.client.clientorderstatus.detail.ClientOrderDetailActivity
+import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityManagerOrderBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -107,7 +106,7 @@ class ManagerOrderActivity : BaseActivity<ActivityManagerOrderBinding>() {
 
     private fun goToDetail(id: String) {
         startActivityForResult(
-            ClientOrderDetailActivity.newIntent(this, id), REQUEST_CODE_DETAIL
+            AdminDetailOrderActivity.newIntent(this, id), REQUEST_CODE_DETAIL
         )
     }
 
