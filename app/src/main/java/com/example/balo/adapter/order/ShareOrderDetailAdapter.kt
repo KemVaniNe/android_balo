@@ -35,7 +35,7 @@ class ShareOrderDetailAdapter(
                 tvPrice.text = item.price
                 Utils.displayBase64Image(item.picProduct, imgPic)
                 tvQuantity.text = item.quantity
-                if (item.rate == "0") {
+                if (Utils.stringToInt(item.rate) == 0) {
                     tvDetail.visibility = View.VISIBLE
                     llDes.visibility = View.INVISIBLE
                 } else {
@@ -67,10 +67,6 @@ class ShareOrderDetailAdapter(
 
                         4 -> {
                             img5.visibility = View.GONE
-                        }
-
-                        else -> {
-                            llDes.visibility = View.GONE
                         }
                     }
                 }
