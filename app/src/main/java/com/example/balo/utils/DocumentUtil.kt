@@ -1,6 +1,7 @@
 package com.example.balo.utils
 
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.OrderDetailEntity
@@ -89,5 +90,14 @@ object DocumentUtil {
                 )
             } ?: emptyList()
         return orderDetails
+    }
+
+    fun convertDocToBill(document: DocumentSnapshot): BillEntity {
+        return BillEntity(
+            document.id,
+            document.getString(Order.TOTAL_PRICE.property) ?: "",
+            document.getString(Order.DATE.property) ?: "",
+            document.getString(Order.STATUS_ORDER.property) ?: ""
+        )
     }
 }

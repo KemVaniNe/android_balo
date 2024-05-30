@@ -1,10 +1,12 @@
 package com.example.balo.admin.managerclient
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.AdminClientAdapter
+import com.example.balo.admin.managerclient.detail.AdminClientDetailActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.ActivityManagerClientBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -17,7 +19,7 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
 
     private val clientsAdapter by lazy {
         AdminClientAdapter(clients) { pos ->
-            //TODO
+            goToDetail(clients[pos])
         }
     }
 
@@ -31,8 +33,8 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[ManagerClientVM::class.java]
-        getClient()
         listenVM()
+        getClient()
     }
 
     override fun initListener() {
@@ -45,6 +47,16 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
             if (dialog.isShowing) dialog.dismiss()
             toast(it)
         }
+    }
+
+    private fun goToDetail(client: UserEntity) {
+        startActivity(
+            Intent(
+                AdminClientDetailActivity.newIntent(
+                    context = this, name = client.username, id = client.id
+                )
+            )
+        )
     }
 
     @SuppressLint("NotifyDataSetChanged")

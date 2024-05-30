@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.OrderDetailEntity
@@ -179,5 +180,9 @@ object Utils {
         } else {
             imageView.setImageResource(R.drawable.ic_avatar)
         }
+    }
+
+    fun convertDocToBill(document: DocumentSnapshot): BillEntity {
+        return DocumentUtil.convertDocToBill(document)
     }
 }
