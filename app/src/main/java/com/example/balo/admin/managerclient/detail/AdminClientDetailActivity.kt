@@ -1,5 +1,6 @@
 package com.example.balo.admin.managerclient.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -76,6 +77,7 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.bills.observe(this) {
             if (dialog.isShowing) dialog.dismiss()
@@ -90,6 +92,7 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
                         clear()
                         addAll(it)
                     }
+                    billAdapter.notifyDataSetChanged()
                     val price = "Total: ${viewModel.totalPrice}"
                     tvPrice.text = price
                 }
