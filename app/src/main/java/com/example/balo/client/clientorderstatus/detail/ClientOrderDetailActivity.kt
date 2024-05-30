@@ -125,9 +125,9 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                     if (it.statusOrder == ORDER_CONFIRM) tvCancel.visibility = View.VISIBLE
                     tvStatus.text = it.statusOrder
                     tvPriceShip.text = it.priceShip
-                    tvTotalPrice.text = it.totalPrice
-                    val price = Utils.stringToInt(it.totalPrice) - Utils.stringToInt(it.priceShip)
-                    tvTotalOrder.text = price.toString()
+                    tvTotalOrder.text = it.totalPrice
+                    val price = Utils.stringToInt(it.totalPrice) + Utils.stringToInt(it.priceShip)
+                    tvTotalPrice.text = price.toString()
                     tvAddress.text = it.address
                 }
             }
