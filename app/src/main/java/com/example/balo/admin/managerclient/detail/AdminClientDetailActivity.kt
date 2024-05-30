@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.AdminBillAdapter
 import com.example.balo.admin.managerclient.ManagerClientVM
+import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.BillEntity
 import com.example.balo.databinding.ActivityAdminClientDetailBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -20,7 +21,7 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
 
     private val billAdapter by lazy {
         AdminBillAdapter(bills) { pos ->
-            //TODO
+            startActivity(AdminDetailOrderActivity.newIntent(this, bills[pos].idOrder))
         }
     }
 
@@ -79,7 +80,7 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
         viewModel.bills.observe(this) {
             if (dialog.isShowing) dialog.dismiss()
             binding.run {
-                if(it.isEmpty()) {
+                if (it.isEmpty()) {
                     llNone.visibility = View.VISIBLE
                     rvBill.visibility = View.GONE
                 } else {
