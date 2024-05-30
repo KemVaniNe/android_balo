@@ -82,7 +82,8 @@ object MapObjectUtil {
     }
 
     fun statusCancelToMap(): Map<String, Any> {
-        return hashMapOf(Order.STATUS_ORDER.property to Constants.ORDER_CANCEL
+        return hashMapOf(
+            Order.STATUS_ORDER.property to Constants.ORDER_CANCEL
         )
     }
 }

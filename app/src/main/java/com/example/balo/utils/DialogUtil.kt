@@ -5,17 +5,73 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.DialogConfirmBinding
 import com.example.balo.databinding.DialogQuantityChooseBinding
+import com.example.balo.databinding.DialogRateBinding
 
 enum class Option {
     EXIT, DELETE, CANCEL
 }
 
 object DialogUtil {
+
+    private fun showStart(
+        img2: ImageView,
+        img3: ImageView,
+        img4: ImageView,
+        img5: ImageView,
+        num: Int
+    ) {
+        img2.setImageResource(if (num < 2) R.drawable.ic_start_not_choose else R.drawable.ic_star)
+        img3.setImageResource(if (num < 3) R.drawable.ic_start_not_choose else R.drawable.ic_star)
+        img4.setImageResource(if (num < 4) R.drawable.ic_start_not_choose else R.drawable.ic_star)
+        img5.setImageResource(if (num < 5) R.drawable.ic_start_not_choose else R.drawable.ic_star)
+    }
+
+    fun showRating(context: Context, listener: (String) -> Unit) {
+        var currentRate = 5
+        val dialog = Dialog(context)
+        val dialogBinding = DialogRateBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(dialogBinding.root)
+        dialog.window?.setBackgroundDrawable(
+            ColorDrawable(ContextCompat.getColor(context, R.color.transparent))
+        )
+        dialogBinding.run {
+            img1.setOnClickListener {
+                currentRate = 1
+                showStart(img2, img3, img4, img5, currentRate)
+            }
+            img2.setOnClickListener {
+                currentRate = 2
+                showStart(img2, img3, img4, img5, currentRate)
+            }
+
+            img3.setOnClickListener {
+                currentRate = 3
+                showStart(img2, img3, img4, img5, currentRate)
+            }
+
+            img4.setOnClickListener {
+                currentRate = 4
+                showStart(img2, img3, img4, img5, currentRate)
+            }
+
+            img5.setOnClickListener {
+                currentRate = 5
+                showStart(img2, img3, img4, img5, currentRate)
+            }
+            tvRate.setOnClickListener {
+                listener.invoke("$currentRate${tvComment.text.toString().trim()}")
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+    }
+
     fun showOption(context: Context, type: Option, listener: () -> Unit) {
         val dialog = Dialog(context)
         val dialogBinding = DialogConfirmBinding.inflate(LayoutInflater.from(context))
@@ -35,10 +91,10 @@ object DialogUtil {
                     tvDes.text = context.getString(R.string.delete_confirm)
                 }
 
-                 Option.CANCEL -> {
-                     tvTitle.text = context.getString(R.string.confirm)
-                     tvDes.text = context.getString(R.string.cancel_mess)
-                 }
+                Option.CANCEL -> {
+                    tvTitle.text = context.getString(R.string.confirm)
+                    tvDes.text = context.getString(R.string.cancel_mess)
+                }
             }
             tvYes.setOnClickListener {
                 listener.invoke()

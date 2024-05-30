@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.databinding.FragmentHomeBinding
@@ -38,7 +39,7 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initView() = binding.run {
         viewPager.adapter = viewPagerAdapter
         dotsIndicator.setViewPager(viewPager)
-        rvBrand.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvBrand.layoutManager = GridLayoutManager(context, 2)
         rvBrand.adapter = brandAdapter
     }
 

@@ -22,14 +22,13 @@ import com.example.balo.utils.Utils.stringToInt
 import com.google.gson.Gson
 
 class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
-
-    private var carts = mutableListOf<CartEntity>()
-
     private lateinit var viewModel: ClientCartVM
-
+    private var carts = mutableListOf<CartEntity>()
     private val chooses = mutableListOf<CartEntity>()
-    
-    private val REQUEST_CODE_ORDER = 123
+
+    companion object {
+        const val REQUEST_CODE_ORDER = 123
+    }
 
     private val cartAdapter by lazy(LazyThreadSafetyMode.NONE) {
         ClientCartAdapter(carts,
@@ -75,7 +74,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     private fun updateCart() {
         if (Pref.idUser != Constants.ID_GUEST) {
             if (!dialog.isShowing) dialog.show()
-            viewModel.getCart(Pref.idUser) { error -> toast("ERROR: $error") }
+            viewModel.getCart(Pref.idUser) { showToast(it) }
         }
     }
 
@@ -110,7 +109,10 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
                 list.add(Gson().toJson(orderDetailEntity))
                 listId.add(it.idCart)
             }
-            startActivityForResult(ClientOrderActivity.newIntent(this, list,listId), REQUEST_CODE_ORDER)
+            startActivityForResult(
+                ClientOrderActivity.newIntent(this, list, listId),
+                REQUEST_CODE_ORDER
+            )
         }
     }
 
@@ -129,15 +131,16 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateCart(pair: Pair<Int, String>) {
         if (!dialog.isShowing) dialog.show()
-        viewModel.updateCart(carts[pair.first], handleSuccess = {
-            if (dialog.isShowing) dialog.dismiss()
-            carts[pair.first].quantity = pair.second
-            cartAdapter.notifyDataSetChanged()
-        }, handleFail = { error ->
-            showToast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-        })
+        viewModel.updateCart(carts[pair.first],
+            handleSuccess = {
+                if (dialog.isShowing) dialog.dismiss()
+                carts[pair.first].quantity = pair.second
+                cartAdapter.notifyDataSetChanged()
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun changeQuantityCartItem(pair: Pair<Int, String>) {
@@ -170,7 +173,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
             updateCart()
         }
     }

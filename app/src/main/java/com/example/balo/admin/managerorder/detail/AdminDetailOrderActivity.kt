@@ -1,4 +1,4 @@
-package com.example.balo.client.clientorderstatus.detail
+package com.example.balo.admin.managerorder.detail
 
 import android.content.Context
 import android.content.Intent
@@ -10,16 +10,13 @@ import com.example.balo.adapter.order.ShareOrderDetailAdapter
 import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
-import com.example.balo.databinding.ActivityClientOrderDetailBinding
+import com.example.balo.databinding.ActivityAdminDetailOrderBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
-import com.example.balo.utils.Constants.ORDER_CONFIRM
-import com.example.balo.utils.DialogUtil
-import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
-class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>() {
-    private lateinit var viewModel: ClientOrderDetailVM
+class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>() {
+    private lateinit var viewModel: AdminDetailOrderVM
 
     private var id = ""
 
@@ -27,48 +24,27 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     private val orderDetail = mutableListOf<OrderDetailEntity>()
 
-    private val detailAdapter by lazy {
-        ShareOrderDetailAdapter(orderDetail, false, isUser = true,
-            listener = { pos ->
-                startActivity(ClientDetailActivity.newIntent(this, orderDetail[pos].idBalo))
-            },
-            listenerRate = { pos ->
-                DialogUtil.showRating(this) { rate ->
-                    order!!.detail[pos].rate = rate.take(1)
-                    order!!.detail[pos].comment = rate.drop(1).trim()
-                    if (!dialog.isShowing) dialog.show()
-                    viewModel.updateRate(
-                        order!!,
-                        order!!.detail[pos],
-                        handleSuccess = {
-                            showToast("Đánh giá thành công")
-                            updateOrder()
-                        },
-                        handleFail = { showToast("ERROR: $it") })
-                }
-            })
-    }
+    private lateinit var detailAdapter: ShareOrderDetailAdapter
 
     companion object {
 
         const val KEY_DETAIL = "detail"
         fun newIntent(context: Context, response: String): Intent {
-            return Intent(context, ClientOrderDetailActivity::class.java).apply {
+            return Intent(context, AdminDetailOrderActivity::class.java).apply {
                 putExtra(KEY_DETAIL, response)
             }
         }
     }
 
-    override fun viewBinding(inflate: LayoutInflater): ActivityClientOrderDetailBinding =
-        ActivityClientOrderDetailBinding.inflate(inflate)
+    override fun viewBinding(inflate: LayoutInflater): ActivityAdminDetailOrderBinding =
+        ActivityAdminDetailOrderBinding.inflate(inflate)
 
     override fun initView() = binding.run {
-        rvOrder.layoutManager = LinearLayoutManager(this@ClientOrderDetailActivity)
-        rvOrder.adapter = detailAdapter
+        rvOrder.layoutManager = LinearLayoutManager(this@AdminDetailOrderActivity)
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[ClientOrderDetailVM::class.java]
+        viewModel = ViewModelProvider(this)[AdminDetailOrderVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_DETAIL) && intent.getStringExtra(KEY_DETAIL) != null) {
@@ -81,24 +57,25 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     override fun initListener() = binding.run {
         tvTitle.setOnClickListener { finish() }
-        tvCancel.setOnClickListener { handleCancel() }
+        tvConfirm.setOnClickListener { handleConfirm() }
     }
 
-    private fun handleCancel() {
-        Utils.showOption(this, Option.CANCEL) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.cancelOrder(id, handleSuccess = { updateProduct() },
-                handleFail = { showToast("ERROR $it") })
-        }
-    }
-
-    private fun updateProduct() {
+    private fun handleConfirm() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.cancelOrderByUser(order!!, handleSuccess = {
-            showToast("Hủy đơn thành công")
+        newStatusOrder()
+        viewModel.updateOrder(order!!, handleSuccess = {
+            showToast("Thanh đổi trạng thái thành công")
             setResult(RESULT_OK)
             finish()
         }, handleFail = { showToast("ERROR $it") })
+    }
+
+    private fun newStatusOrder() {
+        when (order!!.statusOrder) {
+            Constants.ORDER_CONFIRM -> order!!.statusOrder = Constants.ORDER_WAIT_SHIP
+            Constants.ORDER_WAIT_SHIP -> order!!.statusOrder = Constants.ORDER_SHIP
+            Constants.ORDER_SHIP -> order!!.statusOrder = Constants.ORDER_COMPLETE
+        }
     }
 
     private fun showToast(mess: String) {
@@ -120,9 +97,21 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                     clear()
                     addAll(order!!.detail)
                 }
-                detailAdapter.updateRate(order!!.statusOrder == Constants.ORDER_COMPLETE)
+                detailAdapter = ShareOrderDetailAdapter(
+                    orderDetail,
+                    order!!.statusOrder == Constants.ORDER_COMPLETE,
+                    isUser = false,
+                    listener = { pos ->
+                        startActivity(ClientDetailActivity.newIntent(this, orderDetail[pos].idBalo))
+                    },
+                    listenerRate = {})
                 binding.run {
-                    if (it.statusOrder == ORDER_CONFIRM) tvCancel.visibility = View.VISIBLE
+                    rvOrder.adapter = detailAdapter
+                    if (it.statusOrder == Constants.ORDER_CANCEL
+                        || it.statusOrder == Constants.ORDER_COMPLETE
+                    ) {
+                        tvConfirm.visibility = View.GONE
+                    }
                     tvStatus.text = it.statusOrder
                     tvPriceShip.text = it.priceShip
                     tvTotalPrice.text = it.totalPrice
