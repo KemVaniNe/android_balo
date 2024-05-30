@@ -24,13 +24,7 @@ class LoginViewModel : ViewModel() {
                 for (document in documents) {
                     val storedPassword = document.getString(User.PASSWORD.property)
                     if (storedPassword != null && Utils.verifyPassword(password, storedPassword)) {
-                        val userEntity = UserEntity(
-                            document.id,
-                            document.getString(User.NAME.property) ?: "",
-                            document.getString(User.PHONE.property) ?: "",
-                            document.getString(User.PASSWORD.property) ?: "",
-                            document.getBoolean(User.ROLE.property) ?: false)
-                        handleSuccess.invoke(userEntity)
+                        handleSuccess.invoke(Utils.convertDocToUser(document))
                         return@addOnSuccessListener
                     }
                 }

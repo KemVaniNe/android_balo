@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
+import com.example.balo.admin.managerclient.ManagerClientActivity
 import com.example.balo.admin.managerorder.ManagerOrderActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.FragmentAdminAccountBinding
@@ -37,6 +38,9 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
         tvOrder.setOnClickListener {
             context?.let { startActivity(Intent(it, ManagerOrderActivity::class.java)) }
         }
+        tvClient.setOnClickListener {
+            context?.let { startActivity(Intent(it, ManagerClientActivity::class.java)) }
+        }
     }
 
     override fun getViewBinding(
@@ -52,8 +56,7 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
                 binding.run {
                     tvUsername.text = it.username
                     tvPhone.text = it.phone
-                    tvLogOut.visibility = View.VISIBLE
-                    llInfo.visibility = View.VISIBLE
+                    Utils.displayUserAvatar(it.pic, imgAvatar)
                 }
             }
         }

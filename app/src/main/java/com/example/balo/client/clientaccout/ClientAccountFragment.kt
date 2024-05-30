@@ -72,6 +72,8 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                     tvPhone.text = it.phone
                     tvLogOut.visibility = View.VISIBLE
                     llInfo.visibility = View.VISIBLE
+                    imgAvatar.visibility = View.VISIBLE
+                    Utils.displayUserAvatar(it.pic, imgAvatar)
                 }
             }
         }

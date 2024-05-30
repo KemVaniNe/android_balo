@@ -23,6 +23,12 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".admin.managerclient.detail.AdminClientDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.managerclient.ManagerClientActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.managerorder.detail.AdminDetailOrderActivity"
             android:exported="false" />
         <activity
