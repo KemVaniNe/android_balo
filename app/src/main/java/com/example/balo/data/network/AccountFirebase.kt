@@ -2,6 +2,7 @@ package com.example.balo.data.network
 
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Collection
+import com.example.balo.data.model.enum.User
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
@@ -37,5 +38,19 @@ class AccountFirebase {
                 }
                 .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
         }
+    }
+
+    fun getAllUser(handleSuccess: (List<UserEntity>) -> Unit, handleFail: (String) -> Unit) {
+        val users = mutableListOf<UserEntity>()
+        db.collection(Collection.USER.collectionName)
+            .whereEqualTo(User.ROLE.property, false)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (doc in documents) {
+                    users.add(Utils.convertDocToUser(doc))
+                }
+                handleSuccess.invoke(users)
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 }

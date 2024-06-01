@@ -11,15 +11,12 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
-import com.example.balo.data.model.enum.Balo
-import com.example.balo.data.model.enum.Order
-import com.example.balo.data.model.enum.OrderDetail
-import com.example.balo.data.model.enum.User
 import com.google.firebase.firestore.DocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
@@ -175,4 +172,17 @@ object Utils {
         return MapObjectUtil.statusCancelToMap()
     }
 
+    fun displayUserAvatar(base64String: String, imageView: ImageView) {
+        if (base64String != "") {
+            val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            imageView.setImageBitmap(bitmap)
+        } else {
+            imageView.setImageResource(R.drawable.ic_avatar)
+        }
+    }
+
+    fun convertDocToBill(document: DocumentSnapshot): BillEntity {
+        return DocumentUtil.convertDocToBill(document)
+    }
 }

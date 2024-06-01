@@ -68,7 +68,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
     }

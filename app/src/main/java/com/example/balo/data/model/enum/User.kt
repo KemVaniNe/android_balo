@@ -6,5 +6,6 @@ enum class User(val property: String) {
     PHONE("phone"),
     PASSWORD("password"),
     ROLE("role"),
-    ADDRESS("address")
+    ADDRESS("address"),
+    PIC("pic")
 }

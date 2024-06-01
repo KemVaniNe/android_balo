@@ -26,7 +26,8 @@ class ClientOrderAdapter(
                 val total = "${item.detail.size} sản phẩm"
                 tvTotalProduct.text = total
                 tvStatus.text = item.statusOrder
-                tvTotalPrice.text = item.totalPrice
+                val price = Utils.stringToInt(item.totalPrice) + Utils.stringToInt(item.priceShip)
+                tvTotalPrice.text = price.toString()
             }
         }
     }

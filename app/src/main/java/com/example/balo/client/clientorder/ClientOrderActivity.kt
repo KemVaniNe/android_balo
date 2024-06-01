@@ -96,7 +96,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
             val orderEntity = OrderEntity(
                 iduser = user!!.id,
                 date = "23/05/2024",
-                totalPrice = binding.tvPrice.text.toString(),
+                totalPrice = binding.tvTotalOrder.text.toString(),
                 address = binding.tvAddress.text.toString(),
                 priceShip = binding.tvPriceShip.text.toString(),
                 statusOrder = Constants.ORDER_CONFIRM,

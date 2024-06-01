@@ -135,4 +135,9 @@
     <string name="cancel_mess">Bạn có muốn hủy không?</string>
     <string name="success">Hoàn thành</string>
     <string name="comment">Bình luận</string>
+    <string name="user">Người dùng</string>
+    <string name="date">Ngày</string>
+    <string name="status">Trạng thái</string>
+    <string name="empty_bill">Chưa có hóa đơn</string>
+    <string name="all">Tất cả</string>
 </resources>
