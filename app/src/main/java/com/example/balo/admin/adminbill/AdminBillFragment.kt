@@ -34,8 +34,8 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminBillVM::class.java]
-        listenVM()
         getBill()
+        listenVM()
     }
 
     override fun initListener() = binding.run {
@@ -47,17 +47,20 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
         container: ViewGroup?
     ): FragmentAdminOrderBinding = FragmentAdminOrderBinding.inflate(inflater)
 
-    private fun handleTime() {
-        context?.let { context ->
-            DialogUtil.showTimeDialog(context) {
-                binding.tvTime.text = it
-                viewModel.search(it)
+    private fun handleTime() = binding.run {
+        if(clLoading.visibility == View.GONE) {
+            context?.let { context ->
+                DialogUtil.showTimeDialog(context) {
+                    tvTime.text = it
+                    clLoading.visibility = View.VISIBLE
+                    viewModel.search(it)
+                }
             }
         }
     }
 
     private fun getBill() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getBills {
             if (dialog.isShowing) dialog.dismiss()
             toast(it)
@@ -76,7 +79,7 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateView(list: List<BillEntity>) = binding.run {
-        if (dialog.isShowing) dialog.dismiss()
+        clLoading.visibility = View.GONE
         val total = "${list.size} hóa đơn"
         tvTotal.text = total
         if (list.isNotEmpty()) {

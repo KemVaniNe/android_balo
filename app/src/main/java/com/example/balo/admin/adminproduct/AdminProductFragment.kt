@@ -2,9 +2,9 @@ package com.example.balo.admin.adminproduct
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +20,6 @@ import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.brand.BrandAdapter
 import com.example.balo.adapter.product.AdminProductAdapter
 import com.example.balo.data.model.BaloEntity
-import com.example.balo.utils.Utils
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     private lateinit var viewModel: AdminProductVM
@@ -89,20 +88,20 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         container: ViewGroup?
     ): FragmentAdminProductBinding = FragmentAdminProductBinding.inflate(inflater)
 
-    private fun updateBrands() {
-        if (!dialog.isShowing) dialog.show()
+    private fun updateBrands() = binding.run {
+        clLoadingBrand.visibility = View.VISIBLE
         viewModel.getAllBrands(
             handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
+                clLoadingBrand.visibility = View.GONE
                 toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
             })
     }
 
-    private fun updateProduct() {
-        if (!dialog.isShowing) dialog.show()
+    private fun updateProduct() = binding.run {
+        clLoadingProduct.visibility = View.VISIBLE
         viewModel.getAllProducts(
             handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
+                clLoadingProduct.visibility = View.GONE
                 toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
             })
     }
@@ -137,7 +136,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
                     addAll(it)
                 }
                 brandAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoadingBrand.visibility = View.GONE
             }
         }
 
@@ -148,7 +147,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
                     addAll(it)
                 }
                 productAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoadingProduct.visibility = View.GONE
             }
         }
     }
