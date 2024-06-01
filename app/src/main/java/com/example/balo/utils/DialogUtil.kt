@@ -12,6 +12,8 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.DialogConfirmBinding
 import com.example.balo.databinding.DialogQuantityChooseBinding
 import com.example.balo.databinding.DialogRateBinding
+import com.example.balo.databinding.DialogTimeBinding
+import java.util.Calendar
 
 enum class Option {
     EXIT, DELETE, CANCEL
@@ -30,6 +32,35 @@ object DialogUtil {
         img3.setImageResource(if (num < 3) R.drawable.ic_start_not_choose else R.drawable.ic_star)
         img4.setImageResource(if (num < 4) R.drawable.ic_start_not_choose else R.drawable.ic_star)
         img5.setImageResource(if (num < 5) R.drawable.ic_start_not_choose else R.drawable.ic_star)
+    }
+
+    fun showTimeDialog(context: Context, listener: (String) -> Unit) {
+        var timeChoose = context.getString(R.string.all)
+        val dialog = Dialog(context)
+        val dialogBinding = DialogTimeBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(dialogBinding.root)
+        dialog.window?.setBackgroundDrawable(
+            ColorDrawable(ContextCompat.getColor(context, R.color.transparent))
+        )
+        dialogBinding.run {
+            val calendar = Calendar.getInstance()
+            datePicker.init(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ) { _, year, month, dayOfMonth ->
+                timeChoose = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+            }
+            btnAll.setOnClickListener {
+                listener.invoke(context.getString(R.string.all))
+                dialog.dismiss()
+            }
+            btnAdd.setOnClickListener {
+                listener.invoke(timeChoose)
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
     }
 
     fun showRating(context: Context, listener: (String) -> Unit) {

@@ -11,6 +11,7 @@ import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.BillEntity
 import com.example.balo.databinding.FragmentAdminOrderBinding
 import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.utils.DialogUtil
 
 class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
 
@@ -37,13 +38,23 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
         getBill()
     }
 
-    override fun initListener() {
+    override fun initListener() = binding.run {
+        tvTime.setOnClickListener { handleTime() }
     }
 
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentAdminOrderBinding = FragmentAdminOrderBinding.inflate(inflater)
+
+    private fun handleTime() {
+        context?.let { context ->
+            DialogUtil.showTimeDialog(context) {
+                binding.tvTime.text = it
+                viewModel.search(it)
+            }
+        }
+    }
 
     private fun getBill() {
         if (!dialog.isShowing) dialog.show()
@@ -53,27 +64,33 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.bills.observe(this) {
-            if (dialog.isShowing) dialog.dismiss()
-            binding.run {
-                if (it.isEmpty()) {
-                    llNone.visibility = View.VISIBLE
-                    rvBill.visibility = View.GONE
-                } else {
-                    llNone.visibility = View.GONE
-                    rvBill.visibility = View.VISIBLE
-                    bills.run {
-                        clear()
-                        addAll(it)
-                    }
-                    billAdapter.notifyDataSetChanged()
-                    val total = "${it.size} hóa đơn"
-                    tvTotal.text = total
-                }
-            }
-
+            updateView(it)
         }
+
+        viewModel.billsSearch.observe(this) {
+            updateView(it)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updateView(list: List<BillEntity>) = binding.run {
+        if (dialog.isShowing) dialog.dismiss()
+        val total = "${list.size} hóa đơn"
+        tvTotal.text = total
+        if (list.isNotEmpty()) {
+            bills.run {
+                clear()
+                addAll(list)
+            }
+            billAdapter.notifyDataSetChanged()
+            rvBill.visibility = View.VISIBLE
+            llNone.visibility = View.GONE
+        } else {
+            rvBill.visibility = View.GONE
+            llNone.visibility = View.VISIBLE
+        }
+
     }
 }

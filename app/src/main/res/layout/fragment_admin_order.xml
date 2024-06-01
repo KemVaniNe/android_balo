@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
@@ -71,7 +70,7 @@
                 android:drawableStart="@drawable/ic_calender"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:text="@string/time"
+                android:text="@string/all"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/tvTotal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
