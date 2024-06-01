@@ -72,5 +72,6 @@ dependencies {
     implementation("com.chibatching.kotpref:enum-support:2.13.1")
     implementation("androidx.multidex:multidex:2.0.1")
 
-
+    //chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

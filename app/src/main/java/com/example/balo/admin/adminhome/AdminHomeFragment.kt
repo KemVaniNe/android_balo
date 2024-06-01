@@ -1,15 +1,31 @@
 package com.example.balo.admin.adminhome
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.balo.R
+import com.example.balo.data.model.BillEntity
 import com.example.balo.databinding.FragmentAdminHomeBinding
 import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.utils.Utils
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
+
+    private lateinit var viewModel: AdminHomeVM
     override fun initView() {
     }
 
     override fun initData() {
+        viewModel = ViewModelProvider(this)[AdminHomeVM::class.java]
+        listenBill()
+        getBills()
     }
 
     override fun initListener() {
@@ -20,4 +36,65 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         container: ViewGroup?
     ): FragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater)
 
+    private fun getBills() = binding.clLoading.run {
+        visibility = View.VISIBLE
+        viewModel.getBills {
+            visibility = View.GONE
+            toast(it)
+        }
+    }
+
+    private fun listenBill() {
+        viewModel.entriesBills.observe(this) {
+            binding.run{
+                clLoading.visibility = View.GONE
+                charLine.visibility = View.VISIBLE
+            }
+            drawChart(it)
+        }
+    }
+
+    private fun drawChart(dataBills: Pair<List<Entry>, List<String>>) = binding.run {
+        val dates = dataBills.second
+        val entries = dataBills.first
+        val xAxisValueFormatter = IndexAxisValueFormatter(dates)
+        charLine.xAxis.apply {
+            valueFormatter = xAxisValueFormatter
+            labelRotationAngle = -75f
+            position = XAxis.XAxisPosition.BOTTOM
+            setLabelCount(dates.size, false)
+            textSize = 8f
+            setDrawGridLines(false)
+            textColor = ContextCompat.getColor(requireContext(), R.color.color_text)
+        }
+
+        charLine.axisLeft.apply {
+            setDrawGridLines(false)
+            textColor = ContextCompat.getColor(requireContext(), R.color.color_text)
+
+        }
+
+        charLine.axisRight.apply {
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            textColor = ContextCompat.getColor(requireContext(), R.color.color_text)
+        }
+
+        val dataSet = LineDataSet(entries, "Price").apply {
+            lineWidth = 1f
+            setDrawCircles(false)
+            setDrawValues(false)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+            color = ContextCompat.getColor(requireContext(), R.color.color_button)
+            setDrawFilled(true)
+            fillDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.gradient_fill)
+        }
+
+        charLine.apply {
+            xAxis.axisMinimum = 0f
+            xAxis.axisMaximum = entries.size.toFloat()
+            data = LineData(dataSet)
+            invalidate()
+        }
+    }
 }
