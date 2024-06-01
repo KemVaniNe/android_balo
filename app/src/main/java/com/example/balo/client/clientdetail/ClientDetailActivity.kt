@@ -77,7 +77,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                 val cartEntity = CartEntity(
                     idUser = Pref.idUser,
                     idBalo = currentProduct!!.id,
-                    quantity = quantity
+                    quantity = quantity,
                 )
                 if (!dialog.isShowing) dialog.show()
                 createCart(cartEntity)
@@ -95,6 +95,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     nameBalo = currentProduct!!.name,
                     quantity = quantity,
                     price = currentProduct!!.priceSell,
+                    priceImport = currentProduct!!.priceImport
                 )
                 goToOrder(orderDetailEntity)
             }

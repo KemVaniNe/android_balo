@@ -95,7 +95,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
             if (!dialog.isShowing) dialog.show()
             val orderEntity = OrderEntity(
                 iduser = user!!.id,
-                date = "26/05/2024",
+                date =  Utils.getToDay(),
                 totalPrice = binding.tvTotalOrder.text.toString(),
                 address = binding.tvAddress.text.toString(),
                 priceShip = binding.tvPriceShip.text.toString(),
