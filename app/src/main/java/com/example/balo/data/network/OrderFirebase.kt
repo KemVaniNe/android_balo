@@ -1,5 +1,6 @@
 package com.example.balo.data.network
 
+import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.enum.Collection
@@ -172,5 +173,18 @@ class OrderFirebase {
             }
         )
         return taskCompletionSource.task
+    }
+
+    fun getAllOrders(handleSuccess: (List<OrderEntity>) -> Unit, handleFail: (String) -> Unit) {
+        val list = mutableListOf<OrderEntity>()
+        db.collection(Collection.ORDER.collectionName)
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach {
+                    list.add(Utils.convertDocToOrder(it))
+                }
+                handleSuccess.invoke(list)
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 }

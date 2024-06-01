@@ -140,4 +140,6 @@
     <string name="status">Trạng thái</string>
     <string name="empty_bill">Chưa có hóa đơn</string>
     <string name="all">Tất cả</string>
+    <string name="none_sell">Sản phẩm chưa có lượt bán</string>
+    <string name="hot_sell">Sản phẩm bán chạy</string>
 </resources>

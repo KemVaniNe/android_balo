@@ -81,4 +81,21 @@ class ProductFirebase {
             .update(updateSell)
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
+
+    fun getProductNoneSell(
+        handleSuccess: (List<BaloEntity>) -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val data = mutableListOf<BaloEntity>()
+        db.collection(Collection.BALO.collectionName)
+            .whereEqualTo(Balo.SELL.property, "0")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    data.add(Utils.convertDocToBProduct(document))
+                }
+                handleSuccess.invoke(data)
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
 }
