@@ -32,29 +32,15 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     override fun initListener() = binding.run {
-        tvAddress.setOnClickListener {
-            context?.let {
-                startActivityForResult(
-                    ClientAddressActivity.newIntent(it, ClientAddressActivity.TYPE_ACCOUNT),
-                    REQUEST_ADDRESS
-                )
-            }
-        }
-        tvCart.setOnClickListener {
-            context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
-        }
+        tvAddress.setOnClickListener { handleAddress() }
+        tvCart.setOnClickListener { handleCart() }
         tvContact.setOnClickListener {
             //TODO
         }
-        tvOrder.setOnClickListener {
-            context?.let { startActivity(Intent(it, ClientOrderStatusActivity::class.java)) }
-        }
+        tvOrder.setOnClickListener { handleOrder() }
         tvInfo.setOnClickListener { handleUpdateInfo() }
         tvUpdatePass.setOnClickListener { handleUpdatePass() }
-        tvLogOut.setOnClickListener {
-            context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
-            (context as ClientMainActivity).finishAct()
-        }
+        tvLogOut.setOnClickListener { handleLogout() }
     }
 
     override fun getViewBinding(
@@ -62,12 +48,41 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
         container: ViewGroup?
     ): FragmentAccountBinding = FragmentAccountBinding.inflate(inflater)
 
+    private fun handleAddress() {
+        if (!isLoading()) {
+            context?.let {
+                startActivityForResult(
+                    ClientAddressActivity.newIntent(it, ClientAddressActivity.TYPE_ACCOUNT),
+                    REQUEST_ADDRESS
+                )
+            }
+        }
+    }
+
+    private fun handleCart() {
+        if (!isLoading()) {
+            context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
+
+        }
+    }
+
+    private fun handleOrder() {
+        if (!isLoading()) {
+            context?.let { startActivity(Intent(it, ClientOrderStatusActivity::class.java)) }
+        }
+    }
+
+    private fun handleLogout() {
+        context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
+        (context as ClientMainActivity).finishAct()
+    }
+
     private fun listenVM() {
         viewModel.account.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
                 user = it
                 binding.run {
+                    clLoading.visibility = View.GONE
                     tvUsername.text = it.username
                     tvPhone.text = it.phone
                     tvLogOut.visibility = View.VISIBLE
@@ -80,20 +95,30 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     private fun handleUpdatePass() {
-        context?.let { Utils.bottomUpdatePass(it, user!!) { updateInfo() } }
+        if (!isLoading()) {
+            context?.let { Utils.bottomUpdatePass(it, user!!) { updateInfo() } }
+        }
     }
 
     private fun handleUpdateInfo() {
-        context?.let { Utils.bottomUpdateInfo(it, user!!) { updateInfo() } }
+        if (!isLoading()) {
+            context?.let { Utils.bottomUpdateInfo(it, user!!) { updateInfo() } }
+        }
     }
 
     private fun updateInfo() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.updateInfo(user!!,
-            handleSuccess = { toast(getString(R.string.update_password_success)) },
-            handleError = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("ERROR $error")
-            })
+            handleSuccess = { showToast(getString(R.string.update_password_success)) },
+            handleError = { showToast(it) })
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
+    }
+
+    private fun isLoading(): Boolean {
+        return binding.clLoading.visibility == View.VISIBLE
     }
 }

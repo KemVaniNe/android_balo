@@ -3,6 +3,7 @@ package com.example.balo.client.clienthome
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -73,7 +74,7 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.brands.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 brands.run {
                     clear()
                     addAll(it)
@@ -83,11 +84,11 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun getBrands() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllBrands { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+    private fun getBrands() = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.getAllBrands {
+            clLoading.visibility = View.GONE
+            toast(it)
         }
     }
 }

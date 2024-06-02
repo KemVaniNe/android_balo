@@ -142,4 +142,5 @@
     <string name="all">Tất cả</string>
     <string name="none_sell">Sản phẩm chưa có lượt bán</string>
     <string name="hot_sell">Sản phẩm bán chạy</string>
+    <string name="none_product">Chưa có sản phẩm nào</string>
 </resources>

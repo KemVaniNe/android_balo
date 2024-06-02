@@ -68,8 +68,10 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
                     addAll(it)
                 }
                 cartAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
-                binding.llNone.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                binding.run {
+                    clLoading.visibility = View.GONE
+                    llNone.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                }
             }
         }
     }
@@ -80,7 +82,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
 
     private fun updateCart() {
         if (Pref.idUser != Constants.ID_GUEST) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             viewModel.getCart(Pref.idUser) { showToast(it) }
         }
     }
@@ -88,7 +90,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             viewModel.deleteCart(chooses,
                 handleSuccess = {
                     showToast(getString(R.string.delete_suceess))
@@ -131,7 +133,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun deleteCart(cart: CartEntity) = binding.run {
         Utils.showOption(this@ClientCartActivity, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             viewModel.deleteCart(
                 ids = listOf(cart),
                 handleSuccess = {
@@ -147,11 +149,11 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateCart(pair: Pair<Int, String>) {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.updateCart(
             cart = carts[pair.first],
             handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 carts[pair.first].quantity = pair.second
                 cartAdapter.notifyDataSetChanged()
             },
@@ -181,7 +183,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     private fun showToast(notification: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(notification)
     }
 
