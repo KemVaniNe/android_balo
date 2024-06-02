@@ -36,7 +36,7 @@ class AuthenticityFirebase {
             phone = user.phone,
             isRegister = { isExits ->
                 if (isExits) {
-                    handleFail.invoke("Số tài khoản này đã tồn tại!")
+                    handleFail.invoke("Số điện thoại này đã tồn tại!")
                 } else {
                     createUser(
                         user = user,
@@ -47,6 +47,46 @@ class AuthenticityFirebase {
             },
             handleFail = { handleFail.invoke(it) }
         )
+    }
+
+    fun forgetPassword(
+        phone: String,
+        newPass: String,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        db.collection(Collection.USER.collectionName).whereEqualTo(User.PHONE.property, phone).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    updatePassword(
+                        password = newPass,
+                        id = document.id,
+                        handleSuccess = { handleSuccess.invoke() },
+                        handleFail = { handleFail.invoke(it) }
+                    )
+                    return@addOnSuccessListener
+                }
+                handleFail.invoke("SDT này chưa đăng ký tài khoản")
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    private fun updatePassword(
+        password: String,
+        id: String,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val hashedPassword = Utils.hashPassword(password)
+        val updateData = hashMapOf(
+            User.PASSWORD.property to hashedPassword
+        )
+        db.collection(Collection.USER.collectionName).document(id)
+            .update(updateData as Map<String, Any>)
+            .addOnSuccessListener {
+                handleSuccess.invoke()
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
     private fun createUser(
