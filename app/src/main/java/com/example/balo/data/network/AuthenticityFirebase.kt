@@ -30,4 +30,46 @@ class AuthenticityFirebase {
             }
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
+
+    fun register(user: UserEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+        isPhoneRegister(
+            phone = user.phone,
+            isRegister = { isExits ->
+                if (isExits) {
+                    handleFail.invoke("Số tài khoản này đã tồn tại!")
+                } else {
+                    createUser(
+                        user = user,
+                        handleSuccess = { handleSuccess.invoke() },
+                        handleFail = { handleFail.invoke(it) }
+                    )
+                }
+            },
+            handleFail = { handleFail.invoke(it) }
+        )
+    }
+
+    private fun createUser(
+        user: UserEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val data = Utils.userToMap(user)
+        db.collection(Collection.USER.collectionName)
+            .add(data)
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    private fun isPhoneRegister(
+        phone: String,
+        isRegister: (Boolean) -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        db.collection(Collection.USER.collectionName)
+            .whereEqualTo(User.PHONE.property, phone)
+            .get()
+            .addOnSuccessListener { querySnapshot -> isRegister.invoke(!querySnapshot.isEmpty) }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
 }

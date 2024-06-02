@@ -75,7 +75,9 @@ object MapObjectUtil {
             User.PASSWORD.property to user.password,
             User.NAME.property to user.username,
             User.ADDRESS.property to user.address,
-            User.PIC.property to user.pic
+            User.PIC.property to user.pic,
+            User.ROLE.property to user.role,
+            User.PHONE.property to user.phone
         )
     }
 
