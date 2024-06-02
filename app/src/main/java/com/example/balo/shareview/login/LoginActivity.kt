@@ -14,6 +14,7 @@ import com.example.balo.client.clientmain.ClientMainActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
+
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private lateinit var viewModel: LoginViewModel
@@ -52,26 +53,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private fun login() = binding.run {
         if (!dialog.isShowing) dialog.show()
-        viewModel.login(phoneNumber = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
+        viewModel.login(
+            phone = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
             password = edtPassword.text.toString().trim(),
-            handleSuccess = { account ->
-                if (dialog.isShowing) dialog.dismiss()
-                goToNext(account)
-            },
+            handleSuccess = { goToNext(it) },
             handleFail = {
                 if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.account_not_true))
-            },
-            handleError = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
-
+                toast(it)
+            }
+        )
     }
 
     private fun goToNext(account: UserEntity) {
+        if (dialog.isShowing) dialog.dismiss()
         Pref.idUser = account.id
-        if (account.role) {
+        if (account.role == Constants.ROLE_AD) {
             startActivity(Intent(this, AdminMainActivity::class.java))
         } else {
             startActivity(Intent(this, ClientMainActivity::class.java))
@@ -82,5 +78,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun isFillAllInfo(): Boolean = binding.run {
         return !(edtEmail.text.toString().trim() == "" || edtPassword.text.toString().trim() == "")
     }
-
 }

@@ -24,4 +24,6 @@ object Constants {
     const val ORDER_SHIP = "Đang giao hàng"
     const val ORDER_COMPLETE = "Đã nhận hàng"
     const val ORDER_CANCEL = "Đã hủy"
+
+    const val ROLE_AD = true
 }
