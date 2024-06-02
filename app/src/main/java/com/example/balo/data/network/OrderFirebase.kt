@@ -18,7 +18,11 @@ class OrderFirebase {
 
     private val productFirebase = ProductFirebase()
 
-    fun cancelOrderByUser(order: OrderEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+    fun cancelOrderByUser(
+        order: OrderEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
         val tasks = mutableListOf<Task<Void>>()
         order.detail.forEach { detail ->
             val task = db.collection(Collection.BALO.collectionName).document(detail.idBalo)
@@ -164,6 +168,7 @@ class OrderFirebase {
                     price = order.price,
                     picProduct = balo.pic,
                     sell = balo.sell,
+                    priceImport = balo.priceImport
                 )
                 taskCompletionSource.setResult(updatedOrder)
             },

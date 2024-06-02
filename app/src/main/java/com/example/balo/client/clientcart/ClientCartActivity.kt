@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.ClientCartAdapter
+import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.client.clientorder.ClientOrderActivity
 import com.example.balo.data.model.CartEntity
 import com.example.balo.data.model.OrderDetailEntity
@@ -31,9 +32,11 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     private val cartAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        ClientCartAdapter(carts,
-            listener = { pos -> handleCartItem(pos) },
-            listenChange = { pair -> changeQuantityCartItem(pair) })
+        ClientCartAdapter(
+            carts,
+            handleChoose = { handleCartItem(it) },
+            handleChangeQuantity = { changeQuantityCartItem(it) },
+            handleViewDetail = { goToDetail(carts[it].idBalo) })
     }
 
     override fun viewBinding(inflate: LayoutInflater): ActivityClientCartBinding =
@@ -71,6 +74,10 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
         }
     }
 
+    private fun goToDetail(id: String) {
+        startActivity(ClientDetailActivity.newIntent(this, id))
+    }
+
     private fun updateCart() {
         if (Pref.idUser != Constants.ID_GUEST) {
             if (!dialog.isShowing) dialog.show()
@@ -82,14 +89,18 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
             if (!dialog.isShowing) dialog.show()
-            viewModel.deleteCart(chooses, handleSuccess = {
-                showToast(getString(R.string.delete_suceess))
-                chooses.forEach { carts.remove(it) }
-                cartAdapter.notifyDataSetChanged()
-                binding.imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                showToast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            viewModel.deleteCart(chooses,
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    chooses.forEach { carts.remove(it) }
+                    chooses.clear()
+                    cartAdapter.notifyDataSetChanged()
+                    binding.run {
+                        imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
+                        tvPrice.text = "0"
+                    }
+                },
+                handleFail = { showToast(it) })
         }
     }
 
@@ -118,24 +129,27 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun deleteCart(cart: CartEntity) {
-        Utils.showOption(this, Option.DELETE) {
+    private fun deleteCart(cart: CartEntity) = binding.run {
+        Utils.showOption(this@ClientCartActivity, Option.DELETE) {
             if (!dialog.isShowing) dialog.show()
-            viewModel.deleteCart(listOf(cart), handleSuccess = {
-                showToast(getString(R.string.delete_suceess))
-                carts.remove(cart)
-                cartAdapter.notifyDataSetChanged()
-                binding.imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                showToast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            viewModel.deleteCart(
+                ids = listOf(cart),
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    carts.remove(cart)
+                    cartAdapter.notifyDataSetChanged()
+                    binding.run {}
+                    imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
+                },
+                handleFail = { showToast(it) })
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateCart(pair: Pair<Int, String>) {
         if (!dialog.isShowing) dialog.show()
-        viewModel.updateCart(carts[pair.first],
+        viewModel.updateCart(
+            cart = carts[pair.first],
             handleSuccess = {
                 if (dialog.isShowing) dialog.dismiss()
                 carts[pair.first].quantity = pair.second
@@ -153,17 +167,17 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
         }
     }
 
-    private fun handleCartItem(pos: Int) = binding.run {
-        carts[pos].isSelect = !carts[pos].isSelect
-        val cart = carts[pos]
-        if (cart.isSelect) {
+    private fun handleCartItem(pair: Pair<Int, Boolean>) = binding.run {
+        val cart = carts[pair.first]
+        carts[pair.first].isSelect = pair.second
+        if (pair.second) {
             chooses.add(cart)
         } else {
             chooses.remove(cart)
         }
         imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
         val price = stringToInt(cart.price) * stringToInt(cart.quantity)
-        tvPrice.text = calculate(tvPrice.text.toString(), price.toString(), !cart.isSelect)
+        tvPrice.text = calculate(tvPrice.text.toString(), price.toString(), !pair.second)
     }
 
     private fun showToast(notification: String) {
@@ -175,6 +189,11 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_ORDER && resultCode == RESULT_OK) {
+            binding.run {
+                tvPrice.text = "0"
+                imgDelete.visibility = View.GONE
+                chooses.clear()
+            }
             updateCart()
         }
     }
