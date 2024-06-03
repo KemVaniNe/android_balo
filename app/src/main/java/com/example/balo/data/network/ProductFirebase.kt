@@ -98,4 +98,16 @@ class ProductFirebase {
             }
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
+
+    fun deleteProducts(ids: List<String>, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+        val batch = db.batch()
+        for (id in ids) {
+            val docRef = db.collection(Collection.BALO.collectionName).document(id)
+            batch.delete(docRef)
+        }
+        batch
+            .commit()
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
 }

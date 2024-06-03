@@ -12,6 +12,7 @@ import com.example.balo.adapter.product.AdminProductEditAdapter
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ActivityAllProductBinding
 import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
@@ -27,7 +28,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     private val productAdapter by lazy {
         AdminProductEditAdapter(products, { pos ->
             startActivityForResult(
-                AdminDetailProductActivity.newIntent(this, products[pos].id),
+                AdminProductDetailActivity.newIntent(this, products[pos].id),
                 REQUEST_CODE_CHANGE
             )
         }, onCheckBox = {
@@ -114,7 +115,6 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHANGE && resultCode == RESULT_OK) {
-            setResult(RESULT_OK)
             updateProduct()
         }
     }

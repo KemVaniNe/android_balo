@@ -9,6 +9,7 @@ import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
 import com.example.balo.admin.managerclient.ManagerClientActivity
 import com.example.balo.admin.managerorder.ManagerOrderActivity
+import com.example.balo.admin.managerproduct.ManagerProductActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.FragmentAdminAccountBinding
 import com.example.balo.shareview.base.BaseFragment
@@ -25,9 +26,9 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminAccountVM::class.java]
         listenVM()
-        viewModel.updateAccount { e ->
+        viewModel.updateAccount {
             binding.clLoading.visibility = View.GONE
-            toast("ERROR $e")
+            toast(it)
         }
     }
 
@@ -37,6 +38,8 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
         tvLogOut.setOnClickListener { handleLogOut() }
         tvOrder.setOnClickListener { handleOrder() }
         tvClient.setOnClickListener { handleClient() }
+        tvBill.setOnClickListener { handleBill() }
+        tvProduct.setOnClickListener { handleProduct() }
     }
 
     override fun getViewBinding(
@@ -57,6 +60,14 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
                 }
             }
         }
+    }
+
+    private fun handleBill() {
+
+    }
+
+    private fun handleProduct() { 
+        context?.let { startActivity(ManagerProductActivity.newIntent(it)) }
     }
 
     private fun handleLogOut() {
