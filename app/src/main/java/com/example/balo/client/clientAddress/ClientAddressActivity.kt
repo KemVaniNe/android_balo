@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
@@ -94,14 +95,14 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
     }
 
     private fun updateInfo() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getUser { showToast(it) }
     }
 
     private fun listenVM() {
         viewModel.account.observe(this) { user ->
             if (user != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 userEntity = user
                 updateAdapter()
             }
@@ -123,7 +124,7 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 
@@ -138,7 +139,7 @@ class ClientAddressActivity : BaseActivity<ActivityClientAddressBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun delete() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         val newAddress = mutableListOf<String>()
         newAddress.addAll(userEntity!!.address)
         newAddress.removeAll(listChoose)

@@ -79,7 +79,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     idBalo = currentProduct!!.id,
                     quantity = quantity,
                 )
-                if (!dialog.isShowing) dialog.show()
+                binding.clLoading.visibility = View.VISIBLE
                 createCart(cartEntity)
             }
         }
@@ -110,7 +110,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     }
 
     private fun getProduct() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getProducts(id) {
             toastDialog(it)
             finish()
@@ -121,7 +121,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun listenVM() {
         viewModel.productCurrent.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 currentProduct = it
                 comment.run {
                     clear()
@@ -166,7 +166,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     private fun toastDialog(notification: String) {
         toast(notification)
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
     }
 
     @Deprecated("Deprecated in Java")
