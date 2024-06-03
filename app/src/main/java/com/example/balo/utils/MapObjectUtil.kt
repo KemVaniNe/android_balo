@@ -32,6 +32,7 @@ object MapObjectUtil {
             OrderDetail.NAMEBALO.property to detail.nameBalo,
             OrderDetail.QUANTITY.property to detail.quantity,
             OrderDetail.PRICE.property to detail.price,
+            OrderDetail.PRICEIMPORT.property to detail.priceImport,
             OrderDetail.PICBALO.property to detail.picProduct,
             OrderDetail.RATE.property to detail.rate,
             OrderDetail.COMMENT.property to detail.comment
@@ -65,16 +66,18 @@ object MapObjectUtil {
         return hashMapOf(
             Cart.ID_BALO.property to cart.idBalo,
             Cart.ID_USER.property to cart.idUser,
-            Cart.QUANTITY.property to cart.quantity
+            Cart.QUANTITY.property to cart.quantity,
         )
     }
 
     fun userToMap(user: UserEntity): Map<String, Any> {
         return hashMapOf(
-            User.PASSWORD.property to user.password,
+            User.PASSWORD.property to Utils.hashPassword(user.password),
             User.NAME.property to user.username,
             User.ADDRESS.property to user.address,
-            User.PIC.property to user.pic
+            User.PIC.property to user.pic,
+            User.ROLE.property to user.role,
+            User.PHONE.property to user.phone
         )
     }
 

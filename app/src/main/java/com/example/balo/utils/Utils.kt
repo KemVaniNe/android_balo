@@ -20,6 +20,7 @@ import com.example.balo.data.model.UserEntity
 import com.google.firebase.firestore.DocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
+import java.util.Calendar
 
 object Utils {
     fun hashPassword(password: String): String {
@@ -184,5 +185,16 @@ object Utils {
 
     fun convertDocToBill(document: DocumentSnapshot): BillEntity {
         return DocumentUtil.convertDocToBill(document)
+    }
+
+    fun getToDay(): String {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val newMonth = if(month < 10) "0${month}" else "$month"
+        val newDay = if(day < 10) "0${day}" else "$day"
+        return "$newDay/$newMonth/$year"
+
     }
 }

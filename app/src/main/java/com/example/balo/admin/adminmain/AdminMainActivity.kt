@@ -8,7 +8,9 @@ import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
 
 class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
+
     private val viewPagerAdapter by lazy { AdminViewPagerAdapter(supportFragmentManager) }
+
     override fun viewBinding(inflate: LayoutInflater): ActivityAdminBinding =
         ActivityAdminBinding.inflate(inflate)
 
@@ -56,5 +58,4 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
     fun finishAct() {
         finish()
     }
-
 }

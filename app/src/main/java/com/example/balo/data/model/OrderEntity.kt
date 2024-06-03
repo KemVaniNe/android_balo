@@ -16,6 +16,7 @@ data class OrderDetailEntity(
     var nameBalo: String = "",
     var quantity: String = "0",
     var price: String = "0",
+    var priceImport: String = "0",
     var picProduct: String = "",
     var rate: String = "0",
     var comment: String = "",

@@ -1,24 +1,21 @@
 package com.example.balo.client.clienthome
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.viewpager.BannerViewPagerAdapter
 import com.example.balo.adapter.brand.BrandAdapter
 import com.example.balo.client.clientcart.ClientCartActivity
-import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.client.clientsearch.ClientSearchActivity
-import com.example.balo.utils.Utils
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -77,7 +74,7 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.brands.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 brands.run {
                     clear()
                     addAll(it)
@@ -87,11 +84,11 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun getBrands() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllBrands { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+    private fun getBrands() = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.getAllBrands {
+            clLoading.visibility = View.GONE
+            toast(it)
         }
     }
 }

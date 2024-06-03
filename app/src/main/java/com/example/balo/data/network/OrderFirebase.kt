@@ -1,5 +1,6 @@
 package com.example.balo.data.network
 
+import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.enum.Collection
@@ -17,7 +18,11 @@ class OrderFirebase {
 
     private val productFirebase = ProductFirebase()
 
-    fun cancelOrderByUser(order: OrderEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+    fun cancelOrderByUser(
+        order: OrderEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
         val tasks = mutableListOf<Task<Void>>()
         order.detail.forEach { detail ->
             val task = db.collection(Collection.BALO.collectionName).document(detail.idBalo)
@@ -163,6 +168,7 @@ class OrderFirebase {
                     price = order.price,
                     picProduct = balo.pic,
                     sell = balo.sell,
+                    priceImport = balo.priceImport
                 )
                 taskCompletionSource.setResult(updatedOrder)
             },
@@ -172,5 +178,18 @@ class OrderFirebase {
             }
         )
         return taskCompletionSource.task
+    }
+
+    fun getAllOrders(handleSuccess: (List<OrderEntity>) -> Unit, handleFail: (String) -> Unit) {
+        val list = mutableListOf<OrderEntity>()
+        db.collection(Collection.ORDER.collectionName)
+            .get()
+            .addOnSuccessListener { document ->
+                document.forEach {
+                    list.add(Utils.convertDocToOrder(it))
+                }
+                handleSuccess.invoke(list)
+            }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 }

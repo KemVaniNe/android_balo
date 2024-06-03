@@ -34,8 +34,8 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminBillVM::class.java]
-        getBill()
         listenVM()
+        getBill()
     }
 
     override fun initListener() = binding.run {
@@ -62,7 +62,7 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
     private fun getBill() {
         binding.clLoading.visibility = View.VISIBLE
         viewModel.getBills {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             toast(it)
         }
     }

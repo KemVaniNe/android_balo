@@ -86,6 +86,7 @@ object DocumentUtil {
                     price = detailMap[OrderDetail.PRICE.property] as? String ?: "0",
                     picProduct = detailMap[OrderDetail.PICBALO.property] as? String ?: "",
                     rate = detailMap[OrderDetail.RATE.property] as? String ?: "0",
+                    priceImport = detailMap[OrderDetail.PRICEIMPORT.property] as? String ?: "0",
                     comment = detailMap[OrderDetail.COMMENT.property] as? String ?: ""
                 )
             } ?: emptyList()

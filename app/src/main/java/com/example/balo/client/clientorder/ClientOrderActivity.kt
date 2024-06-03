@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
@@ -71,7 +72,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun updateData() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.loadData(order) {
             showToast(it)
             finish()
@@ -92,10 +93,10 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
 
     private fun handleBuy() {
         if (binding.tvAddress.text != getString(R.string.click_to_choose)) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             val orderEntity = OrderEntity(
                 iduser = user!!.id,
-                date = "23/05/2024",
+                date =  Utils.getToDay(),
                 totalPrice = binding.tvTotalOrder.text.toString(),
                 address = binding.tvAddress.text.toString(),
                 priceShip = binding.tvPriceShip.text.toString(),
@@ -112,7 +113,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 
@@ -147,7 +148,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
                 addAll(it)
             }
             orderAdapter.notifyDataSetChanged()
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
         }
     }
 

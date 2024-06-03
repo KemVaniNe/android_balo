@@ -62,7 +62,7 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
 
     private fun handleConfirm() {
         if (isAllFill()) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             val newAddress = mutableListOf<String>()
             newAddress.addAll(userEntity.address)
             binding.run {
@@ -81,7 +81,7 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 

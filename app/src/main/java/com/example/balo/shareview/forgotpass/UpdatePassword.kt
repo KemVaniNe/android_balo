@@ -12,7 +12,6 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
 
     private lateinit var viewModel: UpdatePassViewModel
 
-    private var isSendCode = true
     override fun viewBinding(inflate: LayoutInflater): ActivityUpdatePasswordBinding =
         ActivityUpdatePasswordBinding.inflate(inflate)
 
@@ -25,50 +24,37 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
 
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
-        btnUpdate.setOnClickListener { handleRegister() }
+        btnUpdate.setOnClickListener { handleUpdate() }
     }
 
-    private fun handleRegister() = binding.run {
-        if (!isSendCode) {
-            handleSendOTP()
-        } else {
-            updatePassword()
-        }
-    }
-
-    private fun handleSendOTP() = binding.run {
-        if (edtEmail.text.toString().trim() == "") {
-            toast(getString(R.string.please_enter_phone))
-        } else {
-            //TODO
-        }
-    }
-
-    private fun updatePassword() = binding.run {
+    private fun handleUpdate() {
         if (isFillAllInfo()) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.updatePassword(
-                phone = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
-                newPassword = edtPassword.text.toString().trim(),
-                handleSuccess = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.update_password_success))
-                    finish()
-                },
-                handleNotRegister = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.account_not_register))
-                },
-                handleError = { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                })
+            update()
         }
+    }
+
+    private fun update() = binding.run {
+        if (!dialog.isShowing) dialog.show()
+        viewModel.updatePassword(
+            phone = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
+            newPassword = edtPassword.text.toString().trim(),
+            handleSuccess = {
+                toastError(getString(R.string.update_password_success))
+                finish()
+            },
+            handleError = { toastError(it) }
+        )
+    }
+
+    private fun toastError(mess: String) {
+        if (dialog.isShowing) dialog.dismiss()
+        toast(mess)
     }
 
     private fun isFillAllInfo(): Boolean = binding.run {
-        if (edtEmail.text.toString().trim() != "" && edtPassword.text.toString()
-                .trim() != "" && edtConfirm.text.toString().trim() != ""
+        if (edtEmail.text.toString().trim() != ""
+            && edtPassword.text.toString().trim() != ""
+            && edtConfirm.text.toString().trim() != ""
         ) {
             if (edtPassword.text.toString() == edtConfirm.text.toString()) {
                 return true
@@ -86,5 +72,4 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
         tvError.text = error
         tvError.visibility = View.VISIBLE
     }
-
 }

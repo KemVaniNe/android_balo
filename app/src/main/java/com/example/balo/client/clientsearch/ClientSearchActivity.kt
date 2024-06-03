@@ -24,6 +24,7 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     private lateinit var viewModel: ClientSearchVM
 
     private var brand: BrandEntity? = null
+
     private val products = mutableListOf<BaloEntity>()
 
     private val productAdapter by lazy {
@@ -83,23 +84,27 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     private fun listenVM() {
         viewModel.product.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
                 products.run {
                     clear()
                     addAll(it)
                 }
                 val numProduct = "${products.size} sản phẩm"
-                binding.tvNumProduct.text = numProduct
+                binding.run {
+                    tvNumProduct.text = numProduct
+                    clLoading.visibility = View.GONE
+                    rvProduct.visibility = if (it.isEmpty()) View.GONE else View.VISIBLE
+                    llNone.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                }
                 productAdapter.notifyDataSetChanged()
             }
         }
     }
 
-    private fun getProduct(id: String) {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getProducts(id) { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+    private fun getProduct(id: String) = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.getProducts(id) {
+            clLoading.visibility = View.GONE
+            toast(it)
         }
     }
 
@@ -118,7 +123,7 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     private fun search(s: String) = binding.run {
-        if (!dialog.isShowing) dialog.show()
+        clLoading.visibility = View.VISIBLE
         viewModel.searchProduct(s)
     }
 }
