@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.product.AdminMapsProductAdapter
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.FragmentAdminHomeBinding
 import com.example.balo.shareview.base.BaseFragment
@@ -62,7 +62,7 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     ): FragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater)
 
     private fun goToDetail(id: String) {
-        context?.let { startActivity(AdminDetailProductActivity.newIntent(it, id)) }
+        context?.let { startActivity(AdminProductDetailActivity.newIntent(it, id)) }
     }
 
     private fun getBills() = binding.run {

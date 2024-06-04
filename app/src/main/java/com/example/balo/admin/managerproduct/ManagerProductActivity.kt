@@ -11,8 +11,8 @@ import com.example.balo.R
 import com.example.balo.adapter.product.AdminProductEditAdapter
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ActivityAllProductBinding
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
 import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductEditActivity
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
@@ -76,7 +76,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
     private fun handleAdd() {
         startActivityForResult(
-            AdminDetailProductActivity.newIntent(this, AdminDetailProductActivity.KEY_ADD),
+            AdminProductEditActivity.newIntent(this, AdminProductEditActivity.KEY_ADD),
             REQUEST_CODE_CHANGE
         )
     }

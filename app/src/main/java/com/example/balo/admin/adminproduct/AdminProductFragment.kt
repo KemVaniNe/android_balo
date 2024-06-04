@@ -14,11 +14,11 @@ import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.FragmentAdminProductBinding
 import com.example.balo.admin.managerbrand.AdminBrandActivity
 import com.example.balo.admin.managerbrand.AllBrandActivity
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
 import com.example.balo.admin.managerproduct.ManagerProductActivity
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.brand.BrandAdapter
 import com.example.balo.adapter.product.AdminProductAdapter
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
 import com.example.balo.data.model.BaloEntity
 
 class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
@@ -42,7 +42,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         AdminProductAdapter(products) { pos ->
             startActivityForResult(
                 context?.let {
-                    AdminDetailProductActivity.newIntent(it, products[pos].id)
+                    AdminProductDetailActivity.newIntent(it, products[pos].id)
                 }, REQUEST_PRODUCT
             )
         }
@@ -117,7 +117,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     private fun handleAddProduct() {
         context?.let {
             startActivityForResult(
-                AdminDetailProductActivity.newIntent(it, AdminDetailProductActivity.KEY_ADD),
+                AdminProductDetailActivity.newIntent(it, AdminProductDetailActivity.ID),
                 REQUEST_PRODUCT
             )
         }

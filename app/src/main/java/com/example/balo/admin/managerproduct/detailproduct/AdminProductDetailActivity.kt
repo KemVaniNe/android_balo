@@ -113,6 +113,7 @@ class AdminProductDetailActivity : BaseActivity<ActivityAdminProductManagerBindi
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des
+        btnEdit.visibility = if(product.isSell) View.VISIBLE else View.GONE
     }
 
     private fun toastDialog(notification: String) {

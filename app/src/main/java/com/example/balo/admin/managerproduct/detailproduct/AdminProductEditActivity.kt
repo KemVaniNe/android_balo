@@ -56,8 +56,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
         if (intent.hasExtra(KEY_PRODUCT) && intent.getStringExtra(KEY_PRODUCT) != null) {
             if (intent.getStringExtra(KEY_PRODUCT) != KEY_ADD) {
                 viewModel.getProducts(intent.getStringExtra(KEY_PRODUCT)!!) {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(it)
+                    showToast(it)
                     finishAct(false)
                 }
             }
@@ -89,14 +88,13 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     private fun deleteBrand() {
-        viewModel.deleteProduct(productCurrent!!.id, handleSuccess = {
-            if (dialog.isShowing) dialog.dismiss()
-            toast(getString(R.string.delete_suceess))
-            finishAct(true)
-        }, handleFail = { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-        })
+        viewModel.deleteProduct(
+            productCurrent!!.id,
+            handleSuccess = {
+                showToast(getString(R.string.delete_suceess))
+                finishAct(true)
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun handleAdd() = binding.run {
@@ -120,7 +118,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     private fun isFillAllInfo(): Boolean {
         binding.run {
             if (edtName.text.toString() != "" && currentBrand != null
-                && edtQuantity.text.toString() != "" && edtPriceSell.text.toString() != ""
+                && edtAddNum.text.toString() != "" && edtPriceSell.text.toString() != ""
                 && edtPriceImport.text.toString() != ""
             ) {
                 return true
@@ -132,26 +130,26 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     private fun handleCreate() = binding.run {
+        val priceImport = edtPriceImport.text.toString().trim()
+        val quantity = edtAddNum.text.toString().trim()
+        val totalPrice = Utils.stringToInt(priceImport) * Utils.stringToInt(quantity)
         val entity = BaloEntity(
             name = edtName.text.toString().trim(),
             idBrand = currentBrand!!.id,
             pic = Utils.uriToBase64(this@AdminProductEditActivity, uri!!),
             priceSell = edtPriceSell.text.toString().trim(),
-            priceImport = edtPriceImport.text.toString().trim(),
+            priceImport = priceImport,
             des = edtDes.text.toString().trim(),
-            quantitiy = edtQuantity.text.toString().trim(),
+            quantitiy = quantity,
+            totalImport = totalPrice.toString()
         )
         viewModel.createProduct(
             product = entity,
             handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.success_brand))
+                showToast(getString(R.string.success_brand))
                 finishAct(true)
             },
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            }
+            handleFail = { showToast(it) }
         )
     }
 
@@ -178,14 +176,10 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                 numProductAdd = Utils.stringToInt(edtAddNum.text.toString()),
                 product = entity,
                 handleSuccess = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.update_product))
+                    showToast(getString(R.string.update_product))
                     finishAct(true)
                 },
-                handleFail = { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                }
+                handleFail = { showToast(it) }
             )
         }
     }
@@ -264,5 +258,10 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
         viewModel.resetCurrentProduct()
         if (isOK) setResult(RESULT_OK)
         finish()
+    }
+
+    private fun showToast(mess: String) {
+        if (dialog.isShowing) dialog.dismiss()
+        toast(mess)
     }
 }
