@@ -26,16 +26,16 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     private val chooseDelete = mutableListOf<BaloEntity>()
 
     private val productAdapter by lazy {
-        AdminProductEditAdapter(products, { pos ->
-            startActivityForResult(
-                AdminProductDetailActivity.newIntent(this, products[pos].id),
-                REQUEST_CODE_CHANGE
-            )
-        }, onCheckBox = {
-            if (it.first) chooseDelete.add(it.second)
-            else chooseDelete.remove(it.second)
-            binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-        })
+        AdminProductEditAdapter(products,
+            listener = { pos ->
+                startActivityForResult(
+                    AdminProductDetailActivity.newIntent(this, products[pos].id),
+                    REQUEST_CODE_CHANGE
+                )
+            },
+            onCheckBox = {
+                handleChooseCheckbox(it)
+            })
     }
 
     companion object {
@@ -58,6 +58,17 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
         viewModel = ViewModelProvider(this)[ManagerProductVM::class.java]
         listenVM()
         updateProduct()
+    }
+
+    private fun handleChooseCheckbox(pair: Pair<Boolean, Int>) = binding.run {
+        val cart = products[pair.second]
+        products[pair.second].isSelected = pair.first
+        if (pair.first) {
+            chooseDelete.add(cart)
+        } else {
+            chooseDelete.remove(cart)
+        }
+        btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
     }
 
     private fun updateProduct() {
@@ -89,7 +100,8 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
                 toast(getString(R.string.delete_suceess))
                 setResult(RESULT_OK)
                 updateProduct()
-                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                binding.btnDelete.visibility =
+                    if (chooseDelete.size > 0) View.VISIBLE else View.GONE
             }, handleFail = { error ->
                 if (dialog.isShowing) dialog.dismiss()
                 toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")

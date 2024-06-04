@@ -14,5 +14,6 @@ data class BaloEntity(
     var totalImport: String = "0",
     var totalSell: String = "0",
     var isSell: Boolean = true,
-    var comment: List<String> = emptyList()
+    var comment: List<String> = emptyList(),
+    var isSelected: Boolean = false
 )
