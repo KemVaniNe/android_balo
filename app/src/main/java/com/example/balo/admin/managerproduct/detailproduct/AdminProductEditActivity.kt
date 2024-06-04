@@ -4,23 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.managerbrand.AdminBrandActivity
+import com.example.balo.admin.managerproduct.ManagerProductVM
 import com.example.balo.admin.managerproduct.choosebrand.AdminChooseBrandActivity
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductVM
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
-import com.example.balo.databinding.ActivityAdminProductBinding
 import com.example.balo.databinding.ActivityAdminProductEditBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
@@ -31,7 +24,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
 
     private var uri: Uri? = null
 
-    private lateinit var viewModel: AdminDetailProductVM
+    private lateinit var viewModel: ManagerProductVM
 
     private var productCurrent: BaloEntity? = null
 
@@ -44,7 +37,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
         const val KEY_PRODUCT = "admin_product"
         const val KEY_ADD = ""
         fun newIntent(context: Context, response: String): Intent {
-            return Intent(context, AdminDetailProductActivity::class.java).apply {
+            return Intent(context, AdminProductEditActivity::class.java).apply {
                 putExtra(KEY_PRODUCT, response)
             }
         }
@@ -57,12 +50,12 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminDetailProductVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerProductVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_PRODUCT) && intent.getStringExtra(KEY_PRODUCT) != null) {
             if (intent.getStringExtra(KEY_PRODUCT) != KEY_ADD) {
-                viewModel.getBaloById(intent.getStringExtra(KEY_PRODUCT)!!) {
+                viewModel.getProducts(intent.getStringExtra(KEY_PRODUCT)!!) {
                     if (dialog.isShowing) dialog.dismiss()
                     toast(it)
                     finishAct(false)
@@ -74,7 +67,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        tvTitle.setOnClickListener { finish() }
         btnAdd.setOnClickListener { handleAdd() }
         tvImport.setOnClickListener { handleImport() }
         btnDelete.setOnClickListener { handleDelete() }
@@ -166,6 +159,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
         val pic = if (uri != null) Utils.uriToBase64(this, uri!!) else productCurrent!!.pic
         binding.run {
             val entity = BaloEntity(
+                id = productCurrent!!.id,
                 name = edtName.text.toString().trim(),
                 idBrand = currentBrand!!.id,
                 pic = pic,
@@ -175,11 +169,14 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                 quantitiy = edtQuantity.text.toString().trim(),
                 sell = productCurrent!!.sell,
                 rate = productCurrent!!.rate,
-                comment = productCurrent!!.comment
+                comment = productCurrent!!.comment,
+                totalImport = productCurrent!!.totalImport,
+                totalSell = productCurrent!!.totalSell,
+                isSell = productCurrent!!.isSell
             )
             viewModel.updateProduct(
+                numProductAdd = Utils.stringToInt(edtAddNum.text.toString()),
                 product = entity,
-                idDocument = productCurrent!!.id,
                 handleSuccess = {
                     if (dialog.isShowing) dialog.dismiss()
                     toast(getString(R.string.update_product))
@@ -248,6 +245,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                         edtName.setText(productCurrent!!.name)
                         tvBrand.text = currentBrand!!.name
                         edtQuantity.setText(productCurrent!!.quantitiy)
+                        edtSold.setText(productCurrent!!.sell)
                         edtPriceSell.setText(productCurrent!!.priceSell)
                         edtPriceImport.setText(productCurrent!!.priceImport)
                         Utils.displayBase64Image(productCurrent!!.pic, imgPic)
@@ -255,6 +253,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                         btnAdd.text = getString(R.string.update)
                         btnDelete.visibility = View.VISIBLE
                         edtDes.setText(productCurrent!!.des)
+                        llEdit.visibility = View.VISIBLE
                     }
                 }
             }

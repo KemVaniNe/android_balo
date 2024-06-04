@@ -14,7 +14,7 @@ import com.example.balo.utils.Utils
 class AdminProductEditAdapter(
     private var list: List<BaloEntity>,
     private val listener: (Int) -> Unit,
-    private val onCheckBox: (Pair<Boolean, String>) -> Unit,
+    private val onCheckBox: (Pair<Boolean, BaloEntity>) -> Unit,
 ) : RecyclerView.Adapter<AdminProductEditAdapter.VH>() {
     inner class VH(val binding: ItemProductEditBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: BaloEntity) {
@@ -25,7 +25,7 @@ class AdminProductEditAdapter(
                 val available = item.quantitiy.toFloat() - item.sell.toFloat()
                 tvQuantity.text = available.toString()
                 cbDelete.setOnClickListener {
-                    onCheckBox.invoke(Pair(cbDelete.isChecked, item.id))
+                    onCheckBox.invoke(Pair(cbDelete.isChecked, item))
                 }
             }
         }

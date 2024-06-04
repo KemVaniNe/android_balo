@@ -23,7 +23,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
     private lateinit var viewModel: ManagerProductVM
 
-    private val chooseDelete = mutableListOf<String>()
+    private val chooseDelete = mutableListOf<BaloEntity>()
 
     private val productAdapter by lazy {
         AdminProductEditAdapter(products, { pos ->

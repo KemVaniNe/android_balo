@@ -6,6 +6,7 @@ import com.example.balo.data.model.enum.Collection
 import com.example.balo.utils.Utils
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 
 class ProductFirebase {
@@ -17,10 +18,11 @@ class ProductFirebase {
         handleFail: (String) -> Unit
     ) {
         val data = Utils.productToMap(balo)
-        db.collection(Collection.BALO.collectionName).document(balo.id)
-            .update(data)
-            .addOnSuccessListener { handleSuccess.invoke() }
-            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+        db.collection(Collection.BALO.collectionName)
+            .document(balo.id)
+            .set(data, SetOptions.merge())
+            .addOnSuccessListener { handleSuccess() }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
     fun getProductBaseId(
@@ -62,6 +64,7 @@ class ProductFirebase {
     fun getProducts(handleSuccess: (List<BaloEntity>) -> Unit, handleFail: (String) -> Unit) {
         val data = mutableListOf<BaloEntity>()
         db.collection(Collection.BALO.collectionName)
+            .whereEqualTo(Balo.ISSELL.property, true)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
                     data.add(Utils.convertDocToBProduct(document))
@@ -99,15 +102,48 @@ class ProductFirebase {
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
-    fun deleteProducts(ids: List<String>, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+    fun deleteProducts(
+        products: List<BaloEntity>,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
         val batch = db.batch()
-        for (id in ids) {
-            val docRef = db.collection(Collection.BALO.collectionName).document(id)
-            batch.delete(docRef)
+        for (product in products) {
+            val docRef = db.collection(Collection.BALO.collectionName).document(product.id)
+            product.isSell = false
+            batch.update(docRef, Utils.productToMap(product))
         }
-        batch
-            .commit()
+
+        batch.commit()
             .addOnSuccessListener { handleSuccess.invoke() }
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    fun createProduct(
+        product: BaloEntity,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        val data = Utils.productToMap(product)
+        db.collection(Collection.BALO.collectionName)
+            .add(data)
+            .addOnSuccessListener { handleSuccess.invoke() }
+            .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
+    }
+
+    fun deleteProduct(
+        documentId: String,
+        handleSuccess: () -> Unit,
+        handleFail: (String) -> Unit
+    ) {
+        db.collection(Collection.BALO.collectionName)
+            .document(documentId).delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    handleSuccess.invoke()
+                } else {
+                    handleFail.invoke("ERROR: ${task.exception?.message ?: "Unknown error occurred"}")
+                }
+            }
     }
 }

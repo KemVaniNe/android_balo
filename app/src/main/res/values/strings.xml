@@ -144,4 +144,6 @@
     <string name="hot_sell">Sản phẩm bán chạy</string>
     <string name="none_product">Chưa có sản phẩm nào</string>
     <string name="edit">Chỉnh sửa</string>
+    <string name="number_import">Số lượng nhập</string>
+    <string name="current_quantity">Tổng sản phẩm hiện tại</string>
 </resources>
