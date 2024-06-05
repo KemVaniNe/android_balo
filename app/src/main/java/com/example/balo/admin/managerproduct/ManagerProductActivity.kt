@@ -72,11 +72,8 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     private fun updateProduct() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllProducts { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-        }
+        binding.clLoading.visibility = View.VISIBLE
+        viewModel.getAllProducts { showToast(it) }
     }
 
     override fun initListener() = binding.run {
@@ -86,26 +83,28 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     private fun handleAdd() {
-        startActivityForResult(
-            AdminProductEditActivity.newIntent(this, AdminProductEditActivity.KEY_ADD),
-            REQUEST_CODE_CHANGE
-        )
+        if(binding.clLoading.visibility == View.GONE) {
+            startActivityForResult(
+                AdminProductEditActivity.newIntent(this, AdminProductEditActivity.KEY_ADD),
+                REQUEST_CODE_CHANGE
+            )
+        }
     }
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.deleteProducts(chooseDelete, handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.delete_suceess))
-                setResult(RESULT_OK)
-                updateProduct()
-                binding.btnDelete.visibility =
-                    if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            binding.clLoading.visibility = View.VISIBLE
+            viewModel.deleteProducts(
+                chooseDelete,
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    setResult(RESULT_OK)
+                    updateProduct()
+                    binding.btnDelete.visibility =
+                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                },
+                handleFail = { showToast(it) }
+            )
         }
     }
 
@@ -118,7 +117,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
                     addAll(it)
                 }
                 productAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
             }
         }
     }
@@ -129,5 +128,10 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
         if (requestCode == REQUEST_CODE_CHANGE && resultCode == RESULT_OK) {
             updateProduct()
         }
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
     }
 }

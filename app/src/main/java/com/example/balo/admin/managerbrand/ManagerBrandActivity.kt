@@ -15,9 +15,9 @@ import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
-class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
+class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
-    private lateinit var viewModel: AdminBrandVM
+    private lateinit var viewModel: ManagerBrandVM
 
     private val brands = mutableListOf<BrandEntity>()
 
@@ -26,7 +26,7 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     private val brandAdapter by lazy {
         EditBrandAdapter(brands, listener = { pos ->
             startActivityForResult(
-                AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id),
+                AdminBrandDetailActivity.newIntent(this@ManagerBrandActivity, brands[pos].id),
                 REQUEST_CODE_ADD
             )
         }, onCheckBox = {
@@ -40,7 +40,7 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
         const val REQUEST_CODE_ADD = 160
         fun newIntent(context: Context): Intent {
-            return Intent(context, AllBrandActivity::class.java)
+            return Intent(context, ManagerBrandActivity::class.java)
         }
     }
 
@@ -51,18 +51,18 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() = binding.run {
         updateList()
-        rvBrand.layoutManager = LinearLayoutManager(this@AllBrandActivity)
+        rvBrand.layoutManager = LinearLayoutManager(this@ManagerBrandActivity)
         rvBrand.adapter = brandAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerBrandVM::class.java]
         listenData()
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
     }
@@ -76,39 +76,36 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
                     addAll(it)
                 }
                 brandAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
             }
         }
     }
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.deleteBrands(chooseDelete, handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.delete_suceess))
-                setResult(RESULT_OK)
-                updateList()
-                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            binding.clLoading.visibility = View.VISIBLE
+            viewModel.deleteBrands(
+                chooseDelete,
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    setResult(RESULT_OK)
+                    updateList()
+                    binding.btnDelete.visibility =
+                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                },
+                handleFail = { showToast(it) }
+            )
         }
     }
 
     private fun updateList() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllBrands(
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+        binding.clLoading.visibility = View.VISIBLE
+        viewModel.getAllBrands(handleFail = { showToast(it) })
     }
 
     private fun handleAdd() {
         startActivityForResult(
-            AdminBrandActivity.newIntent(this, AdminBrandActivity.KEY_ADD),
+            AdminBrandDetailActivity.newIntent(this, AdminBrandDetailActivity.KEY_ADD),
             REQUEST_CODE_ADD
         )
     }
@@ -120,5 +117,10 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
             setResult(RESULT_OK)
             updateList()
         }
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
     }
 }

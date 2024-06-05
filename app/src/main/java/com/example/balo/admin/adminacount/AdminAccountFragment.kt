@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
+import com.example.balo.admin.managerbrand.ManagerBrandActivity
 import com.example.balo.admin.managerclient.ManagerClientActivity
 import com.example.balo.admin.managerorder.ManagerOrderActivity
 import com.example.balo.admin.managerproduct.ManagerProductActivity
@@ -40,6 +41,7 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
         tvClient.setOnClickListener { handleClient() }
         tvBill.setOnClickListener { handleBill() }
         tvProduct.setOnClickListener { handleProduct() }
+        tvBrand.setOnClickListener { handleBrand() }
     }
 
     override fun getViewBinding(
@@ -63,16 +65,28 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     }
 
     private fun handleBill() {
+        if (isListener()) {
 
+        }
     }
 
-    private fun handleProduct() { 
-        context?.let { startActivity(ManagerProductActivity.newIntent(it)) }
+    private fun handleBrand() {
+        if (isListener()) {
+            context?.let { startActivity(ManagerBrandActivity.newIntent(it)) }
+        }
+    }
+
+    private fun handleProduct() {
+        if (isListener()) {
+            context?.let { startActivity(ManagerProductActivity.newIntent(it)) }
+        }
     }
 
     private fun handleLogOut() {
-        context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
-        (context as AdminMainActivity).finishAct()
+        if (isListener()) {
+            context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
+            (context as AdminMainActivity).finishAct()
+        }
     }
 
     private fun handleUpdatePass() {

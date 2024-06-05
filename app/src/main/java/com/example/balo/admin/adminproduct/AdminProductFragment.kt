@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.FragmentAdminProductBinding
-import com.example.balo.admin.managerbrand.AdminBrandActivity
-import com.example.balo.admin.managerbrand.AllBrandActivity
+import com.example.balo.admin.managerbrand.AdminBrandDetailActivity
+import com.example.balo.admin.managerbrand.ManagerBrandActivity
 import com.example.balo.admin.managerproduct.ManagerProductActivity
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.brand.BrandAdapter
@@ -32,7 +32,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         BrandAdapter(brands) { pos ->
             startActivityForResult(
                 context?.let {
-                    AdminBrandActivity.newIntent(it, brands[pos].id)
+                    AdminBrandDetailActivity.newIntent(it, brands[pos].id)
                 }, REQUEST_BRAND
             )
         }
@@ -78,7 +78,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
         }
         tvSeeBrand.setOnClickListener {
             context?.let {
-                startActivityForResult(AllBrandActivity.newIntent(it), REQUEST_BRAND)
+                startActivityForResult(ManagerBrandActivity.newIntent(it), REQUEST_BRAND)
             }
         }
     }
@@ -109,7 +109,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>() {
     private fun handleAddBrand() {
         context?.let {
             startActivityForResult(
-                AdminBrandActivity.newIntent(it, AdminBrandActivity.KEY_ADD), REQUEST_BRAND
+                AdminBrandDetailActivity.newIntent(it, AdminBrandDetailActivity.KEY_ADD), REQUEST_BRAND
             )
         }
     }

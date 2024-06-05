@@ -8,25 +8,23 @@
     android:background="@color/color_bg"
     android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/imgBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:background="@drawable/bg_title"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="16dp"
+        android:elevation="10dp"
         android:fontFamily="@font/nunito_bold"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
         android:text="@string/brand"
-        android:textColor="@color/color_text"
-        android:textSize="30dp"
-        app:layout_constraintTop_toBottomOf="@id/imgBack" />
+        android:textColor="@color/color_bg"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtSearch"
@@ -44,8 +42,6 @@
         android:textColor="@color/color_text"
         android:textColorHint="@color/color_hint"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgBack"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <ImageView
@@ -85,5 +81,25 @@
         android:textSize="16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLoading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtSearch">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

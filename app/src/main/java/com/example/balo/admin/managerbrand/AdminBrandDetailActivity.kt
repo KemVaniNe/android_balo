@@ -15,11 +15,11 @@ import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
-class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
+class AdminBrandDetailActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
     private var uri: Uri? = null
 
-    private lateinit var viewModel: AdminBrandVM
+    private lateinit var viewModel: ManagerBrandVM
 
     private var brandCurrent: BrandEntity? = null
 
@@ -29,7 +29,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         const val KEY_BRAND = "admin_brand"
         const val KEY_ADD = ""
         fun newIntent(context: Context, response: String): Intent {
-            return Intent(context, AdminBrandActivity::class.java).apply {
+            return Intent(context, AdminBrandDetailActivity::class.java).apply {
                 putExtra(KEY_BRAND, response)
             }
         }
@@ -42,15 +42,14 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerBrandVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_BRAND) && intent.getStringExtra(KEY_BRAND) != null) {
             if (intent.getStringExtra(KEY_BRAND) != "") {
-                if (!dialog.isShowing) dialog.show()
+                binding.clLoading.visibility = View.VISIBLE
                 viewModel.getBrandById(intent.getStringExtra(KEY_BRAND)!!) {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(it)
+                    showToast(it)
                     finishAct(false)
                 }
             }
@@ -60,7 +59,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finishAct(false) }
+        tvTitle.setOnClickListener { finishAct(false) }
         btnAdd.setOnClickListener { handleAdd() }
         tvImport.setOnClickListener { handleImport() }
         btnDelete.setOnClickListener { handleDelete() }
@@ -68,27 +67,26 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             deleteBrand()
         }
     }
 
     private fun deleteBrand() {
-        viewModel.deleteBrand(brandCurrent!!.id, handleSuccess = {
-            if (dialog.isShowing) dialog.dismiss()
-            toast(getString(R.string.delete_suceess))
-            finishAct(true)
-        }, handleFail = { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-        })
+        viewModel.deleteBrand(
+            brandCurrent!!.id,
+            handleSuccess = {
+                showToast(getString(R.string.delete_suceess))
+                finishAct(true)
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun handleAdd() = binding.run {
         when (brandCurrent) {
             null -> {
                 if (uri != null && edtName.text.toString() != "") {
-                    if (!dialog.isShowing) dialog.show()
+                    binding.clLoading.visibility = View.VISIBLE
                     handleCreate()
                 } else {
                     tvError.visibility = View.VISIBLE
@@ -97,7 +95,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
 
             else -> {
                 if (edtName.text.toString() != "") {
-                    if (!dialog.isShowing) dialog.show()
+                    binding.clLoading.visibility = View.VISIBLE
                     handleUpdate()
                 } else {
                     tvError.visibility = View.VISIBLE
@@ -110,19 +108,15 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         val entity = BrandEntity(
             name = edtName.text.toString(),
             des = edtDes.text.toString().trim(),
-            pic = Utils.uriToBase64(this@AdminBrandActivity, uri!!)
+            pic = Utils.uriToBase64(this@AdminBrandDetailActivity, uri!!)
         )
         viewModel.createBrand(
             brand = entity,
             handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.success_brand))
+                showToast(getString(R.string.success_brand))
                 finishAct(true)
             },
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            }
+            handleFail = { showToast(it) }
         )
     }
 
@@ -130,22 +124,18 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         val pic = if (uri != null) Utils.uriToBase64(this, uri!!) else brandCurrent!!.pic
         binding.run {
             val entity = BrandEntity(
+                id = brandCurrent!!.id,
                 name = edtName.text.toString(),
                 des = edtDes.text.toString().trim(),
                 pic = pic
             )
             viewModel.updateBrand(
                 brand = entity,
-                idDocument = brandCurrent!!.id,
                 handleSuccess = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.update_brand))
+                    showToast(getString(R.string.update_brand))
                     finishAct(true)
                 },
-                handleFail = { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                }
+                handleFail = { showToast(it) }
             )
         }
     }
@@ -187,7 +177,7 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
     private fun listenVM() {
         viewModel.currentBrand.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.VISIBLE
                 brandCurrent = it
                 binding.run {
                     edtName.setText(brandCurrent!!.name)
@@ -205,5 +195,10 @@ class AdminBrandActivity : BaseActivity<ActivityAdminBrandBinding>() {
         viewModel.resetCurrentBrand()
         if (isOK) setResult(RESULT_OK)
         finish()
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
     }
 }

@@ -77,10 +77,10 @@
             android:name=".admin.managerproduct.ManagerProductActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.managerbrand.AllBrandActivity"
+            android:name=".admin.managerbrand.ManagerBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.managerbrand.AdminBrandActivity"
+            android:name=".admin.managerbrand.AdminBrandDetailActivity"
             android:exported="false" />
         <activity
             android:name=".shareview.forgotpass.UpdatePassword"
