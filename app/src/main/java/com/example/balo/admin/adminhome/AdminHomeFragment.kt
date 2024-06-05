@@ -50,6 +50,7 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         viewModel = ViewModelProvider(this)[AdminHomeVM::class.java]
         listenBill()
         getBills()
+        getProducts()
         getNoneSell()
     }
 
@@ -67,9 +68,15 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
 
     private fun getBills() = binding.run {
         clLoading.visibility = View.VISIBLE
-        clLoadingInventory.visibility = View.VISIBLE
         viewModel.getBills {
             clLoading.visibility = View.GONE
+            toast(it)
+        }
+    }
+
+    private fun getProducts() = binding.run {
+        clLoadingInventory.visibility = View.VISIBLE
+        viewModel.getProducts {
             clLoadingInventory.visibility = View.GONE
             toast(it)
         }

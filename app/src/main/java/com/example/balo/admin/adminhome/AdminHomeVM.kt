@@ -7,6 +7,7 @@ import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.network.OrderFirebase
 import com.example.balo.data.network.ProductFirebase
+import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
 import com.github.mikephil.charting.data.Entry
 
@@ -32,7 +33,16 @@ class AdminHomeVM : ViewModel() {
         orderFirebase.getAllOrders(
             handleSuccess = {
                 convertBillToEntries(it)
-                convertProducts(it)
+              //  convertProducts(it)
+            },
+            handleFail = { handleFail.invoke(it) }
+        )
+    }
+
+    fun getProducts(handleFail: (String) -> Unit) {
+        productFirebase.getProducts(
+            handleSuccess = { list ->
+                _products.postValue(list.sortedByDescending { Utils.stringToInt(it.totalSell) })
             },
             handleFail = { handleFail.invoke(it) }
         )
@@ -49,12 +59,14 @@ class AdminHomeVM : ViewModel() {
         val mapDateToTotalPrice = mutableMapOf<String, Float>()
 
         bills.forEach {
-            val totalPrice = Utils.stringToInt(it.totalPrice).toFloat()
-            val date = it.date
-            if (mapDateToTotalPrice.containsKey(date)) {
-                mapDateToTotalPrice[date] = mapDateToTotalPrice[date]!! + totalPrice
-            } else {
-                mapDateToTotalPrice[date] = totalPrice
+            if (it.statusOrder != Constants.ORDER_CANCEL) {
+                val totalPrice = Utils.stringToInt(it.totalPrice).toFloat()
+                val date = it.date
+                if (mapDateToTotalPrice.containsKey(date)) {
+                    mapDateToTotalPrice[date] = mapDateToTotalPrice[date]!! + totalPrice
+                } else {
+                    mapDateToTotalPrice[date] = totalPrice
+                }
             }
         }
 
@@ -104,4 +116,5 @@ class AdminHomeVM : ViewModel() {
 
         _products.postValue(product)
     }
+
 }

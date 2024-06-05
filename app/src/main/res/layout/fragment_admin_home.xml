@@ -109,11 +109,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
-                    android:text="@string/hot_sell"
+                    android:text="@string/product"
                     android:textColor="@color/color_text"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_down"
+                    android:drawablePadding="8dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/revenue"
+                    android:textColor="@color/color_button"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
