@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.brand.EditBrandAdapter
+import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.shareview.base.BaseActivity

@@ -1,4 +1,4 @@
-package com.example.balo.admin.managerbrand
+package com.example.balo.admin.managerbrand.detail
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
+import com.example.balo.admin.managerbrand.ManagerBrandVM
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAdminBrandBinding
 import com.example.balo.shareview.base.BaseActivity

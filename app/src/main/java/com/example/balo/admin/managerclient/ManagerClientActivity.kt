@@ -3,6 +3,7 @@ package com.example.balo.admin.managerclient
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.AdminClientAdapter
@@ -42,9 +43,9 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
     }
 
     private fun getClient() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getClients {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             toast(it)
         }
     }
@@ -53,7 +54,9 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
         startActivity(
             Intent(
                 AdminClientDetailActivity.newIntent(
-                    context = this, name = client.username, id = client.id
+                    context = this,
+                    name = client.username,
+                    id = client.id
                 )
             )
         )
@@ -62,7 +65,7 @@ class ManagerClientActivity : BaseActivity<ActivityManagerClientBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.clients.observe(this) {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             clients.run {
                 clear()
                 addAll(it)

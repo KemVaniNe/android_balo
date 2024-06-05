@@ -1,11 +1,11 @@
-package com.example.balo.admin.adminbill
+package com.example.balo.admin.managerbill
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BillEntity
 import com.example.balo.data.network.BillFirebase
 
-class AdminBillVM : ViewModel() {
+class ManagerBillVM : ViewModel() {
     private val _bills = MutableLiveData<List<BillEntity>>(emptyList())
     val bills = _bills
 

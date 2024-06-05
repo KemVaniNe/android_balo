@@ -1,39 +1,39 @@
-package com.example.balo.admin.adminbill
+package com.example.balo.admin.managerbill
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.AdminBillAdapter
 import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.BillEntity
-import com.example.balo.databinding.FragmentAdminOrderBinding
-import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.databinding.ActivityManagerBillBinding
+import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.DialogUtil
 
-class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
+class ManagerBillActivity : BaseActivity<ActivityManagerBillBinding>() {
 
-    private lateinit var viewModel: AdminBillVM
+    private lateinit var viewModel: ManagerBillVM
 
     private val bills = mutableListOf<BillEntity>()
 
     private val billAdapter by lazy {
         AdminBillAdapter(bills) { pos ->
-            context?.let {
-                startActivity(AdminDetailOrderActivity.newIntent(it, bills[pos].idOrder))
-            }
+            startActivity(AdminDetailOrderActivity.newIntent(this, bills[pos].idOrder))
         }
     }
 
+    override fun viewBinding(inflate: LayoutInflater): ActivityManagerBillBinding =
+        ActivityManagerBillBinding.inflate(inflate)
+
     override fun initView() = binding.run {
-        rvBill.layoutManager = LinearLayoutManager(context)
+        rvBill.layoutManager = LinearLayoutManager(this@ManagerBillActivity)
         rvBill.adapter = billAdapter
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminBillVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerBillVM::class.java]
         listenVM()
         getBill()
     }
@@ -42,19 +42,12 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
         tvTime.setOnClickListener { handleTime() }
     }
 
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentAdminOrderBinding = FragmentAdminOrderBinding.inflate(inflater)
-
     private fun handleTime() = binding.run {
-        if(clLoading.visibility == View.GONE) {
-            context?.let { context ->
-                DialogUtil.showTimeDialog(context) {
-                    tvTime.text = it
-                    clLoading.visibility = View.VISIBLE
-                    viewModel.search(it)
-                }
+        if (clLoading.visibility == View.GONE) {
+            DialogUtil.showTimeDialog(this@ManagerBillActivity) {
+                tvTime.text = it
+                clLoading.visibility = View.VISIBLE
+                viewModel.search(it)
             }
         }
     }
@@ -94,6 +87,5 @@ class AdminBillFragment : BaseFragment<FragmentAdminOrderBinding>() {
             rvBill.visibility = View.GONE
             llNone.visibility = View.VISIBLE
         }
-
     }
 }

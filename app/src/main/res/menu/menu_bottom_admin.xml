@@ -7,11 +7,6 @@
         android:title="" />
 
     <item
-        android:id="@+id/admin_order"
-        android:icon="@drawable/ic_order"
-        android:title="" />
-
-    <item
         android:id="@+id/admin_account"
         android:icon="@drawable/ic_user"
         android:title="" />

@@ -34,7 +34,7 @@ class ManagerProductVM : ViewModel() {
             handleSuccess = {
                 _productCurrent.postValue(it)
                 currentProduct = it
-                getBrandById(currentProduct!!.id)
+                getBrandById(currentProduct!!.idBrand)
             },
             handleFail = {
                 _isLoading.postValue(false)

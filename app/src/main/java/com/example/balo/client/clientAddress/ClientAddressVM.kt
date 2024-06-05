@@ -34,7 +34,10 @@ class ClientAddressVM : ViewModel() {
     ) {
         accountFirebase.updateUser(
             user = user,
-            handleSuccess = { handleSuccess.invoke() },
+            handleSuccess = {
+                _account.postValue(user)
+                handleSuccess.invoke()
+            },
             handleFail = { handleError.invoke(it) }
         )
     }

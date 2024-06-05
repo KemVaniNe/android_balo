@@ -70,9 +70,9 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
     }
 
     private fun getBill() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getBillsBaseUser(id) {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             toast(it)
         }
     }
@@ -80,7 +80,7 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
     @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.bills.observe(this) {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             binding.run {
                 if (it.isEmpty()) {
                     llNone.visibility = View.VISIBLE

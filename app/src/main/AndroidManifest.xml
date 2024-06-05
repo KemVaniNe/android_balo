@@ -23,6 +23,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".admin.managerbill.ManagerBillActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.managerproduct.detailproduct.AdminProductEditActivity"
             android:exported="false" />
         <activity
@@ -80,7 +83,7 @@
             android:name=".admin.managerbrand.ManagerBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.managerbrand.AdminBrandDetailActivity"
+            android:name=".admin.managerbrand.detail.AdminBrandDetailActivity"
             android:exported="false" />
         <activity
             android:name=".shareview.forgotpass.UpdatePassword"

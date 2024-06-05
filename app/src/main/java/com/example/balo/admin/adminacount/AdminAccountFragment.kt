@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
+import com.example.balo.admin.managerbill.ManagerBillActivity
 import com.example.balo.admin.managerbrand.ManagerBrandActivity
 import com.example.balo.admin.managerclient.ManagerClientActivity
 import com.example.balo.admin.managerorder.ManagerOrderActivity
@@ -27,7 +28,7 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminAccountVM::class.java]
         listenVM()
-        viewModel.updateAccount {
+        viewModel.getAccountBaseId {
             binding.clLoading.visibility = View.GONE
             toast(it)
         }
@@ -66,7 +67,7 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
 
     private fun handleBill() {
         if (isListener()) {
-
+            context?.let { startActivity(Intent(it, ManagerBillActivity::class.java)) }
         }
     }
 

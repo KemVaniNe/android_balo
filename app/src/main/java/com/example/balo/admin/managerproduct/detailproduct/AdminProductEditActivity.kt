@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
-import com.example.balo.admin.managerbrand.AdminBrandDetailActivity
+import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
 import com.example.balo.admin.managerproduct.ManagerProductVM
 import com.example.balo.admin.managerproduct.choosebrand.AdminChooseBrandActivity
 import com.example.balo.data.model.BaloEntity
