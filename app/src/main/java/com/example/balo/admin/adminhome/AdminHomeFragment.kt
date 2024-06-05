@@ -32,18 +32,10 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         }
     }
 
-    private val noneAdapter by lazy {
-        AdminMapsProductAdapter(noneSells) {
-            goToDetail(noneSells[it].id)
-        }
-    }
-
     private lateinit var viewModel: AdminHomeVM
     override fun initView() = binding.run {
         rvProduct.layoutManager = LinearLayoutManager(context)
         rvProduct.adapter = productAdapter
-        rvNoneSell.layoutManager = LinearLayoutManager(context)
-        rvNoneSell.adapter = noneAdapter
     }
 
     override fun initData() {
@@ -51,7 +43,6 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         listenBill()
         getBills()
         getProducts()
-        getNoneSell()
     }
 
     override fun initListener() {
@@ -82,14 +73,6 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         }
     }
 
-    private fun getNoneSell() = binding.run {
-        clLoadingNoneSell.visibility = View.VISIBLE
-        viewModel.getNoneSell {
-            clLoadingNoneSell.visibility = View.GONE
-            toast(it)
-        }
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun listenBill() {
         viewModel.entriesBills.observe(this) {
@@ -108,17 +91,6 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
                     addAll(it)
                 }
                 productAdapter.notifyDataSetChanged()
-            }
-        }
-
-        viewModel.noneSell.observe(this) {
-            binding.run {
-                clLoadingNoneSell.visibility = View.GONE
-                noneSells.run {
-                    clear()
-                    addAll(it)
-                }
-                noneAdapter.notifyDataSetChanged()
             }
         }
     }

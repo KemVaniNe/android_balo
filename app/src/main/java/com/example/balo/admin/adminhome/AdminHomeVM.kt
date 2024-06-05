@@ -19,12 +19,6 @@ class AdminHomeVM : ViewModel() {
     private val _products = MutableLiveData<List<BaloEntity>>()
     val products = _products
 
-    private val _noneSell = MutableLiveData<List<BaloEntity>>()
-    val noneSell = _noneSell
-
-    private val _bills = MutableLiveData<List<BillEntity>>(emptyList())
-    val bills = _bills
-
     private val orderFirebase = OrderFirebase()
 
     private val productFirebase = ProductFirebase()
@@ -33,7 +27,6 @@ class AdminHomeVM : ViewModel() {
         orderFirebase.getAllOrders(
             handleSuccess = {
                 convertBillToEntries(it)
-              //  convertProducts(it)
             },
             handleFail = { handleFail.invoke(it) }
         )
@@ -44,13 +37,6 @@ class AdminHomeVM : ViewModel() {
             handleSuccess = { list ->
                 _products.postValue(list.sortedByDescending { Utils.stringToInt(it.totalSell) })
             },
-            handleFail = { handleFail.invoke(it) }
-        )
-    }
-
-    fun getNoneSell(handleFail: (String) -> Unit) {
-        productFirebase.getProductNoneSell(
-            handleSuccess = { _noneSell.postValue(it) },
             handleFail = { handleFail.invoke(it) }
         )
     }

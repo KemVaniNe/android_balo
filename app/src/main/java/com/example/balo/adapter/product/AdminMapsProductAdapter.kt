@@ -23,7 +23,7 @@ class AdminMapsProductAdapter(
                 val sell = "Đã bán: ${item.sell}"
                 tvSell.text = sell
                 val priceImportProduct = totalImport / (if (quantity == 0f) 1f else quantity)
-                val profit = priceImportProduct * Utils.stringToInt(item.sell) - totalPrice
+                val profit = totalPrice - priceImportProduct * Utils.stringToInt(item.sell)
                 val profitText = "Lợi nhuận: $profit"
                 tvProfit.text = profitText
             }
