@@ -17,7 +17,6 @@ class AdminViewPagerAdapter(fragmentManager: FragmentManager) :
         return when (position) {
             Constants.ADMIN_HOME -> AdminHomeFragment()
             Constants.ADMIN_ORDER -> AdminBillFragment()
-            Constants.ADMIN_PRODUCT -> AdminProductFragment()
             Constants.ADMIN_ACCOUNT -> AdminAccountFragment()
             else -> AdminHomeFragment()
         }

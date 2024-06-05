@@ -12,11 +12,6 @@
         android:title="" />
 
     <item
-        android:id="@+id/admin_cart"
-        android:icon="@drawable/ic_cart"
-        android:title="" />
-
-    <item
         android:id="@+id/admin_account"
         android:icon="@drawable/ic_user"
         android:title="" />

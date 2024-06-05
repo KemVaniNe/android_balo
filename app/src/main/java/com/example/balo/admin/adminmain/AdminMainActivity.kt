@@ -36,10 +36,6 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
                         changeCurrentFragment(Constants.ADMIN_ORDER)
                     }
 
-                    R.id.admin_cart -> {
-                        changeCurrentFragment(Constants.ADMIN_PRODUCT)
-                    }
-
                     R.id.admin_account -> {
                         changeCurrentFragment(Constants.ADMIN_ACCOUNT)
                     }
