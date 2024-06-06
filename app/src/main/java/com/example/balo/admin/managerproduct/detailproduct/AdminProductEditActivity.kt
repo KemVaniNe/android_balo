@@ -1,4 +1,4 @@
-package com.example.balo.admin.managerproduct.detail
+package com.example.balo.admin.managerproduct.detailproduct
 
 import android.content.Context
 import android.content.Intent
@@ -9,21 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
+import com.example.balo.admin.managerbrand.detail.AdminBrandEditActivity
+import com.example.balo.admin.managerproduct.ManagerProductVM
+import com.example.balo.admin.managerproduct.choosebrand.AdminChooseBrandActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
-import com.example.balo.databinding.ActivityAdminProductBinding
-import com.example.balo.admin.managerbrand.AdminBrandActivity
-import com.example.balo.admin.managerproduct.choosebrand.AdminChooseBrandActivity
+import com.example.balo.databinding.ActivityAdminProductEditBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 import com.google.gson.Gson
 
-class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
+class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>() {
 
     private var uri: Uri? = null
 
-    private lateinit var viewModel: AdminDetailProductVM
+    private lateinit var viewModel: ManagerProductVM
 
     private var productCurrent: BaloEntity? = null
 
@@ -36,27 +37,26 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         const val KEY_PRODUCT = "admin_product"
         const val KEY_ADD = ""
         fun newIntent(context: Context, response: String): Intent {
-            return Intent(context, AdminDetailProductActivity::class.java).apply {
+            return Intent(context, AdminProductEditActivity::class.java).apply {
                 putExtra(KEY_PRODUCT, response)
             }
         }
     }
 
-    override fun viewBinding(inflate: LayoutInflater): ActivityAdminProductBinding =
-        ActivityAdminProductBinding.inflate(inflate)
+    override fun viewBinding(inflate: LayoutInflater): ActivityAdminProductEditBinding =
+        ActivityAdminProductEditBinding.inflate(inflate)
 
     override fun initView() {
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminDetailProductVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerProductVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_PRODUCT) && intent.getStringExtra(KEY_PRODUCT) != null) {
             if (intent.getStringExtra(KEY_PRODUCT) != KEY_ADD) {
-                viewModel.getBaloById(intent.getStringExtra(KEY_PRODUCT)!!) {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(it)
+                viewModel.getProducts(intent.getStringExtra(KEY_PRODUCT)!!) {
+                    showToast(it)
                     finishAct(false)
                 }
             }
@@ -66,7 +66,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        tvTitle.setOnClickListener { finish() }
         btnAdd.setOnClickListener { handleAdd() }
         tvImport.setOnClickListener { handleImport() }
         btnDelete.setOnClickListener { handleDelete() }
@@ -88,14 +88,13 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     }
 
     private fun deleteBrand() {
-        viewModel.deleteProduct(productCurrent!!.id, handleSuccess = {
-            if (dialog.isShowing) dialog.dismiss()
-            toast(getString(R.string.delete_suceess))
-            finishAct(true)
-        }, handleFail = { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-        })
+        viewModel.deleteProduct(
+            productCurrent!!.id,
+            handleSuccess = {
+                showToast(getString(R.string.delete_suceess))
+                finishAct(true)
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun handleAdd() = binding.run {
@@ -119,7 +118,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     private fun isFillAllInfo(): Boolean {
         binding.run {
             if (edtName.text.toString() != "" && currentBrand != null
-                && edtQuantity.text.toString() != "" && edtPriceSell.text.toString() != ""
+                && edtAddNum.text.toString() != "" && edtPriceSell.text.toString() != ""
                 && edtPriceImport.text.toString() != ""
             ) {
                 return true
@@ -131,26 +130,26 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
     }
 
     private fun handleCreate() = binding.run {
+        val priceImport = edtPriceImport.text.toString().trim()
+        val quantity = edtAddNum.text.toString().trim()
+        val totalPrice = Utils.stringToInt(priceImport) * Utils.stringToInt(quantity)
         val entity = BaloEntity(
             name = edtName.text.toString().trim(),
             idBrand = currentBrand!!.id,
-            pic = Utils.uriToBase64(this@AdminDetailProductActivity, uri!!),
+            pic = Utils.uriToBase64(this@AdminProductEditActivity, uri!!),
             priceSell = edtPriceSell.text.toString().trim(),
-            priceImport = edtPriceImport.text.toString().trim(),
+            priceImport = priceImport,
             des = edtDes.text.toString().trim(),
-            quantitiy = edtQuantity.text.toString().trim(),
+            quantitiy = quantity,
+            totalImport = totalPrice.toString()
         )
         viewModel.createProduct(
             product = entity,
             handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.success_brand))
+                showToast(getString(R.string.success_brand))
                 finishAct(true)
             },
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            }
+            handleFail = { showToast(it) }
         )
     }
 
@@ -158,6 +157,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         val pic = if (uri != null) Utils.uriToBase64(this, uri!!) else productCurrent!!.pic
         binding.run {
             val entity = BaloEntity(
+                id = productCurrent!!.id,
                 name = edtName.text.toString().trim(),
                 idBrand = currentBrand!!.id,
                 pic = pic,
@@ -167,20 +167,19 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                 quantitiy = edtQuantity.text.toString().trim(),
                 sell = productCurrent!!.sell,
                 rate = productCurrent!!.rate,
-                comment = productCurrent!!.comment
+                comment = productCurrent!!.comment,
+                totalImport = productCurrent!!.totalImport,
+                totalSell = productCurrent!!.totalSell,
+                isSell = productCurrent!!.isSell
             )
             viewModel.updateProduct(
+                numProductAdd = Utils.stringToInt(edtAddNum.text.toString()),
                 product = entity,
-                idDocument = productCurrent!!.id,
                 handleSuccess = {
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast(getString(R.string.update_product))
+                    showToast(getString(R.string.update_product))
                     finishAct(true)
                 },
-                handleFail = { error ->
-                    if (dialog.isShowing) dialog.dismiss()
-                    toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-                }
+                handleFail = { showToast(it) }
             )
         }
     }
@@ -194,7 +193,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
 
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, AdminBrandActivity.REQUEST_CODE_IMAGE)
+        startActivityForResult(intent, AdminBrandEditActivity.REQUEST_CODE_IMAGE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -240,6 +239,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                         edtName.setText(productCurrent!!.name)
                         tvBrand.text = currentBrand!!.name
                         edtQuantity.setText(productCurrent!!.quantitiy)
+                        edtSold.setText(productCurrent!!.sell)
                         edtPriceSell.setText(productCurrent!!.priceSell)
                         edtPriceImport.setText(productCurrent!!.priceImport)
                         Utils.displayBase64Image(productCurrent!!.pic, imgPic)
@@ -247,6 +247,7 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
                         btnAdd.text = getString(R.string.update)
                         btnDelete.visibility = View.VISIBLE
                         edtDes.setText(productCurrent!!.des)
+                        llEdit.visibility = View.VISIBLE
                     }
                 }
             }
@@ -259,4 +260,8 @@ class AdminDetailProductActivity : BaseActivity<ActivityAdminProductBinding>() {
         finish()
     }
 
+    private fun showToast(mess: String) {
+        if (dialog.isShowing) dialog.dismiss()
+        toast(mess)
+    }
 }

@@ -3,30 +3,38 @@ package com.example.balo.admin.managerorder
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.OrderEntity
-import com.example.balo.data.model.enum.Collection
-import com.example.balo.data.model.enum.Order
-import com.example.balo.utils.Pref
-import com.example.balo.utils.Utils
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
+import com.example.balo.data.network.OrderFirebase
 
 class ManagerOrderVM : ViewModel() {
 
     private val _orders = MutableLiveData<List<OrderEntity>>()
     val orders = _orders
 
-    private val db = Firebase.firestore
+    private val _detail = MutableLiveData<OrderEntity?>(null)
+    val detail = _detail
+
+    private val orderFirebase = OrderFirebase()
 
     fun getOrders(handleFail: (String) -> Unit) {
-        val list = mutableListOf<OrderEntity>()
-        db.collection(Collection.ORDER.collectionName)
-            .get()
-            .addOnSuccessListener { document ->
-                document.forEach {
-                    list.add(Utils.convertDocToOrder(it))
-                }
-                _orders.postValue(list)
-            }
-            .addOnFailureListener { e -> handleFail.invoke(e.message.toString()) }
+        orderFirebase.getAllOrders(
+            handleSuccess = { _orders.postValue(it) },
+            handleFail = { handleFail.invoke(it) }
+        )
+    }
+
+    fun getDetail(id: String, handleFail: (String) -> Unit) {
+        orderFirebase.getOrderBaseId(
+            id = id,
+            handleSuccess = { _detail.postValue(it) },
+            handleFail = { handleFail.invoke(it) }
+        )
+    }
+
+    fun updateOrder(order: OrderEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+        orderFirebase.updateOrder(
+            order = order,
+            handleSuccess = { handleSuccess.invoke() },
+            handleFail = { handleFail.invoke(it) }
+        )
     }
 }

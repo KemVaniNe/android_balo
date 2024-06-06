@@ -34,10 +34,19 @@
             android:textSize="14dp" />
 
         <TextView
+            android:id="@+id/tvProfit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/gray"
+            android:textSize="14dp" />
+
+        <TextView
             android:id="@+id/tvSell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/gray"
             android:textSize="14dp" />
 
     </LinearLayout>

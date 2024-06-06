@@ -51,6 +51,9 @@ object MapObjectUtil {
             Balo.SELL.property to product.sell,
             Balo.RATE.property to product.rate,
             Balo.COMMENT.property to product.comment,
+            Balo.TOTALIMPORT.property to product.totalImport,
+            Balo.TOTALSELL.property to product.totalSell,
+            Balo.ISSELL.property to product.isSell
         )
     }
 

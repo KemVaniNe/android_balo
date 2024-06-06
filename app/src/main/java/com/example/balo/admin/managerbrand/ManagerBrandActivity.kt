@@ -3,21 +3,25 @@ package com.example.balo.admin.managerbrand
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.brand.EditBrandAdapter
+import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
+import com.example.balo.admin.managerbrand.detail.AdminBrandEditActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
-class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
+class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
-    private lateinit var viewModel: AdminBrandVM
+    private lateinit var viewModel: ManagerBrandVM
 
     private val brands = mutableListOf<BrandEntity>()
 
@@ -26,7 +30,7 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     private val brandAdapter by lazy {
         EditBrandAdapter(brands, listener = { pos ->
             startActivityForResult(
-                AdminBrandActivity.newIntent(this@AllBrandActivity, brands[pos].id),
+                AdminBrandDetailActivity.newIntent(this@ManagerBrandActivity, brands[pos].id),
                 REQUEST_CODE_ADD
             )
         }, onCheckBox = {
@@ -40,7 +44,7 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
         const val REQUEST_CODE_ADD = 160
         fun newIntent(context: Context): Intent {
-            return Intent(context, AllBrandActivity::class.java)
+            return Intent(context, ManagerBrandActivity::class.java)
         }
     }
 
@@ -51,18 +55,19 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() = binding.run {
         updateList()
-        rvBrand.layoutManager = LinearLayoutManager(this@AllBrandActivity)
+        rvBrand.layoutManager = LinearLayoutManager(this@ManagerBrandActivity)
         rvBrand.adapter = brandAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminBrandVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerBrandVM::class.java]
         listenData()
     }
 
     override fun initListener() = binding.run {
-        imgBack.setOnClickListener { finish() }
+        listenerEditText()
+        tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
     }
@@ -76,39 +81,36 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
                     addAll(it)
                 }
                 brandAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
             }
         }
     }
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.deleteBrands(chooseDelete, handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.delete_suceess))
-                setResult(RESULT_OK)
-                updateList()
-                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            binding.clLoading.visibility = View.VISIBLE
+            viewModel.deleteBrands(
+                chooseDelete,
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    setResult(RESULT_OK)
+                    updateList()
+                    binding.btnDelete.visibility =
+                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                },
+                handleFail = { showToast(it) }
+            )
         }
     }
 
     private fun updateList() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllBrands(
-            handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+        binding.clLoading.visibility = View.VISIBLE
+        viewModel.getAllBrands(handleFail = { showToast(it) })
     }
 
     private fun handleAdd() {
         startActivityForResult(
-            AdminBrandActivity.newIntent(this, AdminBrandActivity.KEY_ADD),
+            AdminBrandEditActivity.newIntent(this, AdminBrandEditActivity.KEY_ADD),
             REQUEST_CODE_ADD
         )
     }
@@ -120,5 +122,29 @@ class AllBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
             setResult(RESULT_OK)
             updateList()
         }
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
+    }
+
+    private fun listenerEditText() {
+        binding.edtSearch.run {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, af: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    search(s.toString().trim())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    private fun search(s: String) = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.searchProduct(s)
     }
 }

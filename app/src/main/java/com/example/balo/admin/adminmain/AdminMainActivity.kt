@@ -16,7 +16,7 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
 
     override fun initView() {
         binding.viewPager.run {
-            offscreenPageLimit = 2
+            offscreenPageLimit = 1
             adapter = viewPagerAdapter
         }
     }
@@ -30,14 +30,6 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
                 when (menuItem.itemId) {
                     R.id.admin_home -> {
                         changeCurrentFragment(Constants.ADMIN_HOME)
-                    }
-
-                    R.id.admin_order -> {
-                        changeCurrentFragment(Constants.ADMIN_ORDER)
-                    }
-
-                    R.id.admin_cart -> {
-                        changeCurrentFragment(Constants.ADMIN_PRODUCT)
                     }
 
                     R.id.admin_account -> {

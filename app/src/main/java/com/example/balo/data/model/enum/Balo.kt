@@ -12,4 +12,7 @@ enum class Balo(val property: String) {
     QUANTITY("quantity"),
     RATE("rate"),
     COMMENT("comment"),
+    TOTALIMPORT("totalimport"),
+    TOTALSELL("totalsell"),
+    ISSELL("issell")
 }

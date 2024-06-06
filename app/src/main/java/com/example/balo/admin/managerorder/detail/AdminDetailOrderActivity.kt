@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.order.ShareOrderDetailAdapter
+import com.example.balo.admin.managerorder.ManagerOrderVM
 import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
@@ -16,7 +17,7 @@ import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
 
 class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>() {
-    private lateinit var viewModel: AdminDetailOrderVM
+    private lateinit var viewModel: ManagerOrderVM
 
     private var id = ""
 
@@ -44,7 +45,7 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this)[AdminDetailOrderVM::class.java]
+        viewModel = ViewModelProvider(this)[ManagerOrderVM::class.java]
         listenVM()
         val intent = intent
         if (intent.hasExtra(KEY_DETAIL) && intent.getStringExtra(KEY_DETAIL) != null) {
@@ -61,13 +62,16 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
     }
 
     private fun handleConfirm() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         newStatusOrder()
-        viewModel.updateOrder(order!!, handleSuccess = {
-            showToast("Thanh đổi trạng thái thành công")
-            setResult(RESULT_OK)
-            finish()
-        }, handleFail = { showToast("ERROR $it") })
+        viewModel.updateOrder(
+            order!!,
+            handleSuccess = {
+                showToast("Thanh đổi trạng thái thành công")
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun newStatusOrder() {
@@ -79,19 +83,19 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 
     private fun updateOrder() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getDetail(id) { showToast("ERROR $it") }
+        binding.clLoading.visibility = View.VISIBLE
+        viewModel.getDetail(id) { showToast(it) }
     }
 
     private fun listenVM() {
         viewModel.detail.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 order = it
                 orderDetail.run {
                     clear()

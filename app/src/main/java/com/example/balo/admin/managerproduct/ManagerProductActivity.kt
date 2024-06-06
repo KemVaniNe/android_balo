@@ -3,6 +3,8 @@ package com.example.balo.admin.managerproduct
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +13,8 @@ import com.example.balo.R
 import com.example.balo.adapter.product.AdminProductEditAdapter
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.ActivityAllProductBinding
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductEditActivity
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
@@ -22,19 +25,19 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
 
     private lateinit var viewModel: ManagerProductVM
 
-    private val chooseDelete = mutableListOf<String>()
+    private val chooseDelete = mutableListOf<BaloEntity>()
 
     private val productAdapter by lazy {
-        AdminProductEditAdapter(products, { pos ->
-            startActivityForResult(
-                AdminDetailProductActivity.newIntent(this, products[pos].id),
-                REQUEST_CODE_CHANGE
-            )
-        }, onCheckBox = {
-            if (it.first) chooseDelete.add(it.second)
-            else chooseDelete.remove(it.second)
-            binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-        })
+        AdminProductEditAdapter(products,
+            listener = { pos ->
+                startActivityForResult(
+                    AdminProductDetailActivity.newIntent(this, products[pos].id),
+                    REQUEST_CODE_CHANGE
+                )
+            },
+            onCheckBox = {
+                handleChooseCheckbox(it)
+            })
     }
 
     companion object {
@@ -59,40 +62,52 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
         updateProduct()
     }
 
-    private fun updateProduct() {
-        if (!dialog.isShowing) dialog.show()
-        viewModel.getAllProducts { error ->
-            if (dialog.isShowing) dialog.dismiss()
-            toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
+    private fun handleChooseCheckbox(pair: Pair<Boolean, Int>) = binding.run {
+        val cart = products[pair.second]
+        products[pair.second].isSelected = pair.first
+        if (pair.first) {
+            chooseDelete.add(cart)
+        } else {
+            chooseDelete.remove(cart)
         }
+        btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+    }
+
+    private fun updateProduct() {
+        binding.clLoading.visibility = View.VISIBLE
+        viewModel.getAllProducts { showToast(it) }
     }
 
     override fun initListener() = binding.run {
+        listenerEditText()
         tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
     }
 
     private fun handleAdd() {
-        startActivityForResult(
-            AdminDetailProductActivity.newIntent(this, AdminDetailProductActivity.KEY_ADD),
-            REQUEST_CODE_CHANGE
-        )
+        if(binding.clLoading.visibility == View.GONE) {
+            startActivityForResult(
+                AdminProductEditActivity.newIntent(this, AdminProductEditActivity.KEY_ADD),
+                REQUEST_CODE_CHANGE
+            )
+        }
     }
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.deleteProducts(chooseDelete, handleSuccess = {
-                if (dialog.isShowing) dialog.dismiss()
-                toast(getString(R.string.delete_suceess))
-                setResult(RESULT_OK)
-                updateProduct()
-                binding.btnDelete.visibility = if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-            }, handleFail = { error ->
-                if (dialog.isShowing) dialog.dismiss()
-                toast("${getString(R.string.error)}: ${error}. ${getString(R.string.try_again)}")
-            })
+            binding.clLoading.visibility = View.VISIBLE
+            viewModel.deleteProducts(
+                chooseDelete,
+                handleSuccess = {
+                    showToast(getString(R.string.delete_suceess))
+                    setResult(RESULT_OK)
+                    updateProduct()
+                    binding.btnDelete.visibility =
+                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                },
+                handleFail = { showToast(it) }
+            )
         }
     }
 
@@ -105,7 +120,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
                     addAll(it)
                 }
                 productAdapter.notifyDataSetChanged()
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
             }
         }
     }
@@ -114,8 +129,31 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHANGE && resultCode == RESULT_OK) {
-            setResult(RESULT_OK)
             updateProduct()
         }
+    }
+
+    private fun showToast(mess: String) {
+        binding.clLoading.visibility = View.GONE
+        toast(mess)
+    }
+
+    private fun listenerEditText() {
+        binding.edtSearch.run {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, af: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    search(s.toString().trim())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    private fun search(s: String) = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.searchProduct(s)
     }
 }

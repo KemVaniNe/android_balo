@@ -1,6 +1,9 @@
 package com.example.balo.admin.adminhome
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.product.AdminMapsProductAdapter
-import com.example.balo.admin.managerproduct.detail.AdminDetailProductActivity
+import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
+import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.FragmentAdminHomeBinding
 import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Utils
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -24,7 +30,11 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
 
     private val products = mutableListOf<BaloEntity>()
 
-    private val noneSells = mutableListOf<BaloEntity>()
+    private var currentTypeFilter = Constants.TYPE_REVENUE
+
+    companion object {
+        const val REQUEST_CODE_CHANGE = 123
+    }
 
     private val productAdapter by lazy {
         AdminMapsProductAdapter(products) {
@@ -32,28 +42,21 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         }
     }
 
-    private val noneAdapter by lazy {
-        AdminMapsProductAdapter(noneSells) {
-            goToDetail(noneSells[it].id)
-        }
-    }
-
     private lateinit var viewModel: AdminHomeVM
     override fun initView() = binding.run {
         rvProduct.layoutManager = LinearLayoutManager(context)
         rvProduct.adapter = productAdapter
-        rvNoneSell.layoutManager = LinearLayoutManager(context)
-        rvNoneSell.adapter = noneAdapter
     }
 
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminHomeVM::class.java]
         listenBill()
         getBills()
-        getNoneSell()
+        getProducts()
     }
 
     override fun initListener() {
+        binding.tvFilter.setOnClickListener { handleFilter() }
     }
 
     override fun getViewBinding(
@@ -62,23 +65,52 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     ): FragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater)
 
     private fun goToDetail(id: String) {
-        context?.let { startActivity(AdminDetailProductActivity.newIntent(it, id)) }
+        context?.let {
+            startActivityForResult(
+                AdminProductDetailActivity.newIntent(it, id),
+                REQUEST_CODE_CHANGE
+            )
+        }
+    }
+
+    private fun handleFilter() = binding.run {
+        context?.let {
+            Utils.showRevenueOption(it, currentTypeFilter) { type ->
+                currentTypeFilter = type
+                filter(type)
+                when (type) {
+                    Constants.TYPE_SELL -> {
+                        tvFilter.text = getString(R.string.product_sell)
+                    }
+
+                    Constants.TYPE_PROFIT -> {
+                        tvFilter.text = getString(R.string.profit)
+                    }
+
+                    Constants.TYPE_REVENUE -> {
+                        tvFilter.text = getString(R.string.revenue)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun filter(type: Int) {
+        viewModel.filter(type)
     }
 
     private fun getBills() = binding.run {
         clLoading.visibility = View.VISIBLE
-        clLoadingInventory.visibility = View.VISIBLE
         viewModel.getBills {
             clLoading.visibility = View.GONE
-            clLoadingInventory.visibility = View.GONE
             toast(it)
         }
     }
 
-    private fun getNoneSell() = binding.run {
-        clLoadingNoneSell.visibility = View.VISIBLE
-        viewModel.getNoneSell {
-            clLoadingNoneSell.visibility = View.GONE
+    private fun getProducts() = binding.run {
+        clLoadingInventory.visibility = View.VISIBLE
+        viewModel.getProducts {
+            clLoadingInventory.visibility = View.GONE
             toast(it)
         }
     }
@@ -101,17 +133,6 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
                     addAll(it)
                 }
                 productAdapter.notifyDataSetChanged()
-            }
-        }
-
-        viewModel.noneSell.observe(this) {
-            binding.run {
-                clLoadingNoneSell.visibility = View.GONE
-                noneSells.run {
-                    clear()
-                    addAll(it)
-                }
-                noneAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -155,8 +176,18 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         charLine.apply {
             xAxis.axisMinimum = 0f
             xAxis.axisMaximum = entries.size.toFloat()
+            description.isEnabled = false
             data = LineData(dataSet)
             invalidate()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CHANGE && resultCode == Activity.RESULT_OK) {
+            getBills()
+            getProducts()
         }
     }
 }

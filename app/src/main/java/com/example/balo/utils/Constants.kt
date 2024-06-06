@@ -5,11 +5,9 @@ object Constants {
     const val USER_HOME = 0
     const val USER_ACCOUNT = 1
 
-    const val ADMIN_MAIN_NUMBER_FRAGMENT = 4
+    const val ADMIN_MAIN_NUMBER_FRAGMENT = 2
     const val ADMIN_HOME = 0
-    const val ADMIN_ORDER = 1
-    const val ADMIN_PRODUCT = 2
-    const val ADMIN_ACCOUNT = 3
+    const val ADMIN_ACCOUNT = 1
 
     const val ID_BRAND_OTHER = "123"
     const val ID_GUEST = ""
@@ -26,4 +24,10 @@ object Constants {
     const val ORDER_CANCEL = "Đã hủy"
 
     const val ROLE_AD = true
+
+    const val ALL_DATE = "Tất cả"
+
+    const val TYPE_REVENUE = 1
+    const val TYPE_PROFIT = 2
+    const val TYPE_SELL = 3
 }

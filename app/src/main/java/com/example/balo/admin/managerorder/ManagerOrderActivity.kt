@@ -3,6 +3,7 @@ package com.example.balo.admin.managerorder
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,26 +76,28 @@ class ManagerOrderActivity : BaseActivity<ActivityManagerOrderBinding>() {
     }
 
     private fun listenTab(type: Int) = binding.run {
-        changeViewTab(tabConfirm, type == TYPE_CONFIRM)
-        changeViewTab(tabPackage, type == TYPE_PACKAGE)
-        changeViewTab(tabShip, type == TYPE_SHIP)
-        changeViewTab(tabSuccess, type == TYPE_SUCCESS)
-        changeViewTab(tabCancelOrder, type == TYPE_CANCEL)
-        val adapterCurrent = when (type) {
-            TYPE_CONFIRM -> confirmAdapter
-            TYPE_PACKAGE -> packageAdapter
-            TYPE_SHIP -> shipAdapter
-            TYPE_SUCCESS -> successAdapter
-            TYPE_CANCEL -> cancelAdapter
-            else -> confirmAdapter
+        if (binding.clLoading.visibility == View.GONE) {
+            changeViewTab(tabConfirm, type == TYPE_CONFIRM)
+            changeViewTab(tabPackage, type == TYPE_PACKAGE)
+            changeViewTab(tabShip, type == TYPE_SHIP)
+            changeViewTab(tabSuccess, type == TYPE_SUCCESS)
+            changeViewTab(tabCancelOrder, type == TYPE_CANCEL)
+            val adapterCurrent = when (type) {
+                TYPE_CONFIRM -> confirmAdapter
+                TYPE_PACKAGE -> packageAdapter
+                TYPE_SHIP -> shipAdapter
+                TYPE_SUCCESS -> successAdapter
+                TYPE_CANCEL -> cancelAdapter
+                else -> confirmAdapter
+            }
+            rvOrders.adapter = adapterCurrent
         }
-        rvOrders.adapter = adapterCurrent
     }
 
     private fun updateOrder() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getOrders { error ->
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             toast("ERROR: $error")
             finish()
         }
@@ -113,7 +116,7 @@ class ManagerOrderActivity : BaseActivity<ActivityManagerOrderBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
         viewModel.orders.observe(this) {
-            if (dialog.isShowing) dialog.dismiss()
+            binding.clLoading.visibility = View.GONE
             if (it.isNotEmpty()) {
                 listCancel.clear()
                 listConfirm.clear()

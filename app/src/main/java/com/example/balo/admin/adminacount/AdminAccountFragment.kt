@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.admin.adminmain.AdminMainActivity
+import com.example.balo.admin.managerbill.ManagerBillActivity
+import com.example.balo.admin.managerbrand.ManagerBrandActivity
 import com.example.balo.admin.managerclient.ManagerClientActivity
 import com.example.balo.admin.managerorder.ManagerOrderActivity
+import com.example.balo.admin.managerproduct.ManagerProductActivity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.FragmentAdminAccountBinding
 import com.example.balo.shareview.base.BaseFragment
@@ -25,9 +28,9 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     override fun initData() {
         viewModel = ViewModelProvider(this)[AdminAccountVM::class.java]
         listenVM()
-        viewModel.updateAccount { e ->
+        viewModel.getAccountBaseId {
             binding.clLoading.visibility = View.GONE
-            toast("ERROR $e")
+            toast(it)
         }
     }
 
@@ -37,6 +40,9 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
         tvLogOut.setOnClickListener { handleLogOut() }
         tvOrder.setOnClickListener { handleOrder() }
         tvClient.setOnClickListener { handleClient() }
+        tvBill.setOnClickListener { handleBill() }
+        tvProduct.setOnClickListener { handleProduct() }
+        tvBrand.setOnClickListener { handleBrand() }
     }
 
     override fun getViewBinding(
@@ -52,16 +58,35 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
                     clLoading.visibility = View.GONE
                     tvUsername.text = it.username
                     tvPhone.text = it.phone
-                    Utils.displayUserAvatar(it.pic, imgAvatar)
                     tvLogOut.visibility = View.VISIBLE
                 }
             }
         }
     }
 
+    private fun handleBill() {
+        if (isListener()) {
+            context?.let { startActivity(Intent(it, ManagerBillActivity::class.java)) }
+        }
+    }
+
+    private fun handleBrand() {
+        if (isListener()) {
+            context?.let { startActivity(ManagerBrandActivity.newIntent(it)) }
+        }
+    }
+
+    private fun handleProduct() {
+        if (isListener()) {
+            context?.let { startActivity(ManagerProductActivity.newIntent(it)) }
+        }
+    }
+
     private fun handleLogOut() {
-        context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
-        (context as AdminMainActivity).finishAct()
+        if (isListener()) {
+            context?.let { startActivity(Intent(it, LoginActivity::class.java)) }
+            (context as AdminMainActivity).finishAct()
+        }
     }
 
     private fun handleUpdatePass() {

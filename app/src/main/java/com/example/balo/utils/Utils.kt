@@ -192,9 +192,20 @@ object Utils {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val newMonth = if(month < 10) "0${month}" else "$month"
-        val newDay = if(day < 10) "0${day}" else "$day"
+        val newMonth = if (month < 10) "0${month}" else "$month"
+        val newDay = if (day < 10) "0${day}" else "$day"
         return "$newDay/$newMonth/$year"
+    }
 
+    fun showRevenueOption(context: Context, type: Int, listener: (Int) -> Unit) {
+        return DialogUtil.showRevenueOption(context, type, listener)
+    }
+
+    fun getProfit(item: BaloEntity): Float {
+        val totalImport = stringToInt(item.totalImport).toFloat()
+        val quantity = stringToInt(item.quantitiy).toFloat()
+        val totalPrice = stringToInt(item.totalSell).toFloat()
+        val priceImportProduct = totalImport / (if (quantity == 0f) 1f else quantity)
+        return totalPrice - priceImportProduct * stringToInt(item.sell)
     }
 }

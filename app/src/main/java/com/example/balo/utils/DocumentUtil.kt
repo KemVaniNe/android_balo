@@ -29,7 +29,10 @@ object DocumentUtil {
             sell = document.getString(Balo.SELL.property) ?: "",
             quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
             rate = document.getString(Balo.RATE.property) ?: "0",
-            comment = document.get(Balo.COMMENT.property) as? List<String> ?: emptyList()
+            comment = document.get(Balo.COMMENT.property) as? List<String> ?: emptyList(),
+            totalImport = document.getString(Balo.TOTALIMPORT.property) ?: "0",
+            totalSell = document.getString(Balo.TOTALSELL.property) ?: "0",
+            isSell = document.getBoolean(Balo.ISSELL.property) ?: true
         )
     }
 

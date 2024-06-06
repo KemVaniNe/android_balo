@@ -1,11 +1,12 @@
-package com.example.balo.admin.adminbill
+package com.example.balo.admin.managerbill
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BillEntity
 import com.example.balo.data.network.BillFirebase
+import com.example.balo.utils.Constants
 
-class AdminBillVM : ViewModel() {
+class ManagerBillVM : ViewModel() {
     private val _bills = MutableLiveData<List<BillEntity>>(emptyList())
     val bills = _bills
 
@@ -22,9 +23,13 @@ class AdminBillVM : ViewModel() {
 
     fun search(date: String) {
         val searchData = mutableListOf<BillEntity>()
-        _bills.value?.forEach {
-            if (it.date == date) {
-                searchData.add(it)
+        if (date == Constants.ALL_DATE) {
+            _bills.value?.let { searchData.addAll(it) }
+        } else {
+            _bills.value?.forEach {
+                if (it.date == date) {
+                    searchData.add(it)
+                }
             }
         }
         _billsSearch.postValue(searchData)
