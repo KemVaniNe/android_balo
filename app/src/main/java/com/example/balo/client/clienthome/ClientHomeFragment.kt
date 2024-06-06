@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.balo.R
 import com.example.balo.databinding.FragmentHomeBinding
 import com.example.balo.shareview.base.BaseFragment
 import com.example.balo.adapter.viewpager.BannerViewPagerAdapter
 import com.example.balo.adapter.brand.BrandAdapter
+import com.example.balo.client.clientbrand.ClientBrandActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.client.clientsearch.ClientSearchActivity
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -28,7 +27,8 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val brandAdapter by lazy {
         BrandAdapter(brands) { pos ->
             context?.let {
-                startActivity(ClientSearchActivity.newIntent(it, Gson().toJson(brands[pos])))
+                startActivity(ClientBrandActivity.newIntent(it, brands[pos].id))
+                //       startActivity(ClientSearchActivity.newIntent(it, Gson().toJson(brands[pos])))
             }
         }
     }

@@ -11,4 +11,5 @@
     <color name="error">#E6023B</color>
     <color name="ic_launcher_background">#22272C</color>
     <color name="transparent">#00000000</color>
+    <color name="color_bg_10">#8022272C</color>
 </resources>
