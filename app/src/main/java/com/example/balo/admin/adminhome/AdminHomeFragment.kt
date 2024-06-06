@@ -17,6 +17,8 @@ import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailAct
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.FragmentAdminHomeBinding
 import com.example.balo.shareview.base.BaseFragment
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Utils
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -27,6 +29,8 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
 
     private val products = mutableListOf<BaloEntity>()
+
+    private var currentTypeFilter = Constants.TYPE_REVENUE
 
     companion object {
         const val REQUEST_CODE_CHANGE = 123
@@ -52,6 +56,7 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     }
 
     override fun initListener() {
+        binding.tvFilter.setOnClickListener { handleFilter() }
     }
 
     override fun getViewBinding(
@@ -66,6 +71,32 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
                 REQUEST_CODE_CHANGE
             )
         }
+    }
+
+    private fun handleFilter() = binding.run {
+        context?.let {
+            Utils.showRevenueOption(it, currentTypeFilter) { type ->
+                currentTypeFilter = type
+                filter(type)
+                when (type) {
+                    Constants.TYPE_SELL -> {
+                        tvFilter.text = getString(R.string.product_sell)
+                    }
+
+                    Constants.TYPE_PROFIT -> {
+                        tvFilter.text = getString(R.string.profit)
+                    }
+
+                    Constants.TYPE_REVENUE -> {
+                        tvFilter.text = getString(R.string.revenue)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun filter(type: Int) {
+        viewModel.filter(type)
     }
 
     private fun getBills() = binding.run {
@@ -153,7 +184,7 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_CODE_CHANGE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_CHANGE && resultCode == Activity.RESULT_OK) {
             getBills()
             getProducts()
         }

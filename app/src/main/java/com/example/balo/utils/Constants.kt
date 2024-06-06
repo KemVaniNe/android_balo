@@ -26,4 +26,8 @@ object Constants {
     const val ROLE_AD = true
 
     const val ALL_DATE = "Tất cả"
+
+    const val TYPE_REVENUE = 1
+    const val TYPE_PROFIT = 2
+    const val TYPE_SELL = 3
 }

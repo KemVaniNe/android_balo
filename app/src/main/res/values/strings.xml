@@ -146,4 +146,6 @@
     <string name="edit">Chỉnh sửa</string>
     <string name="number_import">Số lượng nhập</string>
     <string name="current_quantity">Tổng sản phẩm hiện tại</string>
+    <string name="profit">Lợi nhuận</string>
+    <string name="product_sell">Sản phẩm bán ra</string>
 </resources>

@@ -5,10 +5,12 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.example.balo.R
 import com.example.balo.data.model.BaloEntity
+import com.example.balo.databinding.DialogChooseSellBinding
 import com.example.balo.databinding.DialogConfirmBinding
 import com.example.balo.databinding.DialogQuantityChooseBinding
 import com.example.balo.databinding.DialogRateBinding
@@ -168,5 +170,45 @@ object DialogUtil {
             }
         }
         dialog.show()
+    }
+
+    fun showRevenueOption(context: Context, preType: Int, listener: (Int) -> Unit) {
+        var type = preType
+        val dialog = Dialog(context)
+        val dialogBinding = DialogChooseSellBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(dialogBinding.root)
+        dialog.window?.setBackgroundDrawable(
+            ColorDrawable(ContextCompat.getColor(context, R.color.transparent))
+        )
+        dialogBinding.run {
+            changeViewButtonRevenue(btnRevenue, btnProfit, btnSell, type)
+            btnRevenue.setOnClickListener {
+                type = Constants.TYPE_REVENUE
+                changeViewButtonRevenue(btnRevenue, btnProfit, btnSell, Constants.TYPE_REVENUE)
+            }
+            btnProfit.setOnClickListener {
+                type = Constants.TYPE_PROFIT
+                changeViewButtonRevenue(btnRevenue, btnProfit, btnSell, Constants.TYPE_PROFIT)
+            }
+            btnSell.setOnClickListener {
+                type = Constants.TYPE_SELL
+                changeViewButtonRevenue(btnRevenue, btnProfit, btnSell, Constants.TYPE_SELL)
+            }
+            btnConfirm.setOnClickListener {
+                listener.invoke(type)
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+    }
+
+    private fun changeViewButtonRevenue(revenue: Button, profit: Button, sell: Button, type: Int) {
+        changeBgButton(revenue, type == Constants.TYPE_REVENUE)
+        changeBgButton(profit, type == Constants.TYPE_PROFIT)
+        changeBgButton(sell, type == Constants.TYPE_SELL)
+    }
+
+    private fun changeBgButton(button: Button, isSelect: Boolean) {
+        button.setBackgroundResource(if (isSelect) R.drawable.bg_btn else R.drawable.bg_option)
     }
 }

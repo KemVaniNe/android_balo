@@ -3,7 +3,6 @@ package com.example.balo.admin.adminhome
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.balo.data.model.BaloEntity
-import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.network.OrderFirebase
 import com.example.balo.data.network.ProductFirebase
@@ -39,6 +38,30 @@ class AdminHomeVM : ViewModel() {
             },
             handleFail = { handleFail.invoke(it) }
         )
+    }
+
+    fun filter(type: Int) {
+        val newList = mutableListOf<BaloEntity>()
+        when (type) {
+            Constants.TYPE_SELL -> {
+                _products.value?.let { list ->
+                    newList.addAll(list.sortedByDescending { Utils.stringToInt(it.sell) })
+                }
+            }
+
+            Constants.TYPE_PROFIT -> {
+                _products.value?.let { list ->
+                    newList.addAll(list.sortedByDescending { Utils.getProfit(it) })
+                }
+            }
+
+            Constants.TYPE_REVENUE -> {
+                _products.value?.let { list ->
+                    newList.addAll(list.sortedByDescending { Utils.stringToInt(it.totalSell) })
+                }
+            }
+        }
+        _products.postValue(newList)
     }
 
     private fun convertBillToEntries(bills: List<OrderEntity>) {
