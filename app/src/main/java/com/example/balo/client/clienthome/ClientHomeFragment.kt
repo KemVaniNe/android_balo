@@ -16,6 +16,8 @@ import com.example.balo.client.clientbrand.ClientBrandActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.client.clientsearch.ClientSearchActivity
+import com.example.balo.utils.Constants
+import com.example.balo.utils.Pref
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -37,6 +39,7 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
         dotsIndicator.setViewPager(viewPager)
         rvBrand.layoutManager = GridLayoutManager(context, 2)
         rvBrand.adapter = brandAdapter
+        imgCart.visibility = if (Pref.idUser == Constants.ID_GUEST) View.GONE else View.VISIBLE
     }
 
     override fun initData() {
@@ -52,7 +55,9 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
         imgCart.setOnClickListener {
-            context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
+            context?.let {
+                startActivity(Intent(it, ClientCartActivity::class.java))
+            }
         }
     }
 

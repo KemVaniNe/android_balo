@@ -22,6 +22,7 @@ class UserProductAdapter(
                 tvDesRate.text = "Đánh giá"
                 if (item.comment.isEmpty()) {
                     tvQuantity.text = "Chưa có đánh giá"
+                    imgStart.visibility = View.GONE
                 } else {
                     tvQuantity.text = item.rate
                     imgStart.visibility = View.VISIBLE

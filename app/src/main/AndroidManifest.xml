@@ -24,91 +24,139 @@
         tools:targetApi="34">
         <activity
             android:name=".client.clientbrand.ClientBrandActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerbrand.detail.AdminBrandDetailActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerbill.ManagerBillActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerproduct.detailproduct.AdminProductEditActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerproduct.detailproduct.AdminProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.adminproductmanager.AdminProductManagerActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerclient.detail.AdminClientDetailActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerclient.ManagerClientActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerorder.detail.AdminDetailOrderActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerorder.ManagerOrderActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientorderstatus.detail.ClientOrderDetailActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientorderstatus.ClientOrderStatusActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientorder.ClientOrderActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientAddress.newAddress.ClientChooseAddressActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientAddress.newAddress.ClientNewAddressActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientAddress.ClientAddressActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientcart.ClientCartActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientdetail.ClientDetailActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerproduct.choosebrand.AdminChooseBrandActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.managerproduct.detail.AdminDetailProductActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerproduct.ManagerProductActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerbrand.ManagerBrandActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.managerbrand.detail.AdminBrandEditActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".shareview.forgotpass.UpdatePassword"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.adminmain.AdminMainActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientmain.ClientMainActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".shareview.register.RegisterActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".client.clientsearch.ClientSearchActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".shareview.login.LoginActivity"
-            android:exported="true">
+            android:configChanges="uiMode"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

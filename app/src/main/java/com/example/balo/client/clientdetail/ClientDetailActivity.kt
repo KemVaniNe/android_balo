@@ -46,9 +46,12 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     override fun viewBinding(inflate: LayoutInflater): ActivityClientDetailBinding =
         ActivityClientDetailBinding.inflate(inflate)
 
-    override fun initView() = binding.rvRate.run {
-        layoutManager = LinearLayoutManager(this@ClientDetailActivity)
-        adapter = commentAdapter
+    override fun initView() = binding.run {
+        rvRate.layoutManager = LinearLayoutManager(this@ClientDetailActivity)
+        rvRate.adapter = commentAdapter
+        if (Pref.idUser == Constants.ID_GUEST) {
+            llButton.visibility = View.GONE
+        }
     }
 
     override fun initData() {
@@ -150,7 +153,11 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
             llButton.visibility = View.GONE
             tvSoldOut.visibility = View.VISIBLE
         } else {
-            llButton.visibility = View.VISIBLE
+            if (Pref.idUser == Constants.ID_GUEST) {
+                llButton.visibility = View.GONE
+            } else {
+                llButton.visibility = View.VISIBLE
+            }
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des
