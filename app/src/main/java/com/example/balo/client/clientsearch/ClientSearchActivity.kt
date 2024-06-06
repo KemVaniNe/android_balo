@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.balo.R
 import com.example.balo.adapter.product.UserProductAdapter
 import com.example.balo.client.clientdetail.ClientDetailActivity
 import com.example.balo.data.model.BaloEntity
@@ -17,15 +16,19 @@ import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivitySearchBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
-import com.google.gson.Gson
+import com.example.balo.utils.Utils
 
 class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private lateinit var viewModel: ClientSearchVM
 
-    private var brand: BrandEntity? = null
-
     private val products = mutableListOf<BaloEntity>()
+
+    private var sort = Constants.TYPE_NONE
+
+    private var brand = Utils.brandAll()
+
+    private var list: List<BrandEntity> = emptyList()
 
     private val productAdapter by lazy {
         UserProductAdapter(products) { pos ->
@@ -34,12 +37,8 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     companion object {
-        const val EMPTY_BRAND = ""
-        const val KEY_SEARCH = "search_act"
-        fun newIntent(context: Context, brand: String): Intent {
-            return Intent(context, ClientSearchActivity::class.java).apply {
-                putExtra(KEY_SEARCH, brand)
-            }
+        fun newIntent(context: Context): Intent {
+            return Intent(context, ClientSearchActivity::class.java)
         }
     }
 
@@ -47,11 +46,6 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
         ActivitySearchBinding.inflate(inflate)
 
     override fun initView() = binding.run {
-        if (brand != null) {
-            val brandName = "${getString(R.string.brand)} ${brand!!.name}"
-            tvBrand.text = brandName
-            tvBrand.visibility = View.VISIBLE
-        }
         rvProduct.run {
             layoutManager = LinearLayoutManager(this@ClientSearchActivity)
             adapter = productAdapter
@@ -61,23 +55,30 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
     override fun initData() {
         viewModel = ViewModelProvider(this)[ClientSearchVM::class.java]
         listenVM()
-        val intent = intent
-        val receive = intent.getStringExtra(KEY_SEARCH)
-        if (intent.hasExtra(KEY_SEARCH) && receive != null) {
-            var id = Constants.ID_BRAND_OTHER
-            if (receive != EMPTY_BRAND) {
-                brand = Gson().fromJson(intent.getStringExtra(KEY_SEARCH), BrandEntity::class.java)
-                id = brand!!.id
-            }
-            getProduct(id)
-        } else {
-            finish()
-        }
+        getProduct()
     }
 
     override fun initListener() = binding.run {
         imgBack.setOnClickListener { finish() }
         listenerEditText()
+        tvFilter.setOnClickListener { handleFilter() }
+    }
+
+    private fun handleFilter() {
+        if (binding.clLoading.visibility == View.GONE) {
+            Utils.bottomFilter(
+                context = this,
+                soft = sort,
+                brand = brand,
+                list = list,
+                listener = {
+                    binding.edtSearch.setText("")
+                    sort = it.first
+                    brand = it.second
+                    search("")
+                }
+            )
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -98,11 +99,16 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
                 productAdapter.notifyDataSetChanged()
             }
         }
+
+        viewModel.isLoading.observe(this) {
+            binding.clLoading.visibility = if (it) View.VISIBLE else View.GONE
+            list = viewModel.listBrand
+        }
     }
 
-    private fun getProduct(id: String) = binding.run {
+    private fun getProduct() = binding.run {
         clLoading.visibility = View.VISIBLE
-        viewModel.getProducts(id) {
+        viewModel.getProduct {
             clLoading.visibility = View.GONE
             toast(it)
         }
@@ -124,6 +130,6 @@ class ClientSearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private fun search(s: String) = binding.run {
         clLoading.visibility = View.VISIBLE
-        viewModel.searchProduct(s)
+        viewModel.searchProduct(s, sort, brand.id)
     }
 }

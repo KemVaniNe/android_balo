@@ -208,4 +208,21 @@ object Utils {
         val priceImportProduct = totalImport / (if (quantity == 0f) 1f else quantity)
         return totalPrice - priceImportProduct * stringToInt(item.sell)
     }
+
+    fun bottomFilter(
+        context: Context,
+        soft: Int,
+        brand: BrandEntity,
+        list: List<BrandEntity>,
+        listener: (Pair<Int, BrandEntity>) -> Unit,
+    ) {
+        BottomSheetUtils.bottomFilter(context, soft, brand, list, listener)
+    }
+
+    fun brandAll() : BrandEntity{
+        return BrandEntity(
+            id = Constants.ID_BRAND_ALL,
+            name = "Tất cả",
+        )
+    }
 }

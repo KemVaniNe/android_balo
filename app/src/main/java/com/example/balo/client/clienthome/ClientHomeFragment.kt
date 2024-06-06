@@ -28,7 +28,6 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
         BrandAdapter(brands) { pos ->
             context?.let {
                 startActivity(ClientBrandActivity.newIntent(it, brands[pos].id))
-                //       startActivity(ClientSearchActivity.newIntent(it, Gson().toJson(brands[pos])))
             }
         }
     }
@@ -49,7 +48,7 @@ class ClientHomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initListener() = binding.run {
         tvSearch.setOnClickListener {
             context?.let {
-                startActivity(ClientSearchActivity.newIntent(it, ClientSearchActivity.EMPTY_BRAND))
+                startActivity(ClientSearchActivity.newIntent(it))
             }
         }
         imgCart.setOnClickListener {

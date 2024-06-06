@@ -148,4 +148,10 @@
     <string name="current_quantity">Tổng sản phẩm hiện tại</string>
     <string name="profit">Lợi nhuận</string>
     <string name="product_sell">Sản phẩm bán ra</string>
+    <string name="your_filter">Bộ lọc của bạn</string>
+    <string name="clear">Bỏ bộ lọc</string>
+    <string name="sort">Sắp xếp</string>
+    <string name="AZ">A...Z</string>
+    <string name="ZA">Z...A</string>
+    <string name="filter">Bộ lọc</string>
 </resources>
