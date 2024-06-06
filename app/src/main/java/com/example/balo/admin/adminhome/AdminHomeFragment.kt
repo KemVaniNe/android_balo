@@ -176,6 +176,7 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
         charLine.apply {
             xAxis.axisMinimum = 0f
             xAxis.axisMaximum = entries.size.toFloat()
+            description.isEnabled = false
             data = LineData(dataSet)
             invalidate()
         }
