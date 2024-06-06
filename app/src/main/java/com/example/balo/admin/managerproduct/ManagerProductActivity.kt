@@ -3,6 +3,8 @@ package com.example.balo.admin.managerproduct
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -77,6 +79,7 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     override fun initListener() = binding.run {
+        listenerEditText()
         tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
@@ -133,5 +136,24 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     private fun showToast(mess: String) {
         binding.clLoading.visibility = View.GONE
         toast(mess)
+    }
+
+    private fun listenerEditText() {
+        binding.edtSearch.run {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, af: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    search(s.toString().trim())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    private fun search(s: String) = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.searchProduct(s)
     }
 }

@@ -3,6 +3,8 @@ package com.example.balo.admin.managerbrand
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.brand.EditBrandAdapter
 import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
+import com.example.balo.admin.managerbrand.detail.AdminBrandEditActivity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ActivityAllBrandBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -63,6 +66,7 @@ class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     }
 
     override fun initListener() = binding.run {
+        listenerEditText()
         tvTitle.setOnClickListener { finish() }
         imgAdd.setOnClickListener { handleAdd() }
         btnDelete.setOnClickListener { handleDelete() }
@@ -106,7 +110,7 @@ class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
 
     private fun handleAdd() {
         startActivityForResult(
-            AdminBrandDetailActivity.newIntent(this, AdminBrandDetailActivity.KEY_ADD),
+            AdminBrandEditActivity.newIntent(this, AdminBrandEditActivity.KEY_ADD),
             REQUEST_CODE_ADD
         )
     }
@@ -123,5 +127,24 @@ class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     private fun showToast(mess: String) {
         binding.clLoading.visibility = View.GONE
         toast(mess)
+    }
+
+    private fun listenerEditText() {
+        binding.edtSearch.run {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, af: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    search(s.toString().trim())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    private fun search(s: String) = binding.run {
+        clLoading.visibility = View.VISIBLE
+        viewModel.searchProduct(s)
     }
 }

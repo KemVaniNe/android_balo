@@ -35,7 +35,7 @@ object DialogUtil {
     }
 
     fun showTimeDialog(context: Context, listener: (String) -> Unit) {
-        var timeChoose = context.getString(R.string.all)
+        var timeChoose = Utils.getToDay()
         val dialog = Dialog(context)
         val dialogBinding = DialogTimeBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(dialogBinding.root)
@@ -52,7 +52,7 @@ object DialogUtil {
                 timeChoose = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
             }
             btnAll.setOnClickListener {
-                listener.invoke(context.getString(R.string.all))
+                listener.invoke(Constants.ALL_DATE)
                 dialog.dismiss()
             }
             btnAdd.setOnClickListener {

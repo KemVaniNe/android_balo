@@ -1,6 +1,9 @@
 package com.example.balo.admin.adminhome
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
 import com.example.balo.adapter.product.AdminMapsProductAdapter
+import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
 import com.example.balo.admin.managerproduct.detailproduct.AdminProductDetailActivity
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.databinding.FragmentAdminHomeBinding
@@ -24,7 +28,9 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
 
     private val products = mutableListOf<BaloEntity>()
 
-    private val noneSells = mutableListOf<BaloEntity>()
+    companion object {
+        const val REQUEST_CODE_CHANGE = 123
+    }
 
     private val productAdapter by lazy {
         AdminMapsProductAdapter(products) {
@@ -54,7 +60,12 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
     ): FragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater)
 
     private fun goToDetail(id: String) {
-        context?.let { startActivity(AdminProductDetailActivity.newIntent(it, id)) }
+        context?.let {
+            startActivityForResult(
+                AdminProductDetailActivity.newIntent(it, id),
+                REQUEST_CODE_CHANGE
+            )
+        }
     }
 
     private fun getBills() = binding.run {
@@ -136,6 +147,15 @@ class AdminHomeFragment : BaseFragment<FragmentAdminHomeBinding>() {
             xAxis.axisMaximum = entries.size.toFloat()
             data = LineData(dataSet)
             invalidate()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_CHANGE && resultCode == Activity.RESULT_OK) {
+            getBills()
+            getProducts()
         }
     }
 }

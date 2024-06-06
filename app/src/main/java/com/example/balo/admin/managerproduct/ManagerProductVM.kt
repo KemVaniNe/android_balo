@@ -22,6 +22,7 @@ class ManagerProductVM : ViewModel() {
 
     var currentProduct: BaloEntity? = null
     var brandCurrent: BrandEntity? = null
+    private var listCurrent = listOf<BaloEntity>()
 
     private val productFirebase = ProductFirebase()
 
@@ -57,7 +58,10 @@ class ManagerProductVM : ViewModel() {
 
     fun getAllProducts(handleFail: (String) -> Unit) {
         productFirebase.getProducts(
-            handleSuccess = { _products.postValue(it) },
+            handleSuccess = {
+                _products.postValue(it)
+                listCurrent = it
+            },
             handleFail = { handleFail.invoke(it) }
         )
     }
@@ -121,5 +125,15 @@ class ManagerProductVM : ViewModel() {
                 }
             )
         }
+    }
+
+    fun searchProduct(name: String) {
+        val data = mutableListOf<BaloEntity>()
+        listCurrent.forEach {
+            if (it.name.lowercase().contains(name.lowercase())) {
+                data.add(it)
+            }
+        }
+        _products.postValue(data)
     }
 }

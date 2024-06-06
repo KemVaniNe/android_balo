@@ -40,6 +40,7 @@ class ManagerBillActivity : BaseActivity<ActivityManagerBillBinding>() {
 
     override fun initListener() = binding.run {
         tvTime.setOnClickListener { handleTime() }
+        tvTitle.setOnClickListener { finish() }
     }
 
     private fun handleTime() = binding.run {

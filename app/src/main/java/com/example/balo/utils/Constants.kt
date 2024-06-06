@@ -24,4 +24,6 @@ object Constants {
     const val ORDER_CANCEL = "Đã hủy"
 
     const val ROLE_AD = true
+
+    const val ALL_DATE = "Tất cả"
 }

@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
-import com.example.balo.admin.managerbrand.detail.AdminBrandDetailActivity
+import com.example.balo.admin.managerbrand.detail.AdminBrandEditActivity
 import com.example.balo.admin.managerproduct.ManagerProductVM
 import com.example.balo.admin.managerproduct.choosebrand.AdminChooseBrandActivity
 import com.example.balo.data.model.BaloEntity
@@ -193,7 +193,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
 
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, AdminBrandDetailActivity.REQUEST_CODE_IMAGE)
+        startActivityForResult(intent, AdminBrandEditActivity.REQUEST_CODE_IMAGE)
     }
 
     @Deprecated("Deprecated in Java")

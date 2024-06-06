@@ -58,7 +58,6 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
                     clLoading.visibility = View.GONE
                     tvUsername.text = it.username
                     tvPhone.text = it.phone
-                    Utils.displayUserAvatar(it.pic, imgAvatar)
                     tvLogOut.visibility = View.VISIBLE
                 }
             }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -21,7 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme"
-        tools:targetApi="34">
+        tools:targetApi="34" >
+        <activity
+            android:name=".admin.managerbrand.detail.AdminBrandDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".admin.managerbill.ManagerBillActivity"
             android:exported="false" />
@@ -83,7 +86,7 @@
             android:name=".admin.managerbrand.ManagerBrandActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.managerbrand.detail.AdminBrandDetailActivity"
+            android:name=".admin.managerbrand.detail.AdminBrandEditActivity"
             android:exported="false" />
         <activity
             android:name=".shareview.forgotpass.UpdatePassword"
@@ -102,7 +105,7 @@
             android:exported="false" />
         <activity
             android:name=".shareview.login.LoginActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

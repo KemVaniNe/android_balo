@@ -36,15 +36,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-            <ImageView
-                android:id="@+id/imgAvatar"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_avatar" />
-
             <LinearLayout
                 android:id="@+id/llInfo"
                 android:layout_width="match_parent"
@@ -149,25 +140,9 @@
                     android:drawableTop="@drawable/ic_user"
                     android:drawablePadding="8dp"
                     android:elevation="4dp"
-                    android:visibility="gone"
                     android:gravity="center"
                     android:padding="20dp"
                     android:text="@string/update_info" />
-
-                <TextView
-                    android:id="@+id/tvBrand"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_option"
-                    android:drawableTop="@drawable/ic_brand"
-                    android:drawablePadding="8dp"
-                    android:elevation="4dp"
-                    android:gravity="center"
-                    android:padding="20dp"
-                    android:text="@string/brand" />
 
                 <TextView
                     android:id="@+id/tvUpdatePass"
@@ -207,19 +182,19 @@
                     android:text="@string/client" />
 
                 <TextView
-                    android:id="@+id/tvOrder"
+                    android:id="@+id/tvBrand"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_option"
-                    android:drawableTop="@drawable/ic_order"
+                    android:drawableTop="@drawable/ic_brand"
                     android:drawablePadding="8dp"
                     android:elevation="4dp"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:padding="20dp"
-                    android:text="@string/order" />
+                    android:text="@string/brand" />
 
             </LinearLayout>
 
@@ -260,21 +235,42 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvLogOut"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_option"
-                android:drawableTop="@drawable/ic_logout"
-                android:drawablePadding="8dp"
-                android:elevation="4dp"
-                android:gravity="center_horizontal"
-                android:padding="20dp"
-                android:text="@string/log_out"
-                android:visibility="gone" />
+                android:layout_height="120dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_order"
+                    android:drawablePadding="8dp"
+                    android:elevation="20dp"
+                    android:gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:text="@string/order" />
+
+                <TextView
+                    android:id="@+id/tvLogOut"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_option"
+                    android:drawableTop="@drawable/ic_logout"
+                    android:drawablePadding="8dp"
+                    android:elevation="4dp"
+                    android:gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:text="@string/log_out" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
