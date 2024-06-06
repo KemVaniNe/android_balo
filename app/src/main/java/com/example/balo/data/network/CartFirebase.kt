@@ -92,7 +92,7 @@ class CartFirebase {
                 cart.nameBalo = balo.name
                 cart.price = balo.priceSell
                 cart.pic = balo.pic
-                cart.priceImport = balo.priceImport
+                cart.totalPriceSell = balo.totalSell
                 taskCompletionSource.setResult(cart)
             },
             handleFail = { error ->

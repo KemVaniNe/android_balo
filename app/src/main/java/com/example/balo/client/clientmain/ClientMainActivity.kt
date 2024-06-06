@@ -22,7 +22,7 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
             viewUser()
         }
         binding.viewPager.run {
-            offscreenPageLimit = 2
+            offscreenPageLimit = 1
             adapter = viewPagerAdapter
         }
     }

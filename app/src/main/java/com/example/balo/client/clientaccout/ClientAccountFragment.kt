@@ -21,7 +21,9 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     private var user: UserEntity? = null
 
-    val REQUEST_ADDRESS = 123
+    companion object {
+        const val REQUEST_ADDRESS = 123
+    }
     override fun initView() {
     }
 
@@ -87,8 +89,6 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
                     tvPhone.text = it.phone
                     tvLogOut.visibility = View.VISIBLE
                     llInfo.visibility = View.VISIBLE
-                    imgAvatar.visibility = View.VISIBLE
-                    Utils.displayUserAvatar(it.pic, imgAvatar)
                 }
             }
         }

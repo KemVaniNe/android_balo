@@ -165,8 +165,8 @@ object Utils {
         return DocumentUtil.convertDocToOrder(document)
     }
 
-    fun sellToMap(sell: String): Map<String, Any> {
-        return MapObjectUtil.sellToMaps(sell)
+    fun sellToMap(sell: String, price: String): Map<String, Any> {
+        return MapObjectUtil.sellToMaps(sell, price)
     }
 
     fun statusCancelToMap(): Map<String, Any> {

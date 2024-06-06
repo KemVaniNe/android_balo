@@ -7,7 +7,7 @@ data class CartEntity(
     var quantity: String = "0",
     var nameBalo: String = "",
     var price: String = "0",
-    var priceImport: String = "0",
+    var totalPriceSell: String = "0",
     var pic: String = "",
     var max: String = "0",
     var isSelect: Boolean = false

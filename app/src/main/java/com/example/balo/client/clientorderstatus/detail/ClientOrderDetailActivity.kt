@@ -87,18 +87,23 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
     private fun handleCancel() {
         Utils.showOption(this, Option.CANCEL) {
             if (!dialog.isShowing) dialog.show()
-            viewModel.cancelOrder(id, handleSuccess = { updateProduct() },
-                handleFail = { showToast("ERROR $it") })
+            viewModel.cancelOrder(
+                id,
+                handleSuccess = { updateProduct() },
+                handleFail = { showToast(it) })
         }
     }
 
     private fun updateProduct() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.cancelOrderByUser(order!!, handleSuccess = {
-            showToast("Hủy đơn thành công")
-            setResult(RESULT_OK)
-            finish()
-        }, handleFail = { showToast("ERROR $it") })
+        viewModel.cancelOrderByUser(
+            order!!,
+            handleSuccess = {
+                showToast("Hủy đơn thành công")
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { showToast(it) })
     }
 
     private fun showToast(mess: String) {
@@ -108,7 +113,7 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
 
     private fun updateOrder() {
         if (!dialog.isShowing) dialog.show()
-        viewModel.getDetail(id) { showToast("ERROR $it") }
+        viewModel.getDetail(id) { showToast(it) }
     }
 
     private fun listenVM() {

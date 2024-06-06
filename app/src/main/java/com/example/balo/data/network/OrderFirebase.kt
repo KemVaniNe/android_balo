@@ -33,8 +33,17 @@ class OrderFirebase {
                         val product = Utils.convertDocToBProduct(doc)
                         val newSellCount =
                             Utils.stringToInt(product.sell) - Utils.stringToInt(detail.quantity)
+                        val newPriceSell =
+                            Utils.stringToInt(product.totalSell) - Utils.stringToInt(detail.quantity) * Utils.stringToInt(
+                                detail.price
+                            )
                         db.collection(Collection.BALO.collectionName).document(detail.idBalo)
-                            .update(Utils.sellToMap(newSellCount.toString()))
+                            .update(
+                                Utils.sellToMap(
+                                    newSellCount.toString(),
+                                    newPriceSell.toString()
+                                )
+                            )
                     } else {
                         Tasks.forException(task.exception ?: Exception("Unknown error"))
                     }
@@ -115,7 +124,11 @@ class OrderFirebase {
                 order.detail.forEach { detail ->
                     val newSell =
                         Utils.stringToInt(detail.quantity) + Utils.stringToInt(detail.sell)
-                    val updateSell = Utils.sellToMap(newSell.toString())
+                    val newPriceSell =
+                        Utils.stringToInt(detail.totalPriceSellCurrent) + Utils.stringToInt(detail.quantity) * Utils.stringToInt(
+                            detail.price
+                        )
+                    val updateSell = Utils.sellToMap(newSell.toString(), newPriceSell.toString())
                     val task = productFirebase.updateSellProduct(
                         updateSell = updateSell,
                         idProduct = detail.idBalo,
@@ -168,7 +181,7 @@ class OrderFirebase {
                     price = order.price,
                     picProduct = balo.pic,
                     sell = balo.sell,
-                    priceImport = balo.priceImport
+                    totalPriceSellCurrent = balo.totalSell
                 )
                 taskCompletionSource.setResult(updatedOrder)
             },

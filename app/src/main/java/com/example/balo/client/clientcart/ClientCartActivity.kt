@@ -118,7 +118,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
                     nameBalo = it.nameBalo,
                     quantity = it.quantity,
                     price = it.price,
-                    priceImport = it.priceImport
+                    totalPriceSellCurrent = it.totalPriceSell
                 )
                 list.add(Gson().toJson(orderDetailEntity))
                 listId.add(it.idCart)

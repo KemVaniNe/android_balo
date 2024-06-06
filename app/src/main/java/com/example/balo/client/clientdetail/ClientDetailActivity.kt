@@ -34,7 +34,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     companion object {
 
-        const val KEY_DETAIL = "admin_brand"
+        const val KEY_DETAIL = "id"
         const val REQUEST_CODE_ORDER = 123
         fun newIntent(context: Context, response: String): Intent {
             return Intent(context, ClientDetailActivity::class.java).apply {
@@ -95,7 +95,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                     nameBalo = currentProduct!!.name,
                     quantity = quantity,
                     price = currentProduct!!.priceSell,
-                    priceImport = currentProduct!!.priceImport
+                    totalPriceSellCurrent = currentProduct!!.totalSell
                 )
                 goToOrder(orderDetailEntity)
             }
