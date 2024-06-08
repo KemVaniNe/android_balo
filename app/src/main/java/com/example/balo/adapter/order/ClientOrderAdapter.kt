@@ -1,6 +1,7 @@
 package com.example.balo.adapter.order
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,15 +19,17 @@ class ClientOrderAdapter(
             binding.run {
                 val detail = item.detail.firstOrNull()
                 if (detail != null) {
+                    Log.d("VANVAN", "${detail.nameBalo}")
+                    Log.d("VANVAN", "${detail.price}")
                     tvName.text = detail.nameBalo
-                    tvPrice.text = detail.price
+                    tvPrice.text = detail.price.toString()
                     Utils.displayBase64Image(detail.picProduct, imgPic)
-                    tvQuantity.text = detail.quantity
+                    tvQuantity.text = detail.quantity.toString()
                 }
                 val total = "${item.detail.size} sản phẩm"
                 tvTotalProduct.text = total
                 tvStatus.text = item.statusOrder
-                val price = Utils.stringToInt(item.totalPrice) + Utils.stringToInt(item.priceShip)
+                val price = item.totalPrice + item.priceShip
                 tvTotalPrice.text = price.toString()
             }
         }

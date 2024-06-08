@@ -153,6 +153,10 @@ object Utils {
         return value.toIntOrNull() ?: 0
     }
 
+    fun stringToDouble(value: String): Double {
+        return value.trim().toDoubleOrNull() ?: 0.0
+    }
+
     fun convertDocToUser(document: DocumentSnapshot): UserEntity {
         return DocumentUtil.convertDocToUser(document)
     }
@@ -165,7 +169,7 @@ object Utils {
         return DocumentUtil.convertDocToOrder(document)
     }
 
-    fun sellToMap(sell: String, price: String): Map<String, Any> {
+    fun sellToMap(sell: Double, price: Double): Map<String, Any> {
         return MapObjectUtil.sellToMaps(sell, price)
     }
 
@@ -201,12 +205,12 @@ object Utils {
         return DialogUtil.showRevenueOption(context, type, listener)
     }
 
-    fun getProfit(item: BaloEntity): Float {
-        val totalImport = stringToInt(item.totalImport).toFloat()
-        val quantity = stringToInt(item.quantitiy).toFloat()
-        val totalPrice = stringToInt(item.totalSell).toFloat()
-        val priceImportProduct = totalImport / (if (quantity == 0f) 1f else quantity)
-        return totalPrice - priceImportProduct * stringToInt(item.sell)
+    fun getProfit(item: BaloEntity): Double {
+        val totalImport = item.totalImport
+        val quantity = item.quantitiy
+        val totalPrice = item.totalSell
+        val priceImportProduct = totalImport / (if (quantity == 0.0) 1.0 else quantity)
+        return totalPrice - priceImportProduct * item.sell
     }
 
     fun bottomFilter(

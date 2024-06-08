@@ -95,19 +95,21 @@ class ManagerProductActivity : BaseActivity<ActivityAllProductBinding>() {
     }
 
     private fun handleDelete() {
-        Utils.showOption(this, Option.DELETE) {
-            binding.clLoading.visibility = View.VISIBLE
-            viewModel.deleteProducts(
-                chooseDelete,
-                handleSuccess = {
-                    showToast(getString(R.string.delete_suceess))
-                    setResult(RESULT_OK)
-                    updateProduct()
-                    binding.btnDelete.visibility =
-                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-                },
-                handleFail = { showToast(it) }
-            )
+        if(binding.clLoading.visibility == View.GONE) {
+            Utils.showOption(this, Option.DELETE) {
+                binding.clLoading.visibility = View.VISIBLE
+                viewModel.deleteProducts(
+                    chooseDelete,
+                    handleSuccess = {
+                        showToast(getString(R.string.delete_suceess))
+                        setResult(RESULT_OK)
+                        updateProduct()
+                        binding.btnDelete.visibility =
+                            if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                    },
+                    handleFail = { showToast(it) }
+                )
+            }
         }
     }
 

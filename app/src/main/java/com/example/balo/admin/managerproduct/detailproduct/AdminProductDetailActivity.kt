@@ -63,9 +63,11 @@ class AdminProductDetailActivity : BaseActivity<ActivityAdminProductManagerBindi
     }
 
     private fun handleEdit() {
-        startActivityForResult(
-            AdminProductEditActivity.newIntent(this, id), REQUEST_CODE_CHANGE
-        )
+        if (binding.clLoading.visibility == View.GONE) {
+            startActivityForResult(
+                AdminProductEditActivity.newIntent(this, id), REQUEST_CODE_CHANGE
+            )
+        }
     }
 
     private fun getProduct() {
@@ -95,16 +97,16 @@ class AdminProductDetailActivity : BaseActivity<ActivityAdminProductManagerBindi
     private fun setView(product: BaloEntity) = binding.run {
         Utils.displayBase64Image(product.pic, imgPic)
         tvName.text = product.name
-        tvPrice.text = product.priceSell
+        tvPrice.text = product.priceSell.toString()
         if (product.comment.size > 0) {
-            tvRate.text = product.rate
+            tvRate.text = product.rate.toString()
             tvCountRate.text = "${product.comment.size} người đánh giá"
         } else {
             tvRate.text = "Chưa có đánh giá"
             tvCountRate.text = "Chưa có đánh giá"
             imgStar.visibility = View.GONE
         }
-        tvSell.text = product.sell
+        tvSell.text = product.sell.toString()
         if ((product.quantitiy.toInt() - product.sell.toInt()) < 1) {
             llButton.visibility = View.GONE
             tvSoldOut.visibility = View.VISIBLE
@@ -113,7 +115,7 @@ class AdminProductDetailActivity : BaseActivity<ActivityAdminProductManagerBindi
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des
-        btnEdit.visibility = if(product.isSell) View.VISIBLE else View.GONE
+        btnEdit.visibility = if (product.isSell) View.VISIBLE else View.GONE
     }
 
     private fun toastDialog(notification: String) {

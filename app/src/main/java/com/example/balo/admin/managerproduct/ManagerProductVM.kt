@@ -82,11 +82,10 @@ class ManagerProductVM : ViewModel() {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val totalImport =
-            Utils.stringToInt(product.totalImport) + Utils.stringToInt(product.priceImport) * numProductAdd
-        val quantity = Utils.stringToInt(product.quantitiy) + numProductAdd
-        product.totalImport = totalImport.toString()
-        product.quantitiy = quantity.toString()
+        val totalImport = product.totalImport + product.priceImport * numProductAdd
+        val quantity = product.quantitiy + numProductAdd
+        product.totalImport = totalImport
+        product.quantitiy = quantity
         productFirebase.updateProduct(
             balo = product,
             handleSuccess = { handleSuccess.invoke() },

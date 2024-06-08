@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.balo.data.model.BaloEntity
-import com.example.balo.data.model.BrandEntity
 import com.example.balo.databinding.ItemProductAdminBinding
-import com.example.balo.databinding.ItemTypeBinding
 import com.example.balo.utils.Utils
 
 class AdminProductAdapter(
@@ -19,8 +17,8 @@ class AdminProductAdapter(
             binding.run {
                 Utils.displayBase64Image(item.pic, imgPic)
                 tvName.text = item.name
-                tvPrice.text = item.priceSell
-                val available = item.quantitiy.toFloat() - item.sell.toFloat()
+                tvPrice.text = item.priceSell.toString()
+                val available = item.quantitiy - item.sell
                 tvQuantity.text = available.toString()
             }
         }

@@ -87,19 +87,21 @@ class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     }
 
     private fun handleDelete() {
-        Utils.showOption(this, Option.DELETE) {
-            binding.clLoading.visibility = View.VISIBLE
-            viewModel.deleteBrands(
-                chooseDelete,
-                handleSuccess = {
-                    showToast(getString(R.string.delete_suceess))
-                    setResult(RESULT_OK)
-                    updateList()
-                    binding.btnDelete.visibility =
-                        if (chooseDelete.size > 0) View.VISIBLE else View.GONE
-                },
-                handleFail = { showToast(it) }
-            )
+        if(binding.clLoading.visibility == View.GONE) {
+            Utils.showOption(this, Option.DELETE) {
+                binding.clLoading.visibility = View.VISIBLE
+                viewModel.deleteBrands(
+                    chooseDelete,
+                    handleSuccess = {
+                        showToast(getString(R.string.delete_suceess))
+                        setResult(RESULT_OK)
+                        updateList()
+                        binding.btnDelete.visibility =
+                            if (chooseDelete.size > 0) View.VISIBLE else View.GONE
+                    },
+                    handleFail = { showToast(it) }
+                )
+            }
         }
     }
 
@@ -109,10 +111,12 @@ class ManagerBrandActivity : BaseActivity<ActivityAllBrandBinding>() {
     }
 
     private fun handleAdd() {
-        startActivityForResult(
-            AdminBrandEditActivity.newIntent(this, AdminBrandEditActivity.KEY_ADD),
-            REQUEST_CODE_ADD
-        )
+        if(binding.clLoading.visibility == View.GONE) {
+            startActivityForResult(
+                AdminBrandEditActivity.newIntent(this, AdminBrandEditActivity.KEY_ADD),
+                REQUEST_CODE_ADD
+            )
+        }
     }
 
     @Deprecated("Deprecated in Java")

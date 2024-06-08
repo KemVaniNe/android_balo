@@ -59,6 +59,8 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                     showToast(it)
                     finishAct(false)
                 }
+            } else {
+                binding.clLoading.visibility = View.GONE
             }
         } else {
             finishAct(false)
@@ -67,10 +69,26 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
 
     override fun initListener() = binding.run {
         tvTitle.setOnClickListener { finish() }
-        btnAdd.setOnClickListener { handleAdd() }
-        tvImport.setOnClickListener { handleImport() }
-        btnDelete.setOnClickListener { handleDelete() }
-        tvBrand.setOnClickListener { handleBrand() }
+        btnAdd.setOnClickListener {
+            if (clLoading.visibility == View.GONE) {
+                handleAdd()
+            }
+        }
+        tvImport.setOnClickListener {
+            if (clLoading.visibility == View.GONE) {
+                handleImport()
+            }
+        }
+        btnDelete.setOnClickListener {
+            if (clLoading.visibility == View.GONE) {
+                handleDelete()
+            }
+        }
+        tvBrand.setOnClickListener {
+            if (clLoading.visibility == View.GONE) {
+                handleBrand()
+            }
+        }
     }
 
     private fun handleBrand() {
@@ -82,7 +100,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
 
     private fun handleDelete() {
         Utils.showOption(this, Option.DELETE) {
-            if (!dialog.isShowing) dialog.show()
+            binding.clLoading.visibility = View.VISIBLE
             deleteBrand()
         }
     }
@@ -101,14 +119,14 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
         when (productCurrent) {
             null -> {
                 if (uri != null && isFillAllInfo()) {
-                    if (!dialog.isShowing) dialog.show()
+                    binding.clLoading.visibility = View.VISIBLE
                     handleCreate()
                 }
             }
 
             else -> {
                 if (isFillAllInfo()) {
-                    if (!dialog.isShowing) dialog.show()
+                    binding.clLoading.visibility = View.VISIBLE
                     handleUpdate()
                 }
             }
@@ -130,18 +148,18 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     private fun handleCreate() = binding.run {
-        val priceImport = edtPriceImport.text.toString().trim()
-        val quantity = edtAddNum.text.toString().trim()
-        val totalPrice = Utils.stringToInt(priceImport) * Utils.stringToInt(quantity)
+        val priceImport = Utils.stringToDouble(edtPriceImport.text.toString())
+        val quantity = Utils.stringToDouble(edtAddNum.text.toString())
+        val totalPrice = priceImport * quantity
         val entity = BaloEntity(
-            name = edtName.text.toString().trim(),
+            name = edtName.text.toString(),
             idBrand = currentBrand!!.id,
             pic = Utils.uriToBase64(this@AdminProductEditActivity, uri!!),
-            priceSell = edtPriceSell.text.toString().trim(),
+            priceSell = Utils.stringToDouble(edtPriceSell.text.toString()),
             priceImport = priceImport,
             des = edtDes.text.toString().trim(),
             quantitiy = quantity,
-            totalImport = totalPrice.toString()
+            totalImport = totalPrice
         )
         viewModel.createProduct(
             product = entity,
@@ -161,10 +179,10 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
                 name = edtName.text.toString().trim(),
                 idBrand = currentBrand!!.id,
                 pic = pic,
-                priceSell = edtPriceSell.text.toString().trim(),
-                priceImport = edtPriceImport.text.toString().trim(),
+                priceSell = Utils.stringToDouble(edtPriceSell.text.toString()),
+                priceImport = Utils.stringToDouble(edtPriceImport.text.toString()),
                 des = edtDes.text.toString().trim(),
-                quantitiy = edtQuantity.text.toString().trim(),
+                quantitiy = Utils.stringToDouble(edtQuantity.text.toString()),
                 sell = productCurrent!!.sell,
                 rate = productCurrent!!.rate,
                 comment = productCurrent!!.comment,
@@ -229,19 +247,19 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     private fun listenVM() {
         viewModel.isLoading.observe(this) {
             if (it) {
-                if (!dialog.isShowing) dialog.show()
+                binding.clLoading.visibility = View.VISIBLE
             } else {
                 if (viewModel.currentProduct != null && viewModel.brandCurrent != null) {
                     currentBrand = viewModel.brandCurrent
                     productCurrent = viewModel.currentProduct
-                    if (dialog.isShowing) dialog.dismiss()
+                    binding.clLoading.visibility = View.GONE
                     binding.run {
                         edtName.setText(productCurrent!!.name)
                         tvBrand.text = currentBrand!!.name
-                        edtQuantity.setText(productCurrent!!.quantitiy)
-                        edtSold.setText(productCurrent!!.sell)
-                        edtPriceSell.setText(productCurrent!!.priceSell)
-                        edtPriceImport.setText(productCurrent!!.priceImport)
+                        edtQuantity.setText(productCurrent!!.quantitiy.toString())
+                        edtSold.setText(productCurrent!!.sell.toString())
+                        edtPriceSell.setText(productCurrent!!.priceSell.toString())
+                        edtPriceImport.setText(productCurrent!!.priceImport.toString())
                         Utils.displayBase64Image(productCurrent!!.pic, imgPic)
                         tvDes.visibility = View.GONE
                         btnAdd.text = getString(R.string.update)
@@ -261,7 +279,7 @@ class AdminProductEditActivity : BaseActivity<ActivityAdminProductEditBinding>()
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 }

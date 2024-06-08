@@ -18,13 +18,13 @@ class UserProductAdapter(
             binding.run {
                 Utils.displayBase64Image(item.pic, imgPic)
                 tvName.text = item.name
-                tvPrice.text = item.priceSell
+                tvPrice.text = item.priceSell.toString()
                 tvDesRate.text = "Đánh giá"
                 if (item.comment.isEmpty()) {
                     tvQuantity.text = "Chưa có đánh giá"
                     imgStart.visibility = View.GONE
                 } else {
-                    tvQuantity.text = item.rate
+                    tvQuantity.text = item.rate.toString()
                     imgStart.visibility = View.VISIBLE
                 }
 

@@ -62,16 +62,18 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
     }
 
     private fun handleConfirm() {
-        binding.clLoading.visibility = View.VISIBLE
-        newStatusOrder()
-        viewModel.updateOrder(
-            order!!,
-            handleSuccess = {
-                showToast("Thanh đổi trạng thái thành công")
-                setResult(RESULT_OK)
-                finish()
-            },
-            handleFail = { showToast(it) })
+        if(binding.clLoading.visibility == View.GONE) {
+            binding.clLoading.visibility = View.VISIBLE
+            newStatusOrder()
+            viewModel.updateOrder(
+                order!!,
+                handleSuccess = {
+                    showToast("Thanh đổi trạng thái thành công")
+                    setResult(RESULT_OK)
+                    finish()
+                },
+                handleFail = { showToast(it) })
+        }
     }
 
     private fun newStatusOrder() {
@@ -117,9 +119,9 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
                         tvConfirm.visibility = View.GONE
                     }
                     tvStatus.text = it.statusOrder
-                    tvPriceShip.text = it.priceShip
-                    tvTotalOrder.text = it.totalPrice
-                    val price = Utils.stringToInt(it.totalPrice) + Utils.stringToInt(it.priceShip)
+                    tvPriceShip.text = it.priceShip.toString()
+                    tvTotalOrder.text = it.totalPrice.toString()
+                    val price = it.totalPrice + it.priceShip
                     tvTotalPrice.text = price.toString()
                     tvAddress.text = it.address
                 }

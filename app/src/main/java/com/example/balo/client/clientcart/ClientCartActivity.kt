@@ -148,7 +148,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun updateCart(pair: Pair<Int, String>) {
+    private fun updateCart(pair: Pair<Int, Double>) {
         binding.clLoading.visibility = View.VISIBLE
         viewModel.updateCart(
             cart = carts[pair.first],
@@ -160,9 +160,9 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
             handleFail = { showToast(it) })
     }
 
-    private fun changeQuantityCartItem(pair: Pair<Int, String>) {
-        val newNum = stringToInt(pair.second)
-        if (newNum == 0) {
+    private fun changeQuantityCartItem(pair: Pair<Int, Double>) {
+        val newNum = pair.second
+        if (newNum == 0.0) {
             deleteCart(carts[pair.first])
         } else {
             updateCart(pair)
@@ -178,7 +178,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
             chooses.remove(cart)
         }
         imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
-        val price = stringToInt(cart.price) * stringToInt(cart.quantity)
+        val price = cart.price * cart.quantity
         tvPrice.text = calculate(tvPrice.text.toString(), price.toString(), !pair.second)
     }
 

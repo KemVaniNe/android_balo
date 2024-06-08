@@ -34,9 +34,9 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
             },
             listenerRate = { pos ->
                 DialogUtil.showRating(this) { rate ->
-                    order!!.detail[pos].rate = rate.take(1)
+                    order!!.detail[pos].rate = Utils.stringToDouble(rate.take(1))
                     order!!.detail[pos].comment = rate.drop(1).trim()
-                    if (!dialog.isShowing) dialog.show()
+                    binding.clLoading.visibility = View.VISIBLE
                     viewModel.updateRate(
                         order!!,
                         order!!.detail[pos],
@@ -85,17 +85,19 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
     }
 
     private fun handleCancel() {
-        Utils.showOption(this, Option.CANCEL) {
-            if (!dialog.isShowing) dialog.show()
-            viewModel.cancelOrder(
-                id,
-                handleSuccess = { updateProduct() },
-                handleFail = { showToast(it) })
+        if(binding.clLoading.visibility == View.GONE) {
+            Utils.showOption(this, Option.CANCEL) {
+                binding.clLoading.visibility = View.VISIBLE
+                viewModel.cancelOrder(
+                    id,
+                    handleSuccess = { updateProduct() },
+                    handleFail = { showToast(it) })
+            }
         }
     }
 
     private fun updateProduct() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.cancelOrderByUser(
             order!!,
             handleSuccess = {
@@ -107,19 +109,19 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
     }
 
     private fun showToast(mess: String) {
-        if (dialog.isShowing) dialog.dismiss()
+        binding.clLoading.visibility = View.GONE
         toast(mess)
     }
 
     private fun updateOrder() {
-        if (!dialog.isShowing) dialog.show()
+        binding.clLoading.visibility = View.VISIBLE
         viewModel.getDetail(id) { showToast(it) }
     }
 
     private fun listenVM() {
         viewModel.detail.observe(this) {
             if (it != null) {
-                if (dialog.isShowing) dialog.dismiss()
+                binding.clLoading.visibility = View.GONE
                 order = it
                 orderDetail.run {
                     clear()
@@ -129,9 +131,9 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                 binding.run {
                     if (it.statusOrder == ORDER_CONFIRM) tvCancel.visibility = View.VISIBLE
                     tvStatus.text = it.statusOrder
-                    tvPriceShip.text = it.priceShip
-                    tvTotalOrder.text = it.totalPrice
-                    val price = Utils.stringToInt(it.totalPrice) + Utils.stringToInt(it.priceShip)
+                    tvPriceShip.text = it.priceShip.toString()
+                    tvTotalOrder.text = it.totalPrice.toString()
+                    val price = it.totalPrice + it.priceShip
                     tvTotalPrice.text = price.toString()
                     tvAddress.text = it.address
                 }

@@ -31,19 +31,10 @@ class OrderFirebase {
                     if (task.isSuccessful) {
                         val doc = task.result
                         val product = Utils.convertDocToBProduct(doc)
-                        val newSellCount =
-                            Utils.stringToInt(product.sell) - Utils.stringToInt(detail.quantity)
-                        val newPriceSell =
-                            Utils.stringToInt(product.totalSell) - Utils.stringToInt(detail.quantity) * Utils.stringToInt(
-                                detail.price
-                            )
+                        val newSellCount = product.sell - detail.quantity
+                        val newPriceSell = product.totalSell - detail.quantity * detail.price
                         db.collection(Collection.BALO.collectionName).document(detail.idBalo)
-                            .update(
-                                Utils.sellToMap(
-                                    newSellCount.toString(),
-                                    newPriceSell.toString()
-                                )
-                            )
+                            .update(Utils.sellToMap(newSellCount, newPriceSell))
                     } else {
                         Tasks.forException(task.exception ?: Exception("Unknown error"))
                     }
@@ -122,13 +113,9 @@ class OrderFirebase {
         db.collection(Collection.ORDER.collectionName).add(data)
             .addOnSuccessListener {
                 order.detail.forEach { detail ->
-                    val newSell =
-                        Utils.stringToInt(detail.quantity) + Utils.stringToInt(detail.sell)
-                    val newPriceSell =
-                        Utils.stringToInt(detail.totalPriceSellCurrent) + Utils.stringToInt(detail.quantity) * Utils.stringToInt(
-                            detail.price
-                        )
-                    val updateSell = Utils.sellToMap(newSell.toString(), newPriceSell.toString())
+                    val newSell = detail.quantity + detail.sell
+                    val newPriceSell = detail.totalPriceSellCurrent + detail.quantity * detail.price
+                    val updateSell = Utils.sellToMap(newSell, newPriceSell)
                     val task = productFirebase.updateSellProduct(
                         updateSell = updateSell,
                         idProduct = detail.idBalo,

@@ -83,7 +83,7 @@ object MapObjectUtil {
         )
     }
 
-    fun sellToMaps(sell: String, priceSell: String): Map<String, Any> {
+    fun sellToMaps(sell: Double, priceSell: Double): Map<String, Any> {
         return hashMapOf(
             Balo.SELL.property to sell,
             Balo.TOTALSELL.property to priceSell

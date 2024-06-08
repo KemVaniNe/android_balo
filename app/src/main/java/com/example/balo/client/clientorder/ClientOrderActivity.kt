@@ -92,23 +92,25 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun handleBuy() {
-        if (binding.tvAddress.text != getString(R.string.click_to_choose)) {
-            binding.clLoading.visibility = View.VISIBLE
-            val orderEntity = OrderEntity(
-                iduser = user!!.id,
-                date =  Utils.getToDay(),
-                totalPrice = binding.tvTotalOrder.text.toString(),
-                address = binding.tvAddress.text.toString(),
-                priceShip = binding.tvPriceShip.text.toString(),
-                statusOrder = Constants.ORDER_CONFIRM,
-                detail = order
-            )
-            viewModel.createOrder(
-                order = orderEntity,
-                handleSuccess = { deleteCart() },
-                handleFail = { showToast(it) })
-        } else {
-            toast("Bạn phải chọn địa chỉ")
+        if(binding.clLoading.visibility == View.GONE) {
+            if (binding.tvAddress.text != getString(R.string.click_to_choose)) {
+                binding.clLoading.visibility = View.VISIBLE
+                val orderEntity = OrderEntity(
+                    iduser = user!!.id,
+                    date =  Utils.getToDay(),
+                    totalPrice = Utils.stringToDouble(binding.tvTotalOrder.text.toString()),
+                    address = binding.tvAddress.text.toString(),
+                    priceShip = Utils.stringToDouble(binding.tvPriceShip.text.toString()),
+                    statusOrder = Constants.ORDER_CONFIRM,
+                    detail = order
+                )
+                viewModel.createOrder(
+                    order = orderEntity,
+                    handleSuccess = { deleteCart() },
+                    handleFail = { showToast(it) })
+            } else {
+                toast("Bạn phải chọn địa chỉ")
+            }
         }
     }
 
@@ -153,11 +155,11 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun setPrice() = binding.run {
-        var price = 0
+        var price = 0.0
         val ship = Constants.INIT_SHIP + order.size * Constants.STEP_SHIP
         val endShip = if (ship > Constants.MAX_SHIP) Constants.MAX_SHIP else ship
         order.forEach {
-            price += Utils.stringToInt(it.price) * Utils.stringToInt(it.quantity)
+            price += it.price * it.quantity
         }
         val total = price + ship
         tvTotalOrder.text = price.toString()

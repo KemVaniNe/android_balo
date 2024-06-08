@@ -80,7 +80,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                 val cartEntity = CartEntity(
                     idUser = Pref.idUser,
                     idBalo = currentProduct!!.id,
-                    quantity = quantity,
+                    quantity = Utils.stringToDouble(quantity),
                 )
                 binding.clLoading.visibility = View.VISIBLE
                 createCart(cartEntity)
@@ -96,7 +96,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                 val orderDetailEntity = OrderDetailEntity(
                     idBalo = currentProduct!!.id,
                     nameBalo = currentProduct!!.name,
-                    quantity = quantity,
+                    quantity = Utils.stringToDouble(quantity),
                     price = currentProduct!!.priceSell,
                     totalPriceSellCurrent = currentProduct!!.totalSell
                 )
@@ -139,16 +139,16 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun setView(product: BaloEntity) = binding.run {
         Utils.displayBase64Image(product.pic, imgPic)
         tvName.text = product.name
-        tvPrice.text = product.priceSell
+        tvPrice.text = product.priceSell.toString()
         if (product.comment.size > 0) {
-            tvRate.text = product.rate
+            tvRate.text = product.rate.toString()
             tvCountRate.text = "${product.comment.size} người đánh giá"
         } else {
             tvRate.text = "Chưa có đánh giá"
             tvCountRate.text = "Chưa có đánh giá"
             imgStar.visibility = View.GONE
         }
-        tvSell.text = product.sell
+        tvSell.text = product.sell.toString()
         if ((product.quantitiy.toInt() - product.sell.toInt()) < 1) {
             llButton.visibility = View.GONE
             tvSoldOut.visibility = View.VISIBLE
