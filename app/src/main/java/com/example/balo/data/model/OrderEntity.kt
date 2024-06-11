@@ -4,9 +4,9 @@ data class OrderEntity(
     var id: String = "",
     var iduser: String = "",
     var date: String = "",
-    var totalPrice: String = "0",
+    var totalPrice: Double = 0.0,
     var statusOrder: String = "",
-    var priceShip: String = "0",
+    var priceShip: Double = 0.0,
     var address: String = "",
     var detail: List<OrderDetailEntity> = emptyList()
 )
@@ -14,11 +14,11 @@ data class OrderEntity(
 data class OrderDetailEntity(
     var idBalo: String = "",
     var nameBalo: String = "",
-    var quantity: String = "0",
-    var price: String = "0",
-    var priceImport: String = "0",
+    var quantity: Double = 0.0,
+    var price: Double = 0.0,
+    var totalPriceSellCurrent: Double = 0.0,
     var picProduct: String = "",
-    var rate: String = "0",
+    var rate: Double = 0.0,
     var comment: String = "",
-    var sell: String = "0"
+    var sell: Double = 0.0
 )

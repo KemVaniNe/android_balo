@@ -8,11 +8,12 @@ import com.example.balo.data.network.OrderFirebase
 import com.example.balo.data.network.ProductFirebase
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
-import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.BarEntry
 
 class AdminHomeVM : ViewModel() {
 
-    private val _entriesBills = MutableLiveData<Pair<List<Entry>, List<String>>>()
+    private val _entriesBills = MutableLiveData<Pair<List<BarEntry>, List<String>>>()
+
     val entriesBills = _entriesBills
 
     private val _products = MutableLiveData<List<BaloEntity>>()
@@ -34,7 +35,7 @@ class AdminHomeVM : ViewModel() {
     fun getProducts(handleFail: (String) -> Unit) {
         productFirebase.getProducts(
             handleSuccess = { list ->
-                _products.postValue(list.sortedByDescending { Utils.stringToInt(it.totalSell) })
+                _products.postValue(list.sortedByDescending { it.totalSell })
             },
             handleFail = { handleFail.invoke(it) }
         )
@@ -45,7 +46,7 @@ class AdminHomeVM : ViewModel() {
         when (type) {
             Constants.TYPE_SELL -> {
                 _products.value?.let { list ->
-                    newList.addAll(list.sortedByDescending { Utils.stringToInt(it.sell) })
+                    newList.addAll(list.sortedByDescending { it.sell })
                 }
             }
 
@@ -57,7 +58,7 @@ class AdminHomeVM : ViewModel() {
 
             Constants.TYPE_REVENUE -> {
                 _products.value?.let { list ->
-                    newList.addAll(list.sortedByDescending { Utils.stringToInt(it.totalSell) })
+                    newList.addAll(list.sortedByDescending { it.totalSell })
                 }
             }
         }
@@ -69,7 +70,7 @@ class AdminHomeVM : ViewModel() {
 
         bills.forEach {
             if (it.statusOrder != Constants.ORDER_CANCEL) {
-                val totalPrice = Utils.stringToInt(it.totalPrice).toFloat()
+                val totalPrice = it.totalPrice.toFloat()
                 val date = it.date
                 if (mapDateToTotalPrice.containsKey(date)) {
                     mapDateToTotalPrice[date] = mapDateToTotalPrice[date]!! + totalPrice
@@ -79,51 +80,13 @@ class AdminHomeVM : ViewModel() {
             }
         }
 
-        val entries = mutableListOf<Entry>()
+        val entries = mutableListOf<BarEntry>()
         val dates = mutableListOf<String>()
         for ((date, totalPrice) in mapDateToTotalPrice) {
             dates.add(date)
-            val entry = Entry(dates.size - 1.toFloat(), totalPrice)
+            val entry = BarEntry(dates.size - 1.toFloat(), totalPrice)
             entries.add(entry)
         }
         _entriesBills.postValue(Pair(entries, dates))
     }
-
-
-    private fun convertProducts(orders: List<OrderEntity>) {
-        val productSales = mutableMapOf<String, BaloEntity>()
-
-        orders.forEach { order ->
-            order.detail.forEach { detail ->
-                val id = detail.idBalo
-                val price = Utils.stringToInt(detail.quantity) * Utils.stringToInt(detail.price)
-
-                if (productSales.containsKey(id)) {
-                    val balo = productSales[id]!!
-                    val totalPrice = Utils.stringToInt(balo.priceSell) + price
-                    val quantity = Utils.stringToInt(balo.sell) + Utils.stringToInt(detail.quantity)
-
-                    productSales[id] = BaloEntity(
-                        id = balo.id,
-                        name = balo.name,
-                        priceSell = totalPrice.toString(),
-                        sell = quantity.toString()
-                    )
-                } else {
-                    productSales[id] = BaloEntity(
-                        id = id,
-                        name = detail.nameBalo,
-                        priceSell = detail.price,
-                        sell = detail.quantity
-                    )
-                }
-            }
-        }
-
-        val product =
-            productSales.values.toList().sortedByDescending { Utils.stringToInt(it.sell) }
-
-        _products.postValue(product)
-    }
-
 }

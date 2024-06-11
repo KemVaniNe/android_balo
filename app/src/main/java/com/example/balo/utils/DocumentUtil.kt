@@ -22,16 +22,16 @@ object DocumentUtil {
             name = document.getString(Balo.NAME.property) ?: "",
             idBrand = document.getString(Balo.ID_BRAND.property)
                 ?: Constants.ID_BRAND_OTHER,
-            priceSell = document.getString(Balo.PRICESELL.property) ?: "",
-            priceImport = document.getString(Balo.PRICEINPUT.property) ?: "",
+            priceSell = document.getDouble(Balo.PRICESELL.property) ?: 0.0,
+            priceImport = document.getDouble(Balo.PRICEINPUT.property) ?: 0.0,
             des = document.getString(Balo.DES.property) ?: "",
             pic = document.getString(Balo.PIC.property) ?: "",
-            sell = document.getString(Balo.SELL.property) ?: "",
-            quantitiy = document.getString(Balo.QUANTITY.property) ?: "",
-            rate = document.getString(Balo.RATE.property) ?: "0",
+            sell = document.getDouble(Balo.SELL.property) ?: 0.0,
+            quantitiy = document.getDouble(Balo.QUANTITY.property) ?: 0.0,
+            rate = document.getDouble(Balo.RATE.property) ?: 0.0,
             comment = document.get(Balo.COMMENT.property) as? List<String> ?: emptyList(),
-            totalImport = document.getString(Balo.TOTALIMPORT.property) ?: "0",
-            totalSell = document.getString(Balo.TOTALSELL.property) ?: "0",
+            totalImport = document.getDouble(Balo.TOTALIMPORT.property) ?: 0.0,
+            totalSell = document.getDouble(Balo.TOTALSELL.property) ?: 0.0,
             isSell = document.getBoolean(Balo.ISSELL.property) ?: true
         )
     }
@@ -50,7 +50,7 @@ object DocumentUtil {
             idCart = document.id,
             idBalo = document.getString(Cart.ID_BALO.property) ?: "",
             idUser = document.getString(Cart.ID_USER.property) ?: "",
-            quantity = document.getString(Cart.QUANTITY.property) ?: "0"
+            quantity = document.getDouble(Cart.QUANTITY.property) ?: 0.0
         )
     }
 
@@ -71,9 +71,9 @@ object DocumentUtil {
             document.id,
             document.getString(Order.ID_USER.property) ?: "",
             document.getString(Order.DATE.property) ?: "",
-            document.getString(Order.TOTAL_PRICE.property) ?: "0",
+            document.getDouble(Order.TOTAL_PRICE.property) ?: 0.0,
             document.getString(Order.STATUS_ORDER.property) ?: Constants.ORDER_CONFIRM,
-            document.getString(Order.PRICESHIP.property) ?: "0",
+            document.getDouble(Order.PRICESHIP.property) ?: 0.0,
             document.getString(Order.ADDRESS.property) ?: "",
             convertDocToOrderDetail(document)
         )
@@ -85,11 +85,10 @@ object DocumentUtil {
                 OrderDetailEntity(
                     idBalo = detailMap[OrderDetail.ID_BALO.property] as? String ?: "",
                     nameBalo = detailMap[OrderDetail.NAMEBALO.property] as? String ?: "",
-                    quantity = detailMap[OrderDetail.QUANTITY.property] as? String ?: "0",
-                    price = detailMap[OrderDetail.PRICE.property] as? String ?: "0",
+                    quantity = detailMap[OrderDetail.QUANTITY.property] as? Double ?: 0.0,
+                    price = detailMap[OrderDetail.PRICE.property] as? Double ?: 0.0,
                     picProduct = detailMap[OrderDetail.PICBALO.property] as? String ?: "",
-                    rate = detailMap[OrderDetail.RATE.property] as? String ?: "0",
-                    priceImport = detailMap[OrderDetail.PRICEIMPORT.property] as? String ?: "0",
+                    rate = detailMap[OrderDetail.RATE.property] as? Double ?: 0.0,
                     comment = detailMap[OrderDetail.COMMENT.property] as? String ?: ""
                 )
             } ?: emptyList()
@@ -99,7 +98,7 @@ object DocumentUtil {
     fun convertDocToBill(document: DocumentSnapshot): BillEntity {
         return BillEntity(
             document.id,
-            document.getString(Order.TOTAL_PRICE.property) ?: "",
+            document.getDouble(Order.TOTAL_PRICE.property) ?: 0.0,
             document.getString(Order.DATE.property) ?: "",
             document.getString(Order.STATUS_ORDER.property) ?: ""
         )

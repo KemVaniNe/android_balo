@@ -53,6 +53,8 @@ class AdminBrandEditActivity : BaseActivity<ActivityAdminBrandBinding>() {
                     showToast(it)
                     finishAct(false)
                 }
+            } else {
+                binding.clLoading.visibility = View.GONE
             }
         } else {
             finishAct(false)
@@ -67,9 +69,11 @@ class AdminBrandEditActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     private fun handleDelete() {
-        Utils.showOption(this, Option.DELETE) {
-            binding.clLoading.visibility = View.VISIBLE
-            deleteBrand()
+        if(binding.clLoading.visibility == View.GONE) {
+            Utils.showOption(this, Option.DELETE) {
+                binding.clLoading.visibility = View.VISIBLE
+                deleteBrand()
+            }
         }
     }
 
@@ -84,22 +88,24 @@ class AdminBrandEditActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     private fun handleAdd() = binding.run {
-        when (brandCurrent) {
-            null -> {
-                if (uri != null && edtName.text.toString() != "") {
-                    binding.clLoading.visibility = View.VISIBLE
-                    handleCreate()
-                } else {
-                    tvError.visibility = View.VISIBLE
+        if(binding.clLoading.visibility == View.GONE) {
+            when (brandCurrent) {
+                null -> {
+                    if (uri != null && edtName.text.toString() != "") {
+                        binding.clLoading.visibility = View.VISIBLE
+                        handleCreate()
+                    } else {
+                        tvError.visibility = View.VISIBLE
+                    }
                 }
-            }
 
-            else -> {
-                if (edtName.text.toString() != "") {
-                    binding.clLoading.visibility = View.VISIBLE
-                    handleUpdate()
-                } else {
-                    tvError.visibility = View.VISIBLE
+                else -> {
+                    if (edtName.text.toString() != "") {
+                        binding.clLoading.visibility = View.VISIBLE
+                        handleUpdate()
+                    } else {
+                        tvError.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -142,8 +148,10 @@ class AdminBrandEditActivity : BaseActivity<ActivityAdminBrandBinding>() {
     }
 
     private fun handleImport() {
-        Utils.requireGalleryPermission(this) {
-            pickImageFromGallery()
+        if(binding.clLoading.visibility == View.GONE) {
+            Utils.requireGalleryPermission(this) {
+                pickImageFromGallery()
+            }
         }
     }
 

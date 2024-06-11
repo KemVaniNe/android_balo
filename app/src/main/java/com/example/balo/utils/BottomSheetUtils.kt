@@ -3,11 +3,16 @@ package com.example.balo.utils
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
+import com.example.balo.adapter.brand.BrandFilterAdapter
+import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.databinding.BottomChangeInfoClientBinding
 import com.example.balo.databinding.BottomChangePassBinding
+import com.example.balo.databinding.BottomFilterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 object BottomSheetUtils {
@@ -61,6 +66,51 @@ object BottomSheetUtils {
                     listener.invoke(user)
                     bottomSheetDialog.dismiss()
                 }
+            }
+        }
+        bottomSheetDialog.show()
+    }
+
+    fun bottomFilter(
+        context: Context,
+        soft: Int,
+        brand: BrandEntity,
+        list: List<BrandEntity>,
+        listener: (Pair<Int, BrandEntity>) -> Unit,
+    ) {
+        var softChoose = soft
+        var brandChoose = brand
+        val adapterBrand = BrandFilterAdapter(list) { data ->
+            brandChoose = list[data]
+            list.map { it.isSelected = it == list[data] }
+        }
+        val bottomSheetBinding = BottomFilterBinding.inflate(LayoutInflater.from(context))
+        val bottomSheetDialog = BottomSheetDialog(context)
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetBinding.run {
+            tvZA.setBackgroundResource(if (softChoose == Constants.TYPE_ZA) R.drawable.bg_btn else R.drawable.bg_option)
+            tvAZ.setBackgroundResource(if (softChoose == Constants.TYPE_AZ) R.drawable.bg_btn else R.drawable.bg_option)
+            rvBrand.run {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = adapterBrand
+            }
+            btnClear.setOnClickListener {
+                listener.invoke(Pair(Constants.TYPE_NONE, Utils.brandAll()))
+                bottomSheetDialog.dismiss()
+            }
+            btnConfirm.setOnClickListener {
+                listener.invoke(Pair(softChoose, brandChoose))
+                bottomSheetDialog.dismiss()
+            }
+            tvAZ.setOnClickListener {
+                softChoose = Constants.TYPE_AZ
+                tvAZ.setBackgroundResource(R.drawable.bg_btn)
+                tvZA.setBackgroundResource(R.drawable.bg_option)
+            }
+            tvZA.setOnClickListener {
+                softChoose = Constants.TYPE_ZA
+                tvZA.setBackgroundResource(R.drawable.bg_btn)
+                tvAZ.setBackgroundResource(R.drawable.bg_option)
             }
         }
         bottomSheetDialog.show()

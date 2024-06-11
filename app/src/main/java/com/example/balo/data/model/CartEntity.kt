@@ -4,11 +4,11 @@ data class CartEntity(
     var idCart: String = "",
     var idUser: String = "",
     var idBalo: String = "",
-    var quantity: String = "0",
+    var quantity: Double = 0.0,
     var nameBalo: String = "",
-    var price: String = "0",
-    var priceImport: String = "0",
+    var price: Double = 0.0,
+    var totalPriceSell: Double = 0.0,
     var pic: String = "",
-    var max: String = "0",
+    var max: Double = 0.0,
     var isSelect: Boolean = false
 )

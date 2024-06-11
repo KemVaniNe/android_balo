@@ -6,7 +6,6 @@ import com.example.balo.adapter.viewpager.ClientViewPagerAdapter
 import com.example.balo.databinding.ActivityMainBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
-import com.example.balo.utils.Pref
 
 class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -16,13 +15,8 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
         ActivityMainBinding.inflate(inflate)
 
     override fun initView() {
-        if(Pref.idUser == Constants.ID_GUEST) {
-            viewGuest()
-        } else {
-            viewUser()
-        }
         binding.viewPager.run {
-            offscreenPageLimit = 2
+            offscreenPageLimit = 1
             adapter = viewPagerAdapter
         }
     }
@@ -48,17 +42,10 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+
     private fun changeCurrentFragment(type: Int): Boolean {
         binding.viewPager.setCurrentItem(type, true)
         return true
-    }
-
-    private fun viewGuest() {
-        //TODO
-    }
-
-    private fun viewUser() {
-        //TODO
     }
 
     fun finishAct() {

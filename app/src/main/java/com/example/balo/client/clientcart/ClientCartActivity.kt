@@ -18,8 +18,6 @@ import com.example.balo.utils.Constants
 import com.example.balo.utils.Option
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
-import com.example.balo.utils.Utils.calculate
-import com.example.balo.utils.Utils.stringToInt
 import com.google.gson.Gson
 
 class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
@@ -118,7 +116,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
                     nameBalo = it.nameBalo,
                     quantity = it.quantity,
                     price = it.price,
-                    priceImport = it.priceImport
+                    totalPriceSellCurrent = it.totalPriceSell
                 )
                 list.add(Gson().toJson(orderDetailEntity))
                 listId.add(it.idCart)
@@ -148,7 +146,7 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun updateCart(pair: Pair<Int, String>) {
+    private fun updateCart(pair: Pair<Int, Double>) {
         binding.clLoading.visibility = View.VISIBLE
         viewModel.updateCart(
             cart = carts[pair.first],
@@ -160,9 +158,9 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
             handleFail = { showToast(it) })
     }
 
-    private fun changeQuantityCartItem(pair: Pair<Int, String>) {
-        val newNum = stringToInt(pair.second)
-        if (newNum == 0) {
+    private fun changeQuantityCartItem(pair: Pair<Int, Double>) {
+        val newNum = pair.second
+        if (newNum == 0.0) {
             deleteCart(carts[pair.first])
         } else {
             updateCart(pair)
@@ -178,8 +176,14 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
             chooses.remove(cart)
         }
         imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
-        val price = stringToInt(cart.price) * stringToInt(cart.quantity)
-        tvPrice.text = calculate(tvPrice.text.toString(), price.toString(), !pair.second)
+        val price = cart.price * cart.quantity
+        var newPrice = 0.0
+        if(pair.second) {
+            newPrice = Utils.stringToDouble(tvPrice.text.toString()) + price
+        } else {
+            newPrice = Utils.stringToDouble(tvPrice.text.toString()) - price
+        }
+        tvPrice.text = newPrice.toString()
     }
 
     private fun showToast(notification: String) {

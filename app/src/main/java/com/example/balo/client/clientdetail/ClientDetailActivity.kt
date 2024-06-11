@@ -34,7 +34,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
 
     companion object {
 
-        const val KEY_DETAIL = "admin_brand"
+        const val KEY_DETAIL = "id"
         const val REQUEST_CODE_ORDER = 123
         fun newIntent(context: Context, response: String): Intent {
             return Intent(context, ClientDetailActivity::class.java).apply {
@@ -46,9 +46,12 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     override fun viewBinding(inflate: LayoutInflater): ActivityClientDetailBinding =
         ActivityClientDetailBinding.inflate(inflate)
 
-    override fun initView() = binding.rvRate.run {
-        layoutManager = LinearLayoutManager(this@ClientDetailActivity)
-        adapter = commentAdapter
+    override fun initView() = binding.run {
+        rvRate.layoutManager = LinearLayoutManager(this@ClientDetailActivity)
+        rvRate.adapter = commentAdapter
+        if (Pref.idUser == Constants.ID_GUEST) {
+            llButton.visibility = View.GONE
+        }
     }
 
     override fun initData() {
@@ -77,7 +80,7 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                 val cartEntity = CartEntity(
                     idUser = Pref.idUser,
                     idBalo = currentProduct!!.id,
-                    quantity = quantity,
+                    quantity = Utils.stringToDouble(quantity),
                 )
                 binding.clLoading.visibility = View.VISIBLE
                 createCart(cartEntity)
@@ -93,9 +96,9 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
                 val orderDetailEntity = OrderDetailEntity(
                     idBalo = currentProduct!!.id,
                     nameBalo = currentProduct!!.name,
-                    quantity = quantity,
+                    quantity = Utils.stringToDouble(quantity),
                     price = currentProduct!!.priceSell,
-                    priceImport = currentProduct!!.priceImport
+                    totalPriceSellCurrent = currentProduct!!.totalSell
                 )
                 goToOrder(orderDetailEntity)
             }
@@ -136,21 +139,25 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     private fun setView(product: BaloEntity) = binding.run {
         Utils.displayBase64Image(product.pic, imgPic)
         tvName.text = product.name
-        tvPrice.text = product.priceSell
+        tvPrice.text = product.priceSell.toString()
         if (product.comment.size > 0) {
-            tvRate.text = product.rate
+            tvRate.text = product.rate.toString()
             tvCountRate.text = "${product.comment.size} người đánh giá"
         } else {
             tvRate.text = "Chưa có đánh giá"
             tvCountRate.text = "Chưa có đánh giá"
             imgStar.visibility = View.GONE
         }
-        tvSell.text = product.sell
+        tvSell.text = product.sell.toString()
         if ((product.quantitiy.toInt() - product.sell.toInt()) < 1) {
             llButton.visibility = View.GONE
             tvSoldOut.visibility = View.VISIBLE
         } else {
-            llButton.visibility = View.VISIBLE
+            if (Pref.idUser == Constants.ID_GUEST) {
+                llButton.visibility = View.GONE
+            } else {
+                llButton.visibility = View.VISIBLE
+            }
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des

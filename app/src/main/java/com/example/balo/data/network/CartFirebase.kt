@@ -88,11 +88,12 @@ class CartFirebase {
         productFirebase.getProductBaseId(
             idProduct = cart.idBalo,
             handleSuccess = { balo ->
-                cart.max = Utils.calculate(balo.quantitiy, balo.sell, isMinus = true)
+                val max = (balo.quantitiy - balo.sell)
+                cart.max = max
                 cart.nameBalo = balo.name
                 cart.price = balo.priceSell
                 cart.pic = balo.pic
-                cart.priceImport = balo.priceImport
+                cart.totalPriceSell = balo.totalSell
                 taskCompletionSource.setResult(cart)
             },
             handleFail = { error ->

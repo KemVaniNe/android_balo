@@ -1,5 +1,6 @@
 package com.example.balo.data.network
 
+import android.util.Log
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Collection
@@ -67,6 +68,7 @@ class ProductFirebase {
             .whereEqualTo(Balo.ISSELL.property, true)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
+                    Log.d("VANVAN", "${Utils.convertDocToBProduct(document).name}")
                     data.add(Utils.convertDocToBProduct(document))
                 }
                 handleSuccess.invoke(data)

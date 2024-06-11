@@ -148,5 +148,4 @@ class ManagerOrderActivity : BaseActivity<ActivityManagerOrderBinding>() {
             updateOrder()
         }
     }
-
 }

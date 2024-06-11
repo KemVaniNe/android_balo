@@ -14,9 +14,8 @@ class AdminMapsProductAdapter(
     inner class VH(val binding: ItemProductPriceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: BaloEntity) {
             binding.run {
-                val totalPrice = Utils.stringToInt(item.totalSell).toFloat()
                 tvName.text = item.name
-                val priceSell = "Doanh thu: ${totalPrice}"
+                val priceSell = "Doanh thu: ${item.totalSell}"
                 tvPrice.text = priceSell
                 val sell = "Đã bán: ${item.sell}"
                 tvSell.text = sell

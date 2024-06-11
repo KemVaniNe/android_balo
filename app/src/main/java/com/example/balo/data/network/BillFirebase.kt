@@ -18,7 +18,7 @@ class BillFirebase {
         handleFail: (String) -> Unit
     ) {
         val list = mutableListOf<BillEntity>()
-        var total = 0
+        var total = 0.0
         db.collection(Collection.ORDER.collectionName)
             .whereEqualTo(Order.ID_USER.property, id)
             .get()
@@ -26,7 +26,7 @@ class BillFirebase {
                 document.forEach {
                     val bill = Utils.convertDocToBill(it)
                     list.add(bill)
-                    total += Utils.stringToInt(bill.totalPrice)
+                    total += bill.totalPrice
                 }
                 handleSuccess.invoke(Pair(list, total.toString()))
             }

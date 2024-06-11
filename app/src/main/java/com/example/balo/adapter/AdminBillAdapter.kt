@@ -16,7 +16,7 @@ class AdminBillAdapter(
         fun onBind(item: BillEntity) {
             binding.run {
                 tvDate.text = item.date
-                tvPrice.text = item.totalPrice
+                tvPrice.text = item.totalPrice.toString()
                 tvStatus.text = item.statusOrder
             }
         }

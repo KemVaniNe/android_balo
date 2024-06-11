@@ -32,7 +32,6 @@ object MapObjectUtil {
             OrderDetail.NAMEBALO.property to detail.nameBalo,
             OrderDetail.QUANTITY.property to detail.quantity,
             OrderDetail.PRICE.property to detail.price,
-            OrderDetail.PRICEIMPORT.property to detail.priceImport,
             OrderDetail.PICBALO.property to detail.picProduct,
             OrderDetail.RATE.property to detail.rate,
             OrderDetail.COMMENT.property to detail.comment
@@ -84,8 +83,11 @@ object MapObjectUtil {
         )
     }
 
-    fun sellToMaps(sell: String): Map<String, Any> {
-        return hashMapOf(Balo.SELL.property to sell)
+    fun sellToMaps(sell: Double, priceSell: Double): Map<String, Any> {
+        return hashMapOf(
+            Balo.SELL.property to sell,
+            Balo.TOTALSELL.property to priceSell
+        )
     }
 
     fun statusCancelToMap(): Map<String, Any> {

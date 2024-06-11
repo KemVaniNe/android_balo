@@ -70,7 +70,7 @@ class ClientOrderDetailVM : ViewModel() {
         productFirebase.getProductBaseId(
             idProduct = id,
             handleSuccess = {
-                val oldRate = Utils.stringToInt(it.rate).toFloat()
+                val oldRate = it.rate
                 val numOldRate = it.comment.size
                 val rateCurrent = Utils.stringToInt(commentNew.take(1)).toFloat()
                 val newRateBalo = (oldRate + rateCurrent) / (numOldRate + 1)
@@ -78,7 +78,7 @@ class ClientOrderDetailVM : ViewModel() {
                 newList.addAll(it.comment)
                 newList.add(commentNew)
                 it.comment = newList
-                it.rate = newRateBalo.toString()
+                it.rate = newRateBalo
                 updateBalo(it, handleSuccess, handleFail)
             },
             handleFail = { handleFail.invoke(it) }

@@ -32,10 +32,10 @@ class ShareOrderDetailAdapter(
                 }
                 clRate.visibility = if (isShowRate && isUser) View.VISIBLE else View.GONE
                 tvName.text = item.nameBalo
-                tvPrice.text = item.price
+                tvPrice.text = item.price.toString()
                 Utils.displayBase64Image(item.picProduct, imgPic)
-                tvQuantity.text = item.quantity
-                if (Utils.stringToInt(item.rate) == 0) {
+                tvQuantity.text = item.quantity.toString()
+                if (item.rate == 0.0) {
                     tvDetail.visibility = View.VISIBLE
                     llDes.visibility = View.INVISIBLE
                 } else {
@@ -46,26 +46,26 @@ class ShareOrderDetailAdapter(
                     } else {
                         tvComment.visibility = View.GONE
                     }
-                    when (Utils.stringToInt(item.rate)) {
-                        1 -> {
+                    when (item.rate) {
+                        1.0 -> {
                             img2.visibility = View.GONE
                             img3.visibility = View.GONE
                             img4.visibility = View.GONE
                             img5.visibility = View.GONE
                         }
 
-                        2 -> {
+                        2.0 -> {
                             img3.visibility = View.GONE
                             img4.visibility = View.GONE
                             img5.visibility = View.GONE
                         }
 
-                        3 -> {
+                        3.0 -> {
                             img4.visibility = View.GONE
                             img5.visibility = View.GONE
                         }
 
-                        4 -> {
+                        4.0 -> {
                             img5.visibility = View.GONE
                         }
                     }

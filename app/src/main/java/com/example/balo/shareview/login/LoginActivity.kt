@@ -1,7 +1,9 @@
 package com.example.balo.shareview.login
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
 import com.example.balo.data.model.UserEntity
@@ -24,9 +26,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun initView() {
     }
 
+    companion object {
+
+        const val KEY_LOGIN = "login"
+        fun newIntent(context: Context, response: String): Intent {
+            return Intent(context, LoginActivity::class.java).apply {
+                putExtra(KEY_LOGIN, response)
+            }
+        }
+    }
+
     override fun initData() {
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         Pref.idUser = Constants.ID_GUEST
+        val intent = intent
+        if (intent.hasExtra(KEY_LOGIN) && intent.getStringExtra(KEY_LOGIN) != null) {
+            binding.tvBack.visibility = View.VISIBLE
+        } else {
+            binding.tvBack.visibility = View.GONE
+        }
     }
 
     override fun initListener() = binding.run {
@@ -39,8 +57,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
         tvLater.setOnClickListener {
             Pref.idUser = Constants.ID_GUEST
-            startActivity(Intent(this@LoginActivity, ClientMainActivity::class.java))
+            if (tvBack.visibility == View.GONE) {
+                startActivity(Intent(this@LoginActivity, ClientMainActivity::class.java))
+                finish()
+            } else {
+                finish()
+            }
         }
+        tvBack.setOnClickListener { finish() }
     }
 
     private fun handleLogin() {
@@ -67,11 +91,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun goToNext(account: UserEntity) {
         if (dialog.isShowing) dialog.dismiss()
         Pref.idUser = account.id
-        if (account.role == Constants.ROLE_AD) {
-            startActivity(Intent(this, AdminMainActivity::class.java))
-        } else {
-            startActivity(Intent(this, ClientMainActivity::class.java))
+        if (binding.tvBack.visibility == View.GONE) {
+            if (account.role == Constants.ROLE_AD) {
+                startActivity(Intent(this, AdminMainActivity::class.java))
+            } else {
+                startActivity(Intent(this, ClientMainActivity::class.java))
+            }
         }
+        setResult(RESULT_OK)
         finish()
     }
 

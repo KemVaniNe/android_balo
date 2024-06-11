@@ -31,10 +31,10 @@ class OrderFirebase {
                     if (task.isSuccessful) {
                         val doc = task.result
                         val product = Utils.convertDocToBProduct(doc)
-                        val newSellCount =
-                            Utils.stringToInt(product.sell) - Utils.stringToInt(detail.quantity)
+                        val newSellCount = product.sell - detail.quantity
+                        val newPriceSell = product.totalSell - detail.quantity * detail.price
                         db.collection(Collection.BALO.collectionName).document(detail.idBalo)
-                            .update(Utils.sellToMap(newSellCount.toString()))
+                            .update(Utils.sellToMap(newSellCount, newPriceSell))
                     } else {
                         Tasks.forException(task.exception ?: Exception("Unknown error"))
                     }
@@ -113,9 +113,9 @@ class OrderFirebase {
         db.collection(Collection.ORDER.collectionName).add(data)
             .addOnSuccessListener {
                 order.detail.forEach { detail ->
-                    val newSell =
-                        Utils.stringToInt(detail.quantity) + Utils.stringToInt(detail.sell)
-                    val updateSell = Utils.sellToMap(newSell.toString())
+                    val newSell = detail.quantity + detail.sell
+                    val newPriceSell = detail.totalPriceSellCurrent + detail.quantity * detail.price
+                    val updateSell = Utils.sellToMap(newSell, newPriceSell)
                     val task = productFirebase.updateSellProduct(
                         updateSell = updateSell,
                         idProduct = detail.idBalo,
@@ -168,7 +168,7 @@ class OrderFirebase {
                     price = order.price,
                     picProduct = balo.pic,
                     sell = balo.sell,
-                    priceImport = balo.priceImport
+                    totalPriceSellCurrent = balo.totalSell
                 )
                 taskCompletionSource.setResult(updatedOrder)
             },

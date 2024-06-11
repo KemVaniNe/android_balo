@@ -10,6 +10,7 @@ object Constants {
     const val ADMIN_ACCOUNT = 1
 
     const val ID_BRAND_OTHER = "123"
+    const val ID_BRAND_ALL = "111"
     const val ID_GUEST = ""
     const val MAX_CART = 4
 
@@ -30,4 +31,8 @@ object Constants {
     const val TYPE_REVENUE = 1
     const val TYPE_PROFIT = 2
     const val TYPE_SELL = 3
+
+    const val TYPE_NONE = 0
+    const val TYPE_AZ = 1
+    const val TYPE_ZA = 2
 }

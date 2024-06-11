@@ -1,6 +1,7 @@
 package com.example.balo.adapter.product
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +15,14 @@ class ClientProductOrderAdapter(
     inner class VH(val binding: ItemProductAdminBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: OrderDetailEntity) {
             binding.run {
+                Log.d("VANVAN", item.nameBalo)
+                Log.d("VANVAN", "price: ${item.price}")
+                Log.d("VANVAN", "num: ${item.quantity}")
+
                 Utils.displayBase64Image(item.picProduct, imgPic)
                 tvName.text = item.nameBalo
-                tvPrice.text = item.price
-                tvQuantity.text = item.quantity
+                tvPrice.text = item.price.toString()
+                tvQuantity.text = item.quantity.toString()
             }
         }
     }
