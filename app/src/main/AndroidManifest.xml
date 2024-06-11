@@ -23,6 +23,9 @@
         android:theme="@style/FullScreenTheme"
         tools:targetApi="34">
         <activity
+            android:name=".client.chatbot.ChatbotActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.clientbrand.ClientBrandActivity"
             android:configChanges="uiMode"
             android:exported="false"

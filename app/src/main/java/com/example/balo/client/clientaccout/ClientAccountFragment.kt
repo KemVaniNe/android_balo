@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.R
+import com.example.balo.client.chatbot.ChatbotActivity
 import com.example.balo.client.clientAddress.ClientAddressActivity
 import com.example.balo.client.clientcart.ClientCartActivity
 import com.example.balo.client.clientmain.ClientMainActivity
@@ -48,9 +49,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     override fun initListener() = binding.run {
         tvAddress.setOnClickListener { handleAddress() }
         tvCart.setOnClickListener { handleCart() }
-        tvContact.setOnClickListener {
-            //TODO
-        }
+        tvContact.setOnClickListener {handleContact() }
         tvOrder.setOnClickListener { handleOrder() }
         tvInfo.setOnClickListener { handleUpdateInfo() }
         tvUpdatePass.setOnClickListener { handleUpdatePass() }
@@ -71,6 +70,10 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
         }
     }
 
+    private fun handleContact() {
+        context?.let { startActivity(Intent(it, ChatbotActivity::class.java)) }
+    }
+
     private fun handleCart() {
         context?.let { startActivity(Intent(it, ClientCartActivity::class.java)) }
     }
@@ -80,7 +83,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     private fun handleLogout() {
-        if(Pref.idUser == Constants.ID_GUEST) {
+        if (Pref.idUser == Constants.ID_GUEST) {
             context?.let {
                 startActivityForResult(
                     LoginActivity.newIntent(it, LoginActivity.KEY_LOGIN),

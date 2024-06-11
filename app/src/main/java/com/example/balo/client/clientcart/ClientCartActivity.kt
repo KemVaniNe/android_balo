@@ -18,8 +18,6 @@ import com.example.balo.utils.Constants
 import com.example.balo.utils.Option
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
-import com.example.balo.utils.Utils.calculate
-import com.example.balo.utils.Utils.stringToInt
 import com.google.gson.Gson
 
 class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
@@ -179,7 +177,13 @@ class ClientCartActivity : BaseActivity<ActivityClientCartBinding>() {
         }
         imgDelete.visibility = if (chooses.size > 0) View.VISIBLE else View.GONE
         val price = cart.price * cart.quantity
-        tvPrice.text = calculate(tvPrice.text.toString(), price.toString(), !pair.second)
+        var newPrice = 0.0
+        if(pair.second) {
+            newPrice = Utils.stringToDouble(tvPrice.text.toString()) + price
+        } else {
+            newPrice = Utils.stringToDouble(tvPrice.text.toString()) - price
+        }
+        tvPrice.text = newPrice.toString()
     }
 
     private fun showToast(notification: String) {
