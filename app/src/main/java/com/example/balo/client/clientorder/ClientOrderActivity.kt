@@ -35,7 +35,9 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     companion object {
 
         const val CODE_ADDRESS = 111
+
         const val KEY_ORDER = "product"
+
         const val KEY_CART = "cart"
         fun newIntent(context: Context, response: List<String>, cart: List<String>): Intent {
             return Intent(context, ClientOrderActivity::class.java).apply {

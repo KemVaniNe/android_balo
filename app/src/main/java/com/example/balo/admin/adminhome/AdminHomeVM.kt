@@ -8,11 +8,12 @@ import com.example.balo.data.network.OrderFirebase
 import com.example.balo.data.network.ProductFirebase
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Utils
-import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.BarEntry
 
 class AdminHomeVM : ViewModel() {
 
-    private val _entriesBills = MutableLiveData<Pair<List<Entry>, List<String>>>()
+    private val _entriesBills = MutableLiveData<Pair<List<BarEntry>, List<String>>>()
+
     val entriesBills = _entriesBills
 
     private val _products = MutableLiveData<List<BaloEntity>>()
@@ -79,11 +80,11 @@ class AdminHomeVM : ViewModel() {
             }
         }
 
-        val entries = mutableListOf<Entry>()
+        val entries = mutableListOf<BarEntry>()
         val dates = mutableListOf<String>()
         for ((date, totalPrice) in mapDateToTotalPrice) {
             dates.add(date)
-            val entry = Entry(dates.size - 1.toFloat(), totalPrice)
+            val entry = BarEntry(dates.size - 1.toFloat(), totalPrice)
             entries.add(entry)
         }
         _entriesBills.postValue(Pair(entries, dates))
