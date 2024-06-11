@@ -16,7 +16,7 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
 
     override fun initView() {
         binding.viewPager.run {
-            offscreenPageLimit = 1
+            offscreenPageLimit = 2
             adapter = viewPagerAdapter
         }
     }
@@ -34,6 +34,10 @@ class AdminMainActivity : BaseActivity<ActivityAdminBinding>() {
 
                     R.id.admin_account -> {
                         changeCurrentFragment(Constants.ADMIN_ACCOUNT)
+                    }
+
+                    R.id.admin_notification -> {
+                        changeCurrentFragment(Constants.ADMIN_NOTIFICATION)
                     }
 
                     else -> false

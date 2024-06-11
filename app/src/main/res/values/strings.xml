@@ -154,4 +154,5 @@
     <string name="AZ">A...Z</string>
     <string name="ZA">Z...A</string>
     <string name="filter">Bộ lọc</string>
+    <string name="notification">Thông báo</string>
 </resources>

@@ -7,6 +7,11 @@
         android:title="" />
 
     <item
+        android:id="@+id/admin_notification"
+        android:icon="@drawable/ic_notification"
+        android:title="" />
+
+    <item
         android:id="@+id/admin_account"
         android:icon="@drawable/ic_user"
         android:title="" />
