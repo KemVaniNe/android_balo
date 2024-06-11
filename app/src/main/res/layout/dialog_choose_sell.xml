@@ -17,7 +17,7 @@
         android:fontFamily="@font/nunito_bold"
         android:paddingHorizontal="16dp"
         android:text="@string/revenue"
-        android:textColor="@color/color_bg"
+        android:textColor="@color/color_text"
         android:textSize="16dp" />
 
     <Button
@@ -32,7 +32,7 @@
         android:fontFamily="@font/nunito_bold"
         android:paddingHorizontal="16dp"
         android:text="@string/profit"
-        android:textColor="@color/color_bg"
+        android:textColor="@color/color_text"
         android:textSize="16dp" />
 
     <Button
@@ -47,7 +47,7 @@
         android:fontFamily="@font/nunito_bold"
         android:paddingHorizontal="16dp"
         android:text="@string/product_sell"
-        android:textColor="@color/color_bg"
+        android:textColor="@color/color_text"
         android:textSize="16dp" />
 
     <Button
@@ -63,7 +63,7 @@
         android:fontFamily="@font/nunito_bold"
         android:paddingHorizontal="16dp"
         android:text="@string/confirm"
-        android:textColor="@color/color_bg"
+        android:textColor="@color/color_text"
         android:textSize="16dp" />
 
 </LinearLayout>
