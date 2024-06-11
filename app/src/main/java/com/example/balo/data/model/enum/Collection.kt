@@ -6,5 +6,5 @@ enum class Collection(val collectionName: String) {
     BRAND("brand"),
     BALO("balo"),
     ORDER("order"),
-    ORDER_DETAIL("orderdetail");
+    NOTIFICATION("notification");
 }

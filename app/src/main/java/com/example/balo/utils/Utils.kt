@@ -20,6 +20,7 @@ import com.example.balo.data.model.UserEntity
 import com.google.firebase.firestore.DocumentSnapshot
 import org.mindrot.jbcrypt.BCrypt
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 object Utils {
@@ -199,6 +200,13 @@ object Utils {
         val newMonth = if (month < 10) "0${month}" else "$month"
         val newDay = if (day < 10) "0${day}" else "$day"
         return "$newDay/$newMonth/$year"
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentDateTime(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        return dateFormat.format(calendar.time)
     }
 
     fun showRevenueOption(context: Context, type: Int, listener: (Int) -> Unit) {

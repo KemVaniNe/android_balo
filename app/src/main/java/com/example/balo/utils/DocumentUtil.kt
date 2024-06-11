@@ -4,12 +4,14 @@ import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BillEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.NotificationEntity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Cart
+import com.example.balo.data.model.enum.Notification
 import com.example.balo.data.model.enum.Order
 import com.example.balo.data.model.enum.OrderDetail
 import com.example.balo.data.model.enum.User
@@ -101,6 +103,18 @@ object DocumentUtil {
             document.getDouble(Order.TOTAL_PRICE.property) ?: 0.0,
             document.getString(Order.DATE.property) ?: "",
             document.getString(Order.STATUS_ORDER.property) ?: ""
+        )
+    }
+
+    fun convertDocToNotification(document: DocumentSnapshot): NotificationEntity {
+        return NotificationEntity(
+            id = document.id,
+            idUser = document.getString(Notification.idUser.property) ?: "",
+            notification = document.getString(Notification.notification.property) ?: "",
+            datatime = document.getString(Notification.datatime.property) ?: "",
+            idOrder = document.getString(Notification.idOrder.property) ?: "",
+            isSeen = document.getBoolean(Notification.isSeen.property) ?: false,
+            roleUser = document.getBoolean(Notification.role.property) ?: false,
         )
     }
 }

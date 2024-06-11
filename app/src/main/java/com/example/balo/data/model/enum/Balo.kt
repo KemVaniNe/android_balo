@@ -1,7 +1,6 @@
 package com.example.balo.data.model.enum
 
 enum class Balo(val property: String) {
-    ID("id"),
     NAME("name"),
     ID_BRAND("idbrand"),
     PRICESELL("pricesell"),
