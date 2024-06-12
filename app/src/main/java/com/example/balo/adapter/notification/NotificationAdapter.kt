@@ -18,7 +18,8 @@ class NotificationAdapter(
             binding.run {
                 tvDate.text = item.datatime
                 tvDes.text = item.notification
-                tvOrder.text = item.idOrder
+                val txtOrder = "MÃ ĐƠN HÀNG: ${item.idOrder}"
+                tvOrder.text = txtOrder
                 if (item.isSeen) {
                     root.background = null
                 } else {

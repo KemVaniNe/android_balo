@@ -107,7 +107,11 @@ class OrderFirebase {
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }
 
-    fun createOrder(order: OrderEntity, handleSuccess: () -> Unit, handleFail: (String) -> Unit) {
+    fun createOrder(
+        order: OrderEntity,
+        handleSuccess: (OrderEntity) -> Unit,
+        handleFail: (String) -> Unit
+    ) {
         val data = Utils.orderToMap(order)
         val tasks = mutableListOf<Task<Void>>()
         db.collection(Collection.ORDER.collectionName).add(data)
@@ -126,7 +130,11 @@ class OrderFirebase {
 
                 Tasks.whenAllComplete(tasks).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        handleSuccess.invoke()
+                        it.get().addOnSuccessListener { documentSnapshot ->
+                            handleSuccess.invoke(Utils.convertDocToOrder(documentSnapshot))
+                        }.addOnFailureListener { e ->
+                            handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}")
+                        }
                     } else {
                         handleFail.invoke("Failed to update some documents")
                     }

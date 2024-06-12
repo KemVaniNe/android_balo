@@ -3,6 +3,7 @@ package com.example.balo.data.network
 import com.example.balo.data.model.NotificationEntity
 import com.example.balo.data.model.enum.Collection
 import com.example.balo.data.model.enum.Notification
+import com.example.balo.data.model.enum.Order
 import com.example.balo.utils.Constants
 import com.example.balo.utils.DocumentUtil
 import com.example.balo.utils.MapObjectUtil
@@ -40,7 +41,7 @@ class NotificationFirebase {
         handleFail: (String) -> Unit
     ) {
         val list = mutableListOf<NotificationEntity>()
-        db.collection(Collection.BRAND.collectionName)
+        db.collection(Collection.NOTIFICATION.collectionName)
             .whereEqualTo(Notification.role.property, true)
             .get()
             .addOnSuccessListener { document ->
