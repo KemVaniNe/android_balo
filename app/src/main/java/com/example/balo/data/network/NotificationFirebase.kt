@@ -25,6 +25,7 @@ class NotificationFirebase {
             val list = mutableListOf<NotificationEntity>()
             db.collection(Collection.NOTIFICATION.collectionName)
                 .whereEqualTo(Notification.idUser.property, Pref.idUser)
+                .whereEqualTo(Notification.role.property, false)
                 .get()
                 .addOnSuccessListener { document ->
                     document.forEach {

@@ -1,4 +1,4 @@
-package com.example.balo.admin.adminnotification
+package com.example.balo.client.clientnotification
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,21 +9,20 @@ import com.example.balo.data.network.OrderFirebase
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class AdminNotificationVM : ViewModel() {
+class ClientNotificationVM : ViewModel() {
     private val _notification = MutableLiveData<List<NotificationEntity>>(emptyList())
     val notification = _notification
 
     private val _order = MutableLiveData<OrderEntity?>(null)
     val order = _order
 
-
     private val notificationFirebase = NotificationFirebase()
 
     private val orderFirebase = OrderFirebase()
 
-    fun getNotificationAdmin(handleFail: (String) -> Unit) {
+    fun getNotificationBaseUser(handleFail: (String) -> Unit) {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
-        notificationFirebase.getNotificationAdmin(
+        notificationFirebase.getNotificationByUser(
             handleSuccess = { list ->
                 _notification.postValue(list.sortedByDescending { dateFormat.parse(it.datatime) })
             },
@@ -46,5 +45,6 @@ class AdminNotificationVM : ViewModel() {
             handleSuccess = {},
             handleFail = { handleFail.invoke(it) }
         )
+
     }
 }

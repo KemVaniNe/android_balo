@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.admin.adminnotification.AdminNotificationVM
-import com.example.balo.admin.managerorder.ManagerOrderActivity
 import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.NotificationEntity
 import com.example.balo.databinding.ActivityAdminNotificationDetailBinding
