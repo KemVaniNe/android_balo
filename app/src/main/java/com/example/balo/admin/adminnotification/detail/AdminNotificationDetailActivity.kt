@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.balo.admin.adminnotification.AdminNotificationVM
+import com.example.balo.admin.managerorder.ManagerOrderActivity
+import com.example.balo.admin.managerorder.detail.AdminDetailOrderActivity
 import com.example.balo.data.model.NotificationEntity
 import com.example.balo.databinding.ActivityAdminNotificationDetailBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -21,6 +23,7 @@ class AdminNotificationDetailActivity : BaseActivity<ActivityAdminNotificationDe
     companion object {
 
         const val KEY_DETAIL = "detail"
+        const val REQUEST_CODE_DETAIL = 123
         fun newIntent(context: Context, notification: String): Intent {
             return Intent(context, AdminNotificationDetailActivity::class.java).apply {
                 putExtra(KEY_DETAIL, notification)
@@ -31,7 +34,7 @@ class AdminNotificationDetailActivity : BaseActivity<ActivityAdminNotificationDe
     override fun viewBinding(inflate: LayoutInflater): ActivityAdminNotificationDetailBinding =
         ActivityAdminNotificationDetailBinding.inflate(inflate)
 
-    override fun initView() = binding.run{
+    override fun initView() = binding.run {
         tvDate.text = notification!!.datatime
         tvDes.text = notification!!.notification
         val txtOrder = "MÃ ĐƠN HÀNG: ${notification!!.idOrder}"
@@ -54,13 +57,15 @@ class AdminNotificationDetailActivity : BaseActivity<ActivityAdminNotificationDe
 
     override fun initListener() = binding.run {
         tvTitle.setOnClickListener { finish() }
+        clOrder.setOnClickListener { goToDetailOrder() }
     }
 
     private fun listenVM() {
         viewModel.order.observe(this) {
-            if(it != null) {
+            if (it != null) {
                 val detail = it.detail.firstOrNull()
                 binding.run {
+                    clOrder.visibility = View.VISIBLE
                     if (detail != null) {
                         tvName.text = detail.nameBalo
                         tvPrice.text = detail.price.toString()
@@ -88,5 +93,19 @@ class AdminNotificationDetailActivity : BaseActivity<ActivityAdminNotificationDe
 
     private fun updateStatusNotification() {
         viewModel.updateStatusNotification(notification!!) { toast(it) }
+    }
+
+    private fun goToDetailOrder() {
+        startActivityForResult(
+            AdminDetailOrderActivity.newIntent(this, notification!!.idOrder), REQUEST_CODE_DETAIL
+        )
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_DETAIL) {
+            getOrder()
+        }
     }
 }
