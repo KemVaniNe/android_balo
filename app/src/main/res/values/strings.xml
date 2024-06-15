@@ -158,4 +158,5 @@
     <string name="name_ship">Tên người nhận</string>
     <string name="enter_name_ship">Nhập tên người nhận</string>
     <string name="enter_phone">Nhập số điện thoại</string>
+    <string name="auth">Mã cá nhân</string>
 </resources>

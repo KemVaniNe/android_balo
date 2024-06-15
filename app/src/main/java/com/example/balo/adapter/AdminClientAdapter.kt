@@ -18,7 +18,6 @@ class AdminClientAdapter(
             binding.run {
                 tvName.text = item.username
                 tvPhone.text = item.phone
-                Utils.displayUserAvatar(item.pic, imgAvatar)
             }
         }
     }

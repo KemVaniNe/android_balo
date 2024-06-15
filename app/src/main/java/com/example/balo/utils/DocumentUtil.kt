@@ -60,10 +60,11 @@ object DocumentUtil {
         return UserEntity(
             document.id,
             document.getString(User.NAME.property) ?: "",
-            document.getString(User.PIC.property) ?: "",
+            document.getString(User.EMAIL.property) ?: "",
             document.getString(User.PHONE.property) ?: "",
             document.getString(User.PASSWORD.property) ?: "",
             document.getBoolean(User.ROLE.property) ?: false,
+            document.getString(User.AUTHCODE.property) ?: "",
             document.get(User.ADDRESS.property) as? List<String> ?: emptyList()
         )
     }

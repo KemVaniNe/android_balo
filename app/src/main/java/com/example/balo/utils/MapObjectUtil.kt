@@ -79,7 +79,8 @@ object MapObjectUtil {
             User.PASSWORD.property to Utils.hashPassword(user.password),
             User.NAME.property to user.username,
             User.ADDRESS.property to user.address,
-            User.PIC.property to user.pic,
+            User.EMAIL.property to user.email,
+            User.AUTHCODE.property to user.authcode,
             User.ROLE.property to user.role,
             User.PHONE.property to user.phone
         )

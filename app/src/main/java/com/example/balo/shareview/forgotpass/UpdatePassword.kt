@@ -36,7 +36,9 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
     private fun update() = binding.run {
         if (!dialog.isShowing) dialog.show()
         viewModel.updatePassword(
-            phone = Utils.convertNumberVerify(edtEmail.text.toString().trim()),
+            phone = Utils.convertNumberVerify(edtPhone.text.toString().trim()),
+            email = edtEmail.text.toString().trim(),
+            auth = edtAuth.text.toString().trim(),
             newPassword = edtPassword.text.toString().trim(),
             handleSuccess = {
                 toastError(getString(R.string.update_password_success))
@@ -55,6 +57,9 @@ class UpdatePassword : BaseActivity<ActivityUpdatePasswordBinding>() {
         if (edtEmail.text.toString().trim() != ""
             && edtPassword.text.toString().trim() != ""
             && edtConfirm.text.toString().trim() != ""
+            && edtAuth.text.toString().trim() != ""
+            && edtPhone.text.toString().trim() != ""
+
         ) {
             if (edtPassword.text.toString() == edtConfirm.text.toString()) {
                 return true
