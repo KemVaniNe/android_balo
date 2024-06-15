@@ -16,12 +16,12 @@ class ChatAdapter(
         fun onBind(item: ChatEntity) {
             binding.run {
                 if (item.isUser) {
-                    tvMessUser.visibility = View.VISIBLE
-                    tvMessBot.visibility = View.GONE
+                    llMessUser.visibility = View.VISIBLE
+                    llMessBot.visibility = View.GONE
                     tvMessUser.text = item.mess
                 } else {
-                    tvMessUser.visibility = View.GONE
-                    tvMessBot.visibility = View.VISIBLE
+                    llMessUser.visibility = View.GONE
+                    llMessBot.visibility = View.VISIBLE
                     tvMessBot.text = item.mess
 
                 }

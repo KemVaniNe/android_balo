@@ -49,14 +49,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Nhập tin nhắn"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/color_text"
+            android:textColorHint="@color/gray" />
 
         <Button
             android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn"
-            android:text="Gửi" />
+            android:text="Gửi"
+            android:textColor="@color/color_bg" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/llMess"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <com.airbnb.lottie.LottieAnimationView
