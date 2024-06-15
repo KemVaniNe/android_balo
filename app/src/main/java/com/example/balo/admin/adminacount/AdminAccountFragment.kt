@@ -116,7 +116,7 @@ class AdminAccountFragment : BaseFragment<FragmentAdminAccountBinding>() {
     private fun updateInfo() {
         binding.clLoading.visibility = View.VISIBLE
         viewModel.updateInfo(user!!,
-            handleSuccess = { toast(getString(R.string.update_password_success)) },
+            handleSuccess = { toast(getString(R.string.update_success)) },
             handleError = { error ->
                 binding.clLoading.visibility = View.GONE
                 toast("ERROR $error")

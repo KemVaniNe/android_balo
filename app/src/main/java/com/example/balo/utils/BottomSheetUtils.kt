@@ -25,15 +25,22 @@ object BottomSheetUtils {
         val bottomSheetDialog = BottomSheetDialog(context)
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         bottomSheetBinding.run {
+            edtUsername.setText(user.username)
+            edtAuth.setText(user.authcode)
+            edtEmail.setText(user.email)
             btnConfirm.setOnClickListener {
                 val pass = edtPassword.text.toString().trim()
                 val newName = edtUsername.text.toString().trim()
-                if (pass == "" || newName == "") {
+                val auth = edtAuth.text.toString().trim()
+                val email = edtEmail.text.toString().trim()
+                if (pass == "" || newName == "" || auth == "" || email == "") {
                     changeViewError(context.getString(R.string.not_fill_all), tvError)
                 } else if (!Utils.verifyPassword(pass, user.password)) {
                     changeViewError(context.getString(R.string.password_confirm_wrong), tvError)
                 } else {
                     user.username = newName
+                    user.email = email
+                    user.authcode = auth
                     listener.invoke(user)
                     bottomSheetDialog.dismiss()
                 }
