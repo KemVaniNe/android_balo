@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.adapter.ChatAdapter
-import com.example.balo.client.clientaccout.ClientAccountVM
 import com.example.balo.data.model.ChatEntity
 import com.example.balo.databinding.ActivityChatbotBinding
 import com.example.balo.shareview.base.BaseActivity
@@ -48,11 +47,7 @@ class ChatbotActivity : BaseActivity<ActivityChatbotBinding>() {
     }
 
     private fun postMess() {
-        binding.clLoading.visibility = View.VISIBLE
-        viewModel.postMess(binding.edtMess.text.toString()) {
-            binding.clLoading.visibility = View.GONE
-            toast("FAIL")
-        }
+        viewModel.postMess(binding.edtMess.text.toString()) { toast("FAIL") }
     }
 
     private fun listenVM() {
@@ -62,7 +57,10 @@ class ChatbotActivity : BaseActivity<ActivityChatbotBinding>() {
                 addAll(it)
             }
             messAdapter.notifyDataSetChanged()
-            binding.clLoading.visibility = View.GONE
+        }
+
+        viewModel.isLoading.observe(this) {
+            binding.clLoading.visibility = if(it) View.VISIBLE else View.GONE
         }
     }
 }
