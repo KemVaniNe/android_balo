@@ -154,4 +154,10 @@
     <string name="AZ">A...Z</string>
     <string name="ZA">Z...A</string>
     <string name="filter">Bộ lọc</string>
+    <string name="notification">Thông báo</string>
+    <string name="name_ship">Tên người nhận</string>
+    <string name="enter_name_ship">Nhập tên người nhận</string>
+    <string name="enter_phone">Nhập số điện thoại</string>
+    <string name="auth">Mã cá nhân</string>
+    <string name="update_success">Cập nhật thành công</string>
 </resources>

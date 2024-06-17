@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.balo.admin.adminacount.AdminAccountFragment
 import com.example.balo.admin.adminhome.AdminHomeFragment
+import com.example.balo.admin.adminnotification.AdminNotificationFragment
 import com.example.balo.utils.Constants
 
 class AdminViewPagerAdapter(fragmentManager: FragmentManager) :
@@ -14,6 +15,7 @@ class AdminViewPagerAdapter(fragmentManager: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         return when (position) {
             Constants.ADMIN_HOME -> AdminHomeFragment()
+            Constants.ADMIN_NOTIFICATION -> AdminNotificationFragment()
             Constants.ADMIN_ACCOUNT -> AdminAccountFragment()
             else -> AdminHomeFragment()
         }

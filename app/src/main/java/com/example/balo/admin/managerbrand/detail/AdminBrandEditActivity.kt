@@ -186,7 +186,7 @@ class AdminBrandEditActivity : BaseActivity<ActivityAdminBrandBinding>() {
     private fun listenVM() {
         viewModel.currentBrand.observe(this) {
             if (it != null) {
-                binding.clLoading.visibility = View.VISIBLE
+                binding.clLoading.visibility = View.GONE
                 brandCurrent = it
                 binding.run {
                     edtName.setText(brandCurrent!!.name)

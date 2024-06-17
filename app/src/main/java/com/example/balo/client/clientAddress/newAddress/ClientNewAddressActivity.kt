@@ -66,7 +66,7 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
             val newAddress = mutableListOf<String>()
             newAddress.addAll(userEntity.address)
             binding.run {
-                newAddress.add("${edtAddress.text}, ${txChoose}, ${qhChoose}, ${cityChoose}")
+                newAddress.add("${edtName.text}, ${edtPhone.text}, ${edtAddress.text}, ${txChoose}, ${qhChoose}, ${cityChoose}")
             }
             userEntity.address = newAddress
             viewModel.updateInfo(userEntity, handleSuccess = {
@@ -123,7 +123,9 @@ class ClientNewAddressActivity : BaseActivity<ActivityClientNewAddressBinding>()
             if (tvCity.text == getString(R.string.click_to_choose) ||
                 tvQuanHuyen.text == getString(R.string.click_to_choose) ||
                 tvPhuongXa.text == getString(R.string.click_to_choose) ||
-                edtAddress.text.toString().trim() == ""
+                edtAddress.text.toString().trim() == "" ||
+                edtName.text.toString().trim() == "" ||
+                edtPhone.text.toString().trim() == ""
             ) {
                 tvError.visibility = View.VISIBLE
                 return false

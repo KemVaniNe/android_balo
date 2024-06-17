@@ -39,11 +39,12 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     private fun register() = binding.run {
         val account = UserEntity(
             username = edtUsername.text.toString().trim(),
-            phone = convertNumberVerify(edtEmail.text.toString()),
+            phone = convertNumberVerify(edtPhone.text.toString()),
             password = edtPassword.text.toString().trim(),
             role = false,
             address = emptyList(),
-            pic = ""
+            authcode = edtAuth.text.toString(),
+            email = edtEmail.text.toString(),
         )
         viewModel.register(
             account = account,
@@ -62,7 +63,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
 
     private fun isFillAllInfo(): Boolean = binding.run {
         if (edtEmail.text.toString().trim() != "" && edtPassword.text.toString().trim() != "" &&
-            edtUsername.text.toString().trim() != "" && edtConfirm.text.toString().trim() != ""
+            edtUsername.text.toString().trim() != "" && edtConfirm.text.toString().trim() != "" &&
+            edtAuth.text.toString().trim() != "" && edtPhone.text.toString().trim() != ""
         ) {
             if (edtPassword.text.toString() == edtConfirm.text.toString()) {
                 return true

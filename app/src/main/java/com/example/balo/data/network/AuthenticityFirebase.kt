@@ -51,11 +51,17 @@ class AuthenticityFirebase {
 
     fun forgetPassword(
         phone: String,
+        email: String,
+        auth: String,
         newPass: String,
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        db.collection(Collection.USER.collectionName).whereEqualTo(User.PHONE.property, phone).get()
+        db.collection(Collection.USER.collectionName)
+            .whereEqualTo(User.PHONE.property, phone)
+            .whereEqualTo(User.AUTHCODE.property, auth)
+            .whereEqualTo(User.EMAIL.property, email)
+            .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     updatePassword(
@@ -66,7 +72,7 @@ class AuthenticityFirebase {
                     )
                     return@addOnSuccessListener
                 }
-                handleFail.invoke("SDT này chưa đăng ký tài khoản")
+                handleFail.invoke("Thông tin xác thực không đúng")
             }
             .addOnFailureListener { e -> handleFail.invoke("ERROR: ${e.message ?: "Unknown error occurred"}") }
     }

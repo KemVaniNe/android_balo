@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <EditText
-                android:id="@+id/edtEmail"
+                android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -87,11 +87,41 @@
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="20dp"
                 android:hint="@string/phone"
-                android:inputType="number"
+                android:inputType="phone"
                 android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
                 app:layout_constraintTop_toBottomOf="@id/tvDes" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_option"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="20dp"
+                android:hint="@string/email"
+                android:padding="20dp"
+                android:textColor="@color/color_text"
+                android:textColorHint="@color/color_hint"
+                app:layout_constraintTop_toBottomOf="@id/edtPhone" />
+
+            <EditText
+                android:id="@+id/edtAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_option"
+                android:drawableStart="@drawable/ic_key"
+                android:drawablePadding="20dp"
+                android:hint="@string/auth"
+                android:padding="20dp"
+                android:textColor="@color/color_text"
+                android:textColorHint="@color/color_hint"
+                app:layout_constraintTop_toBottomOf="@id/edtEmail" />
 
             <EditText
                 android:id="@+id/edtUsername"
@@ -106,7 +136,7 @@
                 android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
-                app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+                app:layout_constraintTop_toBottomOf="@id/edtAuth" />
 
             <EditText
                 android:id="@+id/edtPassword"
@@ -118,8 +148,8 @@
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="20dp"
                 android:hint="@string/password"
-                android:padding="20dp"
                 android:inputType="textPassword"
+                android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
                 app:layout_constraintTop_toBottomOf="@id/edtUsername" />
@@ -134,8 +164,8 @@
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="20dp"
                 android:hint="@string/password"
-                android:padding="20dp"
                 android:inputType="textPassword"
+                android:padding="20dp"
                 android:textColor="@color/color_text"
                 android:textColorHint="@color/color_hint"
                 app:layout_constraintTop_toBottomOf="@id/edtPassword" />

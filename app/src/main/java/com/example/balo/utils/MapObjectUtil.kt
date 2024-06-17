@@ -3,12 +3,14 @@ package com.example.balo.utils
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.BrandEntity
 import com.example.balo.data.model.CartEntity
+import com.example.balo.data.model.NotificationEntity
 import com.example.balo.data.model.OrderDetailEntity
 import com.example.balo.data.model.OrderEntity
 import com.example.balo.data.model.UserEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Brand
 import com.example.balo.data.model.enum.Cart
+import com.example.balo.data.model.enum.Notification
 import com.example.balo.data.model.enum.Order
 import com.example.balo.data.model.enum.OrderDetail
 import com.example.balo.data.model.enum.User
@@ -77,7 +79,8 @@ object MapObjectUtil {
             User.PASSWORD.property to Utils.hashPassword(user.password),
             User.NAME.property to user.username,
             User.ADDRESS.property to user.address,
-            User.PIC.property to user.pic,
+            User.EMAIL.property to user.email,
+            User.AUTHCODE.property to user.authcode,
             User.ROLE.property to user.role,
             User.PHONE.property to user.phone
         )
@@ -93,6 +96,17 @@ object MapObjectUtil {
     fun statusCancelToMap(): Map<String, Any> {
         return hashMapOf(
             Order.STATUS_ORDER.property to Constants.ORDER_CANCEL
+        )
+    }
+
+    fun notificationToMap(notification: NotificationEntity): Map<String, Any> {
+        return hashMapOf(
+            Notification.idUser.property to notification.idUser,
+            Notification.notification.property to notification.notification,
+            Notification.datatime.property to notification.datatime,
+            Notification.isSeen.property to notification.isSeen,
+            Notification.role.property to notification.roleUser,
+            Notification.idOrder.property to notification.idOrder
         )
     }
 }

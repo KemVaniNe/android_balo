@@ -16,7 +16,7 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         binding.viewPager.run {
-            offscreenPageLimit = 1
+            offscreenPageLimit = 2
             adapter = viewPagerAdapter
         }
     }
@@ -34,6 +34,10 @@ class ClientMainActivity : BaseActivity<ActivityMainBinding>() {
 
                     R.id.menu_account -> {
                         changeCurrentFragment(Constants.USER_ACCOUNT)
+                    }
+
+                    R.id.menu_notification -> {
+                        changeCurrentFragment(Constants.USER_NOTIFICATION)
                     }
 
                     else -> false

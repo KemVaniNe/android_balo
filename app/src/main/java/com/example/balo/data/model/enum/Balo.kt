@@ -1,18 +1,18 @@
 package com.example.balo.data.model.enum
 
 enum class Balo(val property: String) {
-    ID("id"),
     NAME("name"),
     ID_BRAND("idbrand"),
     PRICESELL("pricesell"),
     DES("des"),
     PIC("pic"),
-    SELL("sell"),
+    SELL("sell"), // đã bán
     PRICEINPUT("priceinput"),
-    QUANTITY("quantity"),
+    QUANTITY("quantity"), //tổng sản phẩm
     RATE("rate"),
     COMMENT("comment"),
     TOTALIMPORT("totalimport"),
     TOTALSELL("totalsell"),
-    ISSELL("issell")
+    ISSELL("issell"),
+    PREORDER("preorder")
 }

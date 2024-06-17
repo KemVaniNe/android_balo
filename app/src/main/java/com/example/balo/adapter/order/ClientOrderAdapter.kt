@@ -19,8 +19,6 @@ class ClientOrderAdapter(
             binding.run {
                 val detail = item.detail.firstOrNull()
                 if (detail != null) {
-                    Log.d("VANVAN", "${detail.nameBalo}")
-                    Log.d("VANVAN", "${detail.price}")
                     tvName.text = detail.nameBalo
                     tvPrice.text = detail.price.toString()
                     Utils.displayBase64Image(detail.picProduct, imgPic)

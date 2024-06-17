@@ -68,7 +68,6 @@ class ProductFirebase {
             .whereEqualTo(Balo.ISSELL.property, true)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d("VANVAN", "${Utils.convertDocToBProduct(document).name}")
                     data.add(Utils.convertDocToBProduct(document))
                 }
                 handleSuccess.invoke(data)

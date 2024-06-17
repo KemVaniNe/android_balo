@@ -124,7 +124,7 @@ class ClientAccountFragment : BaseFragment<FragmentAccountBinding>() {
     private fun updateInfo() {
         binding.clLoading.visibility = View.VISIBLE
         viewModel.updateInfo(user!!,
-            handleSuccess = { showToast(getString(R.string.update_password_success)) },
+            handleSuccess = { showToast(getString(R.string.update_success)) },
             handleError = { showToast(it) })
     }
 
