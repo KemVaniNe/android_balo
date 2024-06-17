@@ -121,7 +121,7 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         }
     }
 
-    private fun order() {
+    private fun order(idPay: String) {
         binding.clLoading.visibility = View.VISIBLE
         val orderEntity = OrderEntity(
             iduser = user!!.id,
@@ -130,7 +130,8 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
             address = binding.tvAddress.text.toString(),
             priceShip = Utils.stringToDouble(binding.tvPriceShip.text.toString()),
             statusOrder = Constants.ORDER_CONFIRM,
-            detail = order
+            detail = order,
+            idpay = idPay
         )
         viewModel.createOrder(
             order = orderEntity,
@@ -196,10 +197,9 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     private fun purchaseByZalopay() {
         val orderApi = CreateOrder()
         try {
-            val price = Utils.stringToInt(binding.tvPrice.text.toString())
-            toast("$price")
             val data = orderApi.createOrder("$totalPrice")
             val code = data.getString("return_code")
+            binding.clLoading.visibility = View.VISIBLE
             if (code == "1") {
                 val token: String = data.getString("zp_trans_token")
                 ZaloPaySDK.getInstance().payOrder(
@@ -207,12 +207,16 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
                     token,
                     "demozpdk://app",
                     object : PayOrderListener {
-                        override fun onPaymentSucceeded(transactionId: String, s1: String, s2: String) {
-                            toast("Thanh toán thành công")
+                        override fun onPaymentSucceeded(
+                            transactionId: String,
+                            s1: String,
+                            s2: String
+                        ) {
+                            order(transactionId)
                         }
 
                         override fun onPaymentCanceled(s: String, s1: String) {
-                            toast("Hủy thanh toán")
+                            showToast("Hủy thanh toán")
                         }
 
                         override fun onPaymentError(
@@ -220,14 +224,14 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
                             s: String,
                             s1: String
                         ) {
-                            toast("Lỗi thanh toán")
+                            showToast("Lỗi thanh toán")
                         }
                     })
             } else {
-                toast("error: Có vấn đề gì đó đã xảy ra. Hãy thử lại!")
+                showToast("error: Có vấn đề gì đó đã xảy ra. Hãy thử lại!")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            showToast("error: Có vấn đề gì đó đã xảy ra. Hãy thử lại!")
         }
 
     }

@@ -160,4 +160,5 @@
     <string name="enter_phone">Nhập số điện thoại</string>
     <string name="auth">Mã cá nhân</string>
     <string name="update_success">Cập nhật thành công</string>
+    <string name="zalopay">Thanh toán</string>
 </resources>

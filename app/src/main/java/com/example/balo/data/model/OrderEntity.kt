@@ -8,6 +8,7 @@ data class OrderEntity(
     var statusOrder: String = "",
     var priceShip: Double = 0.0,
     var address: String = "",
+    var idpay: String = "",
     var detail: List<OrderDetailEntity> = emptyList()
 )
 

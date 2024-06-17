@@ -24,6 +24,7 @@ object MapObjectUtil {
             Order.DATE.property to order.date,
             Order.ADDRESS.property to order.address,
             Order.STATUS_ORDER.property to order.statusOrder,
+            Order.IDPAY.property to order.idpay,
             Order.DETAIL.property to order.detail.map { detail -> orderDetailToMap(detail) }
         )
     }
