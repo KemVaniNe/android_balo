@@ -161,4 +161,5 @@
     <string name="auth">Mã cá nhân</string>
     <string name="update_success">Cập nhật thành công</string>
     <string name="zalopay">Thanh toán</string>
+    <string name="refund">Hoàn tiền</string>
 </resources>

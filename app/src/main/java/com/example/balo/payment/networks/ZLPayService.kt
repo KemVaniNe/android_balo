@@ -12,7 +12,6 @@ import java.util.*
 import okhttp3.FormBody
 import okhttp3.RequestBody
 
-
 class ZLPayService {
     fun getZLPayApi(): ZLPayApi {
         return Retrofit.Builder()
@@ -25,7 +24,6 @@ class ZLPayService {
     fun getRequestRefund(zpTransId: String, amount: Long): RequestBody {
         val timestamp = System.currentTimeMillis()
         val uid = "$timestamp${(111..999).random()}"
-        val zpId = if(zpTransId.length > 6) zpTransId.take(6) + "-" + zpTransId.substring(6) else zpTransId
         val data = "${APP_ID}|$zpTransId|$amount|refund|$timestamp"
         val mac = Helpers.getMac(MAC_KEY, data)
 

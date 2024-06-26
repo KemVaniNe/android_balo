@@ -73,34 +73,38 @@ class ClientDetailActivity : BaseActivity<ActivityClientDetailBinding>() {
     }
 
     private fun handleCart() {
-        if (Pref.idUser == Constants.ID_GUEST) {
-            toast(getString(R.string.you_need_login))
-        } else {
-            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
-                val cartEntity = CartEntity(
-                    idUser = Pref.idUser,
-                    idBalo = currentProduct!!.id,
-                    quantity = Utils.stringToDouble(quantity),
-                )
-                binding.clLoading.visibility = View.VISIBLE
-                createCart(cartEntity)
+        if(binding.clLoading.visibility == View.GONE) {
+            if (Pref.idUser == Constants.ID_GUEST) {
+                toast(getString(R.string.you_need_login))
+            } else {
+                Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                    val cartEntity = CartEntity(
+                        idUser = Pref.idUser,
+                        idBalo = currentProduct!!.id,
+                        quantity = Utils.stringToDouble(quantity),
+                    )
+                    binding.clLoading.visibility = View.VISIBLE
+                    createCart(cartEntity)
+                }
             }
         }
     }
 
     private fun handleAdd() {
-        if (Pref.idUser == Constants.ID_GUEST) {
-            toast(getString(R.string.you_need_login))
-        } else {
-            Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
-                val orderDetailEntity = OrderDetailEntity(
-                    idBalo = currentProduct!!.id,
-                    nameBalo = currentProduct!!.name,
-                    quantity = Utils.stringToDouble(quantity),
-                    price = currentProduct!!.priceSell,
-                    totalPriceSellCurrent = currentProduct!!.totalSell
-                )
-                goToOrder(orderDetailEntity)
+        if(binding.clLoading.visibility == View.GONE) {
+            if (Pref.idUser == Constants.ID_GUEST) {
+                toast(getString(R.string.you_need_login))
+            } else {
+                Utils.showQuantityChoose(this, currentProduct!!) { quantity ->
+                    val orderDetailEntity = OrderDetailEntity(
+                        idBalo = currentProduct!!.id,
+                        nameBalo = currentProduct!!.name,
+                        quantity = Utils.stringToDouble(quantity),
+                        price = currentProduct!!.priceSell,
+                        totalPriceSellCurrent = currentProduct!!.totalSell
+                    )
+                    goToOrder(orderDetailEntity)
+                }
             }
         }
     }

@@ -14,6 +14,7 @@ import com.example.balo.data.model.OrderEntity
 import com.example.balo.databinding.ActivityAdminDetailOrderBinding
 import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
+import com.example.balo.utils.Option
 import com.example.balo.utils.Utils
 
 class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>() {
@@ -59,10 +60,11 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
     override fun initListener() = binding.run {
         tvTitle.setOnClickListener { finish() }
         tvConfirm.setOnClickListener { handleConfirm() }
+        tvCancel.setOnClickListener { handleRefund() }
     }
 
     private fun handleConfirm() {
-        if(binding.clLoading.visibility == View.GONE) {
+        if (binding.clLoading.visibility == View.GONE) {
             binding.clLoading.visibility = View.VISIBLE
             newStatusOrder()
             viewModel.updateOrder(
@@ -118,6 +120,9 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
                     ) {
                         tvConfirm.visibility = View.GONE
                     }
+                    if (it.statusOrder == Constants.ORDER_SHIP) {
+                        tvCancel.visibility = View.VISIBLE
+                    }
                     tvStatus.text = it.statusOrder
                     tvPriceShip.text = it.priceShip.toString()
                     tvTotalOrder.text = it.totalPrice.toString()
@@ -127,5 +132,50 @@ class AdminDetailOrderActivity : BaseActivity<ActivityAdminDetailOrderBinding>()
                 }
             }
         }
+    }
+
+    private fun handleRefund() {
+        if (binding.clLoading.visibility == View.GONE) {
+            Utils.showOption(this, Option.CANCEL) {
+                binding.clLoading.visibility = View.VISIBLE
+                refundPayment()
+            }
+        }
+    }
+
+    private fun refundPayment() {
+        val price = order!!.totalPrice.toInt()
+        viewModel.refund(
+            zpTransId = order!!.idpay,
+            amount = price.toLong(),
+            handleFail = { showToast(it) })
+        listenRefund()
+    }
+
+    private fun listenRefund() {
+        viewModel.responseRefund.observe(this) { refund ->
+            if (refund != null) {
+                if (refund.return_code == 1 || refund.return_code == 3) {
+                    viewModel.cancelOrder(
+                        id,
+                        handleSuccess = { cancelData() },
+                        handleFail = { showToast(it) })
+                } else {
+                    binding.clLoading.visibility = View.GONE
+                    toast(refund.return_message)
+                }
+            }
+        }
+    }
+
+    private fun cancelData() {
+        viewModel.cancelOrderByUser(
+            order!!,
+            handleSuccess = {
+                showToast("Hoàn tiền thành công")
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { showToast(it) })
     }
 }

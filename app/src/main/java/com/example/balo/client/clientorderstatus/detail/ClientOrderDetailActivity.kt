@@ -88,17 +88,13 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
         if (binding.clLoading.visibility == View.GONE) {
             Utils.showOption(this, Option.CANCEL) {
                 binding.clLoading.visibility = View.VISIBLE
-                viewModel.cancelOrder(
-                    id,
-                    handleSuccess = { updateProduct() },
-                    handleFail = { showToast(it) })
+                refundPayment()
             }
         }
     }
 
-    private fun updateProduct() {
-        binding.clLoading.visibility = View.VISIBLE
-        val price = order!!.totalPrice.toInt()
+    private fun refundPayment() {
+        val price = order!!.totalPrice.toInt() + order!!.priceShip
         viewModel.refund(
             zpTransId = order!!.idpay,
             amount = price.toLong(),
@@ -143,8 +139,11 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
         viewModel.responseRefund.observe(this) { refund ->
             if (refund != null) {
                 if (refund.return_code == 1 || refund.return_code == 3) {
-                    cancelData()
-                } else  {
+                    viewModel.cancelOrder(
+                        id,
+                        handleSuccess = { cancelData() },
+                        handleFail = { showToast(it) })
+                } else {
                     binding.clLoading.visibility = View.GONE
                     toast(refund.return_message)
                 }
