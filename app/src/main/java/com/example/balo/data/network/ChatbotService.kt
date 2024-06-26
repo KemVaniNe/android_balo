@@ -16,7 +16,7 @@ class ChatbotService {
 
     fun getChatbotAPI(): ChatbotApi {
         return Retrofit.Builder()
-            .baseUrl("https://balo-chatbot.onrender.com")
+            .baseUrl("https://chatbot-nc27.onrender.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ChatbotApi::class.java)

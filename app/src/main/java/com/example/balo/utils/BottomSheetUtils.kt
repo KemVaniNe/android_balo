@@ -35,7 +35,7 @@ object BottomSheetUtils {
                 val email = edtEmail.text.toString().trim()
                 if (pass == "" || newName == "" || auth == "" || email == "") {
                     changeViewError(context.getString(R.string.not_fill_all), tvError)
-                } else if (!Utils.verifyPassword(pass, user.password)) {
+                } else if (pass == user.password) {
                     changeViewError(context.getString(R.string.password_confirm_wrong), tvError)
                 } else {
                     user.username = newName
@@ -64,12 +64,12 @@ object BottomSheetUtils {
                 val confirmPass = edtConfirm.text.toString().trim()
                 if (pass == "" || newPass == "" || confirmPass == "") {
                     changeViewError(context.getString(R.string.not_fill_all), tvError)
-                } else if (!Utils.verifyPassword(pass, user.password)) {
+                } else if (pass == user.password) {
                     changeViewError(context.getString(R.string.wrong_password), tvError)
                 } else if (newPass != confirmPass) {
                     changeViewError(context.getString(R.string.password_confirm_wrong), tvError)
                 } else {
-                    user.password = Utils.hashPassword(newPass)
+                    user.password = newPass
                     listener.invoke(user)
                     bottomSheetDialog.dismiss()
                 }

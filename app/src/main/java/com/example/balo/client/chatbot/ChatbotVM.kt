@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balo.data.model.ChatEntity
 import com.example.balo.data.model.ChatbotRequest
+import com.example.balo.data.network.BrandFirebase
 import com.example.balo.data.network.ChatbotService
 import com.example.balo.data.network.ProductFirebase
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,8 @@ class ChatbotVM : ViewModel() {
     private val chatbotAPI = chatbotService.getChatbotAPI()
 
     private val productFirebase = ProductFirebase()
+
+    private val brandFirebase = BrandFirebase()
 
     fun postMess(message: String, handleFail: (String) -> Unit) {
         val list = mutableListOf<ChatEntity>()
@@ -51,6 +54,8 @@ class ChatbotVM : ViewModel() {
 
                 if (extractVariable(response.response) == "SANPHAM") {
                     getProducts(list, response.response, handleFail)
+                } else if (extractVariable(response.response) == "THUONGHIEU") {
+                    getBrands(list, handleFail)
                 } else {
                     list.add(ChatEntity(false, response.response))
                     _isLoading.postValue(false)
@@ -61,6 +66,27 @@ class ChatbotVM : ViewModel() {
                 handleFail.invoke("ERROR ${e.message}")
             }
         }
+    }
+
+    private fun getBrands(
+        list: MutableList<ChatEntity>,
+        handleFail: (String) -> Unit
+    ) {
+        brandFirebase.getAllBrands(
+            handleSuccess = { brands ->
+                var brandList = ""
+                brands.forEach {
+                    brandList += "\n" + it.name
+                }
+                list.add(ChatEntity(false, brandList))
+                _mess.postValue(list)
+                _isLoading.postValue(false)
+            },
+            handleFail = {
+                _isLoading.postValue(false)
+                handleFail.invoke(it)
+            }
+        )
     }
 
     private fun getProducts(

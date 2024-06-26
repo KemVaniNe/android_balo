@@ -24,13 +24,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 object Utils {
-    fun hashPassword(password: String): String {
-        return BCrypt.hashpw(password, BCrypt.gensalt())
-    }
-
-    fun verifyPassword(password: String, hashedPassword: String): Boolean {
-        return BCrypt.checkpw(password, hashedPassword)
-    }
 
     fun convertNumberVerify(phone: String): String {
         return "+84" + phone.trim().substring(1)

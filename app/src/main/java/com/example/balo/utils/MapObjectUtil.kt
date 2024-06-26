@@ -77,7 +77,7 @@ object MapObjectUtil {
 
     fun userToMap(user: UserEntity): Map<String, Any> {
         return hashMapOf(
-            User.PASSWORD.property to Utils.hashPassword(user.password),
+            User.PASSWORD.property to user.password,
             User.NAME.property to user.username,
             User.ADDRESS.property to user.address,
             User.EMAIL.property to user.email,

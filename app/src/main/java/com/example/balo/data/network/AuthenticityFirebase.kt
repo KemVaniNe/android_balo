@@ -21,7 +21,7 @@ class AuthenticityFirebase {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val storedPassword = document.getString(User.PASSWORD.property)
-                    if (storedPassword != null && Utils.verifyPassword(password, storedPassword)) {
+                    if (storedPassword != null && (password == storedPassword)) {
                         handleSuccess.invoke(Utils.convertDocToUser(document))
                         return@addOnSuccessListener
                     }
@@ -83,9 +83,8 @@ class AuthenticityFirebase {
         handleSuccess: () -> Unit,
         handleFail: (String) -> Unit
     ) {
-        val hashedPassword = Utils.hashPassword(password)
         val updateData = hashMapOf(
-            User.PASSWORD.property to hashedPassword
+            User.PASSWORD.property to password
         )
         db.collection(Collection.USER.collectionName).document(id)
             .update(updateData as Map<String, Any>)
