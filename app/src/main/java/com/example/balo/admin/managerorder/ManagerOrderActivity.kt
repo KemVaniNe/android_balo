@@ -115,15 +115,15 @@ class ManagerOrderActivity : BaseActivity<ActivityManagerOrderBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun listenVM() {
-        viewModel.orders.observe(this) {
+        viewModel.orders.observe(this) {list ->
             binding.clLoading.visibility = View.GONE
-            if (it.isNotEmpty()) {
+            if (list.isNotEmpty()) {
                 listCancel.clear()
                 listConfirm.clear()
                 listShip.clear()
                 listPackage.clear()
                 listSuccess.clear()
-                it.forEach {
+                list.forEach {
                     when (it.statusOrder) {
                         Constants.ORDER_CANCEL -> listCancel.add(it)
                         Constants.ORDER_CONFIRM -> listConfirm.add(it)

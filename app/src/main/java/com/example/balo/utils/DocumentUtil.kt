@@ -78,6 +78,7 @@ object DocumentUtil {
             document.getString(Order.STATUS_ORDER.property) ?: Constants.ORDER_CONFIRM,
             document.getDouble(Order.PRICESHIP.property) ?: 0.0,
             document.getString(Order.ADDRESS.property) ?: "",
+            document.getString(Order.IDPAY.property) ?: "",
             convertDocToOrderDetail(document)
         )
     }

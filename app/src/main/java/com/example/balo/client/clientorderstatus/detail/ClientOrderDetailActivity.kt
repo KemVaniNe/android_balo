@@ -85,27 +85,21 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
     }
 
     private fun handleCancel() {
-        if(binding.clLoading.visibility == View.GONE) {
+        if (binding.clLoading.visibility == View.GONE) {
             Utils.showOption(this, Option.CANCEL) {
                 binding.clLoading.visibility = View.VISIBLE
-                viewModel.cancelOrder(
-                    id,
-                    handleSuccess = { updateProduct() },
-                    handleFail = { showToast(it) })
+                refundPayment()
             }
         }
     }
 
-    private fun updateProduct() {
-        binding.clLoading.visibility = View.VISIBLE
-        viewModel.cancelOrderByUser(
-            order!!,
-            handleSuccess = {
-                showToast("Hủy đơn thành công")
-                setResult(RESULT_OK)
-                finish()
-            },
+    private fun refundPayment() {
+        val price = order!!.totalPrice.toInt() + order!!.priceShip
+        viewModel.refund(
+            zpTransId = order!!.idpay,
+            amount = price.toLong(),
             handleFail = { showToast(it) })
+        listenRefund()
     }
 
     private fun showToast(mess: String) {
@@ -139,5 +133,32 @@ class ClientOrderDetailActivity : BaseActivity<ActivityClientOrderDetailBinding>
                 }
             }
         }
+    }
+
+    private fun listenRefund() {
+        viewModel.responseRefund.observe(this) { refund ->
+            if (refund != null) {
+                if (refund.return_code == 1 || refund.return_code == 3) {
+                    viewModel.cancelOrder(
+                        id,
+                        handleSuccess = { cancelData() },
+                        handleFail = { showToast(it) })
+                } else {
+                    binding.clLoading.visibility = View.GONE
+                    toast(refund.return_message)
+                }
+            }
+        }
+    }
+
+    private fun cancelData() {
+        viewModel.cancelOrderByUser(
+            order!!,
+            handleSuccess = {
+                showToast("Hủy đơn thành công")
+                setResult(RESULT_OK)
+                finish()
+            },
+            handleFail = { showToast(it) })
     }
 }

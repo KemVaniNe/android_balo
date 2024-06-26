@@ -108,14 +108,12 @@ class AdminProductDetailActivity : BaseActivity<ActivityAdminProductManagerBindi
         }
         tvSell.text = product.sell.toString()
         if ((product.quantitiy.toInt() - product.sell.toInt()) < 1) {
-            llButton.visibility = View.GONE
             tvSoldOut.visibility = View.VISIBLE
         } else {
-            llButton.visibility = View.VISIBLE
             tvSoldOut.visibility = View.GONE
         }
         tvValueDes.text = product.des
-        btnEdit.visibility = if (product.isSell) View.VISIBLE else View.GONE
+        llButton.visibility = if (product.isSell) View.VISIBLE else View.GONE
     }
 
     private fun toastDialog(notification: String) {

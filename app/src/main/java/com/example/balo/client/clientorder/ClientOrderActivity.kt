@@ -3,8 +3,12 @@ package com.example.balo.client.clientorder
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
@@ -18,7 +22,13 @@ import com.example.balo.shareview.base.BaseActivity
 import com.example.balo.utils.Constants
 import com.example.balo.utils.Pref
 import com.example.balo.utils.Utils
+import com.example.balo.zalopay.Api.CreateOrder
 import com.google.gson.Gson
+import vn.zalopay.sdk.Environment
+import vn.zalopay.sdk.ZaloPayError
+import vn.zalopay.sdk.ZaloPaySDK
+import vn.zalopay.sdk.listeners.PayOrderListener
+
 
 class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
 
@@ -31,6 +41,8 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     private var cart: List<String> = emptyList()
 
     private val orderAdapter by lazy { ClientProductOrderAdapter(order) }
+
+    private var totalPrice = 0
 
     companion object {
 
@@ -51,6 +63,12 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         ActivityClientOrderBinding.inflate(inflate)
 
     override fun initView() = binding.run {
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        // ZaloPay SDK Init
+        ZaloPaySDK.init(2553, Environment.SANDBOX)
+
         rvOrder.layoutManager = LinearLayoutManager(this@ClientOrderActivity)
         rvOrder.adapter = orderAdapter
         setPrice()
@@ -94,26 +112,31 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
     }
 
     private fun handleBuy() {
-        if(binding.clLoading.visibility == View.GONE) {
+        if (binding.clLoading.visibility == View.GONE) {
             if (binding.tvAddress.text != getString(R.string.click_to_choose)) {
-                binding.clLoading.visibility = View.VISIBLE
-                val orderEntity = OrderEntity(
-                    iduser = user!!.id,
-                    date =  Utils.getToDay(),
-                    totalPrice = Utils.stringToDouble(binding.tvTotalOrder.text.toString()),
-                    address = binding.tvAddress.text.toString(),
-                    priceShip = Utils.stringToDouble(binding.tvPriceShip.text.toString()),
-                    statusOrder = Constants.ORDER_CONFIRM,
-                    detail = order
-                )
-                viewModel.createOrder(
-                    order = orderEntity,
-                    handleSuccess = { deleteCart() },
-                    handleFail = { showToast(it) })
+                purchaseByZalopay()
             } else {
                 toast("Bạn phải chọn địa chỉ")
             }
         }
+    }
+
+    private fun order(idPay: String) {
+        binding.clLoading.visibility = View.VISIBLE
+        val orderEntity = OrderEntity(
+            iduser = user!!.id,
+            date = Utils.getToDay(),
+            totalPrice = Utils.stringToDouble(binding.tvTotalOrder.text.toString()),
+            address = binding.tvAddress.text.toString(),
+            priceShip = Utils.stringToDouble(binding.tvPriceShip.text.toString()),
+            statusOrder = Constants.ORDER_CONFIRM,
+            detail = order,
+            idpay = idPay
+        )
+        viewModel.createOrder(
+            order = orderEntity,
+            handleSuccess = { deleteCart() },
+            handleFail = { showToast(it) })
     }
 
     private fun showToast(mess: String) {
@@ -168,5 +191,53 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         tvPriceShip.text = endShip.toString()
         tvTotalPrice.text = total.toString()
         tvPrice.text = total.toString()
+        totalPrice = total.toInt()
+    }
+
+    private fun purchaseByZalopay() {
+        val orderApi = CreateOrder()
+        try {
+            val data = orderApi.createOrder("$totalPrice")
+            val code = data.getString("return_code")
+            binding.clLoading.visibility = View.VISIBLE
+            if (code == "1") {
+                val token: String = data.getString("zp_trans_token")
+                ZaloPaySDK.getInstance().payOrder(
+                    this,
+                    token,
+                    "demozpdk://app",
+                    object : PayOrderListener {
+                        override fun onPaymentSucceeded(
+                            transactionId: String,
+                            s1: String,
+                            s2: String
+                        ) {
+                            order(transactionId)
+                        }
+
+                        override fun onPaymentCanceled(s: String, s1: String) {
+                            showToast("Hủy thanh toán")
+                        }
+
+                        override fun onPaymentError(
+                            zaloPayError: ZaloPayError,
+                            s: String,
+                            s1: String
+                        ) {
+                            showToast("Lỗi thanh toán")
+                        }
+                    })
+            } else {
+                showToast("error: Có vấn đề gì đó đã xảy ra. Hãy thử lại!")
+            }
+        } catch (e: Exception) {
+            showToast("error: Có vấn đề gì đó đã xảy ra. Hãy thử lại!")
+        }
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        ZaloPaySDK.getInstance().onResult(intent)
     }
 }

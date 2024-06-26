@@ -61,7 +61,7 @@
             android:background="@color/color_button"
             android:gravity="center"
             android:padding="20dp"
-            android:text="@string/buy"
+            android:text="@string/zalopay"
             android:textColor="@color/color_bg"
             android:textSize="24dp"
             android:textStyle="bold" />

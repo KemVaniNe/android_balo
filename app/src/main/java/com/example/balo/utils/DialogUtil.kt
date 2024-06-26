@@ -18,7 +18,7 @@ import com.example.balo.databinding.DialogTimeBinding
 import java.util.Calendar
 
 enum class Option {
-    EXIT, DELETE, CANCEL
+    EXIT, DELETE, CANCEL, REFUND
 }
 
 object DialogUtil {
@@ -127,6 +127,11 @@ object DialogUtil {
                 Option.CANCEL -> {
                     tvTitle.text = context.getString(R.string.confirm)
                     tvDes.text = context.getString(R.string.cancel_mess)
+                }
+
+                Option.REFUND -> {
+                    tvTitle.text = context.getString(R.string.confirm)
+                    tvDes.text = context.getString(R.string.refund)
                 }
             }
             tvYes.setOnClickListener {

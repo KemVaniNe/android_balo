@@ -25,23 +25,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvConfirm"
+    <LinearLayout
+        android:id="@+id/llButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_button"
-        android:gravity="center"
-        android:paddingVertical="16dp"
-        android:text="@string/success"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/refund"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/color_button"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/success"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="20dp"
-        app:layout_constraintBottom_toTopOf="@id/tvConfirm"
+        app:layout_constraintBottom_toTopOf="@id/llButton"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <LinearLayout
