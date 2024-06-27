@@ -63,6 +63,8 @@ class ChatbotVM : ViewModel() {
                 }
             } catch (e: Exception) {
                 _isLoading.postValue(false)
+                list.add(ChatEntity(false, "Vui lòng cung cấp cấp thêm thông tin để Kem hỗ trợ!"))
+                _mess.postValue(list)
                 handleFail.invoke("ERROR ${e.message}")
             }
         }
@@ -109,6 +111,8 @@ class ChatbotVM : ViewModel() {
             },
             handleFail = {
                 _isLoading.postValue(false)
+                list.add(ChatEntity(false, "Vui lòng cung cấp cấp thêm thông tin để Kem hỗ trợ!"))
+                _mess.postValue(list)
                 handleFail.invoke(it)
             }
         )
