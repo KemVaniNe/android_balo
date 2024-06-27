@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
@@ -59,14 +60,12 @@ object Utils {
 
     @SuppressLint("Recycle")
     fun uriToBase64(context: Context, uri: Uri): String {
-        val inputStream = context.contentResolver.openInputStream(uri)
-        val bytes = ByteArrayOutputStream()
-        val buffer = ByteArray(1024)
-        var bytesRead: Int
-        while (inputStream?.read(buffer).also { bytesRead = it!! } != -1) {
-            bytes.write(buffer, 0, bytesRead)
-        }
-        val byteArray = bytes.toByteArray()
+        val inputStream = context.contentResolver.openInputStream(uri) ?: return ""
+        val originalBitmap = BitmapFactory.decodeStream(inputStream)
+        val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 512, 512, false)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
@@ -224,7 +223,7 @@ object Utils {
         BottomSheetUtils.bottomFilter(context, soft, brand, list, listener)
     }
 
-    fun brandAll() : BrandEntity{
+    fun brandAll(): BrandEntity {
         return BrandEntity(
             id = Constants.ID_BRAND_ALL,
             name = "Tất cả",

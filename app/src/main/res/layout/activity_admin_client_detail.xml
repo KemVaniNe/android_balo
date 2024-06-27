@@ -26,23 +26,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:text="total"
-        android:textColor="@color/color_button"
-        android:textSize="20dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <LinearLayout
         android:id="@+id/llNone"
@@ -79,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPrice">
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"

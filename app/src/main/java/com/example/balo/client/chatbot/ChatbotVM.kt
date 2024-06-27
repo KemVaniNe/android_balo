@@ -55,7 +55,7 @@ class ChatbotVM : ViewModel() {
                 if (extractVariable(response.response) == "SANPHAM") {
                     getProducts(list, response.response, handleFail)
                 } else if (extractVariable(response.response) == "THUONGHIEU") {
-                    getBrands(list, handleFail)
+                    getBrands(list, response.response, handleFail)
                 } else {
                     list.add(ChatEntity(false, response.response))
                     _isLoading.postValue(false)
@@ -70,11 +70,12 @@ class ChatbotVM : ViewModel() {
 
     private fun getBrands(
         list: MutableList<ChatEntity>,
+        response: String,
         handleFail: (String) -> Unit
     ) {
         brandFirebase.getAllBrands(
             handleSuccess = { brands ->
-                var brandList = ""
+                var brandList = response.replace(extractVariable(response), "").substring(3)
                 brands.forEach {
                     brandList += "\n" + it.name
                 }
@@ -84,6 +85,8 @@ class ChatbotVM : ViewModel() {
             },
             handleFail = {
                 _isLoading.postValue(false)
+                list.add(ChatEntity(false, "Vui lòng cung cấp cấp thêm thông tin để Kem hỗ trợ!"))
+                _mess.postValue(list)
                 handleFail.invoke(it)
             }
         )
@@ -98,7 +101,7 @@ class ChatbotVM : ViewModel() {
             handleSuccess = { products ->
                 val topSell = products.maxByOrNull { it.sell }
                 val newMess = if (topSell != null) {
-                    response.replace("1${extractVariable(response)}1_", "") + topSell.name
+                    response.replace(extractVariable(response), "").substring(3) + topSell.name
                 } else response
                 list.add(ChatEntity(false, newMess))
                 _mess.postValue(list)
@@ -112,8 +115,8 @@ class ChatbotVM : ViewModel() {
     }
 
     private fun extractVariable(input: String): String {
-        val startMarker = "1"
-        val endMarker = "1"
+        val startMarker = "$"
+        val endMarker = "$"
         val startIndex = input.indexOf(startMarker)
         val endIndex = input.indexOf(endMarker, startIndex + startMarker.length)
 
