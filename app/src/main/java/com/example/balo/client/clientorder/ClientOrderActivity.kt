@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balo.R
@@ -136,7 +134,8 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
         viewModel.createOrder(
             order = orderEntity,
             handleSuccess = { deleteCart() },
-            handleFail = { showToast(it) })
+            handleFail = {
+                showToast(it) })
     }
 
     private fun showToast(mess: String) {
@@ -152,7 +151,8 @@ class ClientOrderActivity : BaseActivity<ActivityClientOrderBinding>() {
                 setResult(RESULT_OK)
                 finish()
             },
-            handleFail = { showToast(it) })
+            handleFail = {
+                showToast(it) })
     }
 
     @Deprecated("Deprecated in Java")

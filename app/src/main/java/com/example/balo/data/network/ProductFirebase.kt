@@ -1,6 +1,5 @@
 package com.example.balo.data.network
 
-import android.util.Log
 import com.example.balo.data.model.BaloEntity
 import com.example.balo.data.model.enum.Balo
 import com.example.balo.data.model.enum.Collection
@@ -52,6 +51,7 @@ class ProductFirebase {
         val data = mutableListOf<BaloEntity>()
         db.collection(Collection.BALO.collectionName)
             .whereEqualTo(Balo.ID_BRAND.property, idBrand)
+            .whereEqualTo(Balo.ISSELL.property, true)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

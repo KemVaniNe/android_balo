@@ -93,8 +93,6 @@ class AdminClientDetailActivity : BaseActivity<ActivityAdminClientDetailBinding>
                         addAll(it)
                     }
                     billAdapter.notifyDataSetChanged()
-                    val price = "Total: ${viewModel.totalPrice}"
-                    tvPrice.text = price
                 }
             }
 
